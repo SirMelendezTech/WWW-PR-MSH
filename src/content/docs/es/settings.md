@@ -27,6 +27,8 @@ Puerto Rico cae bajo la asignación de frecuencia de Estados Unidos para la band
 
 No adivines una región ni copies una de la comunidad de otro país. Un ajuste de región incorrecto puede transmitir fuera de los límites legales y no se comunicará de forma confiable con los nodos locales configurados correctamente.
 
+La región no es lo único que fija tu frecuencia. El **nombre del canal primario** se hashea a un slot de frecuencia, así que renombrarlo, reordenar canales o importar un QR de canal puede mover un nodo fuera de la frecuencia regional sin avisar — consulta [El canal que moviste no era un canal — era tu frecuencia](/es/blog/orden-canales-slot-frecuencia-es/) para saber cómo pasa eso y cuándo fijar `lora.channel_num` a propósito.
+
 ## Roles de Nodo
 
 Elegir el rol correcto importa más para la salud de la malla compartida que casi cualquier otro ajuste.

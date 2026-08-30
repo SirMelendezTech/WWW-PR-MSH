@@ -26,6 +26,8 @@ Puerto Rico falls under United States frequency allocation for the unlicensed IS
 
 Do not guess a region or copy one from another country's community. An incorrect region setting can transmit outside legal limits and won't reliably talk to correctly-configured local nodes.
 
+Region isn't the only thing that sets your frequency. The **primary channel's name** hashes to a frequency slot, so renaming it, reordering channels, or importing a channel QR can silently move a node off the regional frequency — see [The Channel You Moved Wasn't a Channel — It Was Your Frequency](/blog/channel-order-frequency-slot-en/) for how that happens and when to pin `lora.channel_num` on purpose.
+
 ## Node Roles
 
 Choosing the right role matters more for the health of the shared mesh than almost any other setting.
