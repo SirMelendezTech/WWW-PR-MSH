@@ -59,8 +59,16 @@ function formatLastSeen(ageHours: number): string {
 }
 
 async function fetchLiveNodes(): Promise<MeshNode[]> {
+  // The Malla API sits behind Cloudflare, which 403s datacenter IPs (e.g. the
+  // GitHub Actions runner). Set MALLA_API_TOKEN in the build environment and add
+  // a matching Cloudflare WAF skip rule ("if header x-site-key equals <token>")
+  // so production builds get live data instead of the sample fallback.
+  const token = import.meta.env.MALLA_API_TOKEN;
   const res = await fetch(MALLA_LOCATIONS_URL, {
-    headers: { Accept: "application/json" },
+    headers: {
+      Accept: "application/json",
+      ...(token ? { "x-site-key": token } : {}),
+    },
     signal: AbortSignal.timeout(8000),
   });
   if (!res.ok) throw new Error(`Malla API responded ${res.status}`);
