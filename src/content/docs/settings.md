@@ -93,6 +93,8 @@ Same action is available in the app: long-press a node in the node list → **Fa
 
 How often a node announces its position and telemetry directly trades off **freshness** against **airtime** — every broadcast is airtime every other node has to wait through. The baseline below uses smart-position broadcasting for mobile nodes (send on movement, not just on a timer) and long, lean intervals for anything stationary.
 
+For why a fixed rooftop node on default timers quietly degrades everyone's range, and how to walk each interval out to the baseline, see [Your Stationary Node Is Talking Too Much](/blog/broadcast-intervals-airtime-en/).
+
 <div class="table-wrap">
 
 | Setting | Mobile nodes | Stationary nodes | Notes |
@@ -198,6 +200,8 @@ MQTT is a way to bridge mesh traffic to the internet — a node with an internet
 **This is separate from the radio mesh itself.** Two Meshtastic nodes with no internet access at all can still talk to each other over LoRa — that's the whole point of the network, and it keeps working through internet and cell outages regardless of MQTT. MQTT only affects whether that activity is *also* visible online. It carries diagnostic metadata — position, battery, signal metrics, channel utilization — not the content of encrypted channels or private messages.
 
 If you do bridge a node to MQTT, settings matter beyond the broker credentials themselves.
+
+For a step-by-step walkthrough of the whole chain — root topic, OK to MQTT, uplink-only, and the position settings that decide whether you show up at all — see [Getting Your Node Onto the Puerto Rico Mesh Map](/blog/mqtt-bridge-pr-map-en/).
 
 <details>
 <summary>Bridge setup — required settings and root topic</summary>

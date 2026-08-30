@@ -94,6 +94,8 @@ La misma acción está disponible en la app: mantén presionado un nodo en la li
 
 Con qué frecuencia un nodo anuncia su posición y telemetría intercambia directamente **frescura** por **tiempo de aire** — cada transmisión es tiempo de aire que todos los demás nodos tienen que esperar. La base de abajo usa transmisión de posición inteligente para los nodos móviles (envía al moverse, no solo por temporizador) e intervalos largos y magros para cualquier cosa estacionaria.
 
+Para entender por qué un nodo fijo de techo con los temporizadores por defecto degrada el alcance de todos, y cómo alargar cada intervalo hasta la base, consulta [Tu nodo estacionario habla demasiado](/es/blog/intervalos-transmision-airtime-es/).
+
 <div class="table-wrap">
 
 | Ajuste | Nodos móviles | Nodos estacionarios | Notas |
@@ -199,6 +201,8 @@ MQTT es una forma de puentear el tráfico de la malla hacia internet — un nodo
 **Esto es separado de la malla de radio en sí.** Dos nodos de Meshtastic sin ningún acceso a internet pueden aún hablarse por LoRa — ese es todo el punto de la red, y sigue funcionando a través de apagones de internet y celular sin importar MQTT. MQTT solo afecta si esa actividad es *además* visible en línea. Lleva metadatos de diagnóstico — posición, batería, métricas de señal, utilización del canal — no el contenido de canales cifrados ni mensajes privados.
 
 Si sí puenteas un nodo a MQTT, los ajustes importan más allá de las credenciales del broker en sí.
+
+Para un recorrido paso a paso de toda la cadena — root topic, OK to MQTT, solo-uplink, y los ajustes de posición que deciden si apareces — consulta [Cómo poner tu nodo en el mapa de la malla de Puerto Rico](/es/blog/puente-mqtt-mapa-pr-es/).
 
 <details>
 <summary>Configuración del puente — ajustes requeridos y root topic</summary>
