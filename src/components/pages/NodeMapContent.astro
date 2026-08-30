@@ -55,14 +55,18 @@ const nodeDataJson = JSON.stringify(nodes).replace(/<\//g, "<\\/");
 </div>
 
 <div class="container callout">
-  <span class="callout-label">{live ? m.calloutLive : m.calloutSample}</span>
-  {live ? (
-    <p>
-      {m.liveBodyBefore}<a href="https://malla-pr.sirhome.org/map" target="_blank" rel="noopener noreferrer">{m.liveBodyMonitor}</a>{m.liveBodyMid}<a href="https://github.com/zenitraM/malla" target="_blank" rel="noopener noreferrer">{m.liveBodyMalla}</a>{m.liveBodyAfter}
-    </p>
-  ) : (
-    <p>{m.sampleBody}</p>
-  )}
+  <span class="callout-label">{m.sourceLabel}</span>
+  <p>
+    {m.sourceBefore}<a href="https://malla-pr.sirhome.org/map" target="_blank" rel="noopener noreferrer">{m.sourceMonitor}</a>{m.sourceMid}<a href="https://github.com/zenitraM/malla" target="_blank" rel="noopener noreferrer">{m.sourceMalla}</a>{m.sourceAfter}
+  </p>
+  {!live && <p class="callout-note">{m.sampleNote}</p>}
+</div>
+
+<div class="container callout">
+  <span class="callout-label">{m.appearLabel}</span>
+  <p>
+    {m.appearBefore}<code>{m.appearTopic}</code>{m.appearMid}<strong>{m.appearOkToMqtt}</strong>{m.appearAfter}<a href={`${p("/settings/")}#mqtt`}>{m.appearLink}</a>{m.appearLinkAfter}
+  </p>
 </div>
 
 <script type="application/json" id="node-data" set:html={nodeDataJson} />
@@ -100,6 +104,8 @@ const nodeDataJson = JSON.stringify(nodes).replace(/<\//g, "<\\/");
   .node-meta { display: block; font-size: 0.78rem; color: var(--ink-faint); text-transform: capitalize; }
 
   .callout p { margin: 0; }
+  .callout-note { margin-top: 0.6em !important; font-size: 0.9rem; color: var(--ink-faint); }
+  .callout code { font-size: 0.9em; }
 </style>
 
 <script>
