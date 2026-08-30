@@ -72,6 +72,11 @@ jobs:
             --site "${{ steps.pages.outputs.origin }}" \
             --base "${{ steps.pages.outputs.base_path }}"
         working-directory: ${{ env.BUILD_PATH }}
+        env:
+          # Optional: lets the build fetch live node data past Cloudflare's
+          # datacenter-IP block. Add a repo secret of the same name and a
+          # matching Cloudflare WAF skip rule keyed on the x-site-key header.
+          MALLA_API_TOKEN: ${{ secrets.MALLA_API_TOKEN }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
