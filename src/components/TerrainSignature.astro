@@ -1,0 +1,102 @@
+---
+// Signature graphic: Cordillera Central elevation profile with LoRa hop arcs
+// jumping peak to peak, line-of-sight style. Reused in hero + section dividers.
+interface Props {
+  variant?: "hero" | "divider";
+  class?: string;
+}
+const { variant = "hero", class: className = "" } = Astro.props;
+
+const nodes = [
+  { x: 118, y: 176 },
+  { x: 372, y: 118 },
+  { x: 556, y: 84 },
+  { x: 742, y: 122 },
+  { x: 934, y: 96 },
+  { x: 1112, y: 158 },
+];
+
+function arc(a: { x: number; y: number }, b: { x: number; y: number }) {
+  const mx = (a.x + b.x) / 2;
+  const peak = Math.min(a.y, b.y) - 46;
+  return `M${a.x},${a.y - 10} Q${mx},${peak} ${b.x},${b.y - 10}`;
+}
+---
+<svg
+  class:list={["terrain-sig", `terrain-sig--${variant}`, className]}
+  viewBox="0 0 1200 260"
+  preserveAspectRatio="xMidYMax slice"
+  role="img"
+  aria-label="Elevation profile of Puerto Rico's central mountains with radio nodes relaying signal peak to peak"
+>
+  <defs>
+    <linearGradient id="terrain-fill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="var(--secondary)" stop-opacity="0.16" />
+      <stop offset="100%" stop-color="var(--secondary)" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+
+  <!-- contour lines -->
+  <g class="terrain-contours" fill="none" stroke="var(--border-strong)" stroke-width="1">
+    <path d="M0,240 60,214 140,228 220,158 300,196 380,126 460,174 540,102 620,154 700,116 780,164 860,136 940,178 1020,146 1100,204 1180,186 1200,240" opacity="0.55" />
+    <path d="M0,252 60,232 140,244 220,192 300,214 380,166 460,204 540,148 620,190 700,164 780,200 860,180 940,208 1020,188 1100,220 1180,210 1200,252" opacity="0.35" />
+  </g>
+
+  <!-- ridge silhouette -->
+  <path
+    class="terrain-ridge"
+    d="M0,240 60,214 140,228 220,158 300,196 380,126 460,174 540,102 620,154 700,116 780,164 860,136 940,178 1020,146 1100,204 1180,186 1200,240 V260 H0 Z"
+    fill="url(#terrain-fill)"
+    stroke="var(--secondary)"
+    stroke-width="1.5"
+    stroke-opacity="0.7"
+  />
+
+  <!-- hop arcs -->
+  <g class="terrain-hops" fill="none" stroke="var(--accent)" stroke-width="1.75" stroke-linecap="round">
+    {nodes.slice(0, -1).map((n, i) => (
+      <path d={arc(n, nodes[i + 1])} class="hop-arc" style={`--d:${i}`} />
+    ))}
+  </g>
+
+  <!-- node markers -->
+  <g class="terrain-nodes">
+    {nodes.map((n, i) => (
+      <g class="node-mark" style={`--d:${i}`}>
+        <circle cx={n.x} cy={n.y - 10} r="9" fill="var(--secondary)" opacity="0.16" class="node-pulse" />
+        <circle cx={n.x} cy={n.y - 10} r="3.5" fill="var(--secondary)" stroke="var(--bg)" stroke-width="1.5" />
+      </g>
+    ))}
+  </g>
+</svg>
+
+<style>
+  .terrain-sig {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .terrain-sig--divider { height: 90px; opacity: 0.85; }
+
+  .hop-arc {
+    stroke-dasharray: 4 5;
+    animation: hop-flow 6s linear infinite;
+  }
+  .node-pulse {
+    transform-origin: center;
+    animation: node-pulse 3.4s ease-in-out infinite;
+    animation-delay: calc(var(--d) * 0.4s);
+  }
+
+  @keyframes hop-flow {
+    to { stroke-dashoffset: -90; }
+  }
+  @keyframes node-pulse {
+    0%, 100% { transform: scale(1); opacity: 0.16; }
+    50% { transform: scale(1.9); opacity: 0.02; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hop-arc, .node-pulse { animation: none; }
+  }
+</style>

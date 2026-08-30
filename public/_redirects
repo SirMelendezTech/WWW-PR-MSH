@@ -1,0 +1,5 @@
+# Netlify / Cloudflare Pages redirect rules.
+# Serve the Spanish 404 page for unmatched /es/* routes. The root 404.html is
+# served automatically for everything else. Inert on hosts that don't read this
+# file — for Vercel, add the equivalent to vercel.json instead.
+/es/*   /es/404/index.html   404

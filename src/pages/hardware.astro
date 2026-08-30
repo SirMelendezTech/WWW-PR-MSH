@@ -1,0 +1,13 @@
+---
+import { getEntry, render } from "astro:content";
+import DocsLayout from "../layouts/DocsLayout.astro";
+import LatestVersions from "../components/LatestVersions.astro";
+
+const entry = await getEntry("docs", "hardware");
+if (!entry) throw new Error("Missing docs entry: hardware");
+const { Content, headings } = await render(entry);
+---
+<DocsLayout title={entry.data.title} description={entry.data.description} headings={headings}>
+  <LatestVersions />
+  <Content />
+</DocsLayout>

@@ -1,0 +1,10 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import BlogIndexContent from "../../../components/pages/BlogIndexContent.astro";
+import { useStrings } from "../../../lib/ui-strings";
+
+const t = useStrings("es").blogIndex;
+---
+<BaseLayout title={t.title} description={t.description} lang="es">
+  <BlogIndexContent lang="es" />
+</BaseLayout>

@@ -1,0 +1,34 @@
+---
+import { render } from "astro:content";
+import BlogLayout from "../../../layouts/BlogLayout.astro";
+import { getBlogPosts, relatedPosts, alternateLocaleHref } from "../../../lib/blog";
+
+export async function getStaticPaths() {
+  const posts = await getBlogPosts("es");
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post, allPosts: posts },
+  }));
+}
+
+const { post, allPosts } = Astro.props;
+const { Content } = await render(post);
+const related = relatedPosts(post, allPosts);
+// null when this post has no English counterpart — the header falls back to the
+// English blog index, and no hreflang alternate is emitted.
+const altLocaleHref = await alternateLocaleHref(post, "en");
+---
+<BlogLayout
+  title={post.data.title}
+  description={post.data.description}
+  author={post.data.author}
+  pubDate={post.data.pubDate}
+  readingTime={post.data.readingTime}
+  category={post.data.category}
+  tags={post.data.tags}
+  related={related}
+  lang="es"
+  altLocaleHref={altLocaleHref}
+>
+  <Content />
+</BlogLayout>

@@ -1,0 +1,222 @@
+---
+import TerrainSignature from "../TerrainSignature.astro";
+import FeatureCard from "../FeatureCard.astro";
+import MeshMapPreview from "../MeshMapPreview.astro";
+import type { Locale } from "../../lib/i18n";
+import { localizePath } from "../../lib/i18n";
+import { useStrings, categoryLabel } from "../../lib/ui-strings";
+import { getBlogPosts, blogPostHref } from "../../lib/blog";
+import { getNodes } from "../../lib/nodes";
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const h = useStrings(lang).home;
+const p = (href: string) => localizePath(href, lang);
+
+const posts = (await getBlogPosts(lang)).slice(0, 3);
+const { nodes: meshNodes, live: meshLive } = await getNodes();
+
+const icons = {
+  offgrid: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 20V10"/><path d="M8 8a5.6 5.6 0 0 1 8 0"/><path d="M5 5a10 10 0 0 1 14 0"/><circle cx="12" cy="20" r="1.4" fill="currentColor" stroke="none"/></svg>`,
+  build: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="6" cy="18" r="2.4"/><circle cx="18" cy="6" r="2.4"/><circle cx="18" cy="18" r="2.4"/><path d="M8.1 16.6 15.9 8"/><path d="M8.4 17.8h7.2"/></svg>`,
+  cost: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 7v6c0 5 4 8 9 9 5-1 9-4 9-9V7z"/><path d="M9.5 12h5M12 9.5v5"/></svg>`,
+  community: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="18" cy="9" r="2.4"/><path d="M15.5 14.3c2.3.4 4.5 2.5 4.5 5.7"/></svg>`,
+};
+const featureIcons = [icons.offgrid, icons.build, icons.cost, icons.community];
+---
+<section class="hero">
+  <div class="hero-terrain" aria-hidden="true"><TerrainSignature variant="hero" /></div>
+  <div class="container hero-inner">
+    <p class="eyebrow">{h.heroEyebrow}</p>
+    <h1>{h.heroTitle}</h1>
+    <p class="hero-sub">{h.heroSub1}</p>
+    <p class="hero-sub">{h.heroSub2}</p>
+    <p class="hero-sub">{h.heroSub3}</p>
+    <div class="hero-actions">
+      <a href={p("/getting-started/")} class="btn btn-primary">{h.heroCtaPrimary}</a>
+      <a href={p("/pr-mesh/")} class="btn btn-secondary">{h.heroCtaSecondary}</a>
+    </div>
+  </div>
+</section>
+
+<section class="section intro-section">
+  <div class="container intro-grid">
+    <div>
+      <p class="eyebrow">{h.introEyebrow}</p>
+      <h2>{h.introTitle}</h2>
+      <p>{h.introBody1}</p>
+      <p>{h.introBody2}</p>
+      <a href={p("/how-it-works/")} class="link-arrow">{h.introLink}</a>
+    </div>
+    <div class="intro-card">
+      <p class="eyebrow">{h.whyEyebrow}</p>
+      <ul>
+        {h.whyItems.map((item) => <li>{item}</li>)}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">{h.featuresEyebrow}</p>
+      <h2>{h.featuresTitle}</h2>
+    </div>
+    <div class="feature-grid">
+      {h.features.map((feature, i) => (
+        <FeatureCard title={feature.title} icon={featureIcons[i]}>{feature.body}</FeatureCard>
+      ))}
+    </div>
+  </div>
+</section>
+
+<TerrainSignature variant="divider" />
+
+<section class="section quickstart-section">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">{h.quickstartEyebrow}</p>
+      <h2>{h.quickstartTitle}</h2>
+    </div>
+    <ol class="quickstart-list">
+      {h.steps.map((step, i) => (
+        <li>
+          <span class="step-num">{String(i + 1).padStart(2, "0")}</span>
+          <div>
+            <h3>{step.title}</h3>
+            <p>{step.body}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+    <a href={p("/getting-started/")} class="btn btn-primary">{h.quickstartCta}</a>
+  </div>
+</section>
+
+<section class="section map-section">
+  <div class="container">
+    <MeshMapPreview nodes={meshNodes} live={meshLive} lang={lang} />
+  </div>
+</section>
+
+<section class="section split-section">
+  <div class="container split-grid">
+    <div class="split-card split-card--accent">
+      <p class="eyebrow">{h.splitCommunityEyebrow}</p>
+      <h2>{h.splitCommunityTitle}</h2>
+      <p>{h.splitCommunityBody}</p>
+      <a href={p("/community/")} class="btn btn-primary">{h.splitCommunityCta}</a>
+    </div>
+    <div class="split-card">
+      <p class="eyebrow">{h.splitStartEyebrow}</p>
+      <h2>{h.splitStartTitle}</h2>
+      <p>{h.splitStartBody}</p>
+      <a href={p("/getting-started/")} class="btn btn-secondary">{h.splitStartCta}</a>
+    </div>
+  </div>
+</section>
+
+{posts.length > 0 && (
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">{h.blogEyebrow}</p>
+        <h2>{h.blogTitle}</h2>
+      </div>
+      <div class="post-grid">
+        {posts.map((post) => (
+          <a class="post-card" href={blogPostHref(lang, post.id)}>
+            <span class="post-category">{categoryLabel(lang, post.data.category)}</span>
+            <h3>{post.data.title}</h3>
+            <p>{post.data.description}</p>
+            <span class="post-meta">{post.data.author} · {post.data.readingTime}</span>
+          </a>
+        ))}
+      </div>
+      <a href={p("/blog/")} class="link-arrow">{h.blogReadAll}</a>
+    </div>
+  </section>
+)}
+
+<section class="section cta-section">
+  <div class="container cta-inner">
+    <h2>{h.ctaTitle}</h2>
+    <p>{h.ctaBody}</p>
+    <div class="hero-actions">
+      <a href={p("/getting-started/")} class="btn btn-primary">{h.ctaPrimary}</a>
+      <a href={p("/hardware/")} class="btn btn-secondary">{h.ctaSecondary}</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero { position: relative; overflow: hidden; padding-top: 3rem; }
+  .hero-terrain { position: absolute; inset: auto 0 0 0; height: 150px; z-index: 0; opacity: 0.6; pointer-events: none; }
+  .hero-inner { position: relative; z-index: 1; padding-bottom: 11rem; max-width: 760px; }
+  @media (max-width: 640px) {
+    .hero-terrain { height: 110px; }
+    .hero-inner { padding-bottom: 8rem; }
+  }
+  .hero h1 { margin-top: 0.5rem; }
+  .hero-sub { font-size: 1.15rem; max-width: 56ch; margin-top: 1rem; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-top: 1.75rem; }
+
+  .section { padding-block: 4rem; }
+  .section-head { max-width: 60ch; margin-bottom: 2rem; }
+  .section-head h2 { margin-top: 0.4rem; }
+
+  .intro-section { background: var(--bg-sunken); border-block: 1px solid var(--border); }
+  .intro-grid { display: grid; gap: 2.5rem; grid-template-columns: 1fr; align-items: start; }
+  @media (min-width: 860px) { .intro-grid { grid-template-columns: 1.3fr 1fr; } }
+  .intro-card {
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem;
+    box-shadow: var(--shadow-sm);
+  }
+  .intro-card ul { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; gap: 0.75rem; }
+  .intro-card li { padding-left: 1.4em; position: relative; color: var(--ink-soft); font-size: 0.95rem; }
+  .intro-card li::before { content: "›"; position: absolute; left: 0; color: var(--secondary); font-weight: 700; }
+
+  .link-arrow { display: inline-block; margin-top: 1.25rem; font-weight: 600; text-decoration: none; color: var(--secondary); }
+  .link-arrow:hover { text-decoration: underline; }
+
+  .feature-grid { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+
+  .quickstart-list { list-style: none; margin: 0 0 2rem; padding: 0; display: grid; gap: 1.1rem; max-width: 640px; }
+  .quickstart-list li { display: flex; gap: 1.1rem; align-items: flex-start; }
+  .step-num { font-family: var(--font-mono); font-weight: 700; color: var(--secondary); font-size: 0.95rem; padding-top: 0.15em; flex-shrink: 0; }
+  .quickstart-list h3 { font-size: 1rem; margin-bottom: 0.2rem; }
+  .quickstart-list p { margin: 0; font-size: 0.92rem; }
+
+  .split-grid { display: grid; gap: 1.5rem; grid-template-columns: 1fr; }
+  @media (min-width: 780px) { .split-grid { grid-template-columns: 1fr 1fr; } }
+  .split-card { border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2rem; background: var(--bg-raised); }
+  .split-card--accent { background: var(--primary); color: var(--primary-ink); border-color: transparent; }
+  .split-card--accent h2, .split-card--accent .eyebrow { color: var(--primary-ink); }
+  .split-card--accent p { color: color-mix(in srgb, var(--primary-ink) 85%, transparent); }
+  .split-card--accent .eyebrow::before { background: var(--primary-ink); }
+  .split-card--accent .btn-primary { background: var(--bg-raised); color: var(--primary); }
+
+  .post-grid { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); margin-bottom: 1.5rem; }
+  .post-card {
+    display: block;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    background: var(--bg-raised);
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .post-card:hover { border-color: var(--secondary); transform: translateY(-2px); }
+  .post-category { font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--secondary); }
+  .post-card h3 { font-size: 1.05rem; margin: 0.5rem 0 0.4rem; color: var(--ink); }
+  .post-card p { font-size: 0.88rem; margin: 0 0 0.75rem; }
+  .post-meta { font-size: 0.78rem; color: var(--ink-faint); }
+
+  .cta-section { background: var(--bg-sunken); border-top: 1px solid var(--border); text-align: center; }
+  .cta-inner { max-width: 620px; margin-inline: auto; }
+  .cta-inner .hero-actions { justify-content: center; }
+</style>

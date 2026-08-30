@@ -1,0 +1,10 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import HomeContent from "../../components/pages/HomeContent.astro";
+import { useStrings } from "../../lib/ui-strings";
+
+const h = useStrings("es").home;
+---
+<BaseLayout title={h.title} description={h.description} lang="es">
+  <HomeContent lang="es" />
+</BaseLayout>

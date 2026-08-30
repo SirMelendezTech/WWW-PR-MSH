@@ -1,0 +1,31 @@
+---
+import type { Locale } from "../lib/i18n";
+import { useStrings } from "../lib/ui-strings";
+
+interface Crumb { label: string; href?: string }
+interface Props { items: Crumb[]; lang?: Locale }
+const { items, lang = "en" } = Astro.props;
+const t = useStrings(lang);
+const homeHref = lang === "es" ? "/es/" : "/";
+---
+<nav class="breadcrumbs" aria-label={t.breadcrumbs.ariaLabel}>
+  <ol>
+    <li><a href={homeHref}>{t.breadcrumbs.home}</a></li>
+    {items.map((item) => (
+      <li>
+        <span class="sep" aria-hidden="true">/</span>
+        {item.href ? <a href={item.href}>{item.label}</a> : <span aria-current="page">{item.label}</span>}
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<style>
+  .breadcrumbs { font-size: 0.82rem; }
+  .breadcrumbs ol { list-style: none; display: flex; flex-wrap: wrap; gap: 0.35rem; margin: 0; padding: 0; }
+  .breadcrumbs li { display: inline-flex; align-items: center; gap: 0.35rem; }
+  .breadcrumbs a { color: var(--ink-faint); text-decoration: none; }
+  .breadcrumbs a:hover { color: var(--secondary); }
+  .breadcrumbs [aria-current="page"] { color: var(--ink-soft); font-weight: 500; }
+  .sep { color: var(--border-strong); }
+</style>

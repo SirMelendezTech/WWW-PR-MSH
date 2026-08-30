@@ -1,0 +1,11 @@
+---
+interface Props { class?: string }
+const { class: className = "" } = Astro.props;
+---
+<svg class:list={["mesh-mark", className]} width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+  <path d="M6 20 L14 8 L22 16" stroke="var(--secondary)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.8"/>
+  <path d="M6 20 L22 16" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round" opacity="0.55"/>
+  <circle cx="6" cy="20" r="3" fill="var(--primary)"/>
+  <circle cx="14" cy="8" r="3" fill="var(--secondary)"/>
+  <circle cx="22" cy="16" r="3" fill="var(--accent)"/>
+</svg>

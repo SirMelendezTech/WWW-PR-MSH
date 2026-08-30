@@ -1,0 +1,73 @@
+Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
+
+================================================================================
+SCOPE
+================================================================================
+
+This license covers the SITE CONTENT — the prose, documentation, and articles.
+In practice that is everything under:
+
+    src/content/          (docs and blog posts, all languages)
+
+Source code — the .astro / .ts / .js / .css files and everything else in the
+repository — is licensed separately under the MIT License (see ./LICENSE).
+
+Where a single file mixes prose and code (for example a Markdown doc with an
+inline <style> block), the prose is under CC BY-SA 4.0 and the code snippets
+are under MIT.
+
+Third-party material keeps its own license: external data from Malla PR, the
+Meshtastic name and logo, and any linked resources are not covered here.
+
+================================================================================
+LICENSE GRANT
+================================================================================
+
+Copyright (c) 2026 Meshtastic Puerto Rico Community and contributors.
+
+The site content is licensed under the Creative Commons
+Attribution-ShareAlike 4.0 International License.
+
+You are free to:
+
+  - Share  — copy and redistribute the material in any medium or format
+  - Adapt  — remix, transform, and build upon the material for any purpose,
+             even commercially
+
+Under the following terms:
+
+  - Attribution — You must give appropriate credit, provide a link to the
+    license, and indicate if changes were made. You may do so in any
+    reasonable manner, but not in any way that suggests the licensor
+    endorses you or your use.
+
+  - ShareAlike — If you remix, transform, or build upon the material, you
+    must distribute your contributions under the same license as the
+    original.
+
+  - No additional restrictions — You may not apply legal terms or
+    technological measures that legally restrict others from doing anything
+    the license permits.
+
+Full legal text:  https://creativecommons.org/licenses/by-sa/4.0/legalcode
+Plain-language summary:  https://creativecommons.org/licenses/by-sa/4.0/
+
+================================================================================
+HOW TO ATTRIBUTE
+================================================================================
+
+A reasonable attribution for reused content:
+
+    "Meshtastic Puerto Rico Community" (https://prmsh.com/),
+    licensed under CC BY-SA 4.0. Changes were made.
+
+Drop the "Changes were made." line if you reproduce the content unmodified.
+Link the license text where practical.
+
+================================================================================
+CONTRIBUTIONS
+================================================================================
+
+By contributing content to this repository (a pull request, an edit, a new
+post) you agree to license that contribution under CC BY-SA 4.0, and you
+confirm you have the right to do so.

@@ -1,0 +1,159 @@
+---
+import Breadcrumbs from "../Breadcrumbs.astro";
+import type { Locale } from "../../lib/i18n";
+import { localizePath } from "../../lib/i18n";
+import { useStrings } from "../../lib/ui-strings";
+import { getNodes } from "../../lib/nodes";
+import "leaflet/dist/leaflet.css";
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const m = useStrings(lang).map;
+const p = (href: string) => localizePath(href, lang);
+
+const { nodes, live } = await getNodes();
+const onlineCount = nodes.filter((n) => n.status === "online").length;
+const nodesLabel = live ? m.ledeNodes : m.ledeSampleNodes;
+// Escape "</" so a node name can't prematurely close the inline JSON <script> tag.
+const nodeDataJson = JSON.stringify(nodes).replace(/<\//g, "<\\/");
+---
+<div class="container page-head">
+  <Breadcrumbs lang={lang} items={[{ label: m.crumb }]} />
+  <p class="eyebrow">{m.eyebrow}</p>
+  <h1>{m.h1}</h1>
+  <p class="page-lede">
+    {m.ledeShownOnline(onlineCount, nodes.length, nodesLabel)}
+    {live ? m.ledeLive : m.ledeSample}
+  </p>
+</div>
+
+<div class="container map-shell">
+  <div
+    id="node-map"
+    class="node-map"
+    role="img"
+    aria-label={m.mapAria}
+    data-i18n-lastseen={m.popupLastSeen}
+    data-i18n-snr={m.popupSnr}
+    data-i18n-precision={m.popupPrecision}
+  ></div>
+
+  <aside class="node-list" aria-label={m.nodeListAria}>
+    <p class="docs-sidebar-label">{m.nodesLabel(nodes.length)}</p>
+    <ul>
+      {nodes.map((n) => (
+        <li class="node-item" data-node-id={n.id}>
+          <span class={`status-dot status-dot--${n.status}`} aria-hidden="true"></span>
+          <div>
+            <span class="node-name">{n.name}</span>
+            <span class="node-meta">{n.type} · {m.lastSeen} {n.lastSeen}</span>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </aside>
+</div>
+
+<div class="container callout">
+  <span class="callout-label">{live ? m.calloutLive : m.calloutSample}</span>
+  {live ? (
+    <p>
+      {m.liveBodyBefore}<a href="https://malla-pr.sirhome.org/map" target="_blank" rel="noopener noreferrer">{m.liveBodyMonitor}</a>{m.liveBodyMid}<a href="https://github.com/zenitraM/malla" target="_blank" rel="noopener noreferrer">{m.liveBodyMalla}</a>{m.liveBodyAfter}
+    </p>
+  ) : (
+    <p>{m.sampleBody}</p>
+  )}
+</div>
+
+<script type="application/json" id="node-data" set:html={nodeDataJson} />
+
+<style>
+  .page-head { padding-block: 2.5rem 1rem; max-width: 68ch; }
+  .page-lede { font-size: 1.05rem; margin-top: 0.5rem; }
+
+  .map-shell {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr;
+    padding-block: 1rem 2.5rem;
+  }
+  @media (min-width: 860px) {
+    .map-shell { grid-template-columns: minmax(0, 1fr) 280px; align-items: start; }
+  }
+
+  .node-map {
+    height: 480px;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    background: var(--bg-sunken);
+  }
+
+  .node-list { border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem; background: var(--bg-raised); }
+  .docs-sidebar-label { font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-faint); margin: 0 0 0.9rem; }
+  .node-list ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.9rem; max-height: 400px; overflow-y: auto; }
+  .node-item { display: flex; gap: 0.6rem; align-items: flex-start; cursor: pointer; }
+  .status-dot { width: 9px; height: 9px; border-radius: 50%; margin-top: 0.35em; flex-shrink: 0; }
+  .status-dot--online { background: var(--secondary); box-shadow: 0 0 0 3px color-mix(in srgb, var(--secondary) 20%, transparent); }
+  .status-dot--offline { background: var(--ink-faint); }
+  .node-name { display: block; font-weight: 600; font-size: 0.9rem; }
+  .node-meta { display: block; font-size: 0.78rem; color: var(--ink-faint); text-transform: capitalize; }
+
+  .callout p { margin: 0; }
+</style>
+
+<script>
+  import L from "leaflet";
+  import type { MeshNode } from "../../lib/nodes";
+
+  const dataEl = document.getElementById("node-data");
+  const nodes: MeshNode[] = dataEl ? JSON.parse(dataEl.textContent || "[]") : [];
+
+  const mapEl = document.getElementById("node-map");
+  const T_LAST_SEEN = mapEl?.dataset.i18nLastseen || "Last seen";
+  const T_SNR = mapEl?.dataset.i18nSnr || "SNR";
+  const T_PRECISION = mapEl?.dataset.i18nPrecision || "Position precision";
+
+  const map = L.map("node-map", { scrollWheelZoom: false }).setView([18.22, -66.45], 9);
+
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    maxZoom: 17,
+  }).addTo(map);
+
+  const colors: Record<string, string> = {
+    online: "#1fb8ac",
+    offline: "#7c8f97",
+  };
+
+  const markers = new Map<string, L.CircleMarker>();
+
+  for (const node of nodes) {
+    const marker = L.circleMarker([node.lat, node.lng], {
+      radius: 8,
+      color: "#ffffff",
+      weight: 1.5,
+      fillColor: colors[node.status],
+      fillOpacity: 0.95,
+    }).addTo(map);
+
+    marker.bindPopup(
+      `<strong>${node.name}</strong><br>${node.type} · ${node.status}<br>${T_LAST_SEEN} ${node.lastSeen}` +
+        (typeof node.snr === "number" ? `<br>${T_SNR}: ${node.snr.toFixed(1)} dB` : "") +
+        (typeof node.precisionMeters === "number" ? `<br>${T_PRECISION}: ±${Math.round(node.precisionMeters)} m` : "")
+    );
+
+    markers.set(node.id, marker);
+  }
+
+  document.querySelectorAll<HTMLLIElement>(".node-item").forEach((item) => {
+    item.addEventListener("click", () => {
+      const id = item.dataset.nodeId;
+      const marker = id ? markers.get(id) : undefined;
+      if (marker) {
+        map.setView(marker.getLatLng(), 12);
+        marker.openPopup();
+      }
+    });
+  });
+</script>

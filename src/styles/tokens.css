@@ -1,0 +1,102 @@
+/*
+  Meshtastic Puerto Rico — design tokens.
+  Signature: topographic elevation profile + line-of-sight hop arcs
+  (see src/components/TerrainSignature.astro).
+*/
+:root {
+  color-scheme: light;
+
+  /* Brand hues, shared across modes */
+  --hue-blue: #0b3d78;
+  --hue-blue-strong: #082a56;
+  --hue-turquoise: #1fb8ac;
+  --hue-turquoise-bright: #2fe0d1;
+  --hue-red: #d4213d;
+  --hue-red-strong: #a5182e;
+
+  /* Light surface + ink */
+  --bg: #f6f8f9;
+  --bg-raised: #ffffff;
+  --bg-sunken: #eef2f3;
+  --ink: #0c1c26;
+  --ink-soft: #3b4c56;
+  --ink-faint: #6b7c85;
+  --border: #d9e1e3;
+  --border-strong: #b9c6ca;
+
+  --primary: var(--hue-blue);
+  --primary-ink: #ffffff;
+  --secondary: #0f8377;
+  --accent: var(--hue-red);
+  --accent-ink: #ffffff;
+
+  --link: var(--hue-blue);
+  --code-bg: #0c1c26;
+  --code-ink: #dbe9ec;
+
+  --shadow-color: 205 45% 15%;
+  --shadow-sm: 0 1px 2px hsl(var(--shadow-color) / 0.08);
+  --shadow-md: 0 6px 20px hsl(var(--shadow-color) / 0.10);
+  --shadow-lg: 0 16px 40px hsl(var(--shadow-color) / 0.16);
+
+  --font-display: "Space Grotesk", "Arial Narrow", sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "Cascadia Code", monospace;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 14px;
+
+  --container: 1180px;
+  --header-h: 64px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #060f18;
+    --bg-raised: #0b1a26;
+    --bg-sunken: #040b12;
+    --ink: #e9f1f2;
+    --ink-soft: #aebfc6;
+    --ink-faint: #7c8f97;
+    --border: #1c2e39;
+    --border-strong: #2b4150;
+
+    --primary: #4f8fe0;
+    --primary-ink: #04101a;
+    --secondary: var(--hue-turquoise-bright);
+    --accent: #ff5470;
+    --accent-ink: #1a0509;
+
+    --link: #6ba6ee;
+    --code-bg: #040b12;
+    --code-ink: #cfe3e6;
+
+    --shadow-color: 205 70% 3%;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #060f18;
+  --bg-raised: #0b1a26;
+  --bg-sunken: #040b12;
+  --ink: #e9f1f2;
+  --ink-soft: #aebfc6;
+  --ink-faint: #7c8f97;
+  --border: #1c2e39;
+  --border-strong: #2b4150;
+
+  --primary: #4f8fe0;
+  --primary-ink: #04101a;
+  --secondary: var(--hue-turquoise-bright);
+  --accent: #ff5470;
+  --accent-ink: #1a0509;
+
+  --link: #6ba6ee;
+  --code-bg: #040b12;
+  --code-ink: #cfe3e6;
+
+  --shadow-color: 205 70% 3%;
+}

@@ -1,0 +1,96 @@
+---
+import Breadcrumbs from "../Breadcrumbs.astro";
+import type { Locale } from "../../lib/i18n";
+import { useStrings, categoryLabel } from "../../lib/ui-strings";
+import { getBlogPosts, blogPostHref } from "../../lib/blog";
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const t = useStrings(lang);
+const b = t.blogIndex;
+
+const posts = await getBlogPosts(lang);
+const categories = ["All", ...Array.from(new Set(posts.map((p) => p.data.category)))];
+---
+<div class="container blog-head">
+  <Breadcrumbs lang={lang} items={[{ label: b.title }]} />
+  <p class="eyebrow">{b.eyebrow}</p>
+  <h1>{b.h1}</h1>
+  <p class="blog-lede">{b.lede}</p>
+</div>
+
+<div class="container blog-filters" role="group" aria-label={b.filterAria}>
+  {categories.map((c) => (
+    <button class="filter-chip" data-category={c} aria-pressed={c === "All" ? "true" : "false"}>{categoryLabel(lang, c)}</button>
+  ))}
+</div>
+
+<div class="container post-grid" id="post-grid">
+  {posts.map((post) => (
+    <a class="post-card" href={blogPostHref(lang, post.id)} data-category={post.data.category}>
+      <span class="post-category">{categoryLabel(lang, post.data.category)}</span>
+      <h2>{post.data.title}</h2>
+      <p>{post.data.description}</p>
+      <span class="post-meta">{post.data.author} · {post.data.readingTime} {b.readSuffix}</span>
+    </a>
+  ))}
+</div>
+<p id="no-posts" class="no-posts" hidden>{b.noPosts}</p>
+
+<style>
+  .blog-head { padding-block: 2.5rem 1.5rem; max-width: 68ch; }
+  .blog-lede { font-size: 1.1rem; margin-top: 0.5rem; }
+
+  .blog-filters { display: flex; flex-wrap: wrap; gap: 0.6rem; padding-bottom: 2rem; }
+  .filter-chip {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    padding: 0.4em 0.9em;
+    border-radius: 999px;
+    border: 1px solid var(--border-strong);
+    background: var(--bg-raised);
+    color: var(--ink-soft);
+    cursor: pointer;
+  }
+  .filter-chip:hover { border-color: var(--secondary); color: var(--secondary); }
+  .filter-chip[aria-pressed="true"] { background: var(--primary); color: var(--primary-ink); border-color: var(--primary); }
+
+  .post-grid { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); padding-bottom: 4rem; }
+  .post-card {
+    display: block;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    background: var(--bg-raised);
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .post-card:hover { border-color: var(--secondary); transform: translateY(-2px); }
+  .post-category { font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--secondary); }
+  .post-card h2 { font-size: 1.05rem; margin: 0.5rem 0 0.4rem; color: var(--ink); }
+  .post-card p { font-size: 0.88rem; margin: 0 0 0.75rem; }
+  .post-meta { font-size: 0.78rem; color: var(--ink-faint); }
+
+  .no-posts { text-align: center; color: var(--ink-faint); padding-bottom: 4rem; }
+</style>
+
+<script>
+  const chips = document.querySelectorAll<HTMLButtonElement>(".filter-chip");
+  const cards = document.querySelectorAll<HTMLAnchorElement>(".post-card");
+  const emptyMsg = document.getElementById("no-posts");
+
+  chips.forEach((chip) => {
+    chip.addEventListener("click", () => {
+      chips.forEach((c) => c.setAttribute("aria-pressed", "false"));
+      chip.setAttribute("aria-pressed", "true");
+      const category = chip.dataset.category;
+      let visible = 0;
+      cards.forEach((card) => {
+        const match = category === "All" || card.dataset.category === category;
+        card.style.display = match ? "" : "none";
+        if (match) visible++;
+      });
+      if (emptyMsg) emptyMsg.hidden = visible !== 0;
+    });
+  });
+</script>

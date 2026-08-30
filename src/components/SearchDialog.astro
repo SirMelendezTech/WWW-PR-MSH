@@ -1,0 +1,172 @@
+---
+import type { Locale } from "../lib/i18n";
+import { useStrings } from "../lib/ui-strings";
+
+interface Props { lang?: Locale }
+const { lang = "en" } = Astro.props;
+const t = useStrings(lang).search;
+---
+<dialog
+  id="search-dialog"
+  class="search-dialog"
+  aria-label={t.dialogAria}
+  data-lang={lang}
+  data-i18n-prompt={t.prompt}
+  data-i18n-noresults={t.noResults}
+>
+  <div class="search-box">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" class="search-icon">
+      <circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>
+    </svg>
+    <input id="search-input" type="search" placeholder={t.placeholder} autocomplete="off" aria-label={t.queryAria} />
+    <kbd class="search-esc">Esc</kbd>
+  </div>
+  <ul id="search-results" class="search-results" role="listbox"></ul>
+  <p id="search-empty" class="search-empty">{t.prompt}</p>
+</dialog>
+
+<style>
+  .search-dialog {
+    width: min(560px, 92vw);
+    max-height: min(70vh, 520px);
+    margin: 10vh auto auto;
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--bg-raised);
+    color: var(--ink);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+  .search-dialog[open] {
+    display: flex;
+    flex-direction: column;
+  }
+  .search-dialog::backdrop { background: color-mix(in srgb, var(--bg-sunken) 70%, black 30%); backdrop-filter: blur(2px); }
+
+  .search-box {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.9rem 1.1rem;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .search-icon { color: var(--ink-faint); flex-shrink: 0; }
+  #search-input {
+    flex: 1;
+    border: none;
+    background: none;
+    font-size: 1rem;
+    font-family: var(--font-body);
+    color: var(--ink);
+    outline: none;
+  }
+  .search-esc {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    border: 1px solid var(--border-strong);
+    border-radius: 4px;
+    padding: 0.1em 0.4em;
+    color: var(--ink-faint);
+  }
+
+  /*
+    Results are injected client-side via innerHTML, so these elements never
+    receive Astro's scoping attribute — style them with :global().
+  */
+  .search-results { list-style: none; margin: 0; padding: 0.5rem; overflow-y: auto; }
+  .search-results :global(a) {
+    display: block;
+    padding: 0.7rem 0.8rem;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .search-results :global(a:hover),
+  .search-results :global(a[aria-selected="true"]) { background: var(--bg-sunken); }
+  .search-results :global(.result-section) { font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--secondary); display: block; margin-bottom: 0.15em; }
+  .search-results :global(.result-title) { font-family: var(--font-display); font-weight: 600; display: block; }
+  .search-results :global(.result-excerpt) { font-size: 0.85rem; color: var(--ink-faint); display: block; margin-top: 0.2em; }
+
+  .search-empty { padding: 1.5rem 1.1rem; color: var(--ink-faint); font-size: 0.9rem; margin: 0; }
+</style>
+
+<script>
+  type Entry = { title: string; section: string; url: string; excerpt: string; lang?: "en" | "es" };
+  let index: Entry[] | null = null;
+
+  const dialog = document.getElementById("search-dialog") as HTMLDialogElement | null;
+  const input = document.getElementById("search-input") as HTMLInputElement | null;
+  const results = document.getElementById("search-results") as HTMLUListElement | null;
+  const empty = document.getElementById("search-empty");
+  const openBtn = document.getElementById("search-open");
+
+  const PROMPT = dialog?.dataset.i18nPrompt || "Type to search Meshtastic PR documentation and blog posts.";
+  const NO_RESULTS = dialog?.dataset.i18nNoresults || "No results. Try a different term.";
+  const LANG = dialog?.dataset.lang === "es" ? "es" : "en";
+
+  async function ensureIndex() {
+    if (index) return index;
+    const res = await fetch("/search-index.json");
+    const all: Entry[] = await res.json();
+    // Show only entries for the language of the page the dialog is on.
+    index = all.filter((e) => (e.lang ?? "en") === LANG);
+    return index;
+  }
+
+  function render(items: Entry[]) {
+    if (!results || !empty) return;
+    results.innerHTML = "";
+    if (items.length === 0) {
+      empty.hidden = false;
+      empty.textContent = NO_RESULTS;
+      return;
+    }
+    empty.hidden = true;
+    for (const item of items.slice(0, 20)) {
+      const li = document.createElement("li");
+      const a = document.createElement("a");
+      a.href = item.url;
+      a.innerHTML = `<span class="result-section">${item.section}</span><span class="result-title">${item.title}</span><span class="result-excerpt">${item.excerpt}</span>`;
+      li.appendChild(a);
+      results.appendChild(li);
+    }
+  }
+
+  async function openDialog() {
+    dialog?.showModal();
+    input?.focus();
+    await ensureIndex();
+  }
+
+  openBtn?.addEventListener("click", openDialog);
+  document.addEventListener("keydown", (e) => {
+    if ((e.key === "k" || e.key === "K") && (e.metaKey || e.ctrlKey)) {
+      e.preventDefault();
+      openDialog();
+    }
+    if (e.key === "/" && document.activeElement?.tagName !== "INPUT" && !dialog?.open) {
+      e.preventDefault();
+      openDialog();
+    }
+  });
+
+  dialog?.addEventListener("click", (e) => {
+    if (e.target === dialog) dialog.close();
+  });
+
+  input?.addEventListener("input", async () => {
+    const q = input.value.trim().toLowerCase();
+    if (!q) {
+      if (empty) { empty.hidden = false; empty.textContent = PROMPT; }
+      if (results) results.innerHTML = "";
+      return;
+    }
+    const list = await ensureIndex();
+    const matches = (list || []).filter((e) =>
+      e.title.toLowerCase().includes(q) || e.excerpt.toLowerCase().includes(q) || e.section.toLowerCase().includes(q)
+    );
+    render(matches);
+  });
+</script>

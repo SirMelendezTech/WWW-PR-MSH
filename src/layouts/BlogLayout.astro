@@ -1,0 +1,115 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import TerrainSignature from "../components/TerrainSignature.astro";
+import type { Locale } from "../lib/i18n";
+import { useStrings, categoryLabel } from "../lib/ui-strings";
+
+interface RelatedPost { id: string; title: string; category: string }
+interface Props {
+  title: string;
+  description: string;
+  author: string;
+  pubDate: Date;
+  readingTime: string;
+  category: string;
+  tags: string[];
+  related: RelatedPost[];
+  lang?: Locale;
+  altLocaleHref?: string | null;
+}
+const { title, description, author, pubDate, readingTime, category, tags, related, lang = "en", altLocaleHref = null } = Astro.props;
+const t = useStrings(lang).blogPost;
+const blogHref = lang === "es" ? "/es/blog/" : "/blog/";
+const postHref = (id: string) => `${blogHref}${id}/`;
+const dateStr = pubDate.toLocaleDateString(lang === "es" ? "es-PR" : "en-US", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
+---
+<BaseLayout title={title} description={description} lang={lang} altLocaleHref={altLocaleHref}>
+  <article class="post">
+    <div class="container post-head">
+      <Breadcrumbs lang={lang} items={[{ label: t.blogCrumb, href: blogHref }, { label: title }]} />
+      <span class="post-category">{categoryLabel(lang, category)}</span>
+      <h1>{title}</h1>
+      <p class="post-lede">{description}</p>
+      <div class="post-byline">
+        <span>{author}</span>
+        <span aria-hidden="true">·</span>
+        <time datetime={pubDate.toISOString()}>{dateStr}</time>
+        <span aria-hidden="true">·</span>
+        <span>{readingTime} {t.readSuffix}</span>
+      </div>
+    </div>
+
+    <div class="post-banner" aria-hidden="true"><TerrainSignature variant="divider" /></div>
+
+    <div class="container post-body-grid">
+      <div class="prose post-prose">
+        <slot />
+      </div>
+      <aside class="post-aside">
+        {tags.length > 0 && (
+          <div class="post-tags">
+            <p class="docs-sidebar-label">{t.tagsLabel}</p>
+            <ul>
+              {tags.map((tag) => <li class="badge">{tag}</li>)}
+            </ul>
+          </div>
+        )}
+      </aside>
+    </div>
+
+    {related.length > 0 && (
+      <div class="container related-section">
+        <h2>{t.relatedHeading}</h2>
+        <div class="related-grid">
+          {related.map((r) => (
+            <a class="related-card" href={postHref(r.id)}>
+              <span class="post-category post-category--sm">{categoryLabel(lang, r.category)}</span>
+              <span class="related-title">{r.title}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    )}
+  </article>
+</BaseLayout>
+
+<style>
+  .post-head { padding-block: 2rem 0; max-width: 72ch; }
+  .post-category {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--secondary);
+    margin: 1rem 0 0.3rem;
+  }
+  .post h1 { margin-top: 0.2rem; }
+  .post-lede { font-size: 1.1rem; color: var(--ink-soft); }
+  .post-byline { display: flex; gap: 0.6rem; color: var(--ink-faint); font-size: 0.85rem; margin-top: 0.5rem; }
+
+  .post-banner { height: 110px; margin-top: 2rem; opacity: 0.8; border-block: 1px solid var(--border); background: var(--bg-sunken); }
+
+  .post-body-grid { display: grid; gap: 2.5rem; padding-block: 2.5rem 4rem; grid-template-columns: 1fr; }
+  @media (min-width: 900px) { .post-body-grid { grid-template-columns: minmax(0, 1fr) 200px; } }
+  .post-prose { max-width: 68ch; }
+  .post-aside { font-size: 0.88rem; }
+  .docs-sidebar-label { font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-faint); margin: 0 0 0.75rem; }
+  .post-tags ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+  .related-section { border-top: 1px solid var(--border); padding-block: 3rem 4rem; }
+  .related-section h2 { font-size: 1.2rem; margin-bottom: 1.25rem; }
+  .related-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+  .related-card {
+    display: block;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.1rem 1.2rem;
+    text-decoration: none;
+    background: var(--bg-raised);
+  }
+  .related-card:hover { border-color: var(--secondary); }
+  .post-category--sm { margin: 0 0 0.3rem; }
+  .related-title { display: block; font-family: var(--font-display); font-weight: 600; color: var(--ink); font-size: 0.95rem; }
+</style>

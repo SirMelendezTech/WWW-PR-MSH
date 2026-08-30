@@ -1,0 +1,10 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import NotFoundContent from "../../components/pages/NotFoundContent.astro";
+import { useStrings } from "../../lib/ui-strings";
+
+const n = useStrings("es").notFound;
+---
+<BaseLayout title={n.title} description={n.description} lang="es" noIndex>
+  <NotFoundContent lang="es" />
+</BaseLayout>

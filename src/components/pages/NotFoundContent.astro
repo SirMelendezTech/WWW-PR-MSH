@@ -1,0 +1,27 @@
+---
+import TerrainSignature from "../TerrainSignature.astro";
+import type { Locale } from "../../lib/i18n";
+import { localizePath } from "../../lib/i18n";
+import { useStrings } from "../../lib/ui-strings";
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const n = useStrings(lang).notFound;
+const p = (href: string) => localizePath(href, lang);
+---
+<div class="container not-found">
+  <p class="eyebrow">{n.eyebrow}</p>
+  <h1>{n.h1}</h1>
+  <p>{n.body}</p>
+  <div class="not-found-actions">
+    <a href={p("/")} class="btn btn-primary">{n.ctaHome}</a>
+    <a href={p("/getting-started/")} class="btn btn-secondary">{n.ctaGettingStarted}</a>
+  </div>
+  <div class="not-found-terrain"><TerrainSignature variant="divider" /></div>
+</div>
+
+<style>
+  .not-found { text-align: center; padding-block: 5rem 3rem; max-width: 560px; }
+  .not-found-actions { display: flex; gap: 1rem; justify-content: center; margin-top: 1.75rem; }
+  .not-found-terrain { margin-top: 4rem; opacity: 0.7; }
+</style>

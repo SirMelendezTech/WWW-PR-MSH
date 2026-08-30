@@ -1,0 +1,25 @@
+{
+  "name": "mesh-pr-www-2-0",
+  "type": "module",
+  "version": "0.0.1",
+  "license": "MIT",
+  "homepage": "https://prmsh.com",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^7.0.5",
+    "@astrojs/sitemap": "^3.7.3",
+    "astro": "^7.2.2",
+    "leaflet": "^1.9.4"
+  },
+  "devDependencies": {
+    "@types/leaflet": "^1.9.22"
+  }
+}

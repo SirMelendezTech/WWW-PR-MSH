@@ -1,0 +1,41 @@
+# Meshtastic Puerto Rico
+
+> Community resource for building, learning about, and expanding a decentralized, long-range LoRa mesh communication network across Puerto Rico — no cell towers, no monthly bill, keeps working when the grid doesn't.
+
+Meshtastic is open-source firmware for low-cost LoRa radios that relay text messages and location peer-to-peer, independent of cell service, Wi-Fi, or the internet. This site documents how the Puerto Rico community builds, configures, and expands that mesh, particularly for hurricane resilience.
+
+## Docs
+
+- [Getting Started](https://prmsh.com/getting-started/): Unboxing a radio, joining the Puerto Rico mesh, sending your first message.
+- [How Meshtastic Works](https://prmsh.com/how-it-works/): LoRa, mesh routing, hops, signal strength, GPS, channels, encryption, MQTT, store-and-forward.
+- [Recommended Hardware](https://prmsh.com/hardware/): Use-case-first hardware guide — handheld, home, rooftop, solar, antennas.
+- [Recommended Settings](https://prmsh.com/settings/): Puerto Rico community configuration — region, node roles, broadcast intervals, Neighbor Info, MQTT.
+- [Puerto Rico Mesh](https://prmsh.com/pr-mesh/): Network status and coverage by region, where more nodes are needed.
+
+## Community
+
+- [Community](https://prmsh.com/community/): Where PR operators coordinate, share projects, and find each other.
+- [Node Map](https://prmsh.com/map/): Interactive map of participating mesh nodes.
+- [Links & Resources](https://prmsh.com/links/): Official PR mesh resources and Meshtastic project references.
+
+## Blog
+
+- [Blog index](https://prmsh.com/blog/): Tutorials, field reports, node builds, and PR mesh updates.
+
+## Español
+
+Full Spanish translation of the docs and site, mirrored under the `/es/` prefix.
+
+- [Primeros Pasos](https://prmsh.com/es/getting-started/): Desempacar una radio, unirte a la malla de Puerto Rico, enviar tu primer mensaje.
+- [Cómo Funciona Meshtastic](https://prmsh.com/es/how-it-works/): LoRa, enrutamiento de malla, saltos, señal, GPS, canales, cifrado, MQTT, store-and-forward.
+- [Hardware Recomendado](https://prmsh.com/es/hardware/): Guía de hardware por caso de uso — de mano, casa, techo, solar, antenas.
+- [Configuración Recomendada](https://prmsh.com/es/settings/): Configuración de la comunidad de PR — región, roles de nodo, intervalos, Neighbor Info, MQTT.
+- [Malla de Puerto Rico](https://prmsh.com/es/pr-mesh/): Estado de la red y cobertura por región, dónde faltan nodos.
+- [Comunidad](https://prmsh.com/es/community/): Dónde coordinan los operadores de PR.
+- [Mapa de Nodos](https://prmsh.com/es/map/): Mapa interactivo de los nodos participantes.
+- [Enlaces y Recursos](https://prmsh.com/es/links/): Recursos oficiales de la malla de PR y referencias del proyecto Meshtastic.
+- [Blog](https://prmsh.com/es/blog/): Tutoriales, reportes de campo, construcción de nodos y actualizaciones de la malla.
+
+## Optional
+
+- [Sitemap](https://prmsh.com/sitemap-index.xml)

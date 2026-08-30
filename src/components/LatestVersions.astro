@@ -1,0 +1,114 @@
+---
+// Shows the latest Meshtastic firmware/app release tags.
+//
+// Currently Option 3 (client-side): the browser calls the public GitHub
+// Releases API directly on page load. No token needed, but it's subject to
+// GitHub's unauthenticated rate limit (60 req/hr per visitor IP) and adds a
+// client-side request + brief "Checking..." flash.
+//
+// To switch to Option 2 (build-time) instead — recommended once this
+// matters for SEO/no-JS or the rate limit becomes an issue:
+//   1. Move the REPOS fetch logic into a server-side helper, e.g.
+//      src/lib/releases.ts, following the same fetch-with-fallback shape as
+//      getNodes() in src/lib/nodes.ts (fetch at build time, catch errors,
+//      fall back to a static "unknown" value so the build never fails).
+//   2. In this file's frontmatter (the `---` block), call that helper:
+//        const releases = await getLatestReleases();
+//      and pass `releases` as a prop instead of fetching in <script>.
+//   3. Delete the <script> block below entirely — render the versions
+//      directly in the markup from the `releases` prop.
+//   4. Versions then update on each `astro build` / redeploy instead of
+//      on every page load — zero client JS, no rate limit at runtime.
+
+import type { Locale } from "../lib/i18n";
+import { useStrings } from "../lib/ui-strings";
+
+interface Props { lang?: Locale }
+const { lang = "en" } = Astro.props;
+const t = useStrings(lang).latestVersions;
+
+const REPOS = [
+  { label: t.firmware, repo: "meshtastic/firmware" },
+  { label: t.androidApp, repo: "meshtastic/Meshtastic-Android" },
+  { label: t.iosApp, repo: "meshtastic/Meshtastic-Apple" },
+];
+---
+<div
+  class="version-check"
+  id="version-check"
+  data-i18n-seereleases={t.seeReleases}
+  data-i18n-unknown={t.unknown}
+>
+  <p class="version-title">{t.title}</p>
+  <ul class="version-list">
+    {REPOS.map(({ label, repo }) => (
+      <li data-repo={repo}>
+        <span class="version-label">{label}</span>
+        <span class="version-value" data-role="value">{t.checking}</span>
+      </li>
+    ))}
+  </ul>
+</div>
+
+<style>
+  .version-check {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--bg-raised);
+    padding: 1rem 1.2rem;
+    margin-bottom: 2rem;
+  }
+  .version-title {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-faint);
+    margin: 0 0 0.75rem;
+  }
+  .version-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+  .version-list li { display: flex; justify-content: space-between; gap: 1rem; font-size: 0.92rem; }
+  .version-label { color: var(--ink-soft); }
+  .version-value { font-family: var(--font-mono); }
+  .version-value a { color: var(--secondary); text-decoration: none; }
+  .version-value a:hover { text-decoration: underline; }
+  .version-value[data-state="error"] { color: var(--ink-faint); }
+</style>
+
+<script>
+  const container = document.getElementById("version-check");
+  const SEE_RELEASES = container?.dataset.i18nSeereleases || "See releases";
+  const UNKNOWN = container?.dataset.i18nUnknown || "Unknown";
+
+  async function loadVersion(item: HTMLLIElement) {
+    const repo = item.dataset.repo;
+    const valueEl = item.querySelector<HTMLElement>('[data-role="value"]');
+    if (!repo || !valueEl) return;
+
+    try {
+      const res = await fetch(`https://api.github.com/repos/${repo}/releases/latest`, {
+        headers: { Accept: "application/vnd.github+json" },
+        signal: AbortSignal.timeout(8000),
+      });
+      if (!res.ok) throw new Error(`GitHub API responded ${res.status}`);
+      const data = await res.json();
+
+      const link = document.createElement("a");
+      link.href = data.html_url ?? `https://github.com/${repo}/releases/latest`;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.textContent = data.tag_name ?? UNKNOWN;
+      valueEl.replaceChildren(link);
+    } catch {
+      const link = document.createElement("a");
+      link.href = `https://github.com/${repo}/releases/latest`;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.textContent = SEE_RELEASES;
+      valueEl.dataset.state = "error";
+      valueEl.replaceChildren(link);
+    }
+  }
+
+  document.querySelectorAll<HTMLLIElement>("#version-check li[data-repo]").forEach(loadVersion);
+</script>

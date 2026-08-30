@@ -1,0 +1,85 @@
+---
+import Breadcrumbs from "../Breadcrumbs.astro";
+import type { Locale } from "../../lib/i18n";
+import { useStrings } from "../../lib/ui-strings";
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const l = useStrings(lang).links;
+
+const official = [
+  { name: "Meshtastic Puerto Rico Network Monitor", url: "https://meshtasticpr.duckdns.org/", note: l.notes.monitor },
+  { name: "PalmasMesh", url: "https://palmasmesh.com/", note: l.notes.palmasmesh },
+  { name: "Malla PR", url: "https://malla-pr.sirhome.org/map", note: l.notes.mallapr },
+];
+
+const project = [
+  { name: "Meshtastic.org", url: "https://meshtastic.org", note: l.notes.meshtasticOrg },
+  { name: "Meshtastic Web Flasher", url: "https://flasher.meshtastic.org/", note: l.notes.flasher },
+  { name: "Meshtastic hardware list", url: "https://meshtastic.org/docs/hardware/devices/", note: l.notes.hwList },
+  { name: "Meshtastic CLI reference", url: "https://meshtastic.org/docs/software/python/cli/", note: l.notes.cli },
+  { name: "Meshtastic Antenna Reports", url: "https://github.com/meshtastic/antenna-reports", note: l.notes.antennaReports },
+  { name: "Awesome Meshtastic — Hardware & Sensors", url: "https://github.com/SignalGap/awesome-meshtastic#hardware-and-sensors", note: l.notes.awesomeHw },
+  { name: "Awesome Meshtastic — Server Software", url: "https://github.com/ShakataGaNai/awesome-meshtastic#server-software", note: l.notes.awesomeServer },
+  { name: "Malla", url: "https://github.com/zenitraM/malla", note: l.notes.malla },
+];
+
+const reference = [
+  { name: "Arizona Meshtastic Community — Recommended Settings", url: "https://azmsh.net/docs/recommended-settings.html", note: l.notes.azSettings },
+  { name: "Arizona Meshtastic Community — Recommended Hardware", url: "https://azmsh.net/docs/recommended-hardware.html", note: l.notes.azHardware },
+];
+
+const groups = [
+  { heading: l.prHeading, items: official },
+  { heading: l.projectHeading, items: project },
+  { heading: l.referenceHeading, items: reference },
+];
+---
+<div class="container page-head">
+  <Breadcrumbs lang={lang} items={[{ label: l.crumb }]} />
+  <p class="eyebrow">{l.eyebrow}</p>
+  <h1>{l.h1}</h1>
+  <p class="page-lede">{l.lede}</p>
+</div>
+
+<div class="container links-sections">
+  {groups.map((group) => (
+    <section>
+      <h2>{group.heading}</h2>
+      <ul class="link-list">
+        {group.items.map((item) => (
+          <li>
+            <a href={item.url} target="_blank" rel="noopener noreferrer">{item.name}<span class="ext-badge">{l.externalBadge}<span class="sr-only">{l.externalBadgeSr}</span></span></a>
+            <p>{item.note}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+  ))}
+</div>
+
+<style>
+  .page-head { padding-block: 2.5rem 1rem; max-width: 68ch; }
+  .page-lede { font-size: 1.05rem; margin-top: 0.5rem; }
+
+  .links-sections { padding-block: 1.5rem 5rem; display: grid; gap: 2.5rem; }
+  .links-sections h2 { font-size: 1.2rem; margin-bottom: 1rem; }
+
+  .link-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
+  .link-list li { border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1rem 1.2rem; background: var(--bg-raised); }
+  .link-list a { font-family: var(--font-display); font-weight: 600; text-decoration: none; color: var(--ink); display: inline-flex; align-items: center; gap: 0.6rem; }
+  .link-list a:hover { color: var(--secondary); }
+  .link-list p { margin: 0.4rem 0 0; font-size: 0.88rem; }
+
+  .ext-badge {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-faint);
+    border: 1px solid var(--border-strong);
+    border-radius: 4px;
+    padding: 0.1em 0.4em;
+    font-weight: 500;
+  }
+</style>

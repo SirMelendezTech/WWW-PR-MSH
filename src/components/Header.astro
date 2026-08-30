@@ -1,0 +1,211 @@
+---
+import MeshMark from "./MeshMark.astro";
+import ThemeToggle from "./ThemeToggle.astro";
+import { getLocaleFromPath, localizePath } from "../lib/i18n";
+import { useStrings } from "../lib/ui-strings";
+
+// TODO: set once the repo is public, e.g. "https://github.com/meshtasticpr/website"
+const GITHUB_REPO_URL = "";
+
+interface Props { altLocaleHref?: string | null }
+const { altLocaleHref = null } = Astro.props;
+
+const path = Astro.url.pathname;
+const locale = getLocaleFromPath(path);
+const otherLocale = locale === "es" ? "en" : "es";
+const t = useStrings(locale);
+
+// Language switch target: explicit counterpart if given; otherwise the other
+// locale's blog index for blog pages (post slugs don't mirror across locales),
+// or a plain path swap everywhere else.
+const isBlogPath = /^\/(es\/)?blog(\/|$)/.test(path);
+const langSwitchHref = altLocaleHref
+  ? altLocaleHref
+  : isBlogPath
+    ? otherLocale === "es" ? "/es/blog/" : "/blog/"
+    : localizePath(path, otherLocale);
+const homeHref = locale === "es" ? "/es/" : "/";
+
+const navItemsBase = [
+  { label: t.nav.gettingStarted, href: "/getting-started/" },
+  { label: t.nav.hardware, href: "/hardware/" },
+  { label: t.nav.settings, href: "/settings/" },
+  { label: t.nav.howItWorks, href: "/how-it-works/" },
+  { label: t.nav.prMesh, href: "/pr-mesh/" },
+  { label: t.nav.map, href: "/map/" },
+  { label: t.nav.blog, href: "/blog/" },
+  { label: t.nav.community, href: "/community/" },
+  { label: t.nav.links, href: "/links/" },
+];
+
+// Every top-level page now has an /es/ route, so localize all nav targets.
+const navItems = navItemsBase.map((item) => ({
+  label: item.label,
+  href: locale === "es" ? `/es${item.href}` : item.href,
+}));
+
+function isActive(href: string) {
+  if (href === "/" || href === "/es/") return path === href;
+  return path.startsWith(href);
+}
+---
+<header class="site-header">
+  <div class="container header-row">
+    <a href={homeHref} class="brand">
+      <MeshMark />
+      <span class="brand-text">
+        <span class="brand-name">Meshtastic</span><span class="brand-suffix">PR</span>
+      </span>
+    </a>
+
+    <nav class="primary-nav" aria-label={t.nav.primaryNavAria}>
+      <ul>
+        {navItems.map((item) => (
+          <li>
+            <a href={item.href} aria-current={isActive(item.href) ? "page" : undefined}>{item.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <button id="search-open" class="icon-btn" type="button" aria-label={t.nav.searchAria} aria-haspopup="dialog">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>
+        </svg>
+      </button>
+      <a
+        href={GITHUB_REPO_URL || "#"}
+        class="icon-btn"
+        aria-label={t.nav.viewSourceAria}
+        target={GITHUB_REPO_URL ? "_blank" : undefined}
+        rel={GITHUB_REPO_URL ? "noopener noreferrer" : undefined}
+      >
+        <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/>
+        </svg>
+      </a>
+      <a href={langSwitchHref} data-lang-choice={otherLocale} class="icon-btn lang-switch" aria-label={otherLocale === "es" ? t.nav.switchToSpanish : t.nav.switchToEnglish}>
+        {otherLocale.toUpperCase()}
+      </a>
+      <ThemeToggle lang={locale} />
+      <button id="nav-toggle" class="icon-btn nav-toggle" type="button" aria-label={t.nav.openMenuAria} aria-expanded="false" aria-controls="mobile-nav">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <nav id="mobile-nav" class="mobile-nav" aria-label={t.nav.mobileNavAria} hidden>
+    <ul>
+      {navItems.map((item) => (
+        <li><a href={item.href} aria-current={isActive(item.href) ? "page" : undefined}>{item.label}</a></li>
+      ))}
+    </ul>
+  </nav>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(10px) saturate(1.2);
+    border-bottom: 1px solid var(--border);
+  }
+  .header-row {
+    height: var(--header-h);
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    text-decoration: none;
+    margin-right: auto;
+    flex-shrink: 0;
+  }
+  .brand-text { font-family: var(--font-display); font-weight: 700; font-size: 1.12rem; color: var(--ink); letter-spacing: -0.01em; }
+  .brand-name { }
+  .brand-suffix {
+    color: var(--accent);
+    margin-left: 0.3em;
+    font-size: 0.72em;
+    vertical-align: super;
+    letter-spacing: 0.04em;
+  }
+
+  .primary-nav { display: none; }
+  .primary-nav ul { display: flex; gap: 1.5rem; list-style: none; margin: 0; padding: 0; }
+  .primary-nav a {
+    text-decoration: none;
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+    font-weight: 500;
+    padding: 0.4em 0;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+  }
+  .primary-nav a:hover { color: var(--ink); }
+  .primary-nav a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--secondary); font-weight: 600; }
+
+  @media (min-width: 1080px) {
+    .primary-nav { display: block; }
+    .nav-toggle { display: none; }
+  }
+
+  .header-actions { display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0; }
+  .icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    background: var(--bg-raised);
+    color: var(--ink-soft);
+    cursor: pointer;
+  }
+  .icon-btn:hover { color: var(--secondary); border-color: var(--secondary); }
+  .lang-switch { font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.02em; text-decoration: none; width: auto; padding: 0 0.7em; }
+
+  .mobile-nav { border-top: 1px solid var(--border); background: var(--bg); }
+  .mobile-nav ul { list-style: none; margin: 0; padding: 0.5rem 0; }
+  .mobile-nav a {
+    display: block;
+    padding: 0.85rem 20px;
+    text-decoration: none;
+    color: var(--ink-soft);
+    font-weight: 500;
+    border-bottom: 1px solid var(--border);
+  }
+  .mobile-nav a[aria-current="page"] { color: var(--secondary); font-weight: 700; }
+  @media (min-width: 1080px) {
+    .mobile-nav { display: none !important; }
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById("nav-toggle");
+  const menu = document.getElementById("mobile-nav");
+  toggle?.addEventListener("click", () => {
+    const isOpen = !menu?.hidden;
+    if (menu) menu.hidden = isOpen;
+    toggle.setAttribute("aria-expanded", String(!isOpen));
+  });
+
+  // Remember the visitor's explicit language pick so the auto-redirect in
+  // BaseLayout stops overriding it on later visits.
+  document.querySelectorAll<HTMLAnchorElement>("a[data-lang-choice]").forEach((link) => {
+    link.addEventListener("click", () => {
+      try {
+        localStorage.setItem("meshpr-lang", link.dataset.langChoice || "");
+      } catch {}
+    });
+  });
+</script>

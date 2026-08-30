@@ -1,0 +1,82 @@
+---
+import type { MeshNode } from "../lib/nodes";
+import type { Locale } from "../lib/i18n";
+import { localizePath } from "../lib/i18n";
+import { useStrings } from "../lib/ui-strings";
+
+interface Props {
+  nodes: MeshNode[];
+  live: boolean;
+  lang?: Locale;
+}
+const { nodes, live, lang = "en" } = Astro.props;
+const m = useStrings(lang).mapPreview;
+const onlineCount = nodes.filter((n) => n.status === "online").length;
+const label = live ? m.nodes : m.sampleNodes;
+---
+<div class="map-preview">
+  <div class="map-preview-text">
+    <p class="eyebrow">{m.eyebrow}</p>
+    <h2>{m.h2}</h2>
+    <p class="map-preview-copy">{m.copy}</p>
+    {!live && <p class="map-preview-note">{m.sampleNote}</p>}
+  </div>
+
+  <div class="map-preview-stat-block">
+    <p class="map-preview-stat">
+      <span class="stat-dot" aria-hidden="true"></span>
+      <strong>{onlineCount}</strong> {m.statOf} <strong>{nodes.length}</strong> {label} {m.statOnline}
+    </p>
+    <a href={localizePath("/map/", lang)} class="btn btn-primary">{m.cta}</a>
+  </div>
+</div>
+
+<style>
+  .map-preview {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    padding: 2.25rem 1.75rem;
+    background: linear-gradient(155deg, #0b3d78 0%, #082a56 55%, #061d3d 100%);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    color: #fff;
+  }
+  @media (min-width: 700px) {
+    .map-preview {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      padding: 2.5rem 2.5rem;
+    }
+  }
+
+  .map-preview-text .eyebrow { color: #2fe0d1; }
+  .map-preview-text h2 { color: #fff; margin: 0.35rem 0 0.75rem; }
+  .map-preview-copy { color: color-mix(in srgb, #fff 78%, transparent); font-size: 0.98rem; max-width: 42ch; margin: 0; }
+  .map-preview-note { font-size: 0.82rem; color: color-mix(in srgb, #fff 60%, transparent); margin: 0.6rem 0 0; }
+
+  .map-preview-stat-block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    flex-shrink: 0;
+  }
+  @media (min-width: 700px) { .map-preview-stat-block { align-items: flex-end; text-align: right; } }
+
+  .map-preview-stat {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    color: color-mix(in srgb, #fff 90%, transparent);
+    margin: 0;
+  }
+  .map-preview-stat strong { color: #fff; font-size: 1.4em; }
+  .stat-dot { width: 8px; height: 8px; border-radius: 50%; background: #2fe0d1; box-shadow: 0 0 0 3px color-mix(in srgb, #2fe0d1 25%, transparent); flex-shrink: 0; }
+  .map-preview-stat-block .btn-primary { background: #2fe0d1; color: #03101d; white-space: nowrap; }
+  .map-preview-stat-block .btn-primary:hover { background: #6ffcef; }
+</style>

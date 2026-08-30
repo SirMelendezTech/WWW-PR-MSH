@@ -1,0 +1,153 @@
+---
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import SearchDialog from "../components/SearchDialog.astro";
+import { useStrings } from "../lib/ui-strings";
+import { localizePath, type Locale } from "../lib/i18n";
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+  noIndex?: boolean;
+  lang?: Locale;
+  image?: string;
+  /**
+   * Counterpart URL in the other locale.
+   * - omitted: this page exists in both locales at mirrored paths (auto path-swap)
+   * - string: explicit counterpart URL
+   * - null: no counterpart exists (no hreflang alternate emitted)
+   */
+  altLocaleHref?: string | null;
+}
+const { title, description, noIndex = false, lang = "en", image = "/og-default.png" } = Astro.props;
+const altLocaleHref = "altLocaleHref" in Astro.props ? Astro.props.altLocaleHref ?? null : undefined;
+const t = useStrings(lang);
+const siteTitle = title === "Meshtastic Puerto Rico" ? title : `${title} | Meshtastic Puerto Rico`;
+const site = Astro.site ?? new URL("https://prmsh.com");
+const selfPath = Astro.url.pathname;
+const canonical = new URL(selfPath, site).toString();
+const ogImage = new URL(image, site).toString();
+
+// hreflang alternates: skip on noindex pages and where no counterpart exists.
+const otherLocale: Locale = lang === "en" ? "es" : "en";
+const counterpartPath =
+  altLocaleHref === undefined ? localizePath(selfPath, otherLocale) : altLocaleHref;
+const showAlternates = !noIndex && counterpartPath !== null;
+const enPath = lang === "en" ? selfPath : counterpartPath;
+const esPath = lang === "es" ? selfPath : counterpartPath;
+const absUrl = (p: string) => new URL(p, site).toString();
+---
+<!doctype html>
+<html lang={lang}>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{siteTitle}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  {noIndex && <meta name="robots" content="noindex" />}
+
+  {showAlternates && (
+    <>
+      <link rel="alternate" hreflang="en" href={absUrl(enPath as string)} />
+      <link rel="alternate" hreflang="es" href={absUrl(esPath as string)} />
+      <link rel="alternate" hreflang="x-default" href={absUrl(enPath as string)} />
+    </>
+  )}
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={siteTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:site_name" content="Meshtastic Puerto Rico" />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={ogImage} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content={lang === "es" ? "es_PR" : "en_US"} />
+  {showAlternates && <meta property="og:locale:alternate" content={lang === "es" ? "en_US" : "es_PR"} />}
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={siteTitle} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImage} />
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <meta name="theme-color" content="#0b3d78" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <script is:inline>
+    (function () {
+      const stored = localStorage.getItem("meshpr-theme");
+      if (stored) document.documentElement.setAttribute("data-theme", stored);
+    })();
+  </script>
+
+  <script is:inline>
+    // Send Spanish-preferring browsers to the /es/ version on first visit.
+    // Skipped once the visitor makes an explicit language choice (meshpr-lang),
+    // and never runs on pages that are already under /es/.
+    (function () {
+      try {
+        var p = location.pathname;
+        if (p === "/es" || p.indexOf("/es/") === 0) return;
+        if (localStorage.getItem("meshpr-lang")) return;
+        var primary = (navigator.languages && navigator.languages[0]) || navigator.language || "";
+        if (String(primary).toLowerCase().indexOf("es") !== 0) return;
+        // Blog post slugs are not mirrored across locales — fall back to the index.
+        var target = /^\/blog\/.+/.test(p) ? "/es/blog/" : "/es" + (p === "/" ? "/" : p);
+        location.replace(target + location.search + location.hash);
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body
+  data-i18n-copy={t.copyButton.copy}
+  data-i18n-copied={t.copyButton.copied}
+  data-i18n-copy-fallback={t.copyButton.fallback}
+  data-i18n-copy-aria={t.copyButton.aria}
+>
+  <a href="#main" class="skip-link">{t.skipLink}</a>
+  <Header altLocaleHref={altLocaleHref} />
+  <main id="main">
+    <slot />
+  </main>
+  <Footer lang={lang} />
+  <SearchDialog lang={lang} />
+
+  <script>
+    const COPY = document.body.dataset.i18nCopy || "Copy";
+    const COPIED = document.body.dataset.i18nCopied || "Copied";
+    const COPY_FALLBACK = document.body.dataset.i18nCopyFallback || "Press Ctrl+C";
+    const COPY_ARIA = document.body.dataset.i18nCopyAria || "Copy command to clipboard";
+
+    function wireCopyButtons(root: ParentNode = document) {
+      root.querySelectorAll("pre:not([data-copy-wired])").forEach((pre) => {
+        pre.setAttribute("data-copy-wired", "true");
+        const code = pre.querySelector("code");
+        if (!code) return;
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "copy-btn";
+        btn.textContent = COPY;
+        btn.setAttribute("aria-label", COPY_ARIA);
+        btn.addEventListener("click", async () => {
+          try {
+            await navigator.clipboard.writeText(code.textContent || "");
+            btn.textContent = COPIED;
+            btn.dataset.copied = "true";
+            setTimeout(() => { btn.textContent = COPY; btn.dataset.copied = "false"; }, 1800);
+          } catch {
+            btn.textContent = COPY_FALLBACK;
+          }
+        });
+        pre.appendChild(btn);
+      });
+    }
+    wireCopyButtons();
+    document.addEventListener("astro:page-load", () => wireCopyButtons());
+  </script>
+</body>
+</html>
