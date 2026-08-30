@@ -53,6 +53,8 @@ Un rol Router o Router Late cambia cómo un nodo participa en la temporización 
 
 Para el razonamiento completo detrás de Client Base vs. Router Late — incluyendo por qué un techo configurado como Router Late usualmente añade congestión en lugar de cobertura — consulta [La red mesh de Puerto Rico no tiene backbone](/es/blog/backbone-mesh-puerto-rico-es/).
 
+Si un sitio sí califica como infraestructura, la próxima pregunta es cuál de los tres roles de infraestructura debe correr — `ROUTER` interrumpe a sus vecinos, `ROUTER_LATE` nunca lo hace, y `REPEATER` es invisible para la lista de nodos, el mapa y el traceroute. Consulta [Router, Router Late o Repeater](/es/blog/router-vs-router-late-vs-repeater-es/).
+
 ## Máximo de Saltos
 
 Un nodo no puede transmitir y recibir al mismo tiempo — cada salto que toma un mensaje es tiempo de aire que todos los demás nodos tienen que esperar. El límite de saltos topa cuántas veces se puede retransmitir un mensaje antes de que la malla se rinda con él (consulta [Saltos](/es/how-it-works/#saltos)). Más alto no es más seguro; solo significa que un paquete perdido o en bucle quema más tiempo de aire compartido antes de que se descarte.

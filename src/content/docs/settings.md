@@ -52,6 +52,8 @@ A Router or Router Late role changes how a node participates in mesh timing and 
 
 For the full reasoning behind Client Base vs. Router Late — including why a rooftop set to Router Late usually adds congestion instead of coverage — see [Puerto Rico's Mesh Has No Backbone](/blog/client-base-rooftop-nodes/).
 
+If a site genuinely does qualify as infrastructure, the next question is which of the three infrastructure roles it should run — `ROUTER` preempts its neighbors, `ROUTER_LATE` never does, and `REPEATER` is invisible to the nodes list, the map, and traceroute. See [Router, Router Late, or Repeater](/blog/router-vs-router-late-vs-repeater-en/).
+
 ## Max Hops
 
 A node can't transmit and receive at the same time — every hop a message takes is airtime every other node has to wait through. The hop limit caps how many times a message can be relayed before the mesh gives up on it (see [Hops](/how-it-works/#hops)). Higher isn't safer; it just means a lost or looping packet burns more shared airtime before it's dropped.
