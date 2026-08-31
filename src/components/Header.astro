@@ -25,23 +25,28 @@ const langSwitchHref = altLocaleHref
     : localizePath(path, otherLocale);
 const homeHref = locale === "es" ? "/es/" : "/";
 
+// `topBar: false` keeps a page out of the desktop bar only — the menu and the
+// footer still list it. The Spanish labels are what set the ceiling: at nine
+// entries the bar needs 883px and only 745px fit.
 const navItemsBase = [
   { label: t.nav.gettingStarted, href: "/getting-started/" },
   { label: t.nav.hardware, href: "/hardware/" },
   { label: t.nav.settings, href: "/settings/" },
-  { label: t.nav.howItWorks, href: "/how-it-works/" },
+  { label: t.nav.howItWorks, href: "/how-it-works/", topBar: false },
   { label: t.nav.prMesh, href: "/pr-mesh/" },
   { label: t.nav.map, href: "/map/" },
   { label: t.nav.blog, href: "/blog/" },
   { label: t.nav.community, href: "/community/" },
-  { label: t.nav.links, href: "/links/" },
+  { label: t.nav.links, href: "/links/", topBar: false },
 ];
 
 // Every top-level page now has an /es/ route, so localize all nav targets.
 const navItems = navItemsBase.map((item) => ({
   label: item.label,
   href: locale === "es" ? `/es${item.href}` : item.href,
+  topBar: item.topBar !== false,
 }));
+const topBarItems = navItems.filter((item) => item.topBar);
 
 function isActive(href: string) {
   if (href === "/" || href === "/es/") return path === href;
@@ -59,7 +64,7 @@ function isActive(href: string) {
 
     <nav class="primary-nav" aria-label={t.nav.primaryNavAria}>
       <ul>
-        {navItems.map((item) => (
+        {topBarItems.map((item) => (
           <li>
             <a href={item.href} aria-current={isActive(item.href) ? "page" : undefined}>{item.label}</a>
           </li>
@@ -130,7 +135,7 @@ function isActive(href: string) {
     align-items: center;
     gap: 0.75rem;
   }
-  @media (min-width: 1080px) {
+  @media (min-width: 1140px) {
     .header-row { gap: 1.5rem; }
   }
   .brand {
@@ -168,9 +173,8 @@ function isActive(href: string) {
   .primary-nav a:hover { color: var(--ink); }
   .primary-nav a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--secondary); font-weight: 600; }
 
-  @media (min-width: 1080px) {
+  @media (min-width: 1140px) {
     .primary-nav { display: block; }
-    .nav-toggle { display: none; }
   }
 
   .header-actions { display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0; }
@@ -211,6 +215,12 @@ function isActive(href: string) {
     .mobile-nav-extra { display: none; }
   }
 
+  /* Declared after `.icon-btn` on purpose: same specificity, so source order
+     decides, and the earlier copy of this rule lost to `display: inline-flex`. */
+  @media (min-width: 1140px) {
+    .nav-toggle { display: none; }
+  }
+
   .mobile-nav { border-top: 1px solid var(--border); background: var(--bg); }
   .mobile-nav ul { list-style: none; margin: 0; padding: 0.5rem 0; }
   .mobile-nav a {
@@ -222,7 +232,7 @@ function isActive(href: string) {
     border-bottom: 1px solid var(--border);
   }
   .mobile-nav a[aria-current="page"] { color: var(--secondary); font-weight: 700; }
-  @media (min-width: 1080px) {
+  @media (min-width: 1140px) {
     .mobile-nav { display: none !important; }
   }
 </style>
