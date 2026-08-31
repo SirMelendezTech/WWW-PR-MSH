@@ -342,6 +342,8 @@ const en = {
         "Reference documentation that inspired this site's structure.",
       azHardware:
         "Reference documentation that inspired this site's structure.",
+      rfindex:
+        "Side-by-side device and antenna specs from Austin Mesh, with bench VSWR measurements and SWR sweep charts. Covers MeshCore hardware too, so check which stack a listing refers to.",
     } as Record<string, string>,
   },
 
@@ -722,6 +724,8 @@ const es: Strings = {
         "Documentación de referencia que inspiró la estructura de este sitio.",
       azHardware:
         "Documentación de referencia que inspiró la estructura de este sitio.",
+      rfindex:
+        "Especificaciones de equipos y antenas lado a lado, de Austin Mesh, con mediciones de VSWR en banco y gráficas de barrido de SWR. También cubre hardware de MeshCore, así que verifica a cuál se refiere cada ficha.",
     },
   },
 

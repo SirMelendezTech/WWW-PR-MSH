@@ -160,6 +160,8 @@ La antena usualmente importa más que la radio a la que está conectada.
 
 Para números reales de ganancia y alcance en modelos de antena específicos, consulta los [Meshtastic Antenna Reports](https://github.com/meshtastic/antenna-reports) — un conjunto de datos colaborativo, enviado por la comunidad de operadores de todo el mundo. No está revisado por Meshtastic PR, pero es una segunda opinión útil más allá de las hojas de especificaciones del fabricante. Si haces tus propias pruebas de antena aquí en Puerto Rico, considera enviar un reporte ahí también.
 
+Para la otra mitad del cuadro — si la antena de verdad está sintonizada a 915 MHz — [RF Index](https://www.rfindex.com/mesh/antennas) publica mediciones de VSWR en banco y gráficas de barrido de SWR para modelos específicos, junto con especificaciones y enlaces de compra. Los reportes de campo te dicen cómo se comportó una antena en el aire; un barrido de SWR te dice cuánta potencia refleja de vuelta al radio en lugar de radiarla. Vale la pena leer ambos antes de comprar, y una antena barata que barre mal en 915 MHz es la razón más común de que un nodo rinda por debajo de su hoja de especificaciones. RF Index lo mantiene la comunidad de Austin Mesh y cubre hardware de MeshCore además de Meshtastic, así que verifica a cuál se refiere cada ficha. No está revisado por Meshtastic PR.
+
 ## Vendedores confiables
 
 Las placas y antenas de imitación circulan en los mercados generales, vendidas como si fueran la placa genuina — compra de la tienda oficial de un fabricante o de uno de los vendedores de abajo cuando sea posible.
@@ -232,5 +234,7 @@ Cada categoría de arriba, lado a lado — precio, batería, GPS, impermeabiliza
 Los nombres de equipos de arriba describen **clases de hardware** comunes en el ecosistema de Meshtastic — la revisión de placa específica dentro de cada clase cambia a medida que los fabricantes iteran, y la disponibilidad se mueve seguido. Contrasta las especificaciones actuales contra la [lista oficial de hardware de Meshtastic](https://meshtastic.org/docs/hardware/devices/) antes de comprar, y confirma el soporte de firmware para lo que elijas.
 
 ¿Buscas ir más allá de las placas de arriba — sensores externos, armados inusuales, placas menos comunes? Consulta la [lista de hardware y sensores de Awesome Meshtastic](https://github.com/SignalGap/awesome-meshtastic#hardware-and-sensors) mantenida por la comunidad para una recopilación más amplia y colaborativa. No está revisada por Meshtastic PR — trátala como un punto de partida, no una recomendación.
+
+Para una placa que no esté en la lista corta de arriba, [RF Index](https://www.rfindex.com/mesh/devices) compara equipos lado a lado con especificaciones actuales, precios y enlaces de compra. La tabla de arriba es una lista corta curada para Puerto Rico; RF Index es el catálogo amplio contra el cual verificar un modelo específico. También lista equipos de MeshCore, así que confirma que una placa corra Meshtastic antes de ordenar.
 
 </details>

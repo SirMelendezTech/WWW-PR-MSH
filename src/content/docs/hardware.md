@@ -159,6 +159,8 @@ The antenna usually matters more than the radio it's attached to.
 
 For real-world gain and range numbers on specific antenna models, see the [Meshtastic Antenna Reports](https://github.com/meshtastic/antenna-reports) — a community-submitted, crowd-sourced dataset from operators worldwide. It isn't vetted by Meshtastic PR, but it's a useful second opinion beyond manufacturer spec sheets. If you run your own antenna tests here in Puerto Rico, consider submitting a report there too.
 
+For the other half of the picture — whether an antenna is actually tuned to 915 MHz — [RF Index](https://www.rfindex.com/mesh/antennas) publishes bench VSWR measurements and SWR sweep charts for specific antenna models, alongside specs and buy links. Field reports tell you how an antenna performed on the air; an SWR sweep tells you how much power it reflects back into the radio instead of radiating. Both are worth reading before you buy, and a cheap antenna that sweeps badly at 915 MHz is the most common reason a node underperforms its spec sheet. RF Index is run by the Austin Mesh community and covers MeshCore hardware alongside Meshtastic, so check which stack a listing refers to. It isn't vetted by Meshtastic PR.
+
 ## Trusted retailers
 
 Knockoff boards and antennas circulate on general marketplaces, sold as if they were the genuine board — buy from a manufacturer's official store or one of the retailers below when possible.
@@ -231,5 +233,7 @@ Every category above, side by side — price, battery, GPS, waterproofing, and t
 Device names above describe **classes of hardware** common in the Meshtastic ecosystem — the specific board revision within each class changes as manufacturers iterate, and availability shifts often. Cross-check current specifications against the [official Meshtastic hardware list](https://meshtastic.org/docs/hardware/devices/) before buying, and confirm firmware support for whatever you pick.
 
 Looking to go beyond the boards above — external sensors, unusual builds, less common boards? See the community-maintained [Awesome Meshtastic hardware & sensors list](https://github.com/SignalGap/awesome-meshtastic#hardware-and-sensors) for a broader, crowd-sourced roundup. It isn't vetted by Meshtastic PR — treat it as a jumping-off point, not a recommendation.
+
+For a board that isn't on the short list above, [RF Index](https://www.rfindex.com/mesh/devices) compares devices side by side with current specs, pricing, and buy links. The table above is a curated shortlist for Puerto Rico; RF Index is the wide catalog to check a specific model against. It also lists MeshCore devices, so confirm a board runs Meshtastic before ordering.
 
 </details>
