@@ -303,6 +303,33 @@ const en = {
     popupLastSeen: "Last seen",
     popupSnr: "SNR",
     popupPrecision: "Position precision",
+    viewsLabel: "Other views of the same mesh",
+    viewsNewTab: " — opens in a new tab",
+    viewsIntro:
+      "This page shows one thing: where nodes are. These read the network along other axes.",
+    views: [
+      {
+        measures: "Position",
+        name: "Malla",
+        url: "https://malla.prmsh.com/map",
+        blurb:
+          "The full map this page reads from, with filters, node history, and coverage over time.",
+      },
+      {
+        measures: "Traffic",
+        name: "MeshView",
+        url: "https://meshview.prmsh.com/",
+        blurb:
+          "Packets as they arrive, and which nodes are hearing each other.",
+      },
+      {
+        measures: "Health",
+        name: "MeshMonitor",
+        url: "https://monitor.prmsh.com/",
+        blurb:
+          "Node-by-node diagnostics — clocks, duplicate keys, and channel use.",
+      },
+    ],
   },
 
   links: {
@@ -324,6 +351,8 @@ const en = {
       palmasmesh: "Puerto Rico Meshtastic community project.",
       mallapr:
         "Puerto Rico network monitor and map — the live data source behind this site's Node Map.",
+      meshview:
+        "Live packet feed for the Puerto Rico mesh — messages, telemetry, and which nodes are hearing each other as traffic arrives.",
       meshtasticOrg:
         "Official Meshtastic project — firmware, apps, and documentation.",
       flasher:
@@ -685,6 +714,33 @@ const es: Strings = {
     popupLastSeen: "Visto por última vez",
     popupSnr: "SNR",
     popupPrecision: "Precisión de posición",
+    viewsLabel: "Otras vistas de la misma malla",
+    viewsNewTab: " — se abre en una pestaña nueva",
+    viewsIntro:
+      "Esta página muestra una sola cosa: dónde están los nodos. Estas leen la red por otros ejes.",
+    views: [
+      {
+        measures: "Posición",
+        name: "Malla",
+        url: "https://malla.prmsh.com/map",
+        blurb:
+          "El mapa completo del que lee esta página, con filtros, historial de nodos y cobertura en el tiempo.",
+      },
+      {
+        measures: "Tráfico",
+        name: "MeshView",
+        url: "https://meshview.prmsh.com/",
+        blurb:
+          "Los paquetes según van entrando, y qué nodos se están oyendo entre sí.",
+      },
+      {
+        measures: "Salud",
+        name: "MeshMonitor",
+        url: "https://monitor.prmsh.com/",
+        blurb:
+          "Diagnóstico nodo por nodo — relojes, llaves duplicadas y uso de canales.",
+      },
+    ],
   },
 
   links: {
@@ -706,6 +762,8 @@ const es: Strings = {
       palmasmesh: "Proyecto comunitario de Meshtastic en Puerto Rico.",
       mallapr:
         "Monitor y mapa de la red de Puerto Rico — la fuente de datos en vivo detrás del Mapa de Nodos de este sitio.",
+      meshview:
+        "Flujo de paquetes en vivo de la malla de Puerto Rico — mensajes, telemetría y qué nodos se oyen entre sí según entra el tráfico.",
       meshtasticOrg:
         "Proyecto oficial de Meshtastic — firmware, apps y documentación.",
       flasher:

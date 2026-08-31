@@ -176,7 +176,10 @@ code { font-family: var(--font-mono); }
   background: color-mix(in srgb, var(--secondary) 7%, var(--bg-raised));
   border-radius: 0 var(--radius-md) var(--radius-md) 0;
   padding: 1em 1.2em;
-  margin: 1.5em 0;
+  /* margin-block only: the shorthand's `0` was overriding `.container`'s
+     `margin-inline: auto`, so a `.container.callout` sat flush left instead
+     of centering with the rest of the page. */
+  margin-block: 1.5em;
 }
 .callout p:last-child { margin-bottom: 0; }
 .callout--warning { border-left-color: var(--accent); background: color-mix(in srgb, var(--accent) 7%, var(--bg-raised)); }

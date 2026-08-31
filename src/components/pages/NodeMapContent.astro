@@ -54,6 +54,24 @@ const nodeDataJson = JSON.stringify(nodes).replace(/<\//g, "<\\/");
   </aside>
 </div>
 
+<section class="container views" aria-labelledby="other-views">
+  <h2 class="docs-sidebar-label" id="other-views">{m.viewsLabel}</h2>
+  <p class="views-intro">{m.viewsIntro}</p>
+  <ul class="views-grid">
+    {m.views.map((v) => (
+      <li>
+        <a class="view-card" href={v.url} target="_blank" rel="noopener noreferrer">
+          <span class="view-measures">{v.measures}</span>
+          <span class="view-name">
+            {v.name}<span class="view-arrow" aria-hidden="true">↗</span><span class="sr-only">{m.viewsNewTab}</span>
+          </span>
+          <span class="view-blurb">{v.blurb}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</section>
+
 <div class="container callout">
   <span class="callout-label">{m.sourceLabel}</span>
   <p>
@@ -102,6 +120,44 @@ const nodeDataJson = JSON.stringify(nodes).replace(/<\//g, "<\\/");
   .status-dot--offline { background: var(--ink-faint); }
   .node-name { display: block; font-weight: 600; font-size: 0.9rem; }
   .node-meta { display: block; font-size: 0.78rem; color: var(--ink-faint); text-transform: capitalize; }
+
+  /* Each of these reads the mesh along a different axis, so the mono label
+     names the measurement rather than numbering the cards. */
+  .views { padding-block: 0 1rem; }
+  .views-intro { max-width: 60ch; font-size: 0.95rem; margin: 0 0 1.25rem; }
+  .views-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+  .view-card {
+    display: grid;
+    gap: 0.35rem;
+    align-content: start;
+    height: 100%;
+    padding: 1.1rem 1.2rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--bg-raised);
+    text-decoration: none;
+    transition: border-color 0.15s ease;
+  }
+  .view-card:hover { border-color: var(--secondary); }
+  .view-measures {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    color: var(--secondary);
+  }
+  .view-name { font-family: var(--font-display); font-weight: 600; font-size: 1.02rem; color: var(--ink); }
+  .view-arrow { margin-left: 0.35em; color: var(--ink-faint); }
+  .view-card:hover .view-name, .view-card:hover .view-arrow { color: var(--secondary); }
+  .view-blurb { font-size: 0.86rem; color: var(--ink-soft); line-height: 1.5; }
 
   .callout p { margin: 0; }
   .callout-note { margin-top: 0.6em !important; font-size: 0.9rem; color: var(--ink-faint); }
