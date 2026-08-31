@@ -10,7 +10,7 @@ lang: es
 translationKey: duplicate-keys
 ---
 
-En la [página de Security del monitor](https://meshtasticpr.duckdns.org/source/d9d92629-16d4-4de9-839d-30f62216e354/security) hay una segunda cosa que llama la atención además de los relojes: nodos marcados con **llaves duplicadas**.
+En la [página de Security del monitor](https://monitor.prmsh.com/source/d9d92629-16d4-4de9-839d-30f62216e354/security) hay una segunda cosa que llama la atención además de los relojes: nodos marcados con **llaves duplicadas**.
 
 Vale la pena entender exactamente qué significa eso, porque es la advertencia más seria que el monitor puede darte — y porque una parte considerable de lo que estás viendo ahora mismo probablemente no es un problema de seguridad, sino un artefacto de la actualización a 2.8.
 
@@ -157,7 +157,7 @@ Pero lo que separa este caso del de los relojes es que aquí ya se hizo el traba
 
 **Fuentes**
 
-- [Monitor de la malla de Puerto Rico](https://meshtasticpr.duckdns.org/source/d9d92629-16d4-4de9-839d-30f62216e354/security) — página de Security de donde salen estas observaciones
+- [Monitor de la malla de Puerto Rico](https://monitor.prmsh.com/source/d9d92629-16d4-4de9-839d-30f62216e354/security) — página de Security de donde salen estas observaciones
 - [GHSA-gq7v-jr8c-mfr7 — Repeated Public/Private Keypairs](https://github.com/meshtastic/firmware/security/advisories/GHSA-gq7v-jr8c-mfr7) — aviso oficial de Meshtastic
 - [CVE-2025-52464](https://nvd.nist.gov/vuln/detail/CVE-2025-52464) — NVD
 - [CVE-2025-55293](https://nvd.nist.gov/vuln/detail/cve-2025-55293) — sobreescritura de llave pública vía NodeInfo, corregido en 2.6.3

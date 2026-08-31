@@ -10,7 +10,7 @@ lang: es
 translationKey: nodes-out-of-time
 ---
 
-Mirando el [monitor de la malla de Puerto Rico](https://meshtasticpr.duckdns.org/source/d9d92629-16d4-4de9-839d-30f62216e354/security) hay un patrón que se repite: un montón de nodos con la hora mal. No unos segundos — mal de verdad, timestamps que no tienen sentido.
+Mirando el [monitor de la malla de Puerto Rico](https://monitor.prmsh.com/source/d9d92629-16d4-4de9-839d-30f62216e354/security) hay un patrón que se repite: un montón de nodos con la hora mal. No unos segundos — mal de verdad, timestamps que no tienen sentido.
 
 Mi primera reacción fue: esos nodos están sordos. Si Meshtastic distribuye la hora por la malla, un nodo con la hora mal es un nodo que no está escuchando a nadie. Y de ahí el salto obvio: la causa probable es la antena, porque el repositorio oficial de pruebas de antenas marca varias de las antenas de fábrica como no recomendadas.
 
@@ -82,7 +82,7 @@ En una isla donde los cortes de luz no son excepcionales, esto no es un caso rar
 
 Esta es la que más me costó aceptar.
 
-Un dato importante, y me incluyo: la [página de **Security**](https://meshtasticpr.duckdns.org/source/d9d92629-16d4-4de9-839d-30f62216e354/security) que estaba mirando no es una página de relojes. En MeshMonitor esa vista está diseñada para detectar nodos con llaves de cifrado débiles (baja entropía) y llaves duplicadas compartidas entre varios nodos. Si estás viendo timestamps raros ahí, lo más probable es que estés leyendo una columna de *last heard*, que es una cosa distinta a "la hora que el nodo cree que es".
+Un dato importante, y me incluyo: la [página de **Security**](https://monitor.prmsh.com/source/d9d92629-16d4-4de9-839d-30f62216e354/security) que estaba mirando no es una página de relojes. En MeshMonitor esa vista está diseñada para detectar nodos con llaves de cifrado débiles (baja entropía) y llaves duplicadas compartidas entre varios nodos. Si estás viendo timestamps raros ahí, lo más probable es que estés leyendo una columna de *last heard*, que es una cosa distinta a "la hora que el nodo cree que es".
 
 La diferencia importa:
 
@@ -145,7 +145,7 @@ Lo que sí vale la pena publicar es la lista de comprobación. Si alguien de la 
 
 **Fuentes**
 
-- [Monitor de la malla de Puerto Rico](https://meshtasticpr.duckdns.org/source/d9d92629-16d4-4de9-839d-30f62216e354/security) — la instancia de MeshMonitor de donde salen las observaciones de este post
+- [Monitor de la malla de Puerto Rico](https://monitor.prmsh.com/source/d9d92629-16d4-4de9-839d-30f62216e354/security) — la instancia de MeshMonitor de donde salen las observaciones de este post
 - [Proposal: Accurate-ish time/date/clock/NTP sync across mesh](https://github.com/meshtastic/firmware/discussions/7273) — discusión #7273, respuesta del mantenedor sobre la jerarquía de fuentes de hora
 - [`src/gps/RTC.h`](https://github.com/meshtastic/firmware/blob/master/src/gps/RTC.h) — lista de prioridades en el código
 - [Bug: RTC time overwritten with uptime on platforms without hardware RTC](https://github.com/meshtastic/firmware/issues/9828) — issue #9828

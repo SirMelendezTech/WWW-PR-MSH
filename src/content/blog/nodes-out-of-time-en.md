@@ -11,7 +11,7 @@ readingTime: 10 min
 
 # Nodes Out of Time: The Free Diagnostic That Almost Nobody Is Reading
 
-Looking at the [Puerto Rico mesh monitor](https://meshtasticpr.duckdns.org/source/d9d92629-16d4-4de9-839d-30f62216e354/security), there is a recurring pattern: a lot of nodes have the wrong time. Not off by a few seconds—wrong by a lot, with timestamps that make no sense.
+Looking at the [Puerto Rico mesh monitor](https://monitor.prmsh.com/source/d9d92629-16d4-4de9-839d-30f62216e354/security), there is a recurring pattern: a lot of nodes have the wrong time. Not off by a few seconds—wrong by a lot, with timestamps that make no sense.
 
 My first reaction was: those nodes are deaf. If Meshtastic distributes time through the mesh, a node with the wrong time is a node that isn't hearing anyone. And from there came the obvious conclusion: the likely cause is the antenna, because the official antenna-testing repository lists several factory antennas as not recommended.
 
@@ -103,7 +103,7 @@ On an island where power outages are not unusual, this is not a rare scenario.
 
 This was the one that took me the longest to accept.
 
-An important point, and I include myself here: the [**Security** page](https://meshtasticpr.duckdns.org/source/d9d92629-16d4-4de9-839d-30f62216e354/security) I was looking at is not a clock page.
+An important point, and I include myself here: the [**Security** page](https://monitor.prmsh.com/source/d9d92629-16d4-4de9-839d-30f62216e354/security) I was looking at is not a clock page.
 
 In MeshMonitor, that view is designed to detect nodes with weak encryption keys (low entropy) and duplicate keys shared between multiple nodes.
 
@@ -196,7 +196,7 @@ If someone in the community wants to run it against their own node and share the
 
 ## Sources
 
-* [Puerto Rico Mesh Monitor](https://meshtasticpr.duckdns.org/source/d9d92629-16d4-4de9-839d-30f62216e354/security) — the MeshMonitor instance from which the observations in this post come
+* [Puerto Rico Mesh Monitor](https://monitor.prmsh.com/source/d9d92629-16d4-4de9-839d-30f62216e354/security) — the MeshMonitor instance from which the observations in this post come
 * [Proposal: Accurate-ish time/date/clock/NTP sync across mesh](https://github.com/meshtastic/firmware/discussions/7273) — Discussion #7273, maintainer response regarding the time-source hierarchy
 * [`src/gps/RTC.h`](https://github.com/meshtastic/firmware/blob/master/src/gps/RTC.h) — priority list in the code
 * [Bug: RTC time overwritten with uptime on platforms without hardware RTC](https://github.com/meshtastic/firmware/issues/9828) — Issue #9828

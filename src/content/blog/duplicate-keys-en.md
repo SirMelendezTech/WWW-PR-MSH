@@ -178,7 +178,7 @@ And because the fix depends on people who aren't responding, the useful part of 
 
 ## Sources
 
-* [Puerto Rico Mesh Monitor](https://meshtasticpr.duckdns.org/source/d9d92629-16d4-4de9-839d-30f62216e354/security) — Security page where these observations come from
+* [Puerto Rico Mesh Monitor](https://monitor.prmsh.com/source/d9d92629-16d4-4de9-839d-30f62216e354/security) — Security page where these observations come from
 * [GHSA-gq7v-jr8c-mfr7 — Repeated Public/Private Keypairs](https://github.com/meshtastic/firmware/security/advisories/GHSA-gq7v-jr8c-mfr7) — Official Meshtastic advisory
 * [CVE-2025-52464](https://nvd.nist.gov/vuln/detail/CVE-2025-52464) — NVD
 * [CVE-2025-55293](https://nvd.nist.gov/vuln/detail/cve-2025-55293) — Public-key overwrite via NodeInfo, fixed in 2.6.3

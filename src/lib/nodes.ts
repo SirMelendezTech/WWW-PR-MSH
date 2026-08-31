@@ -1,7 +1,7 @@
 // Node map data layer.
 //
 // getNodes() fetches live Puerto Rico node positions from the Meshtastic PR
-// Network Monitor (malla-pr.sirhome.org), which runs Malla
+// Network Monitor (malla.prmsh.com), which runs Malla
 // (https://github.com/zenitraM/malla, MIT). This runs at build time inside
 // Astro's server-side render, not in the browser, so it isn't subject to
 // the API's lack of CORS headers. If the fetch fails (network hiccup during
@@ -22,7 +22,7 @@ export interface MeshNode {
   snr?: number;
 }
 
-const MALLA_LOCATIONS_URL = "https://malla-pr.sirhome.org/api/locations";
+const MALLA_LOCATIONS_URL = "https://malla.prmsh.com/api/locations";
 
 interface MallaLocation {
   node_id: number;
