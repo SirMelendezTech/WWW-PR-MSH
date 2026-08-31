@@ -48,7 +48,10 @@ img, svg { max-width: 100%; display: block; }
   width: 100%;
   max-width: var(--container);
   margin-inline: auto;
-  padding-inline: 20px;
+  padding-inline: 16px;
+}
+@media (min-width: 420px) {
+  .container { padding-inline: 20px; }
 }
 @media (min-width: 720px) {
   .container { padding-inline: 32px; }

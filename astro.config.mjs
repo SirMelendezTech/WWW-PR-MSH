@@ -5,6 +5,8 @@ import mdx from '@astrojs/mdx';
 
 import sitemap from '@astrojs/sitemap';
 
+import rehypeTableWrap from './plugins/rehype-table-wrap.mjs';
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://prmsh.com',
@@ -17,6 +19,9 @@ export default defineConfig({
       },
     }),
   ],
+  markdown: {
+    rehypePlugins: [rehypeTableWrap],
+  },
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'es'],

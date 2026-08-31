@@ -17,6 +17,7 @@ const t = useStrings(lang).themeToggle;
 
 <style>
   .theme-toggle {
+    position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -29,6 +30,18 @@ const t = useStrings(lang).themeToggle;
     cursor: pointer;
   }
   .theme-toggle:hover { color: var(--secondary); border-color: var(--secondary); }
+
+  /* Keep the 38px visual box but grow the touch target to 44px on phones. */
+  .theme-toggle::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 44px;
+    height: 44px;
+    transform: translate(-50%, -50%);
+  }
+
   .icon-moon { display: none; }
   :root[data-theme="dark"] .icon-sun { display: none; }
   :root[data-theme="dark"] .icon-moon { display: block; }

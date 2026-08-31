@@ -75,7 +75,7 @@ function isActive(href: string) {
       </button>
       <a
         href={GITHUB_REPO_URL || "#"}
-        class="icon-btn"
+        class="icon-btn header-extra"
         aria-label={t.nav.viewSourceAria}
         target={GITHUB_REPO_URL ? "_blank" : undefined}
         rel={GITHUB_REPO_URL ? "noopener noreferrer" : undefined}
@@ -84,7 +84,7 @@ function isActive(href: string) {
           <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/>
         </svg>
       </a>
-      <a href={langSwitchHref} data-lang-choice={otherLocale} class="icon-btn lang-switch" aria-label={otherLocale === "es" ? t.nav.switchToSpanish : t.nav.switchToEnglish}>
+      <a href={langSwitchHref} data-lang-choice={otherLocale} class="icon-btn lang-switch header-extra" aria-label={otherLocale === "es" ? t.nav.switchToSpanish : t.nav.switchToEnglish}>
         {otherLocale.toUpperCase()}
       </a>
       <ThemeToggle lang={locale} />
@@ -101,6 +101,16 @@ function isActive(href: string) {
       {navItems.map((item) => (
         <li><a href={item.href} aria-current={isActive(item.href) ? "page" : undefined}>{item.label}</a></li>
       ))}
+      <li class="mobile-nav-extra">
+        <a href={langSwitchHref} data-lang-choice={otherLocale}>
+          {otherLocale === "es" ? t.nav.switchToSpanish : t.nav.switchToEnglish}
+        </a>
+      </li>
+      {GITHUB_REPO_URL && (
+        <li class="mobile-nav-extra">
+          <a href={GITHUB_REPO_URL} target="_blank" rel="noopener noreferrer">{t.nav.viewSourceAria}</a>
+        </li>
+      )}
     </ul>
   </nav>
 </header>
@@ -118,7 +128,10 @@ function isActive(href: string) {
     height: var(--header-h);
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 0.75rem;
+  }
+  @media (min-width: 1080px) {
+    .header-row { gap: 1.5rem; }
   }
   .brand {
     display: inline-flex;
@@ -128,7 +141,10 @@ function isActive(href: string) {
     margin-right: auto;
     flex-shrink: 0;
   }
-  .brand-text { font-family: var(--font-display); font-weight: 700; font-size: 1.12rem; color: var(--ink); letter-spacing: -0.01em; }
+  .brand-text { font-family: var(--font-display); font-weight: 700; font-size: 1rem; color: var(--ink); letter-spacing: -0.01em; }
+  @media (min-width: 420px) {
+    .brand-text { font-size: 1.12rem; }
+  }
   .brand-name { }
   .brand-suffix {
     color: var(--accent);
@@ -159,6 +175,7 @@ function isActive(href: string) {
 
   .header-actions { display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0; }
   .icon-btn {
+    position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -171,7 +188,28 @@ function isActive(href: string) {
     cursor: pointer;
   }
   .icon-btn:hover { color: var(--secondary); border-color: var(--secondary); }
+
+  /* Keep the 38px visual box but grow the touch target to 44px on phones. */
+  .icon-btn::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 44px;
+    height: 44px;
+    transform: translate(-50%, -50%);
+  }
+
   .lang-switch { font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.02em; text-decoration: none; width: auto; padding: 0 0.7em; }
+
+  /* Below 520px the row only fits the brand plus three controls, so the
+     GitHub and language links move into the menu instead of overflowing. */
+  .header-extra { display: none; }
+  .mobile-nav-extra { display: block; }
+  @media (min-width: 520px) {
+    .header-extra { display: inline-flex; }
+    .mobile-nav-extra { display: none; }
+  }
 
   .mobile-nav { border-top: 1px solid var(--border); background: var(--bg); }
   .mobile-nav ul { list-style: none; margin: 0; padding: 0.5rem 0; }
