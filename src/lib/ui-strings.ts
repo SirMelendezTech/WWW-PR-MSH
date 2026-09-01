@@ -318,9 +318,9 @@ const en = {
       {
         measures: "Traffic",
         name: "MeshView",
-        url: "https://meshview.prmsh.com/",
+        url: "https://meshview.prmsh.com/map",
         blurb:
-          "Packets as they arrive, and which nodes are hearing each other.",
+          "The same island with the links drawn in — who is hearing whom, over a live packet feed.",
       },
       {
         measures: "Health",
@@ -729,9 +729,9 @@ const es: Strings = {
       {
         measures: "Tráfico",
         name: "MeshView",
-        url: "https://meshview.prmsh.com/",
+        url: "https://meshview.prmsh.com/map",
         blurb:
-          "Los paquetes según van entrando, y qué nodos se están oyendo entre sí.",
+          "La misma isla con los enlaces dibujados — quién oye a quién, sobre un flujo de paquetes en vivo.",
       },
       {
         measures: "Salud",
