@@ -73,6 +73,10 @@ Position data shared this way is typically rounded to a coarser precision than t
 
 **Store and forward** lets a capable node cache messages and replay them to devices that were briefly out of range or asleep when the message first went out — useful for nodes that sleep to save battery, or for catching a handheld up after it reconnects. It only works on boards with a chunk of extra onboard memory (PSRAM) to hold the message queue — the ESP32-based boards mentioned in [Recommended Hardware](/hardware/) qualify, most simpler nRF52840 handhelds don't. A board with default settings can typically hold on the order of several thousand recent messages before the oldest ones age out.
 
+## MeshCore
+
+**MeshCore** is a separate LoRa mesh firmware — a different project from Meshtastic, running on much of the same hardware, and the two networks cannot talk to each other. It turns up on this site only where a shared resource covers both, like the device and antenna tables at [RF Index](https://www.rfindex.com/): a board listed there for MeshCore will not join the Puerto Rico mesh until you flash Meshtastic onto it.
+
 <style>
   .hop-diagram {
     display: flex;

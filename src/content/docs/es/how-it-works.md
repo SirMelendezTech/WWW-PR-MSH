@@ -74,6 +74,10 @@ Los datos de posición compartidos de esta forma típicamente se redondean a una
 
 **Store and forward** (almacenar y reenviar) permite que un nodo capaz guarde mensajes en caché y los reproduzca a equipos que estaban brevemente fuera de alcance o dormidos cuando el mensaje salió por primera vez — útil para nodos que duermen para ahorrar batería, o para poner al día a un equipo de mano después de que se reconecta. Solo funciona en placas con un bloque de memoria interna adicional (PSRAM) para retener la cola de mensajes — las placas basadas en ESP32 mencionadas en [Hardware Recomendado](/es/hardware/) califican, la mayoría de los equipos de mano nRF52840 más simples no. Una placa con la configuración por defecto típicamente puede retener del orden de varios miles de mensajes recientes antes de que los más viejos venzan.
 
+## MeshCore
+
+**MeshCore** es un firmware de malla LoRa aparte — un proyecto distinto de Meshtastic, que corre en buena parte del mismo hardware, y las dos redes no se hablan entre sí. En este sitio aparece solo donde un recurso compartido cubre ambos, como las tablas de equipos y antenas de [RF Index](https://www.rfindex.com/): una placa listada ahí para MeshCore no se une a la malla de Puerto Rico hasta que le flashees Meshtastic.
+
 <style>
   .hop-diagram {
     display: flex;
