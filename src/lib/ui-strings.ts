@@ -150,18 +150,22 @@ const en = {
     featuresTitle: "Off-grid, low-cost, and built together",
     features: [
       {
+        kicker: "Without a tower",
         title: "Off-Grid Communication",
         body: "Communicate using LoRa radios without relying on cellular networks or internet access.",
       },
       {
+        kicker: "Without permission",
         title: "Build the Mesh",
         body: "Add a node anywhere useful — home, rooftop, or trail — to extend coverage for everyone nearby.",
       },
       {
+        kicker: "Without a contract",
         title: "Low Cost",
         body: "Start experimenting for the price of a nice dinner, with hardware that keeps working for years.",
       },
       {
+        kicker: "Without a company",
         title: "Community Powered",
         body: "Learn, experiment, and improve the network together — no company decides how it's used.",
       },
@@ -564,18 +568,22 @@ const es: Strings = {
     featuresTitle: "Sin red eléctrica, de bajo costo y construida en conjunto",
     features: [
       {
+        kicker: "Sin torre",
         title: "Comunicación Sin Red",
         body: "Comunícate usando radios LoRa sin depender de redes celulares ni acceso a internet.",
       },
       {
+        kicker: "Sin permiso",
         title: "Construye la Malla",
         body: "Añade un nodo en cualquier lugar útil — casa, techo o vereda — para ampliar la cobertura de todos los que te rodean.",
       },
       {
+        kicker: "Sin contrato",
         title: "Bajo Costo",
         body: "Empieza a experimentar por el precio de una buena cena, con hardware que sigue funcionando por años.",
       },
       {
+        kicker: "Sin compañía",
         title: "Impulsada por la Comunidad",
         body: "Aprende, experimenta y mejora la red en conjunto — ninguna compañía decide cómo se usa.",
       },

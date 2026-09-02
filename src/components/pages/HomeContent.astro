@@ -1,6 +1,5 @@
 ---
 import TerrainSignature from "../TerrainSignature.astro";
-import FeatureCard from "../FeatureCard.astro";
 import MeshMapPreview from "../MeshMapPreview.astro";
 import type { Locale } from "../../lib/i18n";
 import { localizePath } from "../../lib/i18n";
@@ -16,13 +15,6 @@ const p = (href: string) => localizePath(href, lang);
 const posts = (await getBlogPosts(lang)).slice(0, 3);
 const { nodes: meshNodes, live: meshLive } = await getNodes();
 
-const icons = {
-  offgrid: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 20V10"/><path d="M8 8a5.6 5.6 0 0 1 8 0"/><path d="M5 5a10 10 0 0 1 14 0"/><circle cx="12" cy="20" r="1.4" fill="currentColor" stroke="none"/></svg>`,
-  build: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="6" cy="18" r="2.4"/><circle cx="18" cy="6" r="2.4"/><circle cx="18" cy="18" r="2.4"/><path d="M8.1 16.6 15.9 8"/><path d="M8.4 17.8h7.2"/></svg>`,
-  cost: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 7v6c0 5 4 8 9 9 5-1 9-4 9-9V7z"/><path d="M9.5 12h5M12 9.5v5"/></svg>`,
-  community: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="18" cy="9" r="2.4"/><path d="M15.5 14.3c2.3.4 4.5 2.5 4.5 5.7"/></svg>`,
-};
-const featureIcons = [icons.offgrid, icons.build, icons.cost, icons.community];
 ---
 <section class="hero">
   <div class="hero-terrain" aria-hidden="true"><TerrainSignature variant="hero" /></div>
@@ -63,11 +55,17 @@ const featureIcons = [icons.offgrid, icons.build, icons.cost, icons.community];
       <p class="eyebrow">{h.featuresEyebrow}</p>
       <h2>{h.featuresTitle}</h2>
     </div>
-    <div class="feature-grid">
-      {h.features.map((feature, i) => (
-        <FeatureCard title={feature.title} icon={featureIcons[i]}>{feature.body}</FeatureCard>
+    <dl class="claims">
+      {h.features.map((feature) => (
+        <div class="claim">
+          <dt>
+            <span class="claim-kicker">{feature.kicker}</span>
+            <span class="claim-title">{feature.title}</span>
+          </dt>
+          <dd>{feature.body}</dd>
+        </div>
       ))}
-    </div>
+    </dl>
   </div>
 </section>
 
@@ -183,7 +181,28 @@ const featureIcons = [icons.offgrid, icons.build, icons.cost, icons.community];
   .link-arrow { display: inline-block; margin-top: 1.25rem; font-weight: 600; text-decoration: none; color: var(--secondary); }
   .link-arrow:hover { text-decoration: underline; }
 
-  .feature-grid { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+  /* Every one of these four claims is really an absence — no tower, no
+     permission, no contract, no company — so the kicker names what the mesh
+     does without, and that repetition replaces four icons in tinted chips.
+     Two uneven columns rather than a four-up wall of equal cards. */
+  .claims { display: grid; grid-template-columns: 1fr; margin: 0; }
+  @media (min-width: 780px) {
+    .claims { grid-template-columns: 1.15fr 1fr; column-gap: 3.5rem; }
+  }
+  .claim { border-top: 1px solid var(--border); padding: 1.35rem 0 1.5rem; }
+  .claim dt { margin: 0; }
+  .claim-kicker {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.13em;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+  .claim-title { display: block; font-family: var(--font-display); font-weight: 600; font-size: 1.15rem; color: var(--ink); }
+  .claim dd { margin: 0.5rem 0 0; max-width: 46ch; color: var(--ink-soft); }
 
   .quickstart-list { list-style: none; margin: 0 0 2rem; padding: 0; display: grid; gap: 1.1rem; max-width: 640px; }
   .quickstart-list li { display: flex; gap: 1.1rem; align-items: flex-start; }
