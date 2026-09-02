@@ -12,6 +12,11 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+  # Rebuild every 6 hours so the map picks up fresh node data from Malla
+  # (the API is read at build time, not from the browser).
+  schedule:
+    - cron: "0 */6 * * *"
+
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
