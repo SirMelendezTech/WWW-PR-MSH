@@ -395,6 +395,11 @@ const en = {
     sampleNodes: "sample nodes",
     statOf: "of",
     statOnline: "online",
+    mapAria: (total: number, online: number) =>
+      `Map of Puerto Rico, Vieques and St. Thomas showing ${total} mesh nodes, ${online} of them online. Node markers cluster around the San Juan metro area and the east of the island.`,
+    legendOnline: "Heard in the last 3 hours",
+    legendOffline: "Quiet longer than that",
+    legendHint: "Point at a node for its name",
     cta: "View full map →",
   },
 
@@ -806,6 +811,11 @@ const es: Strings = {
     sampleNodes: "nodos de muestra",
     statOf: "de",
     statOnline: "en línea",
+    mapAria: (total: number, online: number) =>
+      `Mapa de Puerto Rico, Vieques y St. Thomas con ${total} nodos de la malla, ${online} de ellos en línea. Los nodos se concentran en el área metropolitana de San Juan y el este de la isla.`,
+    legendOnline: "Escuchado en las últimas 3 horas",
+    legendOffline: "Callado desde hace más",
+    legendHint: "Apunta a un nodo para ver su nombre",
     cta: "Ver el mapa completo →",
   },
 
