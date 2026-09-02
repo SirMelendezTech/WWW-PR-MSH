@@ -120,7 +120,7 @@ const en = {
     title: "Meshtastic Puerto Rico",
     description:
       "Meshtastic Puerto Rico is a community resource for building, learning about, and expanding decentralized LoRa mesh communication throughout Puerto Rico.",
-    heroEyebrow: "Meshtastic Puerto Rico",
+    heroEyebrow: "Community LoRa network · Puerto Rico",
     heroTitle: "Stays connected when everything else goes down.",
     heroSub1:
       "Meshtastic Puerto Rico is a community-built radio network that lets you send messages without cell service, Wi-Fi, or the internet. You pair a small, affordable radio with an app on your phone — that radio talks directly to nearby radios, relaying your message from one to the next until it reaches its destination.",
@@ -538,7 +538,7 @@ const es: Strings = {
     title: "Meshtastic Puerto Rico",
     description:
       "Meshtastic Puerto Rico es un recurso comunitario para construir, aprender sobre y ampliar la comunicación mesh LoRa descentralizada por todo Puerto Rico.",
-    heroEyebrow: "Meshtastic Puerto Rico",
+    heroEyebrow: "Red LoRa comunitaria · Puerto Rico",
     heroTitle: "Sigue conectada cuando todo lo demás se cae.",
     heroSub1:
       "Meshtastic Puerto Rico es una red de radio construida por la comunidad que te permite enviar mensajes sin servicio celular, Wi-Fi ni internet. Emparejas una radio pequeña y económica con una app en tu teléfono — esa radio se comunica directamente con radios cercanas, retransmitiendo tu mensaje de una a otra hasta que llega a su destino.",

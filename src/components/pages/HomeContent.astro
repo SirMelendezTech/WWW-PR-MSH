@@ -19,14 +19,18 @@ const { nodes: meshNodes, live: meshLive } = await getNodes();
 <section class="hero">
   <div class="hero-terrain" aria-hidden="true"><TerrainSignature variant="hero" /></div>
   <div class="container hero-inner">
-    <p class="eyebrow">{h.heroEyebrow}</p>
-    <h1>{h.heroTitle}</h1>
-    <p class="hero-sub">{h.heroSub1}</p>
-    <p class="hero-sub">{h.heroSub2}</p>
-    <p class="hero-sub">{h.heroSub3}</p>
-    <div class="hero-actions">
-      <a href={p("/getting-started/")} class="btn btn-primary">{h.heroCtaPrimary}</a>
-      <a href={p("/pr-mesh/")} class="btn btn-secondary">{h.heroCtaSecondary}</a>
+    <div class="hero-lead">
+      <p class="eyebrow">{h.heroEyebrow}</p>
+      <h1>{h.heroTitle}</h1>
+      <p class="hero-sub">{h.heroSub1}</p>
+      <div class="hero-actions">
+        <a href={p("/getting-started/")} class="btn btn-primary">{h.heroCtaPrimary}</a>
+        <a href={p("/pr-mesh/")} class="link-arrow hero-alt">{h.heroCtaSecondary}</a>
+      </div>
+    </div>
+    <div class="hero-aside">
+      <p class="hero-pull">{h.heroSub3}</p>
+      <p class="hero-note">{h.heroSub2}</p>
     </div>
   </div>
 </section>
@@ -149,16 +153,51 @@ const { nodes: meshNodes, live: meshLive } = await getNodes();
 </section>
 
 <style>
-  .hero { position: relative; overflow: hidden; padding-top: 3rem; }
+  .hero { position: relative; overflow: hidden; padding-top: 2.5rem; }
   .hero-terrain { position: absolute; inset: auto 0 0 0; height: 150px; z-index: 0; opacity: 0.6; pointer-events: none; }
-  .hero-inner { position: relative; z-index: 1; padding-bottom: 11rem; max-width: 760px; }
+
+  /* Two columns that deliberately do not start level: the argument sits lower
+     and narrower than the explanation, so the eye reaches it second. */
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.25rem;
+    padding-bottom: 8.5rem;
+  }
+  @media (min-width: 900px) {
+    .hero-inner { grid-template-columns: 1.35fr 1fr; column-gap: 4rem; align-items: start; }
+    .hero-aside { padding-top: 6.5rem; }
+  }
   @media (max-width: 640px) {
     .hero-terrain { height: 110px; }
-    .hero-inner { padding-bottom: 8rem; }
+    .hero-inner { padding-bottom: 7rem; }
   }
   .hero h1 { margin-top: 0.5rem; }
-  .hero-sub { font-size: 1.15rem; max-width: 56ch; margin-top: 1rem; }
-  .hero-actions { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-top: 1.75rem; }
+
+  /* The three paragraphs were doing three different jobs at one size: this one
+     explains, the pull states the argument, the note is an aside. */
+  .hero-sub { font-size: 1.22rem; max-width: 52ch; margin: 1.1rem 0 0; color: var(--ink-soft); }
+  .hero-pull {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.25rem, 1.05rem + 0.7vw, 1.6rem);
+    line-height: 1.28;
+    color: var(--ink);
+    border-left: 3px solid var(--accent);
+    padding-left: 1.15rem;
+    margin: 0;
+  }
+  .hero-note { margin: 1.15rem 0 0 calc(1.15rem + 3px); font-size: 1rem; max-width: 40ch; color: var(--ink-faint); }
+
+  /* One button and one link, not two buttons: these are not equal actions. */
+  .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1.4rem; margin-top: 2rem; }
+  .hero-alt { margin-top: 0; }
+  @media (max-width: 640px) {
+    .hero-actions { gap: 1.1rem; }
+    .hero-actions .btn { width: 100%; }
+  }
 
   .section { padding-block: 4rem; }
   .section-head { max-width: 60ch; margin-bottom: 2rem; }
