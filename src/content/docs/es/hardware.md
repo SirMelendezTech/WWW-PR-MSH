@@ -231,10 +231,14 @@ Cada categoría de arriba, lado a lado — precio, batería, GPS, impermeabiliza
 
 </div>
 
-Los nombres de equipos de arriba describen **clases de hardware** comunes en el ecosistema de Meshtastic — la revisión de placa específica dentro de cada clase cambia a medida que los fabricantes iteran, y la disponibilidad se mueve seguido. Contrasta las especificaciones actuales contra la [lista oficial de hardware de Meshtastic](https://meshtastic.org/docs/hardware/devices/) antes de comprar, y confirma el soporte de firmware para lo que elijas.
-
-¿Buscas ir más allá de las placas de arriba — sensores externos, armados inusuales, placas menos comunes? Consulta la [lista de hardware y sensores de Awesome Meshtastic](https://github.com/SignalGap/awesome-meshtastic#hardware-and-sensors) mantenida por la comunidad para una recopilación más amplia y colaborativa. No está revisada por Meshtastic PR — trátala como un punto de partida, no una recomendación.
-
-Para una placa que no esté en la lista corta de arriba, [RF Index](https://www.rfindex.com/mesh/devices) compara equipos lado a lado con especificaciones actuales, precios y enlaces de compra. La tabla de arriba es una lista corta curada para Puerto Rico; RF Index es el catálogo amplio contra el cual verificar un modelo específico. También lista equipos de MeshCore, así que confirma que una placa corra Meshtastic antes de ordenar.
+Los nombres de equipos de esa tabla describen **clases de hardware** comunes en el ecosistema de Meshtastic — la revisión de placa específica dentro de cada clase cambia a medida que los fabricantes iteran, y la disponibilidad se mueve seguido. Contrasta las especificaciones actuales contra la [lista oficial de hardware de Meshtastic](https://meshtastic.org/docs/hardware/devices/) antes de comprar, y confirma el soporte de firmware para lo que elijas.
 
 </details>
+
+## Más allá de la lista corta
+
+Las categorías de esta página son un punto de partida curado para Puerto Rico, no el campo entero.
+
+Para sensores externos, armados inusuales o placas menos comunes, la [lista de hardware y sensores de Awesome Meshtastic](https://github.com/SignalGap/awesome-meshtastic#hardware-and-sensors) mantenida por la comunidad es una recopilación más amplia y colaborativa. No está revisada por Meshtastic PR — trátala como un punto de partida, no una recomendación.
+
+Para verificar un modelo específico, [RF Index](https://www.rfindex.com/mesh/devices) compara equipos lado a lado con especificaciones actuales, precios y enlaces de compra. También lista equipos de MeshCore, así que confirma que una placa corra Meshtastic antes de ordenar.

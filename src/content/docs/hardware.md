@@ -230,10 +230,14 @@ Every category above, side by side — price, battery, GPS, waterproofing, and t
 
 </div>
 
-Device names above describe **classes of hardware** common in the Meshtastic ecosystem — the specific board revision within each class changes as manufacturers iterate, and availability shifts often. Cross-check current specifications against the [official Meshtastic hardware list](https://meshtastic.org/docs/hardware/devices/) before buying, and confirm firmware support for whatever you pick.
-
-Looking to go beyond the boards above — external sensors, unusual builds, less common boards? See the community-maintained [Awesome Meshtastic hardware & sensors list](https://github.com/SignalGap/awesome-meshtastic#hardware-and-sensors) for a broader, crowd-sourced roundup. It isn't vetted by Meshtastic PR — treat it as a jumping-off point, not a recommendation.
-
-For a board that isn't on the short list above, [RF Index](https://www.rfindex.com/mesh/devices) compares devices side by side with current specs, pricing, and buy links. The table above is a curated shortlist for Puerto Rico; RF Index is the wide catalog to check a specific model against. It also lists MeshCore devices, so confirm a board runs Meshtastic before ordering.
+Device names in that table describe **classes of hardware** common in the Meshtastic ecosystem — the specific board revision within each class changes as manufacturers iterate, and availability shifts often. Cross-check current specifications against the [official Meshtastic hardware list](https://meshtastic.org/docs/hardware/devices/) before buying, and confirm firmware support for whatever you pick.
 
 </details>
+
+## Beyond the shortlist
+
+The categories on this page are a curated starting point for Puerto Rico, not the whole field.
+
+For external sensors, unusual builds, or less common boards, the community-maintained [Awesome Meshtastic hardware & sensors list](https://github.com/SignalGap/awesome-meshtastic#hardware-and-sensors) is a broader, crowd-sourced roundup. It isn't vetted by Meshtastic PR — treat it as a jumping-off point, not a recommendation.
+
+To check a specific model, [RF Index](https://www.rfindex.com/mesh/devices) compares devices side by side with current specs, pricing, and buy links. It also lists MeshCore devices, so confirm a board runs Meshtastic before ordering.
