@@ -19,64 +19,83 @@ const hurricanePost = lang === "es" ? "lista-preparacion-huracanes-es" : "hurric
   <p class="page-lede">{c.lede}</p>
 </div>
 
-<div class="container community-grid">
-  <section class="community-card">
-    <h2>{c.projectsHeading}</h2>
-    <p>{c.projectsBody}</p>
-  </section>
-
-  <section class="community-card" id="operators">
-    <h2>{c.operatorsHeading}</h2>
-    <p>{c.operatorsBodyBefore}<a href={p("/pr-mesh/")}>{c.operatorsBodyLink}</a>{c.operatorsBodyAfter}</p>
-  </section>
-
-  <section class="community-card" id="events">
-    <h2>{c.eventsHeading}</h2>
-    <p>{c.eventsBodyBefore}<a href={p("/links/")}>{c.eventsBodyLink}</a>{c.eventsBodyAfter}</p>
-  </section>
-
-  <section class="community-card" id="field-testing">
-    <h2>{c.fieldTestingHeading}</h2>
-    <p>{c.fieldTestingBody1Before}<a href={p("/blog/")}>{c.fieldTestingBody1Link}</a>{c.fieldTestingBody1After}</p>
-    <p>{c.fieldTestingBody2Before}<a href="https://github.com/meshtastic/antenna-reports" target="_blank" rel="noopener noreferrer">{c.fieldTestingBody2Link}<span class="sr-only"> {t.opensInNewTab}</span></a>{c.fieldTestingBody2After}</p>
-  </section>
-
-  <section class="community-card" id="emergency-comms">
-    <h2>{c.emergencyHeading}</h2>
-    <p>{c.emergencyBodyBefore}<a href={blogPostHref(lang, hurricanePost)}>{c.emergencyBodyLink}</a>{c.emergencyBodyAfter}</p>
-  </section>
-
-  <section class="community-card" id="contribute">
-    <h2>{c.contributeHeading}</h2>
-    <ul>
-      {c.contributeItems.map((item) => <li>{item.text}</li>)}
-      <li>{c.contributeItem3Before}<a href={p("/pr-mesh/")}>{c.contributeItem3Link}</a>{c.contributeItem3After}</li>
-      <li>{c.contributeItem4}</li>
-    </ul>
-  </section>
+<div class="container community-list">
+  {[
+    { id: "projects", heading: c.projectsHeading },
+    { id: "operators", heading: c.operatorsHeading },
+    { id: "events", heading: c.eventsHeading },
+    { id: "field-testing", heading: c.fieldTestingHeading },
+    { id: "emergency-comms", heading: c.emergencyHeading },
+    { id: "contribute", heading: c.contributeHeading },
+  ].map((entry, i) => (
+    <section class="community-entry" id={entry.id}>
+      <p class="entry-mark">
+        <span class="entry-num" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+        <span>{entry.heading}</span>
+      </p>
+      <div class="entry-body">
+        {entry.id === "projects" && <p>{c.projectsBody}</p>}
+        {entry.id === "operators" && (
+          <p>{c.operatorsBodyBefore}<a href={p("/pr-mesh/")}>{c.operatorsBodyLink}</a>{c.operatorsBodyAfter}</p>
+        )}
+        {entry.id === "events" && (
+          <p>{c.eventsBodyBefore}<a href={p("/links/")}>{c.eventsBodyLink}</a>{c.eventsBodyAfter}</p>
+        )}
+        {entry.id === "field-testing" && (
+          <Fragment>
+            <p>{c.fieldTestingBody1Before}<a href={p("/blog/")}>{c.fieldTestingBody1Link}</a>{c.fieldTestingBody1After}</p>
+            <p>{c.fieldTestingBody2Before}<a href="https://github.com/meshtastic/antenna-reports" target="_blank" rel="noopener noreferrer">{c.fieldTestingBody2Link}<span class="sr-only"> {t.opensInNewTab}</span></a>{c.fieldTestingBody2After}</p>
+          </Fragment>
+        )}
+        {entry.id === "emergency-comms" && (
+          <p>{c.emergencyBodyBefore}<a href={blogPostHref(lang, hurricanePost)}>{c.emergencyBodyLink}</a>{c.emergencyBodyAfter}</p>
+        )}
+        {entry.id === "contribute" && (
+          <ul class="contribute-list">
+            {c.contributeItems.map((item) => <li>{item.text}</li>)}
+            <li>{c.contributeItem3Before}<a href={p("/pr-mesh/")}>{c.contributeItem3Link}</a>{c.contributeItem3After}</li>
+            <li>{c.contributeItem4}</li>
+          </ul>
+        )}
+      </div>
+    </section>
+  ))}
 </div>
 
 <style>
   .page-head { padding-block: 2.5rem 1rem; max-width: 68ch; }
   .page-lede { font-size: 1.1rem; margin-top: 0.5rem; }
 
-  .community-grid {
+  .community-list { padding-block: 2rem 5rem; }
+
+  .community-entry {
     display: grid;
-    gap: 1.5rem;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    padding-block: 1.5rem 5rem;
-  }
-  .community-card {
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 1.75rem;
-    background: var(--bg-raised);
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    border-top: 1px solid var(--border);
+    padding-block: 1.75rem 2rem;
     scroll-margin-top: calc(var(--header-h) + 16px);
   }
-  .community-card h2 { font-size: 1.15rem; margin-bottom: 0.6rem; color: var(--secondary); }
-  .community-card p { font-size: 0.95rem; margin: 0; }
-  .community-card p + p { margin-top: 0.75rem; }
-  .community-card ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
-  .community-card li { padding-left: 1.3em; position: relative; font-size: 0.95rem; color: var(--ink-soft); }
-  .community-card li::before { content: "›"; position: absolute; left: 0; color: var(--secondary); font-weight: 700; }
+  @media (min-width: 820px) {
+    .community-entry { grid-template-columns: 13rem minmax(0, 1fr); gap: 0 2.5rem; align-items: start; }
+  }
+
+  .entry-mark {
+    display: flex;
+    gap: 0.7rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+  .entry-num { color: var(--accent); font-weight: 700; }
+
+  .entry-body p { font-size: 0.98rem; margin: 0; max-width: 64ch; }
+  .entry-body p + p { margin-top: 0.85rem; }
+
+  .contribute-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
+  .contribute-list li { padding-left: 1.3em; position: relative; font-size: 0.98rem; color: var(--ink-soft); max-width: 64ch; }
+  .contribute-list li::before { content: "›"; position: absolute; left: 0; color: var(--secondary); font-weight: 700; }
 </style>
