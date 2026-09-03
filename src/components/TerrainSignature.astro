@@ -1,6 +1,11 @@
 ---
 // Signature graphic: Cordillera Central elevation profile with LoRa hop arcs
-// jumping peak to peak, line-of-sight style. Reused in hero + section dividers.
+// jumping peak to peak, line-of-sight style.
+//
+// variant="hero": on load, the ridge draws itself and a single packet crosses
+// the island hop by hop, each node lighting as it forwards — the mesh's whole
+// mechanism in one ~3s move. It runs once, then rests static.
+// variant="divider": the quiet ambient version for section breaks and banners.
 interface Props {
   variant?: "hero" | "divider";
   class?: string;
@@ -21,13 +26,17 @@ function arc(a: { x: number; y: number }, b: { x: number; y: number }) {
   const peak = Math.min(a.y, b.y) - 46;
   return `M${a.x},${a.y - 10} Q${mx},${peak} ${b.x},${b.y - 10}`;
 }
+
+const hops = nodes.slice(0, -1).map((n, i) => arc(n, nodes[i + 1]));
+// packet timing: first hop leaves at 1.0s, 0.34s per hop + 0.09s dwell at each node
+const hopBegin = (i: number) => (i === 0 ? "1s" : `pk${i - 1}.end+0.09s`);
 ---
 <svg
   class:list={["terrain-sig", `terrain-sig--${variant}`, className]}
   viewBox="0 0 1200 260"
   preserveAspectRatio="xMidYMax slice"
   role="img"
-  aria-label="Elevation profile of Puerto Rico's central mountains with radio nodes relaying signal peak to peak"
+  aria-label="Elevation profile of Puerto Rico's central mountains with radio nodes relaying a signal peak to peak"
 >
   <defs>
     <linearGradient id="terrain-fill" x1="0" y1="0" x2="0" y2="1">
@@ -36,15 +45,14 @@ function arc(a: { x: number; y: number }, b: { x: number; y: number }) {
     </linearGradient>
   </defs>
 
-  <!-- contour lines -->
   <g class="terrain-contours" fill="none" stroke="var(--border-strong)" stroke-width="1">
     <path d="M0,240 60,214 140,228 220,158 300,196 380,126 460,174 540,102 620,154 700,116 780,164 860,136 940,178 1020,146 1100,204 1180,186 1200,240" opacity="0.55" />
     <path d="M0,252 60,232 140,244 220,192 300,214 380,166 460,204 540,148 620,190 700,164 780,200 860,180 940,208 1020,188 1100,220 1180,210 1200,252" opacity="0.35" />
   </g>
 
-  <!-- ridge silhouette -->
   <path
     class="terrain-ridge"
+    pathLength="1"
     d="M0,240 60,214 140,228 220,158 300,196 380,126 460,174 540,102 620,154 700,116 780,164 860,136 940,178 1020,146 1100,204 1180,186 1200,240 V260 H0 Z"
     fill="url(#terrain-fill)"
     stroke="var(--secondary)"
@@ -52,22 +60,32 @@ function arc(a: { x: number; y: number }, b: { x: number; y: number }) {
     stroke-opacity="0.7"
   />
 
-  <!-- hop arcs -->
   <g class="terrain-hops" fill="none" stroke="var(--accent)" stroke-width="1.75" stroke-linecap="round">
-    {nodes.slice(0, -1).map((n, i) => (
-      <path d={arc(n, nodes[i + 1])} class="hop-arc" style={`--d:${i}`} />
+    {hops.map((d, i) => (
+      <path id={`hop-${i}`} d={d} pathLength="1" class="hop-arc" style={`--i:${i}`} />
     ))}
   </g>
 
-  <!-- node markers -->
   <g class="terrain-nodes">
     {nodes.map((n, i) => (
-      <g class="node-mark" style={`--d:${i}`}>
+      <g class="node-mark" style={`--i:${i}`}>
         <circle cx={n.x} cy={n.y - 10} r="9" fill="var(--secondary)" opacity="0.16" class="node-pulse" />
         <circle cx={n.x} cy={n.y - 10} r="3.5" fill="var(--secondary)" stroke="var(--bg)" stroke-width="1.5" />
       </g>
     ))}
   </g>
+
+  {variant === "hero" && (
+    <g class="terrain-packet">
+      <circle r="10" fill="var(--accent)" opacity="0.22" />
+      <circle r="3.5" fill="var(--accent)" />
+      {hops.map((_, i) => (
+        <animateMotion id={`pk${i}`} begin={hopBegin(i)} dur="0.34s" fill="freeze">
+          <mpath href={`#hop-${i}`} />
+        </animateMotion>
+      ))}
+    </g>
+  )}
 </svg>
 
 <style>
@@ -78,25 +96,84 @@ function arc(a: { x: number; y: number }, b: { x: number; y: number }) {
   }
   .terrain-sig--divider { height: 90px; opacity: 0.85; }
 
-  .hop-arc {
+  /* ---- divider: ambient loop ---- */
+  .terrain-sig--divider .hop-arc {
     stroke-dasharray: 4 5;
     animation: hop-flow 6s linear infinite;
   }
-  .node-pulse {
+  .terrain-sig--divider .node-pulse {
+    transform-box: fill-box;
     transform-origin: center;
     animation: node-pulse 3.4s ease-in-out infinite;
-    animation-delay: calc(var(--d) * 0.4s);
+    animation-delay: calc(var(--i) * 0.4s);
   }
-
-  @keyframes hop-flow {
-    to { stroke-dashoffset: -90; }
-  }
+  @keyframes hop-flow { to { stroke-dashoffset: -90; } }
   @keyframes node-pulse {
     0%, 100% { transform: scale(1); opacity: 0.16; }
     50% { transform: scale(1.9); opacity: 0.02; }
   }
 
+  /* ---- hero: one-shot arrival sequence ---- */
+  .terrain-sig--hero .terrain-contours { opacity: 0; animation: t-fade 0.8s 0.3s both; }
+
+  .terrain-sig--hero .terrain-ridge {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    fill-opacity: 0;
+    animation: ridge-draw 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  @keyframes ridge-draw {
+    0% { stroke-dashoffset: 1; fill-opacity: 0; }
+    55% { fill-opacity: 0; }
+    100% { stroke-dashoffset: 0; fill-opacity: 1; }
+  }
+
+  .terrain-sig--hero .hop-arc {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    opacity: 0;
+    animation: arc-fire 0.5s calc(1s + var(--i) * 0.43s) forwards;
+  }
+  @keyframes arc-fire {
+    0% { stroke-dashoffset: 1; opacity: 0; }
+    20% { opacity: 0.95; }
+    70% { stroke-dashoffset: 0; opacity: 0.95; }
+    100% { stroke-dashoffset: 0; opacity: 0.38; }
+  }
+
+  .terrain-sig--hero .node-mark {
+    opacity: 0;
+    animation: t-fade 0.5s calc(0.9s + var(--i) * 0.43s) both;
+  }
+  .terrain-sig--hero .node-pulse {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: node-ping 0.7s calc(0.9s + var(--i) * 0.43s) both;
+  }
+  @keyframes node-ping {
+    0% { opacity: 0.5; transform: scale(0.4); }
+    70%, 100% { opacity: 0; transform: scale(2.4); }
+  }
+
+  .terrain-sig--hero .terrain-packet {
+    opacity: 0;
+    animation: packet-life 3.3s linear forwards;
+  }
+  @keyframes packet-life {
+    0%, 30% { opacity: 0; }
+    33% { opacity: 1; }
+    95% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+
+  @keyframes t-fade { from { opacity: 0; } to { opacity: 1; } }
+
   @media (prefers-reduced-motion: reduce) {
-    .hop-arc, .node-pulse { animation: none; }
+    .terrain-sig * { animation: none !important; }
+    .terrain-ridge { stroke-dashoffset: 0; fill-opacity: 1; }
+    .hop-arc { stroke-dasharray: 4 5; stroke-dashoffset: 0; opacity: 0.4; }
+    .node-mark { opacity: 1; }
+    .node-pulse { opacity: 0.16; }
+    .terrain-packet { display: none; }
   }
 </style>

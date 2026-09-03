@@ -159,7 +159,7 @@ const { nodes: meshNodes, live: meshLive } = await getNodes();
 
 <style>
   .hero { position: relative; overflow: hidden; padding-top: 2.5rem; }
-  .hero-terrain { position: absolute; inset: auto 0 0 0; height: 150px; z-index: 0; opacity: 0.6; pointer-events: none; }
+  .hero-terrain { position: absolute; inset: auto 0 0 0; height: 200px; z-index: 0; opacity: 0.72; pointer-events: none; }
 
   /* Two columns that deliberately do not start level: the argument sits lower
      and narrower than the explanation, so the eye reaches it second. */
@@ -176,10 +176,33 @@ const { nodes: meshNodes, live: meshLive } = await getNodes();
     .hero-aside { padding-top: 6.5rem; }
   }
   @media (max-width: 640px) {
-    .hero-terrain { height: 110px; }
+    .hero-terrain { height: 130px; }
     .hero-inner { padding-bottom: 7rem; }
   }
   .hero h1 { margin-top: 0.5rem; }
+
+  /* The text arrives on the same clock as the terrain sequence: the lead
+     settles in the first second, the aside lands as the packet reaches the
+     far coast (~1.8s). One orchestrated load, not six separate entrances. */
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-lead > .eyebrow,
+    .hero-lead > h1,
+    .hero-lead > .hero-sub,
+    .hero-lead > .hero-actions,
+    .hero-aside {
+      opacity: 0;
+      animation: hero-rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .hero-lead > .eyebrow { animation-delay: 0.2s; }
+    .hero-lead > h1 { animation-delay: 0.35s; }
+    .hero-lead > .hero-sub { animation-delay: 0.6s; }
+    .hero-lead > .hero-actions { animation-delay: 0.85s; }
+    .hero-aside { animation-delay: 1.8s; }
+  }
+  @keyframes hero-rise {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: none; }
+  }
 
   /* The three paragraphs were doing three different jobs at one size: this one
      explains, the pull states the argument, the note is an aside. */
