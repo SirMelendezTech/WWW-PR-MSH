@@ -126,16 +126,21 @@ const { nodes: meshNodes, live: meshLive } = await getNodes();
         <p class="eyebrow">{h.blogEyebrow}</p>
         <h2>{h.blogTitle}</h2>
       </div>
-      <div class="post-grid">
-        {posts.map((post) => (
-          <a class="post-card" href={blogPostHref(lang, post.id)}>
-            <span class="post-category">{categoryLabel(lang, post.data.category)}</span>
-            <h3>{post.data.title}</h3>
-            <p>{post.data.description}</p>
-            <span class="post-meta">{post.data.author} · {post.data.readingTime}</span>
-          </a>
+      <ol class="post-log">
+        {posts.map((post, i) => (
+          <li>
+            <a href={blogPostHref(lang, post.id)}>
+              <span class="post-log-num" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+              <span class="post-log-main">
+                <span class="post-category">{categoryLabel(lang, post.data.category)}</span>
+                <span class="post-log-title">{post.data.title}</span>
+                <span class="post-log-desc">{post.data.description}</span>
+                <span class="post-meta">{post.data.author} · {post.data.readingTime}</span>
+              </span>
+            </a>
+          </li>
         ))}
-      </div>
+      </ol>
       <a href={p("/blog/")} class="link-arrow">{h.blogReadAll}</a>
     </div>
   </section>
@@ -258,21 +263,28 @@ const { nodes: meshNodes, live: meshLive } = await getNodes();
   .split-card--accent .eyebrow::before { background: var(--primary-ink); }
   .split-card--accent .btn-primary { background: var(--bg-raised); color: var(--primary); }
 
-  .post-grid { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); margin-bottom: 1.5rem; }
-  .post-card {
-    display: block;
+  /* Same log treatment as the blog index — three most recent as rows against
+     a numbered rail, not a card wall. */
+  .post-log { list-style: none; margin: 0 0 1.5rem; padding: 0; }
+  .post-log li { border-top: 1px solid var(--border); }
+  .post-log a {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.15rem 1.5rem;
+    padding: 1.3rem 0 1.4rem;
     text-decoration: none;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 1.5rem;
-    background: var(--bg-raised);
-    transition: border-color 0.15s ease, transform 0.15s ease;
+    color: inherit;
   }
-  .post-card:hover { border-color: var(--secondary); transform: translateY(-2px); }
-  .post-category { font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--secondary); }
-  .post-card h3 { font-size: 1.05rem; margin: 0.5rem 0 0.4rem; color: var(--ink); }
-  .post-card p { font-size: 0.88rem; margin: 0 0 0.75rem; }
-  .post-meta { font-size: 0.78rem; color: var(--ink-faint); }
+  @media (min-width: 560px) {
+    .post-log a { grid-template-columns: 3rem minmax(0, 1fr); }
+  }
+  .post-log-num { font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-faint); padding-top: 0.2rem; }
+  .post-log-main { display: block; min-width: 0; }
+  .post-category { font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--secondary); display: block; margin-bottom: 0.3rem; }
+  .post-log-title { display: block; font-family: var(--font-display); font-weight: 600; font-size: 1.1rem; line-height: 1.25; color: var(--ink); }
+  .post-log a:hover .post-log-title { color: var(--secondary); text-decoration: underline; text-underline-offset: 3px; }
+  .post-log-desc { display: block; margin-top: 0.3rem; max-width: 56ch; font-size: 0.9rem; color: var(--ink-soft); }
+  .post-meta { display: block; margin-top: 0.45rem; font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-faint); }
 
   .cta-section { background: var(--bg-sunken); border-top: 1px solid var(--border); text-align: center; }
   .cta-inner { max-width: 620px; margin-inline: auto; }

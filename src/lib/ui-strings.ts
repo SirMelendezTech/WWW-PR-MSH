@@ -111,6 +111,9 @@ const en = {
     readSuffix: "read",
     relatedHeading: "Related articles",
     tagsLabel: "Tags",
+    bylineAuthor: "Author",
+    bylineFiled: "Filed",
+    bylineReading: "Reading",
   },
 
   home: {
@@ -526,6 +529,9 @@ const es: Strings = {
     readSuffix: "de lectura",
     relatedHeading: "Artículos relacionados",
     tagsLabel: "Etiquetas",
+    bylineAuthor: "Autor",
+    bylineFiled: "Publicado",
+    bylineReading: "Lectura",
   },
 
   home: {
