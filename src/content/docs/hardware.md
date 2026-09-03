@@ -23,7 +23,7 @@ Almost every board on this page is built around one of two chip families, and it
 
 For a backpack, glovebox, belt clip, or pocket. Priorities: battery life, size, and a display you can read outdoors. These almost always run as **Client** or **Client Mute** — see [Node Roles](/settings/#node-roles).
 
-- **Budget entry point**: boards like the Seeed Wio Tracker L1 (~$30, 800 mAh, built-in GPS, small OLED) get you on the mesh cheaply. The L1 Pro variant (~$43) adds a bigger screen and solar charging.
+- **Budget entry point**: boards like the Seeed Wio Tracker L1 (around $30 — 800 mAh, built-in GPS, small OLED) get you on the mesh cheaply. The L1 Pro variant (about $43) adds a bigger screen and solar charging.
 - **Best battery life**: boards that take a standard 18650 cell — the Heltec T114 is a common example (~$25–45 depending on configuration) — can stretch to roughly a week between charges, versus 2–3 days for smaller fixed-battery boards.
 - **Sunlight-readable**: E-ink displays stay visible in direct sun and sip almost no power to hold an image — the LILYGO T-Echo (~$60–68) is a common pick, typically good for 5–7 days of normal use. E-ink boards built on the SX1262 radio can be permanently damaged if powered on with no antenna attached — always connect the antenna before powering up.
 - **Premium / most rugged**: boards like the RAK WisMesh Pocket V2 (~$89–99, IP66-rated, external SMA antenna) trade size for a bigger battery and better sealing — a reasonable step up for daily carry or boat use.
@@ -230,10 +230,14 @@ Every category above, side by side — price, battery, GPS, waterproofing, and t
 
 </div>
 
-Device names above describe **classes of hardware** common in the Meshtastic ecosystem — the specific board revision within each class changes as manufacturers iterate, and availability shifts often. Cross-check current specifications against the [official Meshtastic hardware list](https://meshtastic.org/docs/hardware/devices/) before buying, and confirm firmware support for whatever you pick.
-
-Looking to go beyond the boards above — external sensors, unusual builds, less common boards? See the community-maintained [Awesome Meshtastic hardware & sensors list](https://github.com/SignalGap/awesome-meshtastic#hardware-and-sensors) for a broader, crowd-sourced roundup. It isn't vetted by Meshtastic PR — treat it as a jumping-off point, not a recommendation.
-
-For a board that isn't on the short list above, [RF Index](https://www.rfindex.com/mesh/devices) compares devices side by side with current specs, pricing, and buy links. The table above is a curated shortlist for Puerto Rico; RF Index is the wide catalog to check a specific model against. It also lists MeshCore devices, so confirm a board runs Meshtastic before ordering.
+Device names in that table describe **classes of hardware** common in the Meshtastic ecosystem — the specific board revision within each class changes as manufacturers iterate, and availability shifts often. Cross-check current specifications against the [official Meshtastic hardware list](https://meshtastic.org/docs/hardware/devices/) before buying, and confirm firmware support for whatever you pick.
 
 </details>
+
+## Beyond the shortlist
+
+The categories on this page are a curated starting point for Puerto Rico, not the whole field.
+
+For external sensors, unusual builds, or less common boards, the community-maintained [Awesome Meshtastic hardware & sensors list](https://github.com/SignalGap/awesome-meshtastic#hardware-and-sensors) is a broader, crowd-sourced roundup. It isn't vetted by Meshtastic PR — treat it as a jumping-off point, not a recommendation.
+
+To check a specific model, [RF Index](https://www.rfindex.com/mesh/devices) compares devices side by side with current specs, pricing, and buy links. It also lists MeshCore devices, so confirm a board runs Meshtastic before ordering.

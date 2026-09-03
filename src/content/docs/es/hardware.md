@@ -24,7 +24,7 @@ Casi todas las placas de esta página están construidas alrededor de una de dos
 
 Para una mochila, guantera, clip de cinturón o bolsillo. Prioridades: duración de batería, tamaño y una pantalla que puedas leer al aire libre. Estos casi siempre corren como **Client** o **Client Mute** — consulta [Roles de Nodo](/es/settings/#roles-de-nodo).
 
-- **Punto de entrada económico**: placas como la Seeed Wio Tracker L1 (~$30, 800 mAh, GPS integrado, OLED pequeña) te ponen en la malla barato. La variante L1 Pro (~$43) añade una pantalla más grande y carga solar.
+- **Punto de entrada económico**: placas como la Seeed Wio Tracker L1 (unos $30 — 800 mAh, GPS integrado, OLED pequeña) te ponen en la malla barato. La variante L1 Pro (unos $43) añade una pantalla más grande y carga solar.
 - **Mejor duración de batería**: placas que usan una celda 18650 estándar — la Heltec T114 es un ejemplo común (~$25–45 según la configuración) — pueden estirarse a cerca de una semana entre cargas, frente a 2–3 días para placas más pequeñas de batería fija.
 - **Legible bajo el sol**: las pantallas de tinta electrónica se mantienen visibles bajo sol directo y consumen casi nada de energía para retener una imagen — la LILYGO T-Echo (~$60–68) es una elección común, típicamente buena para 5–7 días de uso normal. Las placas de tinta electrónica construidas sobre la radio SX1262 pueden dañarse permanentemente si se encienden sin antena conectada — siempre conecta la antena antes de encender.
 - **Premium / más robusto**: placas como la RAK WisMesh Pocket V2 (~$89–99, con certificación IP66, antena SMA externa) cambian tamaño por una batería más grande y mejor sellado — un paso razonable hacia arriba para carga diaria o uso en bote.
@@ -231,10 +231,14 @@ Cada categoría de arriba, lado a lado — precio, batería, GPS, impermeabiliza
 
 </div>
 
-Los nombres de equipos de arriba describen **clases de hardware** comunes en el ecosistema de Meshtastic — la revisión de placa específica dentro de cada clase cambia a medida que los fabricantes iteran, y la disponibilidad se mueve seguido. Contrasta las especificaciones actuales contra la [lista oficial de hardware de Meshtastic](https://meshtastic.org/docs/hardware/devices/) antes de comprar, y confirma el soporte de firmware para lo que elijas.
-
-¿Buscas ir más allá de las placas de arriba — sensores externos, armados inusuales, placas menos comunes? Consulta la [lista de hardware y sensores de Awesome Meshtastic](https://github.com/SignalGap/awesome-meshtastic#hardware-and-sensors) mantenida por la comunidad para una recopilación más amplia y colaborativa. No está revisada por Meshtastic PR — trátala como un punto de partida, no una recomendación.
-
-Para una placa que no esté en la lista corta de arriba, [RF Index](https://www.rfindex.com/mesh/devices) compara equipos lado a lado con especificaciones actuales, precios y enlaces de compra. La tabla de arriba es una lista corta curada para Puerto Rico; RF Index es el catálogo amplio contra el cual verificar un modelo específico. También lista equipos de MeshCore, así que confirma que una placa corra Meshtastic antes de ordenar.
+Los nombres de equipos de esa tabla describen **clases de hardware** comunes en el ecosistema de Meshtastic — la revisión de placa específica dentro de cada clase cambia a medida que los fabricantes iteran, y la disponibilidad se mueve seguido. Contrasta las especificaciones actuales contra la [lista oficial de hardware de Meshtastic](https://meshtastic.org/docs/hardware/devices/) antes de comprar, y confirma el soporte de firmware para lo que elijas.
 
 </details>
+
+## Más allá de la lista corta
+
+Las categorías de esta página son un punto de partida curado para Puerto Rico, no el campo entero.
+
+Para sensores externos, armados inusuales o placas menos comunes, la [lista de hardware y sensores de Awesome Meshtastic](https://github.com/SignalGap/awesome-meshtastic#hardware-and-sensors) mantenida por la comunidad es una recopilación más amplia y colaborativa. No está revisada por Meshtastic PR — trátala como un punto de partida, no una recomendación.
+
+Para verificar un modelo específico, [RF Index](https://www.rfindex.com/mesh/devices) compara equipos lado a lado con especificaciones actuales, precios y enlaces de compra. También lista equipos de MeshCore, así que confirma que una placa corra Meshtastic antes de ordenar.
