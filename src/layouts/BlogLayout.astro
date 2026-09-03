@@ -31,13 +31,20 @@ const dateStr = pubDate.toLocaleDateString(lang === "es" ? "es-PR" : "en-US", { 
       <span class="post-category">{categoryLabel(lang, category)}</span>
       <h1>{title}</h1>
       <p class="post-lede">{description}</p>
-      <div class="post-byline">
-        <span>{author}</span>
-        <span aria-hidden="true">·</span>
-        <time datetime={pubDate.toISOString()}>{dateStr}</time>
-        <span aria-hidden="true">·</span>
-        <span>{readingTime} {t.readSuffix}</span>
-      </div>
+      <dl class="post-byline">
+        <div>
+          <dt>{t.bylineAuthor}</dt>
+          <dd>{author}</dd>
+        </div>
+        <div>
+          <dt>{t.bylineFiled}</dt>
+          <dd><time datetime={pubDate.toISOString()}>{dateStr}</time></dd>
+        </div>
+        <div>
+          <dt>{t.bylineReading}</dt>
+          <dd>{readingTime}</dd>
+        </div>
+      </dl>
     </div>
 
     <div class="post-banner" aria-hidden="true"><TerrainSignature variant="divider" /></div>
@@ -51,7 +58,7 @@ const dateStr = pubDate.toLocaleDateString(lang === "es" ? "es-PR" : "en-US", { 
           <div class="post-tags">
             <p class="docs-sidebar-label">{t.tagsLabel}</p>
             <ul>
-              {tags.map((tag) => <li class="badge">{tag}</li>)}
+              {tags.map((tag) => <li>{tag}</li>)}
             </ul>
           </div>
         )}
@@ -61,14 +68,16 @@ const dateStr = pubDate.toLocaleDateString(lang === "es" ? "es-PR" : "en-US", { 
     {related.length > 0 && (
       <div class="container related-section">
         <h2>{t.relatedHeading}</h2>
-        <div class="related-grid">
+        <ul class="related-list">
           {related.map((r) => (
-            <a class="related-card" href={postHref(r.id)}>
-              <span class="post-category post-category--sm">{categoryLabel(lang, r.category)}</span>
-              <span class="related-title">{r.title}</span>
-            </a>
+            <li>
+              <a href={postHref(r.id)}>
+                <span class="post-category post-category--sm">{categoryLabel(lang, r.category)}</span>
+                <span class="related-title">{r.title}</span>
+              </a>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     )}
   </article>
@@ -87,7 +96,29 @@ const dateStr = pubDate.toLocaleDateString(lang === "es" ? "es-PR" : "en-US", { 
   }
   .post h1 { margin-top: 0.2rem; }
   .post-lede { font-size: 1.1rem; color: var(--ink-soft); }
-  .post-byline { display: flex; gap: 0.6rem; color: var(--ink-faint); font-size: 0.85rem; margin-top: 0.5rem; }
+
+  /* A filed-record header, not a Medium byline: mono labels over values,
+     sitting on a hairline. */
+  .post-byline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.75rem;
+    margin: 1.25rem 0 0;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+  .post-byline dt {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+  }
+  .post-byline dd {
+    margin: 0.2rem 0 0;
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+  }
 
   .post-banner { height: 110px; margin-top: 2rem; opacity: 0.8; border-block: 1px solid var(--border); background: var(--bg-sunken); }
 
@@ -96,20 +127,16 @@ const dateStr = pubDate.toLocaleDateString(lang === "es" ? "es-PR" : "en-US", { 
   .post-prose { max-width: 68ch; min-width: 0; }
   .post-aside { font-size: 0.88rem; }
   .docs-sidebar-label { font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-faint); margin: 0 0 0.75rem; }
-  .post-tags ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .post-tags ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.3rem 0.9rem; }
+  .post-tags li { font-family: var(--font-mono); font-size: 0.78rem; color: var(--ink-soft); }
+  .post-tags li::before { content: "#"; color: var(--ink-faint); }
 
   .related-section { border-top: 1px solid var(--border); padding-block: 3rem 4rem; }
-  .related-section h2 { font-size: 1.2rem; margin-bottom: 1.25rem; }
-  .related-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
-  .related-card {
-    display: block;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    padding: 1.1rem 1.2rem;
-    text-decoration: none;
-    background: var(--bg-raised);
-  }
-  .related-card:hover { border-color: var(--secondary); }
-  .post-category--sm { margin: 0 0 0.3rem; }
-  .related-title { display: block; font-family: var(--font-display); font-weight: 600; color: var(--ink); font-size: 0.95rem; }
+  .related-section h2 { font-size: 1.2rem; margin-bottom: 1rem; }
+  .related-list { list-style: none; margin: 0; padding: 0; max-width: 640px; }
+  .related-list li { border-top: 1px solid var(--border); }
+  .related-list a { display: block; padding: 1rem 0; text-decoration: none; }
+  .post-category--sm { display: block; margin: 0 0 0.25rem; }
+  .related-title { display: block; font-family: var(--font-display); font-weight: 600; color: var(--ink); font-size: 1rem; }
+  .related-list a:hover .related-title { color: var(--secondary); text-decoration: underline; text-underline-offset: 3px; }
 </style>

@@ -11,85 +11,209 @@ const b = t.blogIndex;
 
 const posts = await getBlogPosts(lang);
 const categories = ["All", ...Array.from(new Set(posts.map((p) => p.data.category)))];
+
+// Posts arrive newest-first. Break them into year sections so the index reads
+// as a running log rather than a wall of equal cards.
+const years: { year: number; posts: typeof posts }[] = [];
+for (const post of posts) {
+  const year = post.data.pubDate.getUTCFullYear();
+  const bucket = years.at(-1);
+  if (bucket && bucket.year === year) bucket.posts.push(post);
+  else years.push({ year, posts: [post] });
+}
+
+const dayFmt = new Intl.DateTimeFormat(lang === "es" ? "es-PR" : "en-US", {
+  month: "short",
+  day: "2-digit",
+  timeZone: "UTC",
+});
+const countLabel = posts.length === 1 ? b.countSuffixOne : b.countSuffix;
 ---
 <div class="container blog-head">
   <Breadcrumbs lang={lang} items={[{ label: b.title }]} />
   <p class="eyebrow">{b.eyebrow}</p>
   <h1>{b.h1}</h1>
   <p class="blog-lede">{b.lede}</p>
+  <p class="blog-count"><span>{String(posts.length).padStart(2, "0")}</span> {countLabel}</p>
 </div>
 
 <div class="container blog-filters" role="group" aria-label={b.filterAria}>
-  {categories.map((c) => (
-    <button class="filter-chip" data-category={c} aria-pressed={c === "All" ? "true" : "false"}>{categoryLabel(lang, c)}</button>
+  {categories.map((c, i) => (
+    <Fragment>
+      {i > 0 && <span class="filter-sep" aria-hidden="true">/</span>}
+      <button class="filter-toggle" data-category={c} aria-pressed={c === "All" ? "true" : "false"}>
+        {categoryLabel(lang, c)}
+      </button>
+    </Fragment>
   ))}
 </div>
 
-<div class="container post-grid" id="post-grid">
-  {posts.map((post) => (
-    <a class="post-card" href={blogPostHref(lang, post.id)} data-category={post.data.category}>
-      <span class="post-category">{categoryLabel(lang, post.data.category)}</span>
-      <h2>{post.data.title}</h2>
-      <p>{post.data.description}</p>
-      <span class="post-meta">{post.data.author} · {post.data.readingTime} {b.readSuffix}</span>
-    </a>
+<div class="container blog-log" id="post-log">
+  {years.map(({ year, posts }) => (
+    <section class="log-year" data-year={year}>
+      <h2 class="year-mark" aria-hidden="true">{year}</h2>
+      <ol class="year-posts">
+        {posts.map((post) => (
+          <li class="log-row" data-category={post.data.category}>
+            <a href={blogPostHref(lang, post.id)}>
+              <span class="row-date">
+                <time datetime={post.data.pubDate.toISOString()}>{dayFmt.format(post.data.pubDate)}</time>
+              </span>
+              <span class="row-main">
+                <span class="row-category">{categoryLabel(lang, post.data.category)}</span>
+                <span class="row-title">{post.data.title}</span>
+                <span class="row-desc">{post.data.description}</span>
+                <span class="row-meta">{post.data.author} · {post.data.readingTime} {b.readSuffix}</span>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </section>
   ))}
 </div>
 <p id="no-posts" class="no-posts" hidden>{b.noPosts}</p>
 
 <style>
-  .blog-head { padding-block: 2.5rem 1.5rem; max-width: 68ch; }
+  .blog-head { padding-block: 2.5rem 1.25rem; max-width: 68ch; }
   .blog-lede { font-size: 1.1rem; margin-top: 0.5rem; }
+  .blog-count {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-faint);
+    margin: 1rem 0 0;
+  }
+  .blog-count span { color: var(--secondary); font-weight: 700; }
 
-  .blog-filters { display: flex; flex-wrap: wrap; gap: 0.6rem; padding-bottom: 2rem; }
-  .filter-chip {
+  /* Inline text toggles, middot-separated — not a rack of pills. */
+  .blog-filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem 0.6rem;
+    padding-block: 1.5rem 2.5rem;
+  }
+  .filter-sep { color: var(--border-strong); font-family: var(--font-mono); }
+  .filter-toggle {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.03em;
+    padding: 0.15em 0;
+    border: none;
+    background: none;
+    color: var(--ink-faint);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+  }
+  .filter-toggle:hover { color: var(--secondary); }
+  .filter-toggle[aria-pressed="true"] {
+    color: var(--ink);
+    border-bottom-color: var(--accent);
+  }
+
+  .blog-log { padding-bottom: 4.5rem; }
+  .log-year { display: grid; gap: 0.5rem; grid-template-columns: 1fr; }
+  @media (min-width: 800px) {
+    .log-year { grid-template-columns: 5rem minmax(0, 1fr); gap: 0 2rem; align-items: start; }
+    .log-year + .log-year { margin-top: 2.5rem; }
+  }
+  .year-mark {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink-faint);
+    letter-spacing: 0.06em;
+    margin: 0;
+    padding-top: 1.4rem;
+  }
+  @media (min-width: 800px) {
+    .year-mark { position: sticky; top: calc(var(--header-h) + 20px); }
+  }
+
+  .year-posts { list-style: none; margin: 0; padding: 0; }
+
+  .log-row { border-top: 1px solid var(--border); }
+  .log-row a {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.15rem 1.5rem;
+    padding: 1.4rem 0 1.5rem;
+    text-decoration: none;
+    color: inherit;
+  }
+  @media (min-width: 560px) {
+    .log-row a { grid-template-columns: 3.5rem minmax(0, 1fr); }
+  }
+  .row-date {
     font-family: var(--font-mono);
     font-size: 0.78rem;
-    padding: 0.4em 0.9em;
-    border-radius: 999px;
-    border: 1px solid var(--border-strong);
-    background: var(--bg-raised);
-    color: var(--ink-soft);
-    cursor: pointer;
+    color: var(--ink-faint);
+    padding-top: 0.15rem;
+    white-space: nowrap;
   }
-  .filter-chip:hover { border-color: var(--secondary); color: var(--secondary); }
-  .filter-chip[aria-pressed="true"] { background: var(--primary); color: var(--primary-ink); border-color: var(--primary); }
-
-  .post-grid { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); padding-bottom: 4rem; }
-  .post-card {
+  .row-main { display: block; min-width: 0; }
+  .row-category {
     display: block;
-    text-decoration: none;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 1.5rem;
-    background: var(--bg-raised);
-    transition: border-color 0.15s ease, transform 0.15s ease;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--secondary);
+    margin-bottom: 0.35rem;
   }
-  .post-card:hover { border-color: var(--secondary); transform: translateY(-2px); }
-  .post-category { font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--secondary); }
-  .post-card h2 { font-size: 1.05rem; margin: 0.5rem 0 0.4rem; color: var(--ink); }
-  .post-card p { font-size: 0.88rem; margin: 0 0 0.75rem; }
-  .post-meta { font-size: 0.78rem; color: var(--ink-faint); }
+  .row-title {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.15rem;
+    line-height: 1.25;
+    color: var(--ink);
+  }
+  .log-row a:hover .row-title { color: var(--secondary); text-decoration: underline; text-underline-offset: 3px; }
+  .row-desc {
+    display: block;
+    margin-top: 0.35rem;
+    max-width: 58ch;
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+  }
+  .row-meta {
+    display: block;
+    margin-top: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+  }
 
   .no-posts { text-align: center; color: var(--ink-faint); padding-bottom: 4rem; }
 </style>
 
 <script>
-  const chips = document.querySelectorAll<HTMLButtonElement>(".filter-chip");
-  const cards = document.querySelectorAll<HTMLAnchorElement>(".post-card");
+  const toggles = document.querySelectorAll<HTMLButtonElement>(".filter-toggle");
+  const rows = document.querySelectorAll<HTMLLIElement>(".log-row");
+  const yearSections = document.querySelectorAll<HTMLElement>(".log-year");
   const emptyMsg = document.getElementById("no-posts");
 
-  chips.forEach((chip) => {
-    chip.addEventListener("click", () => {
-      chips.forEach((c) => c.setAttribute("aria-pressed", "false"));
-      chip.setAttribute("aria-pressed", "true");
-      const category = chip.dataset.category;
+  toggles.forEach((toggle) => {
+    toggle.addEventListener("click", () => {
+      toggles.forEach((t) => t.setAttribute("aria-pressed", "false"));
+      toggle.setAttribute("aria-pressed", "true");
+      const category = toggle.dataset.category;
       let visible = 0;
-      cards.forEach((card) => {
-        const match = category === "All" || card.dataset.category === category;
-        card.style.display = match ? "" : "none";
+
+      rows.forEach((row) => {
+        const match = category === "All" || row.dataset.category === category;
+        row.hidden = !match;
         if (match) visible++;
       });
+
+      // Drop a year heading once every row under it is filtered out.
+      yearSections.forEach((section) => {
+        const anyVisible = section.querySelector<HTMLLIElement>(".log-row:not([hidden])");
+        section.hidden = !anyVisible;
+      });
+
       if (emptyMsg) emptyMsg.hidden = visible !== 0;
     });
   });

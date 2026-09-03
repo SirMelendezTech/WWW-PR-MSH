@@ -36,6 +36,10 @@ const groups = [
   { heading: l.projectHeading, items: project },
   { heading: l.referenceHeading, items: reference },
 ];
+
+const host = (u: string) => {
+  try { return new URL(u).hostname.replace(/^www\./, ""); } catch { return ""; }
+};
 ---
 <div class="container page-head">
   <Breadcrumbs lang={lang} items={[{ label: l.crumb }]} />
@@ -45,13 +49,19 @@ const groups = [
 </div>
 
 <div class="container links-sections">
-  {groups.map((group) => (
-    <section>
-      <h2>{group.heading}</h2>
+  {groups.map((group, gi) => (
+    <section class="link-group">
+      <p class="group-mark">
+        <span class="group-num" aria-hidden="true">{String(gi + 1).padStart(2, "0")}</span>
+        <span>{group.heading}</span>
+      </p>
       <ul class="link-list">
         {group.items.map((item) => (
           <li>
-            <a href={item.url} target="_blank" rel="noopener noreferrer">{item.name}<span class="ext-badge">{l.externalBadge}<span class="sr-only">{l.externalBadgeSr}</span></span></a>
+            <a href={item.url} target="_blank" rel="noopener noreferrer">
+              {item.name}<span class="ext-arrow" aria-hidden="true">↗</span><span class="sr-only">{l.externalBadgeSr}</span>
+            </a>
+            <span class="link-host">{host(item.url)}</span>
             <p>{item.note}</p>
           </li>
         ))}
@@ -64,24 +74,53 @@ const groups = [
   .page-head { padding-block: 2.5rem 1rem; max-width: 68ch; }
   .page-lede { font-size: 1.05rem; margin-top: 0.5rem; }
 
-  .links-sections { padding-block: 1.5rem 5rem; display: grid; gap: 2.5rem; }
-  .links-sections h2 { font-size: 1.2rem; margin-bottom: 1rem; }
+  .links-sections { padding-block: 2rem 5rem; display: grid; gap: 0; }
 
-  .link-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
-  .link-list li { border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1rem 1.2rem; background: var(--bg-raised); }
-  .link-list a { font-family: var(--font-display); font-weight: 600; text-decoration: none; color: var(--ink); display: inline-flex; align-items: center; gap: 0.6rem; }
-  .link-list a:hover { color: var(--secondary); }
-  .link-list p { margin: 0.4rem 0 0; font-size: 0.88rem; }
-
-  .ext-badge {
-    font-family: var(--font-mono);
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--ink-faint);
-    border: 1px solid var(--border-strong);
-    border-radius: 4px;
-    padding: 0.1em 0.4em;
-    font-weight: 500;
+  .link-group { display: grid; grid-template-columns: 1fr; gap: 0.5rem; }
+  @media (min-width: 820px) {
+    .link-group { grid-template-columns: 12rem minmax(0, 1fr); gap: 0 2.5rem; align-items: start; }
   }
+  .link-group + .link-group { margin-top: 1rem; }
+
+  .group-mark {
+    display: flex;
+    gap: 0.7rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--ink-soft);
+    margin: 0;
+    padding-top: 1.6rem;
+  }
+  .group-num { color: var(--accent); font-weight: 700; }
+  @media (min-width: 820px) {
+    .group-mark { position: sticky; top: calc(var(--header-h) + 20px); }
+  }
+
+  .link-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+  .link-list li {
+    border-top: 1px solid var(--border);
+    padding: 1.4rem 0 1.5rem;
+  }
+  .link-list a {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.05rem;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .link-list a:hover { color: var(--secondary); text-decoration: underline; text-underline-offset: 3px; }
+  .ext-arrow { margin-left: 0.3em; color: var(--ink-faint); font-weight: 400; }
+  .link-list a:hover .ext-arrow { color: var(--secondary); }
+
+  .link-host {
+    display: block;
+    margin-top: 0.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.02em;
+  }
+  .link-list p { margin: 0.55rem 0 0; font-size: 0.9rem; max-width: 56ch; color: var(--ink-soft); }
 </style>

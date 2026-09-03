@@ -3,6 +3,7 @@ import MeshMark from "./MeshMark.astro";
 import type { Locale } from "../lib/i18n";
 import { localizePath } from "../lib/i18n";
 import { useStrings } from "../lib/ui-strings";
+import { getNodes } from "../lib/nodes";
 
 interface Props { lang?: Locale }
 const { lang = "en" } = Astro.props;
@@ -10,9 +11,24 @@ const t = useStrings(lang);
 const f = t.footer;
 const p = (href: string) => localizePath(href, lang);
 const year = new Date().getFullYear();
+
+// Same repo the header links to.
+const GITHUB_REPO_URL = "https://github.com/SirMelendezTech/WWW-PR-MSH";
+
+// The footer isn't a sitemap — the header already carries the whole nav. What
+// it can say that no other footer can is the state of this particular mesh at
+// the moment the site was built.
+const { nodes, live } = await getNodes();
+const onlineCount = nodes.filter((n) => n.status === "online").length;
+const buildDate = new Intl.DateTimeFormat(lang === "es" ? "es-PR" : "en-US", {
+  day: "numeric",
+  month: "short",
+  year: "numeric",
+  timeZone: "America/Puerto_Rico",
+}).format(new Date());
 ---
 <footer class="site-footer">
-  <div class="container footer-grid">
+  <div class="container footer-top">
     <div class="footer-brand">
       <a href={p("/")} class="brand">
         <MeshMark />
@@ -21,49 +37,31 @@ const year = new Date().getFullYear();
       <p>{f.blurb}</p>
     </div>
 
-    <nav aria-label={f.gettingStartedHeading}>
-      <h4>{f.gettingStartedHeading}</h4>
-      <ul>
-        <li><a href={p("/getting-started/")}>{f.gettingStarted}</a></li>
-        <li><a href={p("/hardware/")}>{f.recommendedHardware}</a></li>
-        <li><a href={p("/settings/")}>{f.recommendedSettings}</a></li>
-      </ul>
-    </nav>
-
-    <nav aria-label={f.documentationHeading}>
-      <h4>{f.documentationHeading}</h4>
-      <ul>
-        <li><a href={p("/how-it-works/")}>{f.howItWorks}</a></li>
-        <li><a href={p("/pr-mesh/")}>{f.prMesh}</a></li>
-        <li><a href={p("/map/")}>{f.nodeMap}</a></li>
-        <li><a href={p("/blog/")}>{f.blog}</a></li>
-      </ul>
-    </nav>
-
-    <nav aria-label={f.communityHeading}>
-      <h4>{f.communityHeading}</h4>
-      <ul>
-        <li><a href={p("/community/")}>{f.communityHub}</a></li>
-        <li><a href={`${p("/community/")}#contribute`}>{f.howToContribute}</a></li>
-        <li><a href={`${p("/community/")}#events`}>{f.events}</a></li>
-      </ul>
-    </nav>
-
-    <nav aria-label={f.linksHeading}>
-      <h4>{f.linksHeading}</h4>
-      <ul>
-        <li><a href={p("/links/")}>{f.linksResources}</a></li>
-        <li><a href="https://meshtastic.org" target="_blank" rel="noopener">Meshtastic.org<span class="sr-only"> {t.opensInNewTab}</span></a></li>
-      </ul>
+    <nav class="footer-links" aria-label={f.linksHeading}>
+      <a href={GITHUB_REPO_URL} target="_blank" rel="noopener">
+        {f.github}<span class="sr-only"> {t.opensInNewTab}</span>
+      </a>
+      <a href={p("/links/")}>{f.linksResources}</a>
+      <a href="https://meshtastic.org" target="_blank" rel="noopener">
+        Meshtastic.org<span class="sr-only"> {t.opensInNewTab}</span>
+      </a>
+      <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">
+        {f.licenseName}<span class="sr-only"> {t.opensInNewTab}</span>
+      </a>
     </nav>
   </div>
 
+  <p class="container footer-status">
+    <span class={`status-dot${live ? " is-live" : ""}`} aria-hidden="true"></span>
+    {live && <Fragment>{f.nodesReporting(onlineCount, nodes.length)} <span class="status-sep">·</span> </Fragment>}
+    {f.rebuilt(buildDate)}
+  </p>
+
   <div class="container footer-bottom">
-    <p>
-      {f.copyright(year)}{" "}
-      <span class="footer-license">{f.licenseBefore}<a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">{f.licenseName}</a>{f.licenseAfter}</span>
+    <p class="disclaimer">{t.footer.disclaimer}</p>
+    <p class="footer-legal">
+      {f.copyright(year)} {f.licenseBefore}<a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">{f.licenseName}</a>{f.licenseAfter}
     </p>
-    <p class="disclaimer">{f.disclaimer}</p>
   </div>
 </footer>
 
@@ -73,38 +71,76 @@ const year = new Date().getFullYear();
     background: var(--bg-sunken);
     margin-top: 5rem;
   }
-  .footer-grid {
+
+  .footer-top {
     display: grid;
-    gap: 2.5rem;
-    padding-block: 3.5rem 2rem;
+    gap: 2rem;
+    padding-block: 3.5rem 1.75rem;
     grid-template-columns: 1fr;
   }
   @media (min-width: 720px) {
-    .footer-grid { grid-template-columns: 1.6fr repeat(4, 1fr); }
+    .footer-top { grid-template-columns: minmax(0, 1fr) auto; align-items: start; gap: 4rem; }
   }
+
   .footer-brand .brand { display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; margin-bottom: 0.8rem; }
   .footer-brand .brand-text { font-family: var(--font-display); font-weight: 700; color: var(--ink); }
   .footer-brand .brand-suffix { color: var(--accent); margin-left: 0.3em; font-size: 0.72em; vertical-align: super; }
-  .footer-brand p { max-width: 32ch; font-size: 0.92rem; }
+  .footer-brand p { max-width: 44ch; font-size: 0.92rem; margin: 0; }
 
-  .site-footer h4 { font-size: 0.78rem; margin-bottom: 0.9rem; }
-  .site-footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.55rem; }
-  .site-footer a { color: var(--ink-soft); text-decoration: none; font-size: 0.92rem; }
-  .site-footer a:hover { color: var(--secondary); }
-
-  .footer-bottom {
-    border-top: 1px solid var(--border);
-    padding-block: 1.4rem 2rem;
+  /* One row of the few destinations that actually only live here. */
+  .footer-links {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem 2rem;
-    justify-content: space-between;
+    gap: 0.5rem 1.5rem;
+  }
+  @media (min-width: 720px) {
+    .footer-links { flex-direction: column; gap: 0.6rem; text-align: right; }
+  }
+  .footer-links a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+  .footer-links a:hover { color: var(--secondary); }
+
+  /* Live scrap of this mesh, frozen at build time — same data as the home
+     coverage block. */
+  .footer-status {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.5ch;
+    padding-block: 1.1rem;
+    border-block: 1px solid var(--border);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+    color: var(--ink-faint);
+    margin: 0;
+  }
+  .status-sep { color: var(--border-strong); }
+  .status-dot {
+    align-self: center;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--ink-faint);
+    flex-shrink: 0;
+  }
+  .status-dot.is-live {
+    background: var(--secondary);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--secondary) 22%, transparent);
+  }
+
+  .footer-bottom {
+    display: grid;
+    gap: 0.9rem;
+    padding-block: 1.6rem 2.5rem;
     font-size: 0.82rem;
     color: var(--ink-faint);
   }
   .footer-bottom p { margin: 0; color: inherit; }
-  .footer-license { color: var(--ink-faint); }
-  .footer-license a { color: inherit; text-decoration: underline; }
-  .footer-license a:hover { color: var(--secondary); }
-  .disclaimer { max-width: 60ch; }
+  .disclaimer { max-width: 68ch; line-height: 1.55; }
+  .footer-legal a { color: inherit; text-decoration: underline; }
+  .footer-legal a:hover { color: var(--secondary); }
 </style>

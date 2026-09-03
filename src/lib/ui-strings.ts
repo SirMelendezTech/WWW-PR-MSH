@@ -44,21 +44,12 @@ const en = {
   footer: {
     blurb:
       "Community-built LoRa mesh network for Puerto Rico. Off-grid, decentralized, and open to anyone who wants to help extend coverage.",
-    gettingStartedHeading: "Getting Started",
-    gettingStarted: "Getting started",
-    recommendedHardware: "Recommended hardware",
-    recommendedSettings: "Recommended settings",
-    documentationHeading: "Documentation",
-    howItWorks: "How Meshtastic works",
-    prMesh: "Puerto Rico mesh",
-    nodeMap: "Node map",
-    blog: "Blog",
-    communityHeading: "Community",
-    communityHub: "Community hub",
-    howToContribute: "How to contribute",
-    events: "Events & field tests",
-    linksHeading: "Links",
+    linksHeading: "Elsewhere",
     linksResources: "Links & resources",
+    github: "Source on GitHub",
+    nodesReporting: (online: number, total: number) =>
+      `${online} of ${total} nodes reporting`,
+    rebuilt: (date: string) => `site rebuilt ${date}`,
     copyright: (year: number) => `© ${year} Meshtastic Puerto Rico Community.`,
     disclaimer:
       "Meshtastic PR is an independent community project, not affiliated with Meshtastic LLC. Configure and operate radio equipment according to applicable laws, regulations, and current Meshtastic firmware documentation.",
@@ -74,6 +65,10 @@ const en = {
     untranslatedBody:
       "This page isn't translated yet — English content is shown.",
     docsPagesAria: "Documentation pages",
+    readingOrder: "Read in order",
+    prevLabel: "Back",
+    nextLabel: "Next",
+    pagerAria: "Documentation sequence",
   },
 
   latestVersions: {
@@ -107,6 +102,8 @@ const en = {
     filterAria: "Filter by category",
     readSuffix: "read",
     noPosts: "No posts in this category yet.",
+    countSuffix: "notes logged",
+    countSuffixOne: "note logged",
   },
 
   blogPost: {
@@ -114,13 +111,16 @@ const en = {
     readSuffix: "read",
     relatedHeading: "Related articles",
     tagsLabel: "Tags",
+    bylineAuthor: "Author",
+    bylineFiled: "Filed",
+    bylineReading: "Reading",
   },
 
   home: {
     title: "Meshtastic Puerto Rico",
     description:
       "Meshtastic Puerto Rico is a community resource for building, learning about, and expanding decentralized LoRa mesh communication throughout Puerto Rico.",
-    heroEyebrow: "Meshtastic Puerto Rico",
+    heroEyebrow: "Community LoRa network · Puerto Rico",
     heroTitle: "Stays connected when everything else goes down.",
     heroSub1:
       "Meshtastic Puerto Rico is a community-built radio network that lets you send messages without cell service, Wi-Fi, or the internet. You pair a small, affordable radio with an app on your phone — that radio talks directly to nearby radios, relaying your message from one to the next until it reaches its destination.",
@@ -150,18 +150,22 @@ const en = {
     featuresTitle: "Off-grid, low-cost, and built together",
     features: [
       {
+        kicker: "Without a tower",
         title: "Off-Grid Communication",
         body: "Communicate using LoRa radios without relying on cellular networks or internet access.",
       },
       {
+        kicker: "Without permission",
         title: "Build the Mesh",
         body: "Add a node anywhere useful — home, rooftop, or trail — to extend coverage for everyone nearby.",
       },
       {
+        kicker: "Without a contract",
         title: "Low Cost",
         body: "Start experimenting for the price of a nice dinner, with hardware that keeps working for years.",
       },
       {
+        kicker: "Without a company",
         title: "Community Powered",
         body: "Learn, experiment, and improve the network together — no company decides how it's used.",
       },
@@ -395,6 +399,11 @@ const en = {
     sampleNodes: "sample nodes",
     statOf: "of",
     statOnline: "online",
+    mapAria: (total: number, online: number) =>
+      `Map of Puerto Rico, Vieques and St. Thomas showing ${total} mesh nodes, ${online} of them online. Node markers cluster around the San Juan metro area and the east of the island.`,
+    legendOnline: "Heard in the last 3 hours",
+    legendOffline: "Quiet longer than that",
+    legendHint: "Point at a node for its name",
     cta: "View full map →",
   },
 
@@ -452,21 +461,12 @@ const es: Strings = {
   footer: {
     blurb:
       "Red mesh LoRa construida por la comunidad para Puerto Rico. Sin conexión a la red eléctrica, descentralizada y abierta a cualquiera que quiera ayudar a ampliar la cobertura.",
-    gettingStartedHeading: "Primeros Pasos",
-    gettingStarted: "Primeros pasos",
-    recommendedHardware: "Hardware recomendado",
-    recommendedSettings: "Configuración recomendada",
-    documentationHeading: "Documentación",
-    howItWorks: "Cómo funciona Meshtastic",
-    prMesh: "Malla de Puerto Rico",
-    nodeMap: "Mapa de nodos",
-    blog: "Blog",
-    communityHeading: "Comunidad",
-    communityHub: "Centro comunitario",
-    howToContribute: "Cómo contribuir",
-    events: "Eventos y pruebas de campo",
-    linksHeading: "Enlaces",
+    linksHeading: "En otros lados",
     linksResources: "Enlaces y recursos",
+    github: "Código en GitHub",
+    nodesReporting: (online: number, total: number) =>
+      `${online} de ${total} nodos reportando`,
+    rebuilt: (date: string) => `sitio reconstruido ${date}`,
     copyright: (year: number) =>
       `© ${year} Comunidad Meshtastic Puerto Rico.`,
     disclaimer:
@@ -483,6 +483,10 @@ const es: Strings = {
     untranslatedBody:
       "Esta página aún no está traducida — se muestra el contenido en inglés.",
     docsPagesAria: "Páginas de documentación",
+    readingOrder: "Lee en orden",
+    prevLabel: "Atrás",
+    nextLabel: "Siguiente",
+    pagerAria: "Secuencia de documentación",
   },
 
   latestVersions: {
@@ -516,6 +520,8 @@ const es: Strings = {
     filterAria: "Filtrar por categoría",
     readSuffix: "de lectura",
     noPosts: "Aún no hay artículos en esta categoría.",
+    countSuffix: "notas registradas",
+    countSuffixOne: "nota registrada",
   },
 
   blogPost: {
@@ -523,13 +529,16 @@ const es: Strings = {
     readSuffix: "de lectura",
     relatedHeading: "Artículos relacionados",
     tagsLabel: "Etiquetas",
+    bylineAuthor: "Autor",
+    bylineFiled: "Publicado",
+    bylineReading: "Lectura",
   },
 
   home: {
     title: "Meshtastic Puerto Rico",
     description:
       "Meshtastic Puerto Rico es un recurso comunitario para construir, aprender sobre y ampliar la comunicación mesh LoRa descentralizada por todo Puerto Rico.",
-    heroEyebrow: "Meshtastic Puerto Rico",
+    heroEyebrow: "Red LoRa comunitaria · Puerto Rico",
     heroTitle: "Sigue conectada cuando todo lo demás se cae.",
     heroSub1:
       "Meshtastic Puerto Rico es una red de radio construida por la comunidad que te permite enviar mensajes sin servicio celular, Wi-Fi ni internet. Emparejas una radio pequeña y económica con una app en tu teléfono — esa radio se comunica directamente con radios cercanas, retransmitiendo tu mensaje de una a otra hasta que llega a su destino.",
@@ -559,18 +568,22 @@ const es: Strings = {
     featuresTitle: "Sin red eléctrica, de bajo costo y construida en conjunto",
     features: [
       {
+        kicker: "Sin torre",
         title: "Comunicación Sin Red",
         body: "Comunícate usando radios LoRa sin depender de redes celulares ni acceso a internet.",
       },
       {
+        kicker: "Sin permiso",
         title: "Construye la Malla",
         body: "Añade un nodo en cualquier lugar útil — casa, techo o vereda — para ampliar la cobertura de todos los que te rodean.",
       },
       {
+        kicker: "Sin contrato",
         title: "Bajo Costo",
         body: "Empieza a experimentar por el precio de una buena cena, con hardware que sigue funcionando por años.",
       },
       {
+        kicker: "Sin compañía",
         title: "Impulsada por la Comunidad",
         body: "Aprende, experimenta y mejora la red en conjunto — ninguna compañía decide cómo se usa.",
       },
@@ -806,6 +819,11 @@ const es: Strings = {
     sampleNodes: "nodos de muestra",
     statOf: "de",
     statOnline: "en línea",
+    mapAria: (total: number, online: number) =>
+      `Mapa de Puerto Rico, Vieques y St. Thomas con ${total} nodos de la malla, ${online} de ellos en línea. Los nodos se concentran en el área metropolitana de San Juan y el este de la isla.`,
+    legendOnline: "Escuchado en las últimas 3 horas",
+    legendOffline: "Callado desde hace más",
+    legendHint: "Apunta a un nodo para ver su nombre",
     cta: "Ver el mapa completo →",
   },
 

@@ -21,17 +21,16 @@ const t = useStrings(lang).themeToggle;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 38px;
-    height: 38px;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border);
-    background: var(--bg-raised);
-    color: var(--ink-soft);
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: none;
+    color: var(--ink-faint);
     cursor: pointer;
   }
-  .theme-toggle:hover { color: var(--secondary); border-color: var(--secondary); }
+  .theme-toggle:hover { color: var(--ink); }
 
-  /* Keep the 38px visual box but grow the touch target to 44px on phones. */
+  /* 44px touch target regardless of the smaller visual glyph box. */
   .theme-toggle::after {
     content: "";
     position: absolute;

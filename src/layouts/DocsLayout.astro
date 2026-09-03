@@ -30,19 +30,29 @@ const docsNav = docsNavBase.map((item) => ({
 }));
 const path = Astro.url.pathname;
 const toc = headings.filter((h) => h.depth === 2);
+
+// The five docs pages are a reading order, not a menu. Find where this page
+// sits so the sidebar can number it and the footer can point to the next step.
+const currentIndex = docsNav.findIndex((item) => path.startsWith(item.href));
+const prev = currentIndex > 0 ? docsNav[currentIndex - 1] : null;
+const next =
+  currentIndex >= 0 && currentIndex < docsNav.length - 1 ? docsNav[currentIndex + 1] : null;
 ---
 <BaseLayout title={title} description={description} lang={lang}>
   <div class="container docs-shell">
     <aside class="docs-sidebar">
-      <p class="docs-sidebar-label">{t.docs.sidebarLabel}</p>
+      <p class="docs-sidebar-label">{t.docs.readingOrder}</p>
       <nav aria-label={t.docs.docsPagesAria}>
-        <ul>
-          {docsNav.map((item) => (
+        <ol>
+          {docsNav.map((item, i) => (
             <li>
-              <a href={item.href} aria-current={path.startsWith(item.href) ? "page" : undefined}>{item.label}</a>
+              <a href={item.href} aria-current={path.startsWith(item.href) ? "page" : undefined}>
+                <span class="doc-num" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+                <span class="doc-label">{item.label}</span>
+              </a>
             </li>
           ))}
-        </ul>
+        </ol>
       </nav>
     </aside>
 
@@ -59,6 +69,23 @@ const toc = headings.filter((h) => h.depth === 2);
       <div class="prose">
         <slot />
       </div>
+
+      {(prev || next) && (
+        <nav class="docs-pager" aria-label={t.docs.pagerAria}>
+          {prev ? (
+            <a class="pager-link pager-prev" href={prev.href}>
+              <span class="pager-dir">{t.docs.prevLabel}</span>
+              <span class="pager-title">{prev.label}</span>
+            </a>
+          ) : <span />}
+          {next && (
+            <a class="pager-link pager-next" href={next.href}>
+              <span class="pager-dir">{t.docs.nextLabel}</span>
+              <span class="pager-title">{next.label}</span>
+            </a>
+          )}
+        </nav>
+      )}
     </article>
 
     {toc.length > 0 && (
@@ -100,18 +127,61 @@ const toc = headings.filter((h) => h.depth === 2);
     color: var(--ink-faint);
     margin: 0 0 0.75rem;
   }
-  .docs-sidebar ul, .docs-toc ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.1rem; }
+  .docs-sidebar ol, .docs-toc ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.1rem; }
   .docs-sidebar a {
-    display: block;
+    display: grid;
+    grid-template-columns: 1.9rem 1fr;
+    align-items: baseline;
+    gap: 0.5rem;
     padding: 0.4rem 0.6rem;
     margin-inline: -0.6rem;
     border-radius: var(--radius-sm);
     text-decoration: none;
     color: var(--ink-soft);
-    border-left: 2px solid transparent;
+  }
+  .doc-num {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.02em;
   }
   .docs-sidebar a:hover { color: var(--ink); background: var(--bg-sunken); }
-  .docs-sidebar a[aria-current="page"] { color: var(--secondary); font-weight: 600; border-left-color: var(--secondary); background: var(--bg-sunken); }
+  .docs-sidebar a:hover .doc-num { color: var(--ink-soft); }
+  .docs-sidebar a[aria-current="page"] { color: var(--ink); font-weight: 600; background: var(--bg-sunken); }
+  .docs-sidebar a[aria-current="page"] .doc-num { color: var(--accent); }
+
+  .docs-pager {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .pager-link {
+    display: grid;
+    gap: 0.25rem;
+    padding: 0.9rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    color: inherit;
+  }
+  .pager-link:hover { border-color: var(--secondary); }
+  .pager-next { text-align: right; }
+  .pager-dir {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--ink-faint);
+  }
+  .pager-link:hover .pager-dir { color: var(--secondary); }
+  .pager-title { font-family: var(--font-display); font-weight: 600; color: var(--ink); font-size: 0.95rem; }
+  @media (max-width: 560px) {
+    .docs-pager { grid-template-columns: 1fr; }
+    .pager-next { text-align: left; }
+  }
 
   .docs-toc a { display: block; padding: 0.3rem 0; text-decoration: none; color: var(--ink-faint); border-left: 2px solid var(--border); padding-left: 0.75rem; }
   .docs-toc a:hover { color: var(--secondary); border-left-color: var(--secondary); }
