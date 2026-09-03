@@ -74,6 +74,10 @@ const en = {
     untranslatedBody:
       "This page isn't translated yet — English content is shown.",
     docsPagesAria: "Documentation pages",
+    readingOrder: "Read in order",
+    prevLabel: "Back",
+    nextLabel: "Next",
+    pagerAria: "Documentation sequence",
   },
 
   latestVersions: {
@@ -107,6 +111,8 @@ const en = {
     filterAria: "Filter by category",
     readSuffix: "read",
     noPosts: "No posts in this category yet.",
+    countSuffix: "notes logged",
+    countSuffixOne: "note logged",
   },
 
   blogPost: {
@@ -492,6 +498,10 @@ const es: Strings = {
     untranslatedBody:
       "Esta página aún no está traducida — se muestra el contenido en inglés.",
     docsPagesAria: "Páginas de documentación",
+    readingOrder: "Lee en orden",
+    prevLabel: "Atrás",
+    nextLabel: "Siguiente",
+    pagerAria: "Secuencia de documentación",
   },
 
   latestVersions: {
@@ -525,6 +535,8 @@ const es: Strings = {
     filterAria: "Filtrar por categoría",
     readSuffix: "de lectura",
     noPosts: "Aún no hay artículos en esta categoría.",
+    countSuffix: "notas registradas",
+    countSuffixOne: "nota registrada",
   },
 
   blogPost: {
