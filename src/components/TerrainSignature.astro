@@ -23,7 +23,7 @@ const nodes = [
 
 function arc(a: { x: number; y: number }, b: { x: number; y: number }) {
   const mx = (a.x + b.x) / 2;
-  const peak = Math.min(a.y, b.y) - 46;
+  const peak = Math.min(a.y, b.y) - 38;
   return `M${a.x},${a.y - 10} Q${mx},${peak} ${b.x},${b.y - 10}`;
 }
 
@@ -94,12 +94,18 @@ const hopBegin = (i: number) => (i === 0 ? "1s" : `pk${i - 1}.end+0.09s`);
     height: auto;
     display: block;
   }
+  /* Fill the wrapper so preserveAspectRatio="slice" crops the peaks off the
+     top rather than letting the SVG overflow its box and hide the lower
+     nodes (and the packet's path) behind the next section. */
+  .terrain-sig--hero { height: 100%; }
   .terrain-sig--divider { height: 90px; opacity: 0.85; }
 
   /* ---- divider: ambient loop ---- */
+  /* pathLength="1" on the arcs means dash lengths are fractions of the path,
+     not pixels. */
   .terrain-sig--divider .hop-arc {
-    stroke-dasharray: 4 5;
-    animation: hop-flow 6s linear infinite;
+    stroke-dasharray: 0.016 0.022;
+    animation: hop-flow 5s linear infinite;
   }
   .terrain-sig--divider .node-pulse {
     transform-box: fill-box;
@@ -107,7 +113,7 @@ const hopBegin = (i: number) => (i === 0 ? "1s" : `pk${i - 1}.end+0.09s`);
     animation: node-pulse 3.4s ease-in-out infinite;
     animation-delay: calc(var(--i) * 0.4s);
   }
-  @keyframes hop-flow { to { stroke-dashoffset: -90; } }
+  @keyframes hop-flow { to { stroke-dashoffset: -0.38; } }
   @keyframes node-pulse {
     0%, 100% { transform: scale(1); opacity: 0.16; }
     50% { transform: scale(1.9); opacity: 0.02; }
@@ -171,7 +177,7 @@ const hopBegin = (i: number) => (i === 0 ? "1s" : `pk${i - 1}.end+0.09s`);
   @media (prefers-reduced-motion: reduce) {
     .terrain-sig * { animation: none !important; }
     .terrain-ridge { stroke-dashoffset: 0; fill-opacity: 1; }
-    .hop-arc { stroke-dasharray: 4 5; stroke-dashoffset: 0; opacity: 0.4; }
+    .hop-arc { stroke-dasharray: 0.016 0.022; stroke-dashoffset: 0; opacity: 0.4; }
     .node-mark { opacity: 1; }
     .node-pulse { opacity: 0.16; }
     .terrain-packet { display: none; }
