@@ -125,8 +125,7 @@ function isActive(href: string) {
     position: sticky;
     top: 0;
     z-index: 50;
-    background: color-mix(in srgb, var(--bg) 88%, transparent);
-    backdrop-filter: blur(10px) saturate(1.2);
+    background: var(--bg);
     border-bottom: 1px solid var(--border);
   }
   .header-row {
@@ -160,40 +159,41 @@ function isActive(href: string) {
   }
 
   .primary-nav { display: none; }
-  .primary-nav ul { display: flex; gap: 1.5rem; list-style: none; margin: 0; padding: 0; }
+  .primary-nav ul { display: flex; gap: 1.6rem; list-style: none; margin: 0; padding: 0; }
   .primary-nav a {
     text-decoration: none;
     color: var(--ink-soft);
-    font-size: 0.92rem;
-    font-weight: 500;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.01em;
     padding: 0.4em 0;
-    border-bottom: 2px solid transparent;
+    border-bottom: 1.5px solid transparent;
     white-space: nowrap;
   }
   .primary-nav a:hover { color: var(--ink); }
-  .primary-nav a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--secondary); font-weight: 600; }
+  .primary-nav a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--accent); }
 
   @media (min-width: 1140px) {
     .primary-nav { display: block; }
   }
 
-  .header-actions { display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0; }
+  /* Plain glyphs, not a rack of bordered toolbar boxes. */
+  .header-actions { display: flex; align-items: center; gap: 0.35rem; flex-shrink: 0; }
   .icon-btn {
     position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 38px;
-    height: 38px;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border);
-    background: var(--bg-raised);
-    color: var(--ink-soft);
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: none;
+    color: var(--ink-faint);
     cursor: pointer;
   }
-  .icon-btn:hover { color: var(--secondary); border-color: var(--secondary); }
+  .icon-btn:hover { color: var(--ink); }
 
-  /* Keep the 38px visual box but grow the touch target to 44px on phones. */
+  /* 44px touch target regardless of the smaller visual glyph box. */
   .icon-btn::after {
     content: "";
     position: absolute;
@@ -204,7 +204,7 @@ function isActive(href: string) {
     transform: translate(-50%, -50%);
   }
 
-  .lang-switch { font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.02em; text-decoration: none; width: auto; padding: 0 0.7em; }
+  .lang-switch { font-family: var(--font-mono); font-size: 0.74rem; font-weight: 700; letter-spacing: 0.03em; text-decoration: none; width: auto; padding: 0 0.5em; }
 
   /* Below 520px the row only fits the brand plus three controls, so the
      GitHub and language links move into the menu instead of overflowing. */
