@@ -44,21 +44,12 @@ const en = {
   footer: {
     blurb:
       "Community-built LoRa mesh network for Puerto Rico. Off-grid, decentralized, and open to anyone who wants to help extend coverage.",
-    gettingStartedHeading: "Getting Started",
-    gettingStarted: "Getting started",
-    recommendedHardware: "Recommended hardware",
-    recommendedSettings: "Recommended settings",
-    documentationHeading: "Documentation",
-    howItWorks: "How Meshtastic works",
-    prMesh: "Puerto Rico mesh",
-    nodeMap: "Node map",
-    blog: "Blog",
-    communityHeading: "Community",
-    communityHub: "Community hub",
-    howToContribute: "How to contribute",
-    events: "Events & field tests",
-    linksHeading: "Links",
+    linksHeading: "Elsewhere",
     linksResources: "Links & resources",
+    github: "Source on GitHub",
+    nodesReporting: (online: number, total: number) =>
+      `${online} of ${total} nodes reporting`,
+    rebuilt: (date: string) => `site rebuilt ${date}`,
     copyright: (year: number) => `© ${year} Meshtastic Puerto Rico Community.`,
     disclaimer:
       "Meshtastic PR is an independent community project, not affiliated with Meshtastic LLC. Configure and operate radio equipment according to applicable laws, regulations, and current Meshtastic firmware documentation.",
@@ -467,21 +458,12 @@ const es: Strings = {
   footer: {
     blurb:
       "Red mesh LoRa construida por la comunidad para Puerto Rico. Sin conexión a la red eléctrica, descentralizada y abierta a cualquiera que quiera ayudar a ampliar la cobertura.",
-    gettingStartedHeading: "Primeros Pasos",
-    gettingStarted: "Primeros pasos",
-    recommendedHardware: "Hardware recomendado",
-    recommendedSettings: "Configuración recomendada",
-    documentationHeading: "Documentación",
-    howItWorks: "Cómo funciona Meshtastic",
-    prMesh: "Malla de Puerto Rico",
-    nodeMap: "Mapa de nodos",
-    blog: "Blog",
-    communityHeading: "Comunidad",
-    communityHub: "Centro comunitario",
-    howToContribute: "Cómo contribuir",
-    events: "Eventos y pruebas de campo",
-    linksHeading: "Enlaces",
+    linksHeading: "En otros lados",
     linksResources: "Enlaces y recursos",
+    github: "Código en GitHub",
+    nodesReporting: (online: number, total: number) =>
+      `${online} de ${total} nodos reportando`,
+    rebuilt: (date: string) => `sitio reconstruido ${date}`,
     copyright: (year: number) =>
       `© ${year} Comunidad Meshtastic Puerto Rico.`,
     disclaimer:
