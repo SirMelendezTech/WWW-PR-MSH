@@ -35,8 +35,8 @@ Choosing the right role matters more for the health of the shared mesh than almo
 | Role | Use case | Notes |
 |---|---|---|
 | **Client Mute** | Mobile nodes — backpacks, vehicles, personal handhelds | Participates in messaging but doesn't relay other nodes' traffic. The right default for anything that moves. |
-| **Client** | Stationary residential and community nodes | Relays traffic for the mesh while remaining a normal messaging node. Good default for a home node near a window. |
-| **Client Base** | Rooftop nodes relaying mainly for your own indoor devices | Behaves exactly like Client for everyone else's traffic — it only prioritizes relaying to/from nodes you've marked as favorites. Without a favorites list configured, it's a Client with extra steps. |
+| **Client** | Indoor or portable — your everyday node at home, in the office, or on the move | Sends messages and helps relay mesh traffic. |
+| **Client Base** | Recommended for outdoors — rooftop or mast nodes | Prioritizes relaying to/from your favorite nodes (mark your indoor ones as favorites) and helps the mesh like a Client with the rest of the traffic. |
 | **Router / Router Late** | Carefully chosen, permanent, elevated locations only | Prioritizes relaying over its own messaging and alters mesh timing behavior. Only meaningful where the node genuinely bridges coverage others can't. |
 
 ```
