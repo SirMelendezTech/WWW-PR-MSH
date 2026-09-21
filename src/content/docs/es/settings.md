@@ -36,8 +36,8 @@ Elegir el rol correcto importa más para la salud de la malla compartida que cas
 | Rol | Caso de uso | Notas |
 |---|---|---|
 | **Client Mute** | Nodos móviles — mochilas, vehículos, equipos de mano personales | Participa en la mensajería pero no retransmite el tráfico de otros nodos. El valor por defecto correcto para cualquier cosa que se mueva. |
-| **Client** | Nodos residenciales y comunitarios estacionarios | Retransmite tráfico para la malla mientras sigue siendo un nodo de mensajería normal. Buen valor por defecto para un nodo casero cerca de una ventana. |
-| **Client Base** | Nodos en techo que retransmiten principalmente para tus propios equipos interiores | Se comporta exactamente como Client para el tráfico de todos los demás — solo prioriza retransmitir hacia/desde nodos que hayas marcado como favoritos. Sin una lista de favoritos configurada, es un Client con pasos extra. |
+| **Client** | Interior o portátil — tu nodo de uso diario en casa, oficina o en movimiento | Envía mensajes y ayuda a retransmitir tráfico de la malla. |
+| **Client Base** | Recomendado para exteriores — nodos en techo o mástil | Prioriza retransmitir hacia y desde tus nodos favoritos (marca los de interior como favoritos) y ayuda a la malla igual que un Client con el resto del tráfico. |
 | **Router / Router Late** | Solo ubicaciones elevadas, permanentes y cuidadosamente elegidas | Prioriza la retransmisión sobre su propia mensajería y altera el comportamiento de temporización de la malla. Solo tiene sentido donde el nodo de verdad puentea cobertura que otros no pueden. |
 
 ```
