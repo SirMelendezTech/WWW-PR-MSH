@@ -5,7 +5,7 @@ description: Notes from building and deploying an unattended solar-powered node,
 pubDate: 2026-05-14
 author: Meshtastic PR
 category: Node Builds
-tags: [solar, power, deployment]
+tags: [solar, power, deployment, beginner]
 readingTime: 7 min
 ---
 

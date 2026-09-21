@@ -5,7 +5,7 @@ description: The three infrastructure roles differ on two axes — when you tran
 pubDate: 2026-08-30
 author: WP4TZV
 category: Tutorials
-tags: [node-roles, router, router-late, repeater, rebroadcast-mode]
+tags: [node-roles, router, router-late, repeater, rebroadcast-mode, operator]
 readingTime: 11 min
 ---
 

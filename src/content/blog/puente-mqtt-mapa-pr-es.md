@@ -5,7 +5,7 @@ description: Qué tiene que ser cierto para que tu nodo aparezca en el mapa de c
 pubDate: 2026-08-30
 author: Meshtastic PR
 category: Tutorials
-tags: [mqtt, mapa, msh-us-pr, monitor]
+tags: [mqtt, mapa, msh-us-pr, monitor, operator]
 readingTime: 8 min
 lang: es
 ---

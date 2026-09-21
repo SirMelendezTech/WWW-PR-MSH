@@ -5,7 +5,7 @@ description: The single most common misconfiguration on the Puerto Rico mesh —
 pubDate: 2026-08-30
 author: WP4TZV
 category: Field Reports
-tags: [broadcast-interval, airtime, channel-utilization, congestion]
+tags: [broadcast-interval, airtime, channel-utilization, congestion, operator]
 readingTime: 9 min
 ---
 

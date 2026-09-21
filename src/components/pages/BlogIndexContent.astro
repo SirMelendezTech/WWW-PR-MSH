@@ -1,8 +1,14 @@
 ---
 import Breadcrumbs from "../Breadcrumbs.astro";
 import type { Locale } from "../../lib/i18n";
-import { useStrings, categoryLabel } from "../../lib/ui-strings";
+import { useStrings, categoryLabel, difficultyLabel } from "../../lib/ui-strings";
 import { getBlogPosts, blogPostHref } from "../../lib/blog";
+
+// Difficulty rides in the freeform `tags` array as a reserved value ("beginner"
+// or "operator") rather than its own schema field, alongside each post's other,
+// locale-written topic tags.
+const DIFFICULTIES = new Set(["beginner", "operator"]);
+const difficultyOf = (tags: string[]) => tags.find((t) => DIFFICULTIES.has(t));
 
 interface Props { lang: Locale }
 const { lang } = Astro.props;
@@ -53,21 +59,27 @@ const countLabel = posts.length === 1 ? b.countSuffixOne : b.countSuffix;
     <section class="log-year" data-year={year}>
       <h2 class="year-mark" aria-hidden="true">{year}</h2>
       <ol class="year-posts">
-        {posts.map((post) => (
-          <li class="log-row" data-category={post.data.category}>
-            <a href={blogPostHref(lang, post.id)}>
-              <span class="row-date">
-                <time datetime={post.data.pubDate.toISOString()}>{dayFmt.format(post.data.pubDate)}</time>
-              </span>
-              <span class="row-main">
-                <span class="row-category">{categoryLabel(lang, post.data.category)}</span>
-                <span class="row-title">{post.data.title}</span>
-                <span class="row-desc">{post.data.description}</span>
-                <span class="row-meta">{post.data.author} · {post.data.readingTime} {b.readSuffix}</span>
-              </span>
-            </a>
-          </li>
-        ))}
+        {posts.map((post) => {
+          const difficulty = difficultyOf(post.data.tags);
+          return (
+            <li class="log-row" data-category={post.data.category}>
+              <a href={blogPostHref(lang, post.id)}>
+                <span class="row-date">
+                  <time datetime={post.data.pubDate.toISOString()}>{dayFmt.format(post.data.pubDate)}</time>
+                </span>
+                <span class="row-main">
+                  <span class="row-tags">
+                    <span class="row-category">{categoryLabel(lang, post.data.category)}</span>
+                    {difficulty && <span class={`badge badge--${difficulty}`}>{difficultyLabel(lang, difficulty)}</span>}
+                  </span>
+                  <span class="row-title">{post.data.title}</span>
+                  <span class="row-desc">{post.data.description}</span>
+                  <span class="row-meta">{post.data.author} · {post.data.readingTime} {b.readSuffix}</span>
+                </span>
+              </a>
+            </li>
+          );
+        })}
       </ol>
     </section>
   ))}
@@ -153,14 +165,13 @@ const countLabel = posts.length === 1 ? b.countSuffixOne : b.countSuffix;
     white-space: nowrap;
   }
   .row-main { display: block; min-width: 0; }
+  .row-tags { display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.35rem; }
   .row-category {
-    display: block;
     font-family: var(--font-mono);
     font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 0.09em;
     color: var(--secondary);
-    margin-bottom: 0.35rem;
   }
   .row-title {
     display: block;

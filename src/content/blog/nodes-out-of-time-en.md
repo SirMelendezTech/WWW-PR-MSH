@@ -5,7 +5,7 @@ description: What a wrong clock on the Puerto Rico mesh monitor actually tells y
 pubDate: 2026-08-03
 author: WP4TZV
 category: Field Reports
-tags: [monitor, diagnostics, gps, antennas]
+tags: [monitor, diagnostics, gps, antennas, operator]
 readingTime: 10 min
 ---
 

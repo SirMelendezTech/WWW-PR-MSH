@@ -208,6 +208,9 @@ code { font-family: var(--font-mono); }
 }
 .badge--verified { color: var(--secondary); border-color: color-mix(in srgb, var(--secondary) 50%, var(--border-strong)); }
 .badge--proposed { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 50%, var(--border-strong)); }
+.badge--beginner { color: var(--secondary); border-color: color-mix(in srgb, var(--secondary) 50%, var(--border-strong)); }
+/* No color: operator is the mesh's default skill level, not a flagged state. */
+.badge--operator { color: var(--ink-soft); border-color: var(--border-strong); }
 
 .prose details {
   border: 1px solid var(--border);

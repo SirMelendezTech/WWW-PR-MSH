@@ -5,7 +5,7 @@ description: In Meshtastic there is no "channel order" to change — index 0 is 
 pubDate: 2026-08-30
 author: WP4TZV
 category: Tutorials
-tags: [channels, frequency-slot, lora, congestion]
+tags: [channels, frequency-slot, lora, congestion, operator]
 readingTime: 13 min
 ---
 

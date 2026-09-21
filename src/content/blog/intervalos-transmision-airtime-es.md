@@ -5,7 +5,7 @@ description: La mala configuración más común en la malla de Puerto Rico — u
 pubDate: 2026-08-30
 author: WP4TZV
 category: Field Reports
-tags: [intervalo-transmision, airtime, utilizacion-canal, congestion]
+tags: [intervalo-transmision, airtime, utilizacion-canal, congestion, operator]
 readingTime: 9 min
 lang: es
 ---

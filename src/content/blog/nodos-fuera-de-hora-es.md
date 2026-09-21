@@ -4,7 +4,7 @@ description: Qué significan realmente los relojes desincronizados que aparecen 
 pubDate: 2026-08-03
 author: WP4TZV
 category: Field Reports
-tags: [monitor, diagnostico, gps, antenas]
+tags: [monitor, diagnostico, gps, antenas, operator]
 readingTime: 11 min
 lang: es
 translationKey: nodes-out-of-time

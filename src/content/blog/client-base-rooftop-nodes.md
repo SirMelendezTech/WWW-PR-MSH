@@ -5,7 +5,7 @@ description: Why CLIENT_BASE, not ROUTER_LATE, is the correct role for a rooftop
 pubDate: 2026-07-20
 author: WP4TZV
 category: Tutorials
-tags: [node-roles, router-late, client-base, zero-cost-hops]
+tags: [node-roles, router-late, client-base, zero-cost-hops, operator]
 readingTime: 10 min
 ---
 

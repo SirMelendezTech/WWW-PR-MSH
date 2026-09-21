@@ -4,7 +4,7 @@ description: Por qué CLIENT_BASE, y no ROUTER_LATE, es el rol correcto para un 
 pubDate: 2026-07-20
 author: WP4TZV
 category: Tutorials
-tags: [roles-de-nodo, router-late, client-base, zero-cost-hops]
+tags: [roles-de-nodo, router-late, client-base, zero-cost-hops, operator]
 readingTime: 11 min
 lang: es
 translationKey: client-base-rooftop-nodes

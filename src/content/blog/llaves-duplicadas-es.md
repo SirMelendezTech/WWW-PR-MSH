@@ -4,7 +4,7 @@ description: Qué significa la advertencia de llaves duplicadas en el monitor de
 pubDate: 2026-08-11
 author: WP4TZV
 category: Field Reports
-tags: [seguridad, monitor, cifrado]
+tags: [seguridad, monitor, cifrado, operator]
 readingTime: 12 min
 lang: es
 translationKey: duplicate-keys

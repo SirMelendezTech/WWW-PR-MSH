@@ -4,7 +4,7 @@ description: A field comparison of two rooftop nodes in the same neighborhood â€
 pubDate: 2026-06-02
 author: Meshtastic PR
 category: Field Reports
-tags: [antennas, range, rooftop]
+tags: [antennas, range, rooftop, beginner]
 readingTime: 5 min
 ---
 
