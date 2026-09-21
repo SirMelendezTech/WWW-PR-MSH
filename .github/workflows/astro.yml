@@ -12,11 +12,12 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-  # Rebuild every other day so the map picks up fresh node data from Malla
+  # Rebuild every two weeks so the map picks up fresh node data from Malla
   # (the API is read at build time, not from the browser). Cron has no
-  # "every 48h", so this fires at 00:00 UTC on odd days of the month.
+  # native biweekly interval, so this fires at 00:00 UTC on the 1st and
+  # 15th of each month.
   schedule:
-    - cron: "0 0 */2 * *"
+    - cron: "0 0 1,15 * *"
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
