@@ -13,6 +13,15 @@ El hardware de Meshtastic va desde placas de desarrollo de $25 hasta repetidores
 Todo lo de abajo refleja lo que los operadores de nodos de Puerto Rico han encontrado confiable en la práctica. Los precios y la disponibilidad son aproximados y cambiarán — revisa los listados actuales antes de comprar. Ningún fabricante patrocina esta página, y ten cuidado con las placas y antenas de imitación en los mercados generales; compra de la tienda oficial de una placa o de un vendedor Meshtastic conocido cuando sea posible.
 </div>
 
+<div class="callout">
+<span class="callout-label">¿Solo quieres poner un nodo en marcha?</span>
+Dos puntos de partida, según dónde lo vayas a poner. El resto de las opciones y sus ventajas y desventajas están más abajo.
+<ul>
+<li><strong>Llévalo contigo</strong> — <a href="#nodos-portátiles--de-mano">Seeed Wio Tracker L1</a>, unos $30. GPS integrado, OLED pequeña, listo para la malla apenas lo saques de la caja.</li>
+<li><strong>Déjalo funcionando en un sitio fijo</strong> — una placa clase <a href="#nodos-en-techo--de-gran-elevación">Heltec LoRa32 V4</a>, unos $25–30. Enchufada, sin batería que administrar.</li>
+</ul>
+</div>
+
 ## Elegir un chip: nRF52840 vs. ESP32
 
 Casi todas las placas de esta página están construidas alrededor de una de dos familias de chips, y vale la pena entender el compromiso antes de elegir un equipo:
