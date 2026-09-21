@@ -5,7 +5,7 @@ description: The arithmetic behind sizing a solar Meshtastic node for Puerto Ric
 pubDate: 2026-08-19
 author: WP4TZV
 category: Node Builds
-tags: [solar, power, gps, battery]
+tags: [solar, power, gps, battery, operator]
 readingTime: 14 min
 ---
 

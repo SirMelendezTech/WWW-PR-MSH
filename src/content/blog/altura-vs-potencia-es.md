@@ -4,7 +4,7 @@ description: El argumento de capa física contra subir la potencia primero — l
 pubDate: 2026-08-17
 author: WP4TZV
 category: Hardware
-tags: [antenas, fisica-rf, fcc-parte-15, zona-fresnel, elevacion]
+tags: [antenas, fisica-rf, fcc-parte-15, zona-fresnel, elevacion, operator]
 readingTime: 10 min
 lang: es
 translationKey: height-vs-power

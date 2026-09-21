@@ -4,7 +4,7 @@ description: Pasos prácticos para preparar tu nodo y tu hogar antes de que la p
 pubDate: 2026-05-28
 author: Meshtastic PR
 category: Community
-tags: [preparacion-emergencias, temporada-huracanes, comunidad]
+tags: [preparacion-emergencias, temporada-huracanes, comunidad, beginner]
 readingTime: 6 min
 lang: es
 translationKey: hurricane-season-checklist

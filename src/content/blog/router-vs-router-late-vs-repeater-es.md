@@ -5,7 +5,7 @@ description: Los tres roles de infraestructura se diferencian en dos ejes — cu
 pubDate: 2026-08-30
 author: WP4TZV
 category: Tutorials
-tags: [roles-nodo, router, router-late, repeater, rebroadcast-mode]
+tags: [roles-nodo, router, router-late, repeater, rebroadcast-mode, operator]
 readingTime: 11 min
 lang: es
 ---

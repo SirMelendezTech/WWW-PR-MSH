@@ -5,7 +5,7 @@ description: En Meshtastic no hay "orden de canales" que cambiar — el índice 
 pubDate: 2026-08-30
 author: WP4TZV
 category: Tutorials
-tags: [canales, slot-frecuencia, lora, congestion]
+tags: [canales, slot-frecuencia, lora, congestion, operator]
 readingTime: 13 min
 lang: es
 ---

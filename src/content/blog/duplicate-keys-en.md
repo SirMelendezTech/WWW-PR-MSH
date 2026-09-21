@@ -5,7 +5,7 @@ description: What MeshMonitor's duplicate-key warning actually means, the critic
 pubDate: 2026-08-11
 author: WP4TZV
 category: Field Reports
-tags: [security, monitor, encryption]
+tags: [security, monitor, encryption, operator]
 readingTime: 11 min
 ---
 

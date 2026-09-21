@@ -12,6 +12,15 @@ Meshtastic hardware ranges from $25 development boards to purpose-built solar re
 Everything below reflects what Puerto Rico node operators have found reliable in practice. Prices and availability are approximate and will drift — check current listings before buying. No manufacturer sponsors this page, and watch for knockoff boards and antennas on general marketplaces; buy from a board's official store or a known Meshtastic retailer when possible.
 </div>
 
+<div class="callout">
+<span class="callout-label">Just want to get one node up?</span>
+Two starting points, depending on where you'll put it. Full trade-offs and the rest of the field are below.
+<ul>
+<li><strong>Carry it with you</strong> — <a href="#portable--handheld-nodes">Seeed Wio Tracker L1</a>, about $30. Built-in GPS, small OLED, on the mesh straight out of the box.</li>
+<li><strong>Leave it running somewhere fixed</strong> — a <a href="#rooftop--high-elevation-nodes">Heltec LoRa32 V4-class board</a>, about $25–30. Plugged in, no battery to manage.</li>
+</ul>
+</div>
+
 ## Choosing a chip: nRF52840 vs. ESP32
 
 Almost every board on this page is built around one of two chip families, and it's worth understanding the trade-off before picking a device:

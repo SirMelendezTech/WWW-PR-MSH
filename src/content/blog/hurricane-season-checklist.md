@@ -5,7 +5,7 @@ description: Practical steps to get your node — and your household — ready b
 pubDate: 2026-05-28
 author: Meshtastic PR
 category: Community
-tags: [emergency-prep, hurricane-season, community]
+tags: [emergency-prep, hurricane-season, community, beginner]
 readingTime: 6 min
 ---
 

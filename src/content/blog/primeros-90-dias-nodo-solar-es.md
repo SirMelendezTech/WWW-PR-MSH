@@ -4,7 +4,7 @@ description: Notas sobre la construcción y el despliegue de un nodo alimentado 
 pubDate: 2026-05-14
 author: Meshtastic PR
 category: Node Builds
-tags: [solar, energia, despliegue]
+tags: [solar, energia, despliegue, beginner]
 readingTime: 7 min
 lang: es
 translationKey: solar-node-first-90-days

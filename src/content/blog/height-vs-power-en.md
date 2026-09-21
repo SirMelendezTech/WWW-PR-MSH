@@ -5,7 +5,7 @@ description: The physical-layer case against turning up TX power first — the F
 pubDate: 2026-08-17
 author: WP4TZV
 category: Hardware
-tags: [antennas, rf-physics, fcc-part-15, fresnel-zone, elevation]
+tags: [antennas, rf-physics, fcc-part-15, fresnel-zone, elevation, operator]
 readingTime: 9 min
 ---
 

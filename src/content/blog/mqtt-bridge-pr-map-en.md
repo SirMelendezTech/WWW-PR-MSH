@@ -5,7 +5,7 @@ description: What actually has to be true for your node to show up on the PR cov
 pubDate: 2026-08-30
 author: Meshtastic PR
 category: Tutorials
-tags: [mqtt, map, msh-us-pr, monitor]
+tags: [mqtt, map, msh-us-pr, monitor, operator]
 readingTime: 8 min
 ---
 

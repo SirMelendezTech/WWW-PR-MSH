@@ -92,6 +92,11 @@ const en = {
     "Puerto Rico Mesh Updates": "Puerto Rico Mesh Updates",
   } as Record<string, string>,
 
+  difficulties: {
+    beginner: "Beginner",
+    operator: "Operator",
+  } as Record<string, string>,
+
   blogIndex: {
     title: "Blog",
     description:
@@ -508,7 +513,12 @@ const es: Strings = {
     "Node Builds": "Construcción de Nodos",
     Community: "Comunidad",
     "Puerto Rico Mesh Updates": "Actualizaciones de la Malla PR",
-  },
+  } as Record<string, string>,
+
+  difficulties: {
+    beginner: "Principiante",
+    operator: "Operador",
+  } as Record<string, string>,
 
   blogIndex: {
     title: "Blog",
@@ -849,4 +859,9 @@ export function useStrings(locale: Locale): Strings {
 /** Localized display name for a blog category enum value. */
 export function categoryLabel(locale: Locale, category: string): string {
   return ui[locale].categories[category] ?? category;
+}
+
+/** Localized display name for a blog post's difficulty tag ("beginner" / "operator"). */
+export function difficultyLabel(locale: Locale, difficulty: string): string {
+  return ui[locale].difficulties[difficulty] ?? difficulty;
 }

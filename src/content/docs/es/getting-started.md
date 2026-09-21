@@ -31,23 +31,23 @@ Las regulaciones de radio varían y cambian. Confirma las reglas vigentes que ap
 
 ## Conectar tu radio
 
-La mayoría de los equipos se conectan por **Bluetooth Low Energy** a la app del teléfono, o por **USB serial** al cliente de escritorio/web. Si el emparejamiento Bluetooth falla, prueba primero una conexión USB directa — descarta problemas del stack Bluetooth del teléfono y te da salida de consola si algo anda mal.
+Abre la app y toca **Conectar un equipo** (o el botón **+**), luego elige **Bluetooth**. Selecciona tu radio de la lista de equipos cercanos y confirma el código de emparejamiento que aparece tanto en tu teléfono como en la radio. Una vez emparejado, la app lee automáticamente la configuración actual de tu radio — sin necesidad de escribir nada.
 
-```
-meshtastic --port /dev/ttyUSB0 --info
-```
-
-Usa el [CLI de Meshtastic](https://meshtastic.org/docs/software/python/cli/) para cualquier cosa más allá de la configuración básica — es programable y te muestra exactamente para qué está configurado un equipo.
+<div class="callout">
+<span class="callout-label">¿Prefieres la línea de comandos?</span>
+La mayoría de los equipos también se conectan por <strong>USB serial</strong> al cliente de escritorio/web. Si el emparejamiento Bluetooth falla, prueba primero una conexión USB directa — descarta problemas del stack Bluetooth del teléfono y te da salida de consola si algo anda mal: ejecuta <code>meshtastic --port /dev/ttyUSB0 --info</code> para confirmar la conexión. Usa el <a href="https://meshtastic.org/docs/software/python/cli/">CLI de Meshtastic</a> para cualquier cosa más allá de la configuración básica — es programable y te muestra exactamente para qué está configurado un equipo.
+</div>
 
 ## Configurar tu región
 
-Toda radio debe estar configurada a la **región LoRa** correcta, que determina la banda de frecuencia legal y el ciclo de trabajo bajo el que opera. Esto no es opcional ni cuestión de preferencia — debe corresponder al lugar donde la radio opera físicamente.
-
-```
-meshtastic --set lora.region US
-```
+Toda radio debe estar configurada a la **región LoRa** correcta, que determina la banda de frecuencia legal y el ciclo de trabajo bajo el que opera. Esto no es opcional ni cuestión de preferencia — debe corresponder al lugar donde la radio opera físicamente. En la app, abre **Radio Configuration → LoRa** y elige tu región de la lista.
 
 Consulta [Configuración Recomendada → Región y Frecuencia](/es/settings/#región-y-frecuencia) para lo que aplica en Puerto Rico específicamente.
+
+<div class="callout">
+<span class="callout-label">¿Prefieres la línea de comandos?</span>
+Configura la región desde el CLI con <code>meshtastic --set lora.region US</code>.
+</div>
 
 ## Elegir un rol de nodo
 

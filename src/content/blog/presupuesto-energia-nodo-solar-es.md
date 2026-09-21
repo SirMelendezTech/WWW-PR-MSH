@@ -4,7 +4,7 @@ description: La aritmética detrás de dimensionar un nodo solar de Meshtastic p
 pubDate: 2026-08-19
 author: WP4TZV
 category: Node Builds
-tags: [solar, energia, gps, bateria]
+tags: [solar, energia, gps, bateria, operator]
 readingTime: 15 min
 lang: es
 translationKey: power-budget-solar-node
