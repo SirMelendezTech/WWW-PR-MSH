@@ -9,6 +9,7 @@ import "leaflet/dist/leaflet.css";
 interface Props { lang: Locale }
 const { lang } = Astro.props;
 const m = useStrings(lang).map;
+const legend = useStrings(lang).mapPreview;
 const p = (href: string) => localizePath(href, lang);
 
 const { nodes, live } = await getNodes();
@@ -24,6 +25,11 @@ const nodeDataJson = JSON.stringify(nodes).replace(/<\//g, "<\\/");
   <p class="page-lede">
     {m.ledeShownOnline(onlineCount, nodes.length, nodesLabel)}
     {live ? m.ledeLive : m.ledeSample}
+  </p>
+
+  <p class="map-legend">
+    <span class="key key--online">{legend.legendOnline}</span>
+    <span class="key key--offline">{legend.legendOffline}</span>
   </p>
 </div>
 
@@ -92,6 +98,27 @@ const nodeDataJson = JSON.stringify(nodes).replace(/<\//g, "<\\/");
 <style>
   .page-head { padding-block: 2.5rem 1rem; max-width: 68ch; }
   .page-lede { font-size: 1.05rem; margin-top: 0.5rem; }
+
+  .map-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 1.1rem;
+    margin: 0.9rem 0 0;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-faint);
+  }
+  .key { display: inline-flex; align-items: center; gap: 0.45em; }
+  .key--online::before, .key--offline::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+  .key--online::before { background: var(--secondary); }
+  .key--offline::before { background: var(--ink-faint); }
 
   .map-shell {
     display: grid;
