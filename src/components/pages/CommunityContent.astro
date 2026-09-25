@@ -8,6 +8,7 @@ import { blogPostHref } from "../../lib/blog";
 interface Props { lang: Locale }
 const { lang } = Astro.props;
 const c = useStrings(lang).community;
+const DISCORD_INVITE_URL = "https://discord.gg/3v6rRhNRpD";
 const t = useStrings(lang);
 const p = (href: string) => localizePath(href, lang);
 const hurricanePost = lang === "es" ? "lista-preparacion-huracanes-es" : "hurricane-season-checklist";
@@ -22,6 +23,7 @@ const hurricanePost = lang === "es" ? "lista-preparacion-huracanes-es" : "hurric
 <div class="container community-list">
   {[
     { id: "projects", heading: c.projectsHeading },
+    { id: "chat", heading: c.chatHeading },
     { id: "operators", heading: c.operatorsHeading },
     { id: "events", heading: c.eventsHeading },
     { id: "field-testing", heading: c.fieldTestingHeading },
@@ -35,6 +37,9 @@ const hurricanePost = lang === "es" ? "lista-preparacion-huracanes-es" : "hurric
       </p>
       <div class="entry-body">
         {entry.id === "projects" && <p>{c.projectsBody}</p>}
+        {entry.id === "chat" && (
+          <p>{c.chatBodyBefore}<a href={DISCORD_INVITE_URL} target="_blank" rel="noopener noreferrer">{c.chatBodyLink}<span class="sr-only"> {t.opensInNewTab}</span></a>{c.chatBodyAfter}</p>
+        )}
         {entry.id === "operators" && (
           <p>{c.operatorsBodyBefore}<a href={p("/pr-mesh/")}>{c.operatorsBodyLink}</a>{c.operatorsBodyAfter}</p>
         )}

@@ -6,10 +6,12 @@ import { useStrings } from "../../lib/ui-strings";
 interface Props { lang: Locale }
 const { lang } = Astro.props;
 const l = useStrings(lang).links;
+const DISCORD_INVITE_URL = "https://discord.gg/3v6rRhNRpD";
 
 const official = [
   { name: "Meshtastic Puerto Rico Network Monitor", url: "https://monitor.prmsh.com/", note: l.notes.monitor },
   { name: "PalmasMesh", url: "https://palmasmesh.com/", note: l.notes.palmasmesh },
+  { name: "Meshtastic Puerto Rico Discord", url: DISCORD_INVITE_URL, note: l.notes.discord },
   { name: "Malla PR", url: "https://malla.prmsh.com/map", note: l.notes.mallapr },
   { name: "MeshView PR", url: "https://meshview.prmsh.com/", note: l.notes.meshview },
 ];

@@ -241,6 +241,12 @@ const en = {
     operatorsBodyLink: "Puerto Rico Mesh",
     operatorsBodyAfter:
       ", and connect with nearby operators before choosing a site for a new node — coordinating placement avoids duplicate coverage and fills real gaps instead.",
+    chatHeading: "Community Chat",
+    chatBodyBefore:
+      "Day-to-day conversation happens on the ",
+    chatBodyLink: "Meshtastic Puerto Rico Discord",
+    chatBodyAfter:
+      " — ask questions, share node builds, and find operators near you before you put up a new node.",
     eventsHeading: "Events",
     eventsBodyBefore:
       "Meetups, build nights, and range-test outings happen periodically as the community grows. Check the community channels linked on ",
@@ -358,6 +364,8 @@ const en = {
       monitor:
         "Live community monitoring for participating Puerto Rico nodes.",
       palmasmesh: "Puerto Rico Meshtastic community project.",
+      discord:
+        "Community Discord server for Puerto Rico mesh operators — questions, builds, and coordination.",
       mallapr:
         "Puerto Rico network monitor and map — the live data source behind this site's Node Map.",
       meshview:
@@ -664,6 +672,12 @@ const es: Strings = {
     operatorsBodyLink: "Malla de Puerto Rico",
     operatorsBodyAfter:
       ", y coordínate con operadores cercanos antes de elegir un sitio para un nodo nuevo — coordinar la ubicación evita cobertura duplicada y en su lugar llena huecos reales.",
+    chatHeading: "Chat de la Comunidad",
+    chatBodyBefore:
+      "La conversación del día a día ocurre en el ",
+    chatBodyLink: "Discord de Meshtastic Puerto Rico",
+    chatBodyAfter:
+      " — haz preguntas, comparte tus nodos y encuentra operadores cerca de ti antes de instalar un nodo nuevo.",
     eventsHeading: "Eventos",
     eventsBodyBefore:
       "Encuentros, noches de armado y salidas de prueba de alcance ocurren periódicamente a medida que crece la comunidad. Consulta los canales comunitarios enlazados en ",
@@ -783,6 +797,8 @@ const es: Strings = {
       monitor:
         "Monitoreo comunitario en vivo de los nodos participantes de Puerto Rico.",
       palmasmesh: "Proyecto comunitario de Meshtastic en Puerto Rico.",
+      discord:
+        "Servidor de Discord de la comunidad para operadores de la malla en Puerto Rico — preguntas, proyectos y coordinación.",
       mallapr:
         "Monitor y mapa de la red de Puerto Rico — la fuente de datos en vivo detrás del Mapa de Nodos de este sitio.",
       meshview:
