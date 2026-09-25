@@ -235,6 +235,10 @@ const en = {
     projectsHeading: "Community Projects",
     projectsBody:
       "Ongoing efforts include coverage mapping for underserved regions, coordinated rooftop deployments, and shared documentation for local settings. If you're starting a project — a neighborhood node cluster, a trailhead repeater — post it where other operators can find and support it.",
+    projectsExampleBefore: "One example is ",
+    projectsExampleLink: "PalmasMesh",
+    projectsExampleAfter:
+      ", a free neighborhood mesh network in Palmas del Mar, Humacao, built and run by residents as a backup for when power and cell service go down.",
     operatorsHeading: "Node Operators",
     operatorsBodyBefore:
       "Operators across San Juan Metro, Bayamón, Caguas, Ponce, Mayagüez, and beyond keep the mesh running. See current regional status on ",
@@ -363,7 +367,7 @@ const en = {
     notes: {
       monitor:
         "Live community monitoring for participating Puerto Rico nodes.",
-      palmasmesh: "Puerto Rico Meshtastic community project.",
+      palmasmesh: "Neighborhood mesh network in Palmas del Mar, Humacao, run by residents.",
       discord:
         "Community Discord server for Puerto Rico mesh operators — questions, builds, and coordination.",
       mallapr:
@@ -666,6 +670,10 @@ const es: Strings = {
     projectsHeading: "Proyectos Comunitarios",
     projectsBody:
       "Los esfuerzos en curso incluyen el mapeo de cobertura para regiones desatendidas, despliegues coordinados en techos y documentación compartida para configuraciones locales. Si vas a empezar un proyecto — un grupo de nodos de barrio, un repetidor en el inicio de una vereda — publicálo donde otros operadores puedan encontrarlo y apoyarlo.",
+    projectsExampleBefore: "Un ejemplo es ",
+    projectsExampleLink: "PalmasMesh",
+    projectsExampleAfter:
+      ", una malla vecinal gratuita en Palmas del Mar, Humacao, que los residentes construyen y operan como respaldo para cuando se van la luz y la señal celular.",
     operatorsHeading: "Operadores de Nodos",
     operatorsBodyBefore:
       "Operadores en el área metro de San Juan, Bayamón, Caguas, Ponce, Mayagüez y más allá mantienen la malla funcionando. Consulta el estado regional actual en ",
@@ -796,7 +804,7 @@ const es: Strings = {
     notes: {
       monitor:
         "Monitoreo comunitario en vivo de los nodos participantes de Puerto Rico.",
-      palmasmesh: "Proyecto comunitario de Meshtastic en Puerto Rico.",
+      palmasmesh: "Malla vecinal en Palmas del Mar, Humacao, operada por residentes.",
       discord:
         "Servidor de Discord de la comunidad para operadores de la malla en Puerto Rico — preguntas, proyectos y coordinación.",
       mallapr:

@@ -36,7 +36,12 @@ const hurricanePost = lang === "es" ? "lista-preparacion-huracanes-es" : "hurric
         <span>{entry.heading}</span>
       </p>
       <div class="entry-body">
-        {entry.id === "projects" && <p>{c.projectsBody}</p>}
+        {entry.id === "projects" && (
+          <Fragment>
+            <p>{c.projectsBody}</p>
+            <p>{c.projectsExampleBefore}<a href="https://palmasmesh.com/" target="_blank" rel="noopener noreferrer">{c.projectsExampleLink}<span class="sr-only"> {t.opensInNewTab}</span></a>{c.projectsExampleAfter}</p>
+          </Fragment>
+        )}
         {entry.id === "chat" && (
           <p>{c.chatBodyBefore}<a href={DISCORD_INVITE_URL} target="_blank" rel="noopener noreferrer">{c.chatBodyLink}<span class="sr-only"> {t.opensInNewTab}</span></a>{c.chatBodyAfter}</p>
         )}
