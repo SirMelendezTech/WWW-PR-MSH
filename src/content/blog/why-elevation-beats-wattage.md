@@ -2,7 +2,7 @@
 title: Why elevation beats wattage every time
 description: A field comparison of two rooftop nodes in the same neighborhood — one higher, one stronger — and what it means for where you put your next radio.
 pubDate: 2026-06-02
-author: Meshtastic PR
+author: PRMSH
 category: Field Reports
 tags: [antennas, range, rooftop, beginner]
 readingTime: 5 min

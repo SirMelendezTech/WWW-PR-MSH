@@ -53,8 +53,8 @@ const svg = `
   ${hopArcs}
   ${nodeMarks}
 
-  <text x="80" y="180" font-family="Arial, sans-serif" font-weight="700" font-size="64" fill="#ffffff" letter-spacing="-1">Meshtastic Puerto Rico</text>
-  <text x="80" y="230" font-family="Arial, sans-serif" font-weight="400" font-size="30" fill="#aebfc6">Community mesh network guides, hardware, and field notes</text>
+  <text x="80" y="180" font-family="Arial, sans-serif" font-weight="700" font-size="64" fill="#ffffff" letter-spacing="-1">PRMSH</text>
+  <text x="80" y="230" font-family="Arial, sans-serif" font-weight="400" font-size="30" fill="#aebfc6">Puerto Rico Meshtastic community — guides, hardware, and field notes</text>
 
   <rect x="80" y="270" width="64" height="4" fill="#2fe0d1" />
 </svg>

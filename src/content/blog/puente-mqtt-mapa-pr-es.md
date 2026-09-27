@@ -3,7 +3,7 @@ translationKey: mqtt-bridge-pr-map
 title: "Cómo poner tu nodo en el mapa de la malla de Puerto Rico"
 description: Qué tiene que ser cierto para que tu nodo aparezca en el mapa de cobertura de PR — el root topic MQTT msh/US/PR, OK to MQTT, solo-uplink, y los ajustes de posición que deciden si apareces.
 pubDate: 2026-08-30
-author: Meshtastic PR
+author: PRMSH
 category: Tutorials
 tags: [mqtt, mapa, msh-us-pr, monitor, operator]
 readingTime: 8 min

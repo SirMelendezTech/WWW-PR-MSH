@@ -50,9 +50,9 @@ const en = {
     nodesReporting: (online: number, total: number) =>
       `${online} of ${total} nodes reporting`,
     rebuilt: (date: string) => `site rebuilt ${date}`,
-    copyright: (year: number) => `© ${year} Meshtastic Puerto Rico Community.`,
+    copyright: (year: number) => `© ${year} PRMSH Community.`,
     disclaimer:
-      "Meshtastic PR is an independent community project, not affiliated with Meshtastic LLC. Configure and operate radio equipment according to applicable laws, regulations, and current Meshtastic firmware documentation.",
+      "PRMSH is an independent community project, not affiliated with Meshtastic LLC. Configure and operate radio equipment according to applicable laws, regulations, and current Meshtastic firmware documentation.",
     licenseBefore: "Site content licensed under ",
     licenseName: "CC BY-SA 4.0",
     licenseAfter: ".",
@@ -100,8 +100,8 @@ const en = {
   blogIndex: {
     title: "Blog",
     description:
-      "Tutorials, field reports, node builds, and Puerto Rico mesh updates from the Meshtastic PR community.",
-    eyebrow: "Meshtastic PR Blog",
+      "Tutorials, field reports, node builds, and Puerto Rico mesh updates from the PRMSH community.",
+    eyebrow: "PRMSH Blog",
     h1: "Field notes from the mesh",
     lede: "Tutorials, hardware reviews, node deployments, and coverage reports from operators building the network across Puerto Rico.",
     filterAria: "Filter by category",
@@ -122,13 +122,13 @@ const en = {
   },
 
   home: {
-    title: "Meshtastic Puerto Rico",
+    title: "PRMSH — Puerto Rico Meshtastic Community",
     description:
-      "Meshtastic Puerto Rico is a community resource for building, learning about, and expanding decentralized LoRa mesh communication throughout Puerto Rico.",
+      "PRMSH is the Puerto Rico Meshtastic community — a resource for building, learning about, and expanding decentralized LoRa mesh communication throughout Puerto Rico.",
     heroEyebrow: "Community LoRa network · Puerto Rico",
     heroTitle: "Stays connected when everything else goes down.",
     heroSub1:
-      "Meshtastic Puerto Rico is a community-built radio network that lets you send messages without cell service, Wi-Fi, or the internet. You pair a small, affordable radio with an app on your phone — that radio talks directly to nearby radios, relaying your message from one to the next until it reaches its destination.",
+      "PRMSH is a community-built Meshtastic radio network that lets you send messages without cell service, Wi-Fi, or the internet. You pair a small, affordable radio with an app on your phone — that radio talks directly to nearby radios, relaying your message from one to the next until it reaches its destination.",
     heroSub2:
       "Some devices even have their own screen and keyboard, so you don't need a phone at all. No towers, no company, no monthly bill.",
     heroSub3:
@@ -143,7 +143,7 @@ const en = {
     introBody2:
       "Puerto Rico has already lived through weeks without cell service after Hurricane María and Fiona. This mesh exists so the next outage doesn't mean total silence.",
     introLink: "See how it actually works →",
-    whyEyebrow: "Why Meshtastic PR",
+    whyEyebrow: "Why PRMSH",
     whyItems: [
       "Independent, community-run — no company, no subscription",
       "Built for Puerto Rico's terrain, climate, and hurricane risk",
@@ -214,7 +214,7 @@ const en = {
     splitStartCta: "Get Started",
 
     blogEyebrow: "From the blog",
-    blogTitle: "Latest from Meshtastic PR",
+    blogTitle: "Latest from PRMSH",
     blogReadAll: "Read all posts →",
 
     ctaTitle: "Every node makes the mesh stronger.",
@@ -231,7 +231,7 @@ const en = {
     crumb: "Community",
     eyebrow: "Community",
     h1: "Built by the people using it",
-    lede: "There's no company behind Meshtastic PR — just operators who put up nodes, share what they learn, and help each other extend coverage. Here's how to find them and get involved.",
+    lede: "There's no company behind PRMSH — just operators who put up nodes, share what they learn, and help each other extend coverage. Here's how to find them and get involved.",
     projectsHeading: "Community Projects",
     projectsBody:
       "Ongoing efforts include coverage mapping for underserved regions, coordinated rooftop deployments, and shared documentation for local settings. If you're starting a project — a neighborhood node cluster, a trailhead repeater — post it where other operators can find and support it.",
@@ -244,7 +244,7 @@ const en = {
     chatHeading: "Community Chat",
     chatBodyBefore:
       "Day-to-day conversation happens on the ",
-    chatBodyLink: "Meshtastic Puerto Rico Discord",
+    chatBodyLink: "PRMSH Community Discord",
     chatBodyAfter:
       " — ask questions, share node builds, and find operators near you before you put up a new node.",
     eventsHeading: "Events",
@@ -299,7 +299,7 @@ const en = {
     lastSeen: "last seen",
     sourceLabel: "Data source",
     sourceBefore: "Node positions come from the ",
-    sourceMonitor: "Meshtastic PR Network Monitor",
+    sourceMonitor: "PRMSH Network Dashboard",
     sourceMid: ", powered by ",
     sourceMalla: "Malla",
     sourceAfter:
@@ -424,7 +424,7 @@ const en = {
     dialogAria: "Search documentation",
     placeholder: "Search docs, hardware, blog…",
     queryAria: "Search query",
-    prompt: "Type to search Meshtastic PR documentation and blog posts.",
+    prompt: "Type to search PRMSH documentation and blog posts.",
     noResults: "No results. Try a different term.",
   },
 
@@ -481,9 +481,9 @@ const es: Strings = {
       `${online} de ${total} nodos reportando`,
     rebuilt: (date: string) => `sitio reconstruido ${date}`,
     copyright: (year: number) =>
-      `© ${year} Comunidad Meshtastic Puerto Rico.`,
+      `© ${year} Comunidad PRMSH.`,
     disclaimer:
-      "Meshtastic PR es un proyecto comunitario independiente, sin afiliación con Meshtastic LLC. Configura y opera equipos de radio de acuerdo con las leyes, reglamentos y la documentación vigente del firmware de Meshtastic.",
+      "PRMSH es un proyecto comunitario independiente, sin afiliación con Meshtastic LLC. Configura y opera equipos de radio de acuerdo con las leyes, reglamentos y la documentación vigente del firmware de Meshtastic.",
     licenseBefore: "Contenido del sitio bajo licencia ",
     licenseName: "CC BY-SA 4.0",
     licenseAfter: ".",
@@ -531,8 +531,8 @@ const es: Strings = {
   blogIndex: {
     title: "Blog",
     description:
-      "Tutoriales, reportes de campo, construcción de nodos y actualizaciones de la malla de Puerto Rico de la comunidad Meshtastic PR.",
-    eyebrow: "Blog de Meshtastic PR",
+      "Tutoriales, reportes de campo, construcción de nodos y actualizaciones de la malla de Puerto Rico de la comunidad PRMSH.",
+    eyebrow: "Blog de PRMSH",
     h1: "Notas de campo desde la malla",
     lede: "Tutoriales, reseñas de hardware, despliegues de nodos y reportes de cobertura de operadores que construyen la red por todo Puerto Rico.",
     filterAria: "Filtrar por categoría",
@@ -553,13 +553,13 @@ const es: Strings = {
   },
 
   home: {
-    title: "Meshtastic Puerto Rico",
+    title: "PRMSH — Comunidad Meshtastic de Puerto Rico",
     description:
-      "Meshtastic Puerto Rico es un recurso comunitario para construir, aprender sobre y ampliar la comunicación mesh LoRa descentralizada por todo Puerto Rico.",
+      "PRMSH es la comunidad Meshtastic de Puerto Rico — un recurso comunitario para construir, aprender sobre y ampliar la comunicación mesh LoRa descentralizada por todo Puerto Rico.",
     heroEyebrow: "Red LoRa comunitaria · Puerto Rico",
     heroTitle: "Sigue conectada cuando todo lo demás se cae.",
     heroSub1:
-      "Meshtastic Puerto Rico es una red de radio construida por la comunidad que te permite enviar mensajes sin servicio celular, Wi-Fi ni internet. Emparejas una radio pequeña y económica con una app en tu teléfono — esa radio se comunica directamente con radios cercanas, retransmitiendo tu mensaje de una a otra hasta que llega a su destino.",
+      "PRMSH es una red de radio Meshtastic construida por la comunidad que te permite enviar mensajes sin servicio celular, Wi-Fi ni internet. Emparejas una radio pequeña y económica con una app en tu teléfono — esa radio se comunica directamente con radios cercanas, retransmitiendo tu mensaje de una a otra hasta que llega a su destino.",
     heroSub2:
       "Algunos equipos hasta tienen su propia pantalla y teclado, así que no necesitas teléfono para nada. Sin torres, sin compañía, sin factura mensual.",
     heroSub3:
@@ -574,7 +574,7 @@ const es: Strings = {
     introBody2:
       "Puerto Rico ya ha vivido semanas sin servicio celular tras los huracanes María y Fiona. Esta malla existe para que el próximo apagón no signifique silencio total.",
     introLink: "Mira cómo funciona de verdad →",
-    whyEyebrow: "Por qué Meshtastic PR",
+    whyEyebrow: "Por qué PRMSH",
     whyItems: [
       "Independiente, gestionada por la comunidad — sin compañía, sin suscripción",
       "Construida para el terreno, el clima y el riesgo de huracanes de Puerto Rico",
@@ -645,7 +645,7 @@ const es: Strings = {
     splitStartCta: "Comenzar",
 
     blogEyebrow: "Del blog",
-    blogTitle: "Lo más reciente de Meshtastic PR",
+    blogTitle: "Lo más reciente de PRMSH",
     blogReadAll: "Lee todos los artículos →",
 
     ctaTitle: "Cada nodo hace la malla más fuerte.",
@@ -662,7 +662,7 @@ const es: Strings = {
     crumb: "Comunidad",
     eyebrow: "Comunidad",
     h1: "Construida por quienes la usan",
-    lede: "No hay ninguna compañía detrás de Meshtastic PR — solo operadores que instalan nodos, comparten lo que aprenden y se ayudan a ampliar la cobertura. Así puedes encontrarlos y participar.",
+    lede: "No hay ninguna compañía detrás de PRMSH — solo operadores que instalan nodos, comparten lo que aprenden y se ayudan a ampliar la cobertura. Así puedes encontrarlos y participar.",
     projectsHeading: "Proyectos Comunitarios",
     projectsBody:
       "Los esfuerzos en curso incluyen el mapeo de cobertura para regiones desatendidas, despliegues coordinados en techos y documentación compartida para configuraciones locales. Si vas a empezar un proyecto — un grupo de nodos de barrio, un repetidor en el inicio de una vereda — publicálo donde otros operadores puedan encontrarlo y apoyarlo.",
@@ -675,7 +675,7 @@ const es: Strings = {
     chatHeading: "Chat de la Comunidad",
     chatBodyBefore:
       "La conversación del día a día ocurre en el ",
-    chatBodyLink: "Discord de Meshtastic Puerto Rico",
+    chatBodyLink: "Discord de la comunidad PRMSH",
     chatBodyAfter:
       " — haz preguntas, comparte tus nodos y encuentra operadores cerca de ti antes de instalar un nodo nuevo.",
     eventsHeading: "Eventos",
@@ -732,7 +732,7 @@ const es: Strings = {
     lastSeen: "visto por última vez",
     sourceLabel: "Fuente de datos",
     sourceBefore: "Las posiciones de los nodos vienen del ",
-    sourceMonitor: "Meshtastic PR Network Monitor",
+    sourceMonitor: "PRMSH Network Dashboard",
     sourceMid: ", impulsado por ",
     sourceMalla: "Malla",
     sourceAfter:
@@ -857,7 +857,7 @@ const es: Strings = {
     dialogAria: "Buscar en la documentación",
     placeholder: "Busca en docs, hardware, blog…",
     queryAria: "Consulta de búsqueda",
-    prompt: "Escribe para buscar en la documentación y el blog de Meshtastic PR.",
+    prompt: "Escribe para buscar en la documentación y el blog de PRMSH.",
     noResults: "Sin resultados. Prueba con otro término.",
   },
 

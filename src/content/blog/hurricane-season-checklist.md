@@ -3,7 +3,7 @@ translationKey: hurricane-season-checklist
 title: A hurricane-season checklist for your mesh setup
 description: Practical steps to get your node — and your household — ready before the next storm knocks out cell service.
 pubDate: 2026-05-28
-author: Meshtastic PR
+author: PRMSH
 category: Community
 tags: [emergency-prep, hurricane-season, community, beginner]
 readingTime: 6 min

@@ -39,7 +39,7 @@ La información de cobertura aquí refleja lo que ha compartido la comunidad. Co
 
 <div class="map-placeholder">
   <p><strong>Mapa de cobertura en vivo</strong></p>
-  <p>La página dedicada del <a href="/es/map/">Mapa de Nodos</a> muestra las posiciones actuales de los nodos, obtenidas del Meshtastic PR Network Monitor en cada compilación del sitio.</p>
+  <p>La página dedicada del <a href="/es/map/">Mapa de Nodos</a> muestra las posiciones actuales de los nodos, obtenidas del PRMSH Network Dashboard en cada compilación del sitio.</p>
   <a href="/es/map/" class="btn btn-secondary">Abrir el Mapa de Nodos →</a>
 </div>
 

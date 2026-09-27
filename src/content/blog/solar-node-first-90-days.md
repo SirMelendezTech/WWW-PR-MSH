@@ -3,7 +3,7 @@ translationKey: solar-node-first-90-days
 title: A solar node's first 90 days
 description: Notes from building and deploying an unattended solar-powered node, including what broke, what didn't, and what we'd change.
 pubDate: 2026-05-14
-author: Meshtastic PR
+author: PRMSH
 category: Node Builds
 tags: [solar, power, deployment, beginner]
 readingTime: 7 min
