@@ -1,7 +1,7 @@
 // Node map data layer.
 //
-// getNodes() fetches live Puerto Rico node positions from the Meshtastic PR
-// Network Monitor (malla.prmsh.com), which runs Malla
+// getNodes() fetches live Puerto Rico node positions from the PRMSH Network
+// Dashboard (malla.prmsh.com), which runs Malla
 // (https://github.com/zenitraM/malla, MIT). This runs at build time inside
 // Astro's server-side render, not in the browser, so it isn't subject to
 // the API's lack of CORS headers. If the fetch fails (network hiccup during

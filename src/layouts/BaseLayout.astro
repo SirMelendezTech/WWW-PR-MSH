@@ -23,7 +23,7 @@ interface Props {
 const { title, description, noIndex = false, lang = "en", image = "/og-default.png" } = Astro.props;
 const altLocaleHref = "altLocaleHref" in Astro.props ? Astro.props.altLocaleHref ?? null : undefined;
 const t = useStrings(lang);
-const siteTitle = title === "Meshtastic Puerto Rico" ? title : `${title} | Meshtastic Puerto Rico`;
+const siteTitle = title === t.home.title ? title : `${title} | PRMSH`;
 const site = Astro.site ?? new URL("https://prmsh.com");
 const selfPath = Astro.url.pathname;
 const canonical = new URL(selfPath, site).toString();
@@ -59,7 +59,7 @@ const absUrl = (p: string) => new URL(p, site).toString();
   <meta property="og:type" content="website" />
   <meta property="og:title" content={siteTitle} />
   <meta property="og:description" content={description} />
-  <meta property="og:site_name" content="Meshtastic Puerto Rico" />
+  <meta property="og:site_name" content="PRMSH" />
   <meta property="og:url" content={canonical} />
   <meta property="og:image" content={ogImage} />
   <meta property="og:image:width" content="1200" />

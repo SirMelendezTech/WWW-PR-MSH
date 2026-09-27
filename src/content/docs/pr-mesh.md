@@ -38,7 +38,7 @@ Coverage information here reflects what's been shared by the community. See the 
 
 <div class="map-placeholder">
   <p><strong>Live coverage map</strong></p>
-  <p>The dedicated <a href="/map/">Node Map</a> page shows current node positions, pulled from the Meshtastic PR Network Monitor at each site build.</p>
+  <p>The dedicated <a href="/map/">Node Map</a> page shows current node positions, pulled from the PRMSH Network Dashboard at each site build.</p>
   <a href="/map/" class="btn btn-secondary">Open the Node Map →</a>
 </div>
 

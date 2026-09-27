@@ -2,7 +2,7 @@
 title: "Los primeros 90 días de un nodo solar"
 description: Notas sobre la construcción y el despliegue de un nodo alimentado por energía solar y sin supervisión, incluyendo lo que funcionó, lo que falló y lo que cambiaríamos.
 pubDate: 2026-05-14
-author: Meshtastic PR
+author: PRMSH
 category: Node Builds
 tags: [solar, energia, despliegue, beginner]
 readingTime: 7 min

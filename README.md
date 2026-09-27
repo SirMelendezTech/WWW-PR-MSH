@@ -1,4 +1,4 @@
-# Meshtastic Puerto Rico
+# PRMSH — Puerto Rico Meshtastic Community
 
 Community site for the Puerto Rico [Meshtastic](https://meshtastic.org) mesh — documentation, hardware and settings guidance, a blog, and a live node map for the island's network. Lives at [prmsh.com](https://prmsh.com).
 
@@ -68,7 +68,7 @@ Not a coder? You can still help: run a node, document your setup, or point out s
 
 ## License
 
-Dual-licensed, © Meshtastic Puerto Rico Community and contributors:
+Dual-licensed, © PRMSH Community and contributors:
 
 - **Code** — the `.astro` / `.ts` / `.css` files and site machinery — under the [MIT License](./LICENSE).
 - **Content** — everything under `src/content/` (docs and blog posts, all languages) — under [CC BY-SA 4.0](./LICENSE-CONTENT): reuse and adapt freely with attribution, share derivatives under the same license.

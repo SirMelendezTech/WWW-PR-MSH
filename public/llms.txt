@@ -1,4 +1,4 @@
-# Meshtastic Puerto Rico
+# PRMSH — Puerto Rico Meshtastic Community
 
 > Community resource for building, learning about, and expanding a decentralized, long-range LoRa mesh communication network across Puerto Rico — no cell towers, no monthly bill, keeps working when the grid doesn't.
 

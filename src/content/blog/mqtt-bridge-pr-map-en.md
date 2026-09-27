@@ -3,7 +3,7 @@ translationKey: mqtt-bridge-pr-map
 title: "Getting Your Node Onto the Puerto Rico Mesh Map"
 description: What actually has to be true for your node to show up on the PR coverage map — the MQTT root topic msh/US/PR, OK to MQTT, uplink-only, and the position settings that decide whether you appear at all.
 pubDate: 2026-08-30
-author: Meshtastic PR
+author: PRMSH
 category: Tutorials
 tags: [mqtt, map, msh-us-pr, monitor, operator]
 readingTime: 8 min

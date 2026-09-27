@@ -166,9 +166,9 @@ The antenna usually matters more than the radio it's attached to.
 - **Cable loss** adds up fast at these frequencies. Use LMR-240 or better coax, and keep outdoor runs to 10 feet or less where practical — every extra foot of cheap cable quietly gives back gain you paid for in the antenna.
 - **Weatherproofing**: seal every outdoor connector with quality coax seal tape, not just electrical tape — salt air and rain will find any gap within a season.
 
-For real-world gain and range numbers on specific antenna models, see the [Meshtastic Antenna Reports](https://github.com/meshtastic/antenna-reports) — a community-submitted, crowd-sourced dataset from operators worldwide. It isn't vetted by Meshtastic PR, but it's a useful second opinion beyond manufacturer spec sheets. If you run your own antenna tests here in Puerto Rico, consider submitting a report there too.
+For real-world gain and range numbers on specific antenna models, see the [Meshtastic Antenna Reports](https://github.com/meshtastic/antenna-reports) — a community-submitted, crowd-sourced dataset from operators worldwide. It isn't vetted by PRMSH, but it's a useful second opinion beyond manufacturer spec sheets. If you run your own antenna tests here in Puerto Rico, consider submitting a report there too.
 
-For the other half of the picture — whether an antenna is actually tuned to 915 MHz — [RF Index](https://www.rfindex.com/mesh/antennas) publishes bench VSWR measurements and SWR sweep charts for specific antenna models, alongside specs and buy links. Field reports tell you how an antenna performed on the air; an SWR sweep tells you how much power it reflects back into the radio instead of radiating. Both are worth reading before you buy, and a cheap antenna that sweeps badly at 915 MHz is the most common reason a node underperforms its spec sheet. RF Index is run by the Austin Mesh community and covers MeshCore hardware alongside Meshtastic, so check which stack a listing refers to. It isn't vetted by Meshtastic PR.
+For the other half of the picture — whether an antenna is actually tuned to 915 MHz — [RF Index](https://www.rfindex.com/mesh/antennas) publishes bench VSWR measurements and SWR sweep charts for specific antenna models, alongside specs and buy links. Field reports tell you how an antenna performed on the air; an SWR sweep tells you how much power it reflects back into the radio instead of radiating. Both are worth reading before you buy, and a cheap antenna that sweeps badly at 915 MHz is the most common reason a node underperforms its spec sheet. RF Index is run by the Austin Mesh community and covers MeshCore hardware alongside Meshtastic, so check which stack a listing refers to. It isn't vetted by PRMSH.
 
 ## Trusted retailers
 
@@ -247,6 +247,6 @@ Device names in that table describe **classes of hardware** common in the Meshta
 
 The categories on this page are a curated starting point for Puerto Rico, not the whole field.
 
-For external sensors, unusual builds, or less common boards, the community-maintained [Awesome Meshtastic hardware & sensors list](https://github.com/SignalGap/awesome-meshtastic#hardware-and-sensors) is a broader, crowd-sourced roundup. It isn't vetted by Meshtastic PR — treat it as a jumping-off point, not a recommendation.
+For external sensors, unusual builds, or less common boards, the community-maintained [Awesome Meshtastic hardware & sensors list](https://github.com/SignalGap/awesome-meshtastic#hardware-and-sensors) is a broader, crowd-sourced roundup. It isn't vetted by PRMSH — treat it as a jumping-off point, not a recommendation.
 
 To check a specific model, [RF Index](https://www.rfindex.com/mesh/devices) compares devices side by side with current specs, pricing, and buy links. It also lists MeshCore devices, so confirm a board runs Meshtastic before ordering.

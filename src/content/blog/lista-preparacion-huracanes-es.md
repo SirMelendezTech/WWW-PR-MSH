@@ -2,7 +2,7 @@
 title: "Lista de preparación para la temporada de huracanes para tu red mesh"
 description: Pasos prácticos para preparar tu nodo y tu hogar antes de que la próxima tormenta deje fuera de servicio la red celular.
 pubDate: 2026-05-28
-author: Meshtastic PR
+author: PRMSH
 category: Community
 tags: [preparacion-emergencias, temporada-huracanes, comunidad, beginner]
 readingTime: 6 min
