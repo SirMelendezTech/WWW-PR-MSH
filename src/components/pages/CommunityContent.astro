@@ -4,11 +4,11 @@ import type { Locale } from "../../lib/i18n";
 import { localizePath } from "../../lib/i18n";
 import { useStrings } from "../../lib/ui-strings";
 import { blogPostHref } from "../../lib/blog";
+import { DISCORD_INVITE_URL } from "../../lib/community";
 
 interface Props { lang: Locale }
 const { lang } = Astro.props;
 const c = useStrings(lang).community;
-const DISCORD_INVITE_URL = "https://discord.gg/3v6rRhNRpD";
 const t = useStrings(lang);
 const p = (href: string) => localizePath(href, lang);
 const hurricanePost = lang === "es" ? "lista-preparacion-huracanes-es" : "hurricane-season-checklist";
