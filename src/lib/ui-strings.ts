@@ -52,7 +52,11 @@ const en = {
     rebuilt: (date: string) => `site rebuilt ${date}`,
     copyright: (year: number) => `© ${year} PRMSH Community.`,
     disclaimer:
-      "PRMSH is an independent community project, not affiliated with Meshtastic LLC. Configure and operate radio equipment according to applicable laws, regulations, and current Meshtastic firmware documentation.",
+      "This site is not affiliated with or endorsed by the Meshtastic project. PRMSH is an independent community project. Configure and operate radio equipment according to applicable laws, regulations, and current Meshtastic firmware documentation.",
+    trademarkBefore:
+      "Meshtastic® is a registered trademark of Meshtastic LLC. Meshtastic software components are released under various licenses, see ",
+    trademarkLink: "GitHub",
+    trademarkAfter: " for details.",
     licenseBefore: "Site content licensed under ",
     licenseName: "CC BY-SA 4.0",
     licenseAfter: ".",
@@ -128,7 +132,7 @@ const en = {
     heroEyebrow: "Community LoRa network · Puerto Rico",
     heroTitle: "Stays connected when everything else goes down.",
     heroSub1:
-      "PRMSH is a community-built Meshtastic radio network that lets you send messages without cell service, Wi-Fi, or the internet. You pair a small, affordable radio with an app on your phone — that radio talks directly to nearby radios, relaying your message from one to the next until it reaches its destination.",
+      "PRMSH is a community-built Meshtastic® radio network that lets you send messages without cell service, Wi-Fi, or the internet. You pair a small, affordable radio with an app on your phone — that radio talks directly to nearby radios, relaying your message from one to the next until it reaches its destination.",
     heroSub2:
       "Some devices even have their own screen and keyboard, so you don't need a phone at all. No towers, no company, no monthly bill.",
     heroSub3:
@@ -483,7 +487,11 @@ const es: Strings = {
     copyright: (year: number) =>
       `© ${year} Comunidad PRMSH.`,
     disclaimer:
-      "PRMSH es un proyecto comunitario independiente, sin afiliación con Meshtastic LLC. Configura y opera equipos de radio de acuerdo con las leyes, reglamentos y la documentación vigente del firmware de Meshtastic.",
+      "Este sitio no está afiliado ni respaldado por el proyecto Meshtastic. PRMSH es un proyecto comunitario independiente. Configura y opera equipos de radio de acuerdo con las leyes, reglamentos y la documentación vigente del firmware de Meshtastic.",
+    trademarkBefore:
+      "Meshtastic® es una marca registrada de Meshtastic LLC. Los componentes de software de Meshtastic se publican bajo varias licencias; consulta ",
+    trademarkLink: "GitHub",
+    trademarkAfter: " para más detalles.",
     licenseBefore: "Contenido del sitio bajo licencia ",
     licenseName: "CC BY-SA 4.0",
     licenseAfter: ".",
@@ -559,7 +567,7 @@ const es: Strings = {
     heroEyebrow: "Red LoRa comunitaria · Puerto Rico",
     heroTitle: "Sigue conectada cuando todo lo demás se cae.",
     heroSub1:
-      "PRMSH es una red de radio Meshtastic construida por la comunidad que te permite enviar mensajes sin servicio celular, Wi-Fi ni internet. Emparejas una radio pequeña y económica con una app en tu teléfono — esa radio se comunica directamente con radios cercanas, retransmitiendo tu mensaje de una a otra hasta que llega a su destino.",
+      "PRMSH es una red de radio Meshtastic® construida por la comunidad que te permite enviar mensajes sin servicio celular, Wi-Fi ni internet. Emparejas una radio pequeña y económica con una app en tu teléfono — esa radio se comunica directamente con radios cercanas, retransmitiendo tu mensaje de una a otra hasta que llega a su destino.",
     heroSub2:
       "Algunos equipos hasta tienen su propia pantalla y teclado, así que no necesitas teléfono para nada. Sin torres, sin compañía, sin factura mensual.",
     heroSub3:

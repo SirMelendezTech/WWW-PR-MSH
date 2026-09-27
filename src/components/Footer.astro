@@ -59,6 +59,7 @@ const buildDate = new Intl.DateTimeFormat(lang === "es" ? "es-PR" : "en-US", {
 
   <div class="container footer-bottom">
     <p class="disclaimer">{t.footer.disclaimer}</p>
+    <p class="disclaimer">{f.trademarkBefore}<a href="https://github.com/meshtastic" target="_blank" rel="noopener">{f.trademarkLink}</a>{f.trademarkAfter}</p>
     <p class="footer-legal">
       {f.copyright(year)} {f.licenseBefore}<a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">{f.licenseName}</a>{f.licenseAfter}
     </p>
@@ -140,6 +141,6 @@ const buildDate = new Intl.DateTimeFormat(lang === "es" ? "es-PR" : "en-US", {
   }
   .footer-bottom p { margin: 0; color: inherit; }
   .disclaimer { max-width: 68ch; line-height: 1.55; }
-  .footer-legal a { color: inherit; text-decoration: underline; }
-  .footer-legal a:hover { color: var(--secondary); }
+  .footer-legal a, .disclaimer a { color: inherit; text-decoration: underline; }
+  .footer-legal a:hover, .disclaimer a:hover { color: var(--secondary); }
 </style>
