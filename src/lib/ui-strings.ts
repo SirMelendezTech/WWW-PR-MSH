@@ -20,6 +20,7 @@ const en = {
     links: "Links",
     searchAria: "Search documentation",
     viewSourceAria: "View source on GitHub",
+    discordAria: "Join the PRMSH Discord",
     openMenuAria: "Open menu",
     primaryNavAria: "Primary",
     mobileNavAria: "Mobile",
@@ -47,6 +48,7 @@ const en = {
     linksHeading: "Elsewhere",
     linksResources: "Links & resources",
     github: "Source on GitHub",
+    discord: "Community Discord",
     nodesReporting: (online: number, total: number) =>
       `${online} of ${total} nodes reporting`,
     rebuilt: (date: string) => `site rebuilt ${date}`,
@@ -454,6 +456,7 @@ const es: Strings = {
     links: "Enlaces",
     searchAria: "Buscar en la documentación",
     viewSourceAria: "Ver el código fuente en GitHub",
+    discordAria: "Únete al Discord de PRMSH",
     openMenuAria: "Abrir menú",
     primaryNavAria: "Principal",
     mobileNavAria: "Móvil",
@@ -481,6 +484,7 @@ const es: Strings = {
     linksHeading: "En otros lados",
     linksResources: "Enlaces y recursos",
     github: "Código en GitHub",
+    discord: "Discord de la comunidad",
     nodesReporting: (online: number, total: number) =>
       `${online} de ${total} nodos reportando`,
     rebuilt: (date: string) => `sitio reconstruido ${date}`,

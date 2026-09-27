@@ -2,11 +2,11 @@
 import Breadcrumbs from "../Breadcrumbs.astro";
 import type { Locale } from "../../lib/i18n";
 import { useStrings } from "../../lib/ui-strings";
+import { DISCORD_INVITE_URL } from "../../lib/community";
 
 interface Props { lang: Locale }
 const { lang } = Astro.props;
 const l = useStrings(lang).links;
-const DISCORD_INVITE_URL = "https://discord.gg/3v6rRhNRpD";
 
 const official = [
   { name: "PRMSH MeshMonitor", url: "https://monitor.prmsh.com/", note: l.notes.monitor },

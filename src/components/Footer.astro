@@ -4,6 +4,7 @@ import type { Locale } from "../lib/i18n";
 import { localizePath } from "../lib/i18n";
 import { useStrings } from "../lib/ui-strings";
 import { getNodes } from "../lib/nodes";
+import { DISCORD_INVITE_URL } from "../lib/community";
 
 interface Props { lang?: Locale }
 const { lang = "en" } = Astro.props;
@@ -40,6 +41,9 @@ const buildDate = new Intl.DateTimeFormat(lang === "es" ? "es-PR" : "en-US", {
     <nav class="footer-links" aria-label={f.linksHeading}>
       <a href={GITHUB_REPO_URL} target="_blank" rel="noopener">
         {f.github}<span class="sr-only"> {t.opensInNewTab}</span>
+      </a>
+      <a href={DISCORD_INVITE_URL} target="_blank" rel="noopener">
+        {f.discord}<span class="sr-only"> {t.opensInNewTab}</span>
       </a>
       <a href={p("/links/")}>{f.linksResources}</a>
       <a href="https://meshtastic.org" target="_blank" rel="noopener">
