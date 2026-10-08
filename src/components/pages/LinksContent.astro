@@ -2,7 +2,7 @@
 import Breadcrumbs from "../Breadcrumbs.astro";
 import type { Locale } from "../../lib/i18n";
 import { useStrings } from "../../lib/ui-strings";
-import { DISCORD_INVITE_URL } from "../../lib/community";
+import { DISCORD_INVITE_URL, FACEBOOK_GROUP_URL, REDDIT_PR_URL, REDDIT_GLOBAL_URL } from "../../lib/community";
 
 interface Props { lang: Locale }
 const { lang } = Astro.props;
@@ -12,12 +12,15 @@ const official = [
   { name: "PRMSH MeshMonitor", url: "https://monitor.prmsh.com/", note: l.notes.monitor },
   { name: "PalmasMesh", url: "https://palmasmesh.com/", note: l.notes.palmasmesh },
   { name: "PRMSH Community Discord", url: DISCORD_INVITE_URL, note: l.notes.discord },
+  { name: "Meshtastic Puerto Rico (Facebook)", url: FACEBOOK_GROUP_URL, note: l.notes.facebookGroup },
+  { name: "r/MeshtasticPuertoRico", url: REDDIT_PR_URL, note: l.notes.redditPR },
   { name: "Malla PR", url: "https://malla.prmsh.com/map", note: l.notes.mallapr },
   { name: "MeshView PR", url: "https://meshview.prmsh.com/", note: l.notes.meshview },
 ];
 
 const project = [
   { name: "Meshtastic.org", url: "https://meshtastic.org", note: l.notes.meshtasticOrg },
+  { name: "r/meshtastic", url: REDDIT_GLOBAL_URL, note: l.notes.redditGlobal },
   { name: "Meshtastic Web Flasher", url: "https://flasher.meshtastic.org/", note: l.notes.flasher },
   { name: "Meshtastic hardware list", url: "https://meshtastic.org/docs/hardware/devices/", note: l.notes.hwList },
   { name: "Meshtastic CLI reference", url: "https://meshtastic.org/docs/software/python/cli/", note: l.notes.cli },

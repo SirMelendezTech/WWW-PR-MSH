@@ -4,7 +4,7 @@ import type { Locale } from "../../lib/i18n";
 import { localizePath } from "../../lib/i18n";
 import { useStrings } from "../../lib/ui-strings";
 import { blogPostHref } from "../../lib/blog";
-import { DISCORD_INVITE_URL } from "../../lib/community";
+import { DISCORD_INVITE_URL, FACEBOOK_GROUP_URL, REDDIT_PR_URL, REDDIT_GLOBAL_URL } from "../../lib/community";
 
 interface Props { lang: Locale }
 const { lang } = Astro.props;
@@ -43,7 +43,12 @@ const hurricanePost = lang === "es" ? "lista-preparacion-huracanes-es" : "hurric
           </Fragment>
         )}
         {entry.id === "chat" && (
-          <p>{c.chatBodyBefore}<a href={DISCORD_INVITE_URL} target="_blank" rel="noopener noreferrer">{c.chatBodyLink}<span class="sr-only"> {t.opensInNewTab}</span></a>{c.chatBodyAfter}</p>
+          <Fragment>
+            <p>{c.chatBodyBefore}<a href={DISCORD_INVITE_URL} target="_blank" rel="noopener noreferrer">{c.chatBodyLink}<span class="sr-only"> {t.opensInNewTab}</span></a>{c.chatBodyAfter}</p>
+            <p>
+              {c.chatBody2Before}<a href={FACEBOOK_GROUP_URL} target="_blank" rel="noopener noreferrer">{c.chatFacebookLink}<span class="sr-only"> {t.opensInNewTab}</span></a>{c.chatBody2Mid}<a href={REDDIT_PR_URL} target="_blank" rel="noopener noreferrer">{c.chatRedditPRLink}<span class="sr-only"> {t.opensInNewTab}</span></a>{c.chatBody2Mid2}<a href={REDDIT_GLOBAL_URL} target="_blank" rel="noopener noreferrer">{c.chatRedditLink}<span class="sr-only"> {t.opensInNewTab}</span></a>{c.chatBody2After}
+            </p>
+          </Fragment>
         )}
         {entry.id === "operators" && (
           <p>{c.operatorsBodyBefore}<a href={p("/pr-mesh/")}>{c.operatorsBodyLink}</a>{c.operatorsBodyAfter}</p>
