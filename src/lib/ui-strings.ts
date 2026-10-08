@@ -257,6 +257,13 @@ const en = {
     chatBodyLink: "PRMSH Community Discord",
     chatBodyAfter:
       " — ask questions, share node builds, and find operators near you before you put up a new node.",
+    chatBody2Before: "Puerto Rico operators also gather on the ",
+    chatFacebookLink: "Meshtastic Puerto Rico Facebook group",
+    chatBody2Mid: ", and on Reddit at ",
+    chatRedditPRLink: "r/MeshtasticPuertoRico",
+    chatBody2Mid2: " and the wider ",
+    chatRedditLink: "r/meshtastic",
+    chatBody2After: ".",
     eventsHeading: "Events",
     eventsBodyBefore:
       "Meetups, build nights, and range-test outings happen periodically as the community grows. Check the community channels linked on ",
@@ -376,6 +383,10 @@ const en = {
       palmasmesh: "Neighborhood mesh network in Palmas del Mar, Humacao, run by residents.",
       discord:
         "Community Discord server for Puerto Rico mesh operators — questions, builds, and coordination.",
+      facebookGroup:
+        "Facebook group for Puerto Rico Meshtastic operators.",
+      redditPR: "Reddit community for Puerto Rico Meshtastic operators.",
+      redditGlobal: "The main Meshtastic subreddit — global project discussion.",
       mallapr:
         "Puerto Rico network monitor and map — the live data source behind this site's Node Map.",
       meshview:
@@ -698,6 +709,13 @@ const es: Strings = {
     chatBodyLink: "Discord de la comunidad PRMSH",
     chatBodyAfter:
       " — haz preguntas, comparte tus nodos y encuentra operadores cerca de ti antes de instalar un nodo nuevo.",
+    chatBody2Before: "Los operadores de Puerto Rico también se reúnen en el ",
+    chatFacebookLink: "grupo de Facebook Meshtastic Puerto Rico",
+    chatBody2Mid: ", y en Reddit en ",
+    chatRedditPRLink: "r/MeshtasticPuertoRico",
+    chatBody2Mid2: " y en el más amplio ",
+    chatRedditLink: "r/meshtastic",
+    chatBody2After: ".",
     eventsHeading: "Eventos",
     eventsBodyBefore:
       "Encuentros, noches de armado y salidas de prueba de alcance ocurren periódicamente a medida que crece la comunidad. Consulta los canales comunitarios enlazados en ",
@@ -819,6 +837,10 @@ const es: Strings = {
       palmasmesh: "Malla vecinal en Palmas del Mar, Humacao, operada por residentes.",
       discord:
         "Servidor de Discord de la comunidad para operadores de la malla en Puerto Rico — preguntas, proyectos y coordinación.",
+      facebookGroup:
+        "Grupo de Facebook para operadores de Meshtastic en Puerto Rico.",
+      redditPR: "Comunidad de Reddit para operadores de Meshtastic en Puerto Rico.",
+      redditGlobal: "El subreddit principal de Meshtastic — discusión global del proyecto.",
       mallapr:
         "Monitor y mapa de la red de Puerto Rico — la fuente de datos en vivo detrás del Mapa de Nodos de este sitio.",
       meshview:
