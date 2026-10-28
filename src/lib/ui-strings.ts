@@ -59,6 +59,8 @@ const en = {
       "Meshtastic® is a registered trademark of Meshtastic LLC. Meshtastic software components are released under various licenses, see ",
     trademarkLink: "GitHub",
     trademarkAfter: " for details.",
+    platformNotice:
+      "Android is a trademark of Google LLC. iPhone is a trademark of Apple Inc. The Android robot is reproduced or modified from work created and shared by Google and used according to terms described in the Creative Commons 3.0 Attribution License.",
     licenseBefore: "Site content licensed under ",
     licenseName: "CC BY-SA 4.0",
     licenseAfter: ".",
@@ -512,6 +514,8 @@ const es: Strings = {
       "Meshtastic® es una marca registrada de Meshtastic LLC. Los componentes de software de Meshtastic se publican bajo varias licencias; consulta ",
     trademarkLink: "GitHub",
     trademarkAfter: " para más detalles.",
+    platformNotice:
+      "Android es una marca de Google LLC. iPhone es una marca de Apple Inc. El robot de Android se reproduce o modifica a partir de una obra creada y compartida por Google, y se usa según los términos de la Licencia Creative Commons 3.0 Attribution.",
     licenseBefore: "Contenido del sitio bajo licencia ",
     licenseName: "CC BY-SA 4.0",
     licenseAfter: ".",

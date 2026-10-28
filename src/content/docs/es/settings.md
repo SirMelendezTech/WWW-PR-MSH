@@ -17,7 +17,10 @@ Cada ajuste indica dónde encontrarlo en la app de Meshtastic en Android y iPhon
 
 Meshtastic requiere que cada equipo declare una **región LoRa**, que fija la banda de frecuencia legal, los límites de potencia y el ciclo de trabajo para donde opera la radio. <span class="badge badge--verified">Verificado</span>
 
-**Android:** Radio configuration → LoRa → Region → **US**. **iPhone:** Radio Configuration → LoRa → Region → **US**.
+<div class="app-paths" role="group" aria-label="Dónde encontrarlo en la app">
+<p><span class="platform platform--android">Android</span><span>Radio configuration → LoRa → Region → <strong>US</strong></span></p>
+<p><span class="platform platform--ios">iPhone</span><span>Radio Configuration → LoRa → Region → <strong>US</strong></span></p>
+</div>
 
 Puerto Rico cae bajo la asignación de frecuencia de Estados Unidos para la banda ISM sin licencia que usa Meshtastic. Configura tu región en consecuencia, y confírmalo contra la [lista oficial de regiones de Meshtastic](https://meshtastic.org/docs/configuration/radio/lora/#region) — esta lista se mantiene upstream y es la fuente autoritativa, no esta página.
 
@@ -40,7 +43,10 @@ Elegir el rol correcto importa más para la salud de la malla compartida que cas
 
 </div>
 
-**Android:** Radio configuration → Device → Device Role. **iPhone:** Device Configuration → Device → Device Role.
+<div class="app-paths" role="group" aria-label="Dónde encontrarlo en la app">
+<p><span class="platform platform--android">Android</span><span>Radio configuration → Device → Device Role</span></p>
+<p><span class="platform platform--ios">iPhone</span><span>Device Configuration → Device → Device Role</span></p>
+</div>
 
 <div class="callout callout--warning">
 <span class="callout-label">Router no es un "client más potente"</span>
@@ -67,7 +73,10 @@ Un nodo no puede transmitir y recibir al mismo tiempo — cada salto que toma un
 
 </div>
 
-**Android:** Radio configuration → LoRa → Hop limit. **iPhone:** Radio Configuration → LoRa → Hop limit.
+<div class="app-paths" role="group" aria-label="Dónde encontrarlo en la app">
+<p><span class="platform platform--android">Android</span><span>Radio configuration → LoRa → Hop limit</span></p>
+<p><span class="platform platform--ios">iPhone</span><span>Radio Configuration → LoRa → Hop limit</span></p>
+</div>
 
 <span class="badge badge--proposed">Propuesto</span> — nunca subas de 5. Un nodo configurado a 6+ "por si acaso" no obtiene mejor alcance, solo hace cada entrega fallida más cara para toda la malla.
 
@@ -105,9 +114,18 @@ Para entender por qué un nodo fijo de techo con los temporizadores por defecto 
 
 </div>
 
-**Android:** la transmisión de info del nodo está en Radio configuration → Device; los intervalos de posición y GPS en Radio configuration → Position; la telemetría en Module configuration → Telemetry; el reporte al mapa en Module configuration → MQTT.
+Dónde encontrar cada uno en la app:
 
-**iPhone:** la transmisión de info del nodo está en Device Configuration → Device; los intervalos de posición y GPS en Device Configuration → Position; la telemetría en Module Configuration → Telemetry; el reporte al mapa en Module Configuration → MQTT.
+<div class="table-wrap table-wrap--fit">
+
+| Ajuste | <span class="platform platform--android">Android</span> | <span class="platform platform--ios">iPhone</span> |
+|---|---|---|
+| Transmisión de info del nodo | Radio configuration → Device | Device Configuration → Device |
+| Posición, posición inteligente, GPS | Radio configuration → Position | Device Configuration → Position |
+| Telemetría del equipo, ambiente y energía | Module configuration → Telemetry | Module Configuration → Telemetry |
+| Reporte al mapa | Module configuration → MQTT | Module Configuration → MQTT |
+
+</div>
 
 <span class="badge badge--proposed">Propuesto</span> — una base de partida probada en el campo, aún no reajustada para el terreno o la densidad de malla de Puerto Rico. Coordina con operadores cercanos antes de transmitir más frecuentemente que esto en un canal compartido.
 
@@ -129,7 +147,12 @@ Los Position Flags controlan qué campos viajan dentro de cada paquete de Posici
 
 </div>
 
-**En la app:** Position Flags y Fixed Position están en Radio configuration → Position en Android, y en Device Configuration → Position en iPhone. En un nodo fijo, activa también **Fixed Position**.
+Position Flags y Fixed Position están en la pantalla Position. En un nodo fijo, activa también **Fixed Position**.
+
+<div class="app-paths" role="group" aria-label="Dónde encontrarlo en la app">
+<p><span class="platform platform--android">Android</span><span>Radio configuration → Position</span></p>
+<p><span class="platform platform--ios">iPhone</span><span>Device Configuration → Position</span></p>
+</div>
 
 </details>
 
@@ -148,7 +171,12 @@ Requiere la app/firmware de Meshtastic 2.2.0 o más nuevo. Activa tanto el módu
 
 </div>
 
-**Android:** Module configuration → Neighbor Info. **iPhone:** Module Configuration → Neighbor Info. Activa el módulo y Transmit Over LoRa, y luego fija el intervalo de actualización.
+<div class="app-paths" role="group" aria-label="Dónde encontrarlo en la app">
+<p><span class="platform platform--android">Android</span><span>Module configuration → Neighbor Info</span></p>
+<p><span class="platform platform--ios">iPhone</span><span>Module Configuration → Neighbor Info</span></p>
+</div>
+
+Activa el módulo y Transmit Over LoRa, y luego fija el intervalo de actualización.
 
 El impacto en la congestión del canal es mínimo en estos intervalos — actívalo, pero no lo pongas agresivamente bajo en nodos con mucha retransmisión. <span class="badge badge--proposed">Propuesto</span>
 
@@ -164,9 +192,21 @@ Para un recorrido paso a paso de toda la cadena — root topic, OK to MQTT, solo
 
 ### Configuración del puente
 
-- **OK to MQTT** — en los ajustes de LoRa (Radio configuration → LoRa en Android, Radio Configuration → LoRa en iPhone), activa **OK to MQTT**.
-- **Uplink activado, downlink desactivado** — abre cada canal en Radio configuration → Channels (iPhone: Radio Configuration → Channels) y deja **Uplink** activado y **Downlink** desactivado.
-- **Root topic** — el tráfico de Puerto Rico en el servidor MQTT público se publica bajo **`msh/US/PR`**, siguiendo la estructura estándar `msh/<país>/<región>`. Confirma que esto corresponde al root topic configurado de tu nodo antes de puentear, para que tu tráfico aterrice donde las herramientas de cobertura de PR lo esperan. Se configura en Module configuration → MQTT (iPhone: Module Configuration → MQTT). <span class="badge badge--verified">Verificado</span>
+- **OK to MQTT** — actívalo en los ajustes de LoRa.
+- **Uplink activado, downlink desactivado** — en cada canal que puentees.
+- **Root topic** — el tráfico de Puerto Rico en el servidor MQTT público se publica bajo **`msh/US/PR`**, siguiendo la estructura estándar `msh/<país>/<región>`. Confirma que esto corresponde al root topic configurado de tu nodo antes de puentear, para que tu tráfico aterrice donde las herramientas de cobertura de PR lo esperan. <span class="badge badge--verified">Verificado</span>
+
+Dónde encontrar cada uno en la app:
+
+<div class="table-wrap table-wrap--fit">
+
+| Ajuste | <span class="platform platform--android">Android</span> | <span class="platform platform--ios">iPhone</span> |
+|---|---|---|
+| OK to MQTT | Radio configuration → LoRa | Radio Configuration → LoRa |
+| Uplink / downlink (por canal) | Radio configuration → Channels | Radio Configuration → Channels |
+| Root topic | Module configuration → MQTT | Module Configuration → MQTT |
+
+</div>
 
 <div class="callout callout--warning">
 <span class="callout-label">Mantén el downlink desactivado</span>
