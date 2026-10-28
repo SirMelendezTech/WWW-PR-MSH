@@ -5,18 +5,18 @@ order: 3
 section: Documentation
 ---
 
-These are **community-proposed defaults** — not official Meshtastic project defaults, and not a substitute for current firmware documentation. Where a setting depends on firmware behavior that changes over releases, that's called out explicitly.
-
-The interval and role guidance below starts from values other Meshtastic community networks have already field-tested, adapted as a baseline for Puerto Rico. They're a starting point, not a finished PR-specific recommendation — expect these numbers to get tuned as more Puerto Rico operators report back on what actually works for our terrain and mesh density.
-
 <div class="callout callout--warning">
-<span class="callout-label">Verify before you rely on it</span>
-Settings below are labeled <span class="badge badge--verified">Verified</span> when multiple Puerto Rico operators have confirmed them in the field, or <span class="badge badge--proposed">Proposed</span> when they're a reasonable starting point that hasn't been broadly field-tested yet. Treat "Proposed" as a place to start experimenting, not a settled recommendation.
+<span class="callout-label">Community defaults, not official ones</span>
+These values start from what other Meshtastic community networks have field-tested, and are being tuned for Puerto Rico. Each one is labeled <span class="badge badge--verified">Verified</span> when multiple Puerto Rico operators have confirmed it in the field, or <span class="badge badge--proposed">Proposed</span> when it's a reasonable starting point that hasn't been broadly tested yet. Firmware behavior changes between releases — current Meshtastic documentation wins over this page.
 </div>
+
+Each setting shows where to find it in the Meshtastic app, then the equivalent [CLI](https://meshtastic.org/docs/software/python/cli/) command. Menu paths follow the Android app; iOS and the web client use the same section names in a slightly different layout.
 
 ## Region and Frequency
 
 Meshtastic requires every device to declare a **LoRa region**, which sets the legal frequency band, power limits, and duty cycle for where the radio operates. <span class="badge badge--verified">Verified</span>
+
+**In the app:** Radio configuration → LoRa → Region → **US**.
 
 ```
 meshtastic --set lora.region US
@@ -32,12 +32,18 @@ Region isn't the only thing that sets your frequency. The **primary channel's na
 
 Choosing the right role matters more for the health of the shared mesh than almost any other setting.
 
+<div class="table-wrap table-wrap--fit">
+
 | Role | Use case | Notes |
 |---|---|---|
 | **Client Mute** | Mobile nodes — backpacks, vehicles, personal handhelds | Participates in messaging but doesn't relay other nodes' traffic. The right default for anything that moves. |
-| **Client** | Indoor or portable — your everyday node at home, in the office, or on the move | Sends messages and helps relay mesh traffic. |
+| **Client** | Indoor or portable — your everyday node at home or in the office | Sends messages and helps relay mesh traffic. |
 | **Client Base** | Recommended for outdoors — rooftop or mast nodes | Prioritizes relaying to/from your favorite nodes (mark your indoor ones as favorites) and helps the mesh like a Client with the rest of the traffic. |
 | **Router / Router Late** | Carefully chosen, permanent, elevated locations only | Prioritizes relaying over its own messaging and alters mesh timing behavior. Only meaningful where the node genuinely bridges coverage others can't. |
+
+</div>
+
+**In the app:** Radio configuration → Device → Role.
 
 ```
 meshtastic --set device.role CLIENT
@@ -45,7 +51,7 @@ meshtastic --set device.role CLIENT
 
 <div class="callout callout--warning">
 <span class="callout-label">Router is not "more powerful client"</span>
-A Router or Router Late role changes how a node participates in mesh timing and flood routing. Setting it on a node without real elevation or coverage advantage adds airtime congestion without adding useful coverage — it can make the local mesh *worse* for everyone. If you're not sure your node qualifies, run it as Client.
+A Router or Router Late role changes how a node participates in mesh timing and flood routing. Setting it on a node without real elevation or coverage advantage adds airtime congestion without adding useful coverage — it can make the local mesh <em>worse</em> for everyone. If you're not sure your node qualifies, run it as Client.
 </div>
 
 <span class="badge badge--proposed">Proposed</span> — mobile/handheld nodes default to Client Mute; home nodes default to Client; a rooftop node relaying mainly for your own gear should run Client Base with your indoor nodes favorited, not Router Late; Router/Router Late reserved for rooftop or ridge sites confirmed to extend coverage, agreed on with other local operators first.
@@ -58,7 +64,7 @@ If a site genuinely does qualify as infrastructure, the next question is which o
 
 A node can't transmit and receive at the same time — every hop a message takes is airtime every other node has to wait through. The hop limit caps how many times a message can be relayed before the mesh gives up on it (see [Hops](/how-it-works/#hops)). Higher isn't safer; it just means a lost or looping packet burns more shared airtime before it's dropped.
 
-<div class="table-wrap">
+<div class="table-wrap table-wrap--fit">
 
 | Node type | Hop limit | Why |
 |---|---|---|
@@ -67,6 +73,8 @@ A node can't transmit and receive at the same time — every hop a message takes
 | Edge of the mesh / Client Mute | 5 | Isolated nodes with no closer relay sometimes need it — treat as the ceiling, not the default. |
 
 </div>
+
+**In the app:** Radio configuration → LoRa → Hop limit.
 
 ```
 meshtastic --set lora.hop_limit 3
@@ -79,7 +87,7 @@ meshtastic --set lora.hop_limit 3
 Favorites aren't just a shortcut in the app's node list — on the roles above, they change how two separate mechanisms behave. Both key off the same favorites list, but on different fields, so it's worth being deliberate about who you favorite and why.
 
 - **Client Base's priority relaying** looks at who a packet is *from or to*. On a rooftop Client Base node, favorite your own indoor gear — handhelds, base radio — so their traffic gets first priority through the one radio that actually has a clear view of the sky.
-- **Zero-Cost Hops** (firmware 2.7.11+) looks at *which node relayed the packet just before you*. It preserves the hop counter when that previous relay is a favorited Router or Router Late. Favorite the legitimate infrastructure Router/Router Late sites near you so their traffic doesn't burn one of its seven hops just crossing your roof on the way in.
+- **Zero-Cost Hops** (firmware 2.7.11+) looks at *which node relayed the packet just before you*. It preserves the hop counter when that previous relay is a favorited Router or Router Late. Favorite the legitimate infrastructure Router/Router Late sites near you so their traffic doesn't spend one of its hops just crossing your roof on the way in.
 
 Favoriting a Router does **not** turn a Client Base node into something that repeats all of its traffic — that's the first mechanism's job, and it only applies to your own favorited gear. The two lists overlap in the UI but not in effect.
 
@@ -111,6 +119,8 @@ For why a fixed rooftop node on default timers quietly degrades everyone's range
 | Map report | 1 hour | 6 hours | Sends position to the map server; less frequent for a stationary node since its position doesn't change. |
 
 </div>
+
+**In the app:** node info broadcast is under Radio configuration → Device; position and GPS intervals under Radio configuration → Position; telemetry under Module configuration → Telemetry; map report under Module configuration → MQTT.
 
 <details>
 <summary>CLI commands — mobile and stationary</summary>
@@ -173,7 +183,7 @@ Neighbor Info lets a node report which other nodes it can directly hear, along w
 
 Requires Meshtastic app/firmware 2.2.0 or newer. Enable both the module and "Transmit Over LoRa" — the iOS app can't currently configure this module, so use the web client or CLI instead.
 
-<div class="table-wrap">
+<div class="table-wrap table-wrap--fit">
 
 | Node type | Update interval |
 |---|---|
@@ -181,6 +191,8 @@ Requires Meshtastic app/firmware 2.2.0 or newer. Enable both the module and "Tra
 | Stationary / rooftop | 11 hours |
 
 </div>
+
+**In the app (Android or web client):** Module configuration → Neighbor Info — turn on the module and Transmit Over LoRa, then set the update interval.
 
 <details>
 <summary>CLI commands</summary>
@@ -205,14 +217,11 @@ If you do bridge a node to MQTT, settings matter beyond the broker credentials t
 
 For a step-by-step walkthrough of the whole chain — root topic, OK to MQTT, uplink-only, and the position settings that decide whether you show up at all — see [Getting Your Node Onto the Puerto Rico Mesh Map](/blog/mqtt-bridge-pr-map-en/).
 
-<details>
-<summary>Bridge setup — required settings and root topic</summary>
+### Bridge setup
 
-- Enable **"OK to MQTT"** under LoRa settings.
-- Per channel, set **Uplink on, Downlink off**.
-- Root topic — Puerto Rico traffic on the public MQTT server publishes under **`msh/US/PR`**, following the standard `msh/<country>/<region>` structure. Confirm this matches your node's configured root topic before bridging, so your traffic lands where PR coverage tools expect it. <span class="badge badge--verified">Verified</span>
-
-</details>
+- **OK to MQTT** — Radio configuration → LoRa → turn on **OK to MQTT**.
+- **Uplink on, downlink off** — open each channel under Channels and set **Uplink** on, **Downlink** off.
+- **Root topic** — Puerto Rico traffic on the public MQTT server publishes under **`msh/US/PR`**, following the standard `msh/<country>/<region>` structure. Confirm this matches your node's configured root topic before bridging, so your traffic lands where PR coverage tools expect it. Set it under Module configuration → MQTT. <span class="badge badge--verified">Verified</span>
 
 <div class="callout callout--warning">
 <span class="callout-label">Keep downlink off</span>

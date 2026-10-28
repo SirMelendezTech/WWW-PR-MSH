@@ -41,7 +41,7 @@ Para una mochila, guantera, clip de cinturón o bolsillo. Prioridades: duración
 
 Un **estuche con certificación IP** o una bolsa seca barata importa más en la humedad y la lluvia de Puerto Rico que en casi cualquier lugar de EE. UU. continental — inclúyelo en el presupuesto de cualquier placa que no venga ya sellada.
 
-## Tabla comparativa
+## Especificaciones de equipos de mano lado a lado
 
 Una comparación rápida lado a lado de modelos de mano específicos mencionados arriba — útil una vez que lo has reducido a "cuál placa exacta".
 
@@ -220,12 +220,9 @@ La tienda Etsy de PeakMesh se especializa en esta categoría y es una recomendac
 
 Como siempre: esta es una lista de partida, no un respaldo — los precios y el inventario se mueven rápido en los armados de lote pequeño de Etsy, y ninguno de estos vendedores patrocina esta página.
 
-## Comparación de hardware
+## Todas las categorías comparadas
 
 Cada categoría de arriba, lado a lado — precio, batería, GPS, impermeabilización y el compromiso principal de cada una.
-
-<details>
-<summary>Mostrar la tabla comparativa completa</summary>
 
 <div class="table-wrap">
 
@@ -241,8 +238,6 @@ Cada categoría de arriba, lado a lado — precio, batería, GPS, impermeabiliza
 </div>
 
 Los nombres de equipos de esa tabla describen **clases de hardware** comunes en el ecosistema de Meshtastic — la revisión de placa específica dentro de cada clase cambia a medida que los fabricantes iteran, y la disponibilidad se mueve seguido. Contrasta las especificaciones actuales contra la [lista oficial de hardware de Meshtastic](https://meshtastic.org/docs/hardware/devices/) antes de comprar, y confirma el soporte de firmware para lo que elijas.
-
-</details>
 
 ## Más allá de la lista corta
 

@@ -40,7 +40,7 @@ For a backpack, glovebox, belt clip, or pocket. Priorities: battery life, size, 
 
 An **IP-rated case** or a cheap dry bag matters more in Puerto Rico's humidity and rain than almost anywhere on the mainland U.S. — factor it into the budget for any board that doesn't already ship sealed.
 
-## Comparison table
+## Handheld specs side by side
 
 A quick side-by-side of specific handheld models mentioned above — useful once you've narrowed it down to "which exact board."
 
@@ -219,12 +219,9 @@ PeakMesh's Etsy shop specializes in this category and is a frequent recommendati
 
 As always: this is a starting list, not an endorsement — prices and stock move fast on small-batch Etsy builds, and none of these sellers sponsor this page.
 
-## Hardware comparison
+## All categories compared
 
 Every category above, side by side — price, battery, GPS, waterproofing, and the main trade-off for each.
-
-<details>
-<summary>Show the full comparison table</summary>
 
 <div class="table-wrap">
 
@@ -240,8 +237,6 @@ Every category above, side by side — price, battery, GPS, waterproofing, and t
 </div>
 
 Device names in that table describe **classes of hardware** common in the Meshtastic ecosystem — the specific board revision within each class changes as manufacturers iterate, and availability shifts often. Cross-check current specifications against the [official Meshtastic hardware list](https://meshtastic.org/docs/hardware/devices/) before buying, and confirm firmware support for whatever you pick.
-
-</details>
 
 ## Beyond the shortlist
 

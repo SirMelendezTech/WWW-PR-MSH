@@ -127,6 +127,10 @@ table {
   margin: 1.5em 0;
 }
 .table-wrap table { border: none; margin: 0; border-radius: 0; }
+/* Narrow (2–3 column) tables fit the prose column on desktop instead of scrolling. */
+@media (min-width: 720px) {
+  .table-wrap--fit table { min-width: 0; }
+}
 caption { text-align: left; padding: 0.75em 1em; font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-faint); }
 th, td { text-align: left; padding: 0.7em 1em; border-bottom: 1px solid var(--border); vertical-align: top; }
 thead th { background: var(--bg-sunken); font-family: var(--font-display); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-soft); position: sticky; top: 0; }

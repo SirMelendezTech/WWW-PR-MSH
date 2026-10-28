@@ -136,7 +136,7 @@ const en = {
     heroSub1:
       "PRMSH is a community-built Meshtastic® radio network that lets you send messages without cell service, Wi-Fi, or the internet. You pair a small, affordable radio with an app on your phone — that radio talks directly to nearby radios, relaying your message from one to the next until it reaches its destination.",
     heroSub2:
-      "Some devices even have their own screen and keyboard, so you don't need a phone at all. No towers, no company, no monthly bill.",
+      "Some devices even have their own screen and keyboard, so you don't need a phone at all.",
     heroSub3:
       "Simple enough for any age to set up and use for fun day to day — which means it's already working the moment cell service isn't.",
     heroCtaPrimary: "Get Started",
@@ -151,7 +151,6 @@ const en = {
     introLink: "See how it actually works →",
     whyEyebrow: "Why PRMSH",
     whyItems: [
-      "Independent, community-run — no company, no subscription",
       "Built for Puerto Rico's terrain, climate, and hurricane risk",
       "Open documentation so anyone can join, configure, and contribute",
       "Useful today for hikers and boaters, critical during outages",
@@ -213,11 +212,6 @@ const en = {
     splitCommunityBody:
       "Meet other Meshtastic users in Puerto Rico. Share knowledge, compare antennas and configurations, and help extend coverage together.",
     splitCommunityCta: "Join the Community",
-    splitStartEyebrow: "Getting started",
-    splitStartTitle: "Not on the mesh yet?",
-    splitStartBody:
-      "Pick hardware, install the app, and send your first message — the full walkthrough takes about twenty minutes.",
-    splitStartCta: "Get Started",
 
     blogEyebrow: "From the blog",
     blogTitle: "Latest from PRMSH",
@@ -595,7 +589,7 @@ const es: Strings = {
     heroSub1:
       "PRMSH es una red de radio Meshtastic® construida por la comunidad que te permite enviar mensajes sin servicio celular, Wi-Fi ni internet. Emparejas una radio pequeña y económica con una app en tu teléfono — esa radio se comunica directamente con radios cercanas, retransmitiendo tu mensaje de una a otra hasta que llega a su destino.",
     heroSub2:
-      "Algunos equipos hasta tienen su propia pantalla y teclado, así que no necesitas teléfono para nada. Sin torres, sin compañía, sin factura mensual.",
+      "Algunos equipos hasta tienen su propia pantalla y teclado, así que no necesitas teléfono para nada.",
     heroSub3:
       "Suficientemente simple para que cualquier edad la configure y la use por diversión en el día a día — lo que significa que ya está funcionando en el momento en que el servicio celular no lo está.",
     heroCtaPrimary: "Comenzar",
@@ -610,7 +604,6 @@ const es: Strings = {
     introLink: "Mira cómo funciona de verdad →",
     whyEyebrow: "Por qué PRMSH",
     whyItems: [
-      "Independiente, gestionada por la comunidad — sin compañía, sin suscripción",
       "Construida para el terreno, el clima y el riesgo de huracanes de Puerto Rico",
       "Documentación abierta para que cualquiera pueda unirse, configurar y contribuir",
       "Útil hoy para excursionistas y navegantes, crítica durante los apagones",
@@ -672,11 +665,6 @@ const es: Strings = {
     splitCommunityBody:
       "Conoce a otros usuarios de Meshtastic en Puerto Rico. Comparte conocimiento, compara antenas y configuraciones, y ayuda a ampliar la cobertura en conjunto.",
     splitCommunityCta: "Únete a la Comunidad",
-    splitStartEyebrow: "Primeros pasos",
-    splitStartTitle: "¿Aún no estás en la malla?",
-    splitStartBody:
-      "Elige hardware, instala la app y envía tu primer mensaje — el recorrido completo toma unos veinte minutos.",
-    splitStartCta: "Comenzar",
 
     blogEyebrow: "Del blog",
     blogTitle: "Lo más reciente de PRMSH",
