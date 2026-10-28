@@ -245,6 +245,10 @@ const en = {
     projectsExampleLink: "PalmasMesh",
     projectsExampleAfter:
       ", a free neighborhood mesh network in Palmas del Mar, Humacao, built and run by residents as a backup for when power and cell service go down.",
+    projectsSkynetBefore: "At island scale, ",
+    projectsSkynetLink: "SKYNET",
+    projectsSkynetAfter:
+      " is the resilient communications and technology program of Resilient Network Puerto Rico, Inc. (RNPR) — community-powered communications, technical education, infrastructure, research, and public tools to strengthen preparedness across Puerto Rico.",
     operatorsHeading: "Node Operators",
     operatorsBodyBefore:
       "Operators across San Juan Metro, Bayamón, Caguas, Ponce, Mayagüez, and beyond keep the mesh running. See current regional status on ",
@@ -381,6 +385,8 @@ const en = {
       monitor:
         "Live community monitoring for participating Puerto Rico nodes.",
       palmasmesh: "Neighborhood mesh network in Palmas del Mar, Humacao, run by residents.",
+      skynet:
+        "Resilient communications and technology program of Resilient Network Puerto Rico, Inc. (RNPR) — community networks, technical education, and preparedness tools.",
       discord:
         "Community Discord server for Puerto Rico mesh operators — questions, builds, and coordination.",
       facebookGroup:
@@ -697,6 +703,10 @@ const es: Strings = {
     projectsExampleLink: "PalmasMesh",
     projectsExampleAfter:
       ", una malla vecinal gratuita en Palmas del Mar, Humacao, que los residentes construyen y operan como respaldo para cuando se van la luz y la señal celular.",
+    projectsSkynetBefore: "A escala de toda la isla, ",
+    projectsSkynetLink: "SKYNET",
+    projectsSkynetAfter:
+      " es el programa de comunicaciones resilientes y tecnología de Resilient Network Puerto Rico, Inc. (RNPR) — comunicaciones impulsadas por la comunidad, educación técnica, infraestructura, investigación y herramientas públicas para fortalecer la preparación en todo Puerto Rico.",
     operatorsHeading: "Operadores de Nodos",
     operatorsBodyBefore:
       "Operadores en el área metro de San Juan, Bayamón, Caguas, Ponce, Mayagüez y más allá mantienen la malla funcionando. Consulta el estado regional actual en ",
@@ -835,6 +845,8 @@ const es: Strings = {
       monitor:
         "Monitoreo comunitario en vivo de los nodos participantes de Puerto Rico.",
       palmasmesh: "Malla vecinal en Palmas del Mar, Humacao, operada por residentes.",
+      skynet:
+        "Programa de comunicaciones resilientes y tecnología de Resilient Network Puerto Rico, Inc. (RNPR) — redes comunitarias, educación técnica y herramientas de preparación.",
       discord:
         "Servidor de Discord de la comunidad para operadores de la malla en Puerto Rico — preguntas, proyectos y coordinación.",
       facebookGroup:

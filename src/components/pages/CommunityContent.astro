@@ -4,7 +4,7 @@ import type { Locale } from "../../lib/i18n";
 import { localizePath } from "../../lib/i18n";
 import { useStrings } from "../../lib/ui-strings";
 import { blogPostHref } from "../../lib/blog";
-import { DISCORD_INVITE_URL, FACEBOOK_GROUP_URL, REDDIT_PR_URL, REDDIT_GLOBAL_URL } from "../../lib/community";
+import { DISCORD_INVITE_URL, FACEBOOK_GROUP_URL, REDDIT_PR_URL, REDDIT_GLOBAL_URL, SKYNET_URL } from "../../lib/community";
 
 interface Props { lang: Locale }
 const { lang } = Astro.props;
@@ -40,6 +40,7 @@ const hurricanePost = lang === "es" ? "lista-preparacion-huracanes-es" : "hurric
           <Fragment>
             <p>{c.projectsBody}</p>
             <p>{c.projectsExampleBefore}<a href="https://palmasmesh.com/" target="_blank" rel="noopener noreferrer">{c.projectsExampleLink}<span class="sr-only"> {t.opensInNewTab}</span></a>{c.projectsExampleAfter}</p>
+            <p>{c.projectsSkynetBefore}<a href={SKYNET_URL} target="_blank" rel="noopener noreferrer">{c.projectsSkynetLink}<span class="sr-only"> {t.opensInNewTab}</span></a>{c.projectsSkynetAfter}</p>
           </Fragment>
         )}
         {entry.id === "chat" && (
