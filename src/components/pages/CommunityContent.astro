@@ -4,7 +4,7 @@ import type { Locale } from "../../lib/i18n";
 import { localizePath } from "../../lib/i18n";
 import { useStrings } from "../../lib/ui-strings";
 import { blogPostHref } from "../../lib/blog";
-import { DISCORD_INVITE_URL, FACEBOOK_GROUP_URL, REDDIT_PR_URL, REDDIT_GLOBAL_URL } from "../../lib/community";
+import { DISCORD_INVITE_URL, FACEBOOK_GROUP_URL, REDDIT_PR_URL, SKYNET_URL } from "../../lib/community";
 
 interface Props { lang: Locale }
 const { lang } = Astro.props;
@@ -40,21 +40,24 @@ const hurricanePost = lang === "es" ? "lista-preparacion-huracanes-es" : "hurric
           <Fragment>
             <p>{c.projectsBody}</p>
             <p>{c.projectsExampleBefore}<a href="https://palmasmesh.com/" target="_blank" rel="noopener noreferrer">{c.projectsExampleLink}<span class="sr-only"> {t.opensInNewTab}</span></a>{c.projectsExampleAfter}</p>
+            <p>{c.projectsSkynetBefore}<a href={SKYNET_URL} target="_blank" rel="noopener noreferrer">{c.projectsSkynetLink}<span class="sr-only"> {t.opensInNewTab}</span></a>{c.projectsSkynetAfter}</p>
           </Fragment>
         )}
         {entry.id === "chat" && (
           <Fragment>
             <p>{c.chatBodyBefore}<a href={DISCORD_INVITE_URL} target="_blank" rel="noopener noreferrer">{c.chatBodyLink}<span class="sr-only"> {t.opensInNewTab}</span></a>{c.chatBodyAfter}</p>
-            <p>
-              {c.chatBody2Before}<a href={FACEBOOK_GROUP_URL} target="_blank" rel="noopener noreferrer">{c.chatFacebookLink}<span class="sr-only"> {t.opensInNewTab}</span></a>{c.chatBody2Mid}<a href={REDDIT_PR_URL} target="_blank" rel="noopener noreferrer">{c.chatRedditPRLink}<span class="sr-only"> {t.opensInNewTab}</span></a>{c.chatBody2Mid2}<a href={REDDIT_GLOBAL_URL} target="_blank" rel="noopener noreferrer">{c.chatRedditLink}<span class="sr-only"> {t.opensInNewTab}</span></a>{c.chatBody2After}
-            </p>
+            <p>{c.chatOtherIntro}</p>
+            <ul class="bullet-list">
+              <li><a href={FACEBOOK_GROUP_URL} target="_blank" rel="noopener noreferrer">{c.chatFacebookLink}<span class="sr-only"> {t.opensInNewTab}</span></a>{c.chatFacebookNote}</li>
+              <li><a href={REDDIT_PR_URL} target="_blank" rel="noopener noreferrer">{c.chatRedditPRLink}<span class="sr-only"> {t.opensInNewTab}</span></a>{c.chatRedditPRNote}</li>
+            </ul>
           </Fragment>
         )}
         {entry.id === "operators" && (
           <p>{c.operatorsBodyBefore}<a href={p("/pr-mesh/")}>{c.operatorsBodyLink}</a>{c.operatorsBodyAfter}</p>
         )}
         {entry.id === "events" && (
-          <p>{c.eventsBodyBefore}<a href={p("/links/")}>{c.eventsBodyLink}</a>{c.eventsBodyAfter}</p>
+          <p>{c.eventsBodyBefore}<a href="#chat">{c.eventsBodyLink}</a>{c.eventsBodyAfter}</p>
         )}
         {entry.id === "field-testing" && (
           <Fragment>
@@ -66,7 +69,7 @@ const hurricanePost = lang === "es" ? "lista-preparacion-huracanes-es" : "hurric
           <p>{c.emergencyBodyBefore}<a href={blogPostHref(lang, hurricanePost)}>{c.emergencyBodyLink}</a>{c.emergencyBodyAfter}</p>
         )}
         {entry.id === "contribute" && (
-          <ul class="contribute-list">
+          <ul class="bullet-list">
             {c.contributeItems.map((item) => <li>{item.text}</li>)}
             <li>{c.contributeItem3Before}<a href={p("/pr-mesh/")}>{c.contributeItem3Link}</a>{c.contributeItem3After}</li>
             <li>{c.contributeItem4}</li>
@@ -110,7 +113,8 @@ const hurricanePost = lang === "es" ? "lista-preparacion-huracanes-es" : "hurric
   .entry-body p { font-size: 0.98rem; margin: 0; max-width: 64ch; }
   .entry-body p + p { margin-top: 0.85rem; }
 
-  .contribute-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
-  .contribute-list li { padding-left: 1.3em; position: relative; font-size: 0.98rem; color: var(--ink-soft); max-width: 64ch; }
-  .contribute-list li::before { content: "›"; position: absolute; left: 0; color: var(--secondary); font-weight: 700; }
+  .bullet-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
+  .entry-body p + .bullet-list { margin-top: 0.6rem; }
+  .bullet-list li { padding-left: 1.3em; position: relative; font-size: 0.98rem; color: var(--ink-soft); max-width: 64ch; }
+  .bullet-list li::before { content: "›"; position: absolute; left: 0; color: var(--secondary); font-weight: 700; }
 </style>
