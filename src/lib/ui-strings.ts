@@ -261,17 +261,15 @@ const en = {
     chatBodyLink: "PRMSH Community Discord",
     chatBodyAfter:
       " — ask questions, share node builds, and find operators near you before you put up a new node.",
-    chatBody2Before: "Puerto Rico operators also gather on the ",
-    chatFacebookLink: "Meshtastic Puerto Rico Facebook group",
-    chatBody2Mid: ", and on Reddit at ",
+    chatOtherIntro: "Operators also meet outside Discord:",
+    chatFacebookLink: "Puerto Rico Meshtastic Facebook group",
+    chatFacebookNote: " — posts, photos, and news from around the island.",
     chatRedditPRLink: "r/MeshtasticPuertoRico",
-    chatBody2Mid2: " and the wider ",
-    chatRedditLink: "r/meshtastic",
-    chatBody2After: ".",
+    chatRedditPRNote: " — threaded questions and answers that stay searchable.",
     eventsHeading: "Events",
     eventsBodyBefore:
-      "Meetups, build nights, and range-test outings happen periodically as the community grows. Check the community channels linked on ",
-    eventsBodyLink: "Links & Resources",
+      "Meetups, build nights, and range-test outings happen periodically as the community grows. Watch the channels under ",
+    eventsBodyLink: "Community Chat",
     eventsBodyAfter:
       " for what's currently scheduled — this page intentionally doesn't hardcode dates that would go stale.",
     fieldTestingHeading: "Field Testing",
@@ -378,8 +376,10 @@ const en = {
     lede: "All external links open in a new tab and are marked accordingly.",
     externalBadge: "External",
     externalBadgeSr: " — opens in a new tab",
-    prHeading: "Puerto Rico Resources",
+    prHeading: "Puerto Rico Network Tools",
+    prCommunityHeading: "Puerto Rico Community",
     projectHeading: "Official Meshtastic Project",
+    wideCommunityHeading: "Wider Meshtastic Community",
     referenceHeading: "Reference Documentation",
     notes: {
       monitor:
@@ -390,9 +390,10 @@ const en = {
       discord:
         "Community Discord server for Puerto Rico mesh operators — questions, builds, and coordination.",
       facebookGroup:
-        "Facebook group for Puerto Rico Meshtastic operators.",
-      redditPR: "Reddit community for Puerto Rico Meshtastic operators.",
-      redditGlobal: "The main Meshtastic subreddit — global project discussion.",
+        "Posts, photos, and news from operators around the island.",
+      redditPR: "Threaded questions and answers about the Puerto Rico mesh that stay searchable.",
+      redditGlobal:
+        "Global Meshtastic subreddit, in English — project news and troubleshooting from operators worldwide.",
       mallapr:
         "Puerto Rico network monitor and map — the live data source behind this site's Node Map.",
       meshview:
@@ -719,17 +720,15 @@ const es: Strings = {
     chatBodyLink: "Discord de la comunidad PRMSH",
     chatBodyAfter:
       " — haz preguntas, comparte tus nodos y encuentra operadores cerca de ti antes de instalar un nodo nuevo.",
-    chatBody2Before: "Los operadores de Puerto Rico también se reúnen en el ",
-    chatFacebookLink: "grupo de Facebook Meshtastic Puerto Rico",
-    chatBody2Mid: ", y en Reddit en ",
+    chatOtherIntro: "Los operadores también se reúnen fuera de Discord:",
+    chatFacebookLink: "grupo de Facebook de Meshtastic en Puerto Rico",
+    chatFacebookNote: " — publicaciones, fotos y noticias de toda la isla.",
     chatRedditPRLink: "r/MeshtasticPuertoRico",
-    chatBody2Mid2: " y en el más amplio ",
-    chatRedditLink: "r/meshtastic",
-    chatBody2After: ".",
+    chatRedditPRNote: " — preguntas y respuestas en hilos que se pueden buscar después.",
     eventsHeading: "Eventos",
     eventsBodyBefore:
-      "Encuentros, noches de armado y salidas de prueba de alcance ocurren periódicamente a medida que crece la comunidad. Consulta los canales comunitarios enlazados en ",
-    eventsBodyLink: "Enlaces y recursos",
+      "Encuentros, noches de armado y salidas de prueba de alcance ocurren periódicamente a medida que crece la comunidad. Sigue los canales de ",
+    eventsBodyLink: "Chat Comunitario",
     eventsBodyAfter:
       " para ver qué está programado — esta página intencionalmente no fija fechas que quedarían obsoletas.",
     fieldTestingHeading: "Pruebas de Campo",
@@ -838,8 +837,10 @@ const es: Strings = {
     lede: "Todos los enlaces externos se abren en una pestaña nueva y están marcados como tales.",
     externalBadge: "Externo",
     externalBadgeSr: " — se abre en una pestaña nueva",
-    prHeading: "Recursos de Puerto Rico",
+    prHeading: "Herramientas de la Red de Puerto Rico",
+    prCommunityHeading: "Comunidad de Puerto Rico",
     projectHeading: "Proyecto Oficial de Meshtastic",
+    wideCommunityHeading: "Comunidad Meshtastic Global",
     referenceHeading: "Documentación de Referencia",
     notes: {
       monitor:
@@ -850,9 +851,10 @@ const es: Strings = {
       discord:
         "Servidor de Discord de la comunidad para operadores de la malla en Puerto Rico — preguntas, proyectos y coordinación.",
       facebookGroup:
-        "Grupo de Facebook para operadores de Meshtastic en Puerto Rico.",
-      redditPR: "Comunidad de Reddit para operadores de Meshtastic en Puerto Rico.",
-      redditGlobal: "El subreddit principal de Meshtastic — discusión global del proyecto.",
+        "Publicaciones, fotos y noticias de operadores de toda la isla.",
+      redditPR: "Preguntas y respuestas en hilos sobre la malla de Puerto Rico, que se pueden buscar después.",
+      redditGlobal:
+        "Subreddit global de Meshtastic, en inglés — noticias del proyecto y ayuda de operadores de todo el mundo.",
       mallapr:
         "Monitor y mapa de la red de Puerto Rico — la fuente de datos en vivo detrás del Mapa de Nodos de este sitio.",
       meshview:
