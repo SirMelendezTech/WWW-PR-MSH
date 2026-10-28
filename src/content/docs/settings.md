@@ -10,17 +10,13 @@ section: Documentation
 These values start from what other Meshtastic community networks have field-tested, and are being tuned for Puerto Rico. Each one is labeled <span class="badge badge--verified">Verified</span> when multiple Puerto Rico operators have confirmed it in the field, or <span class="badge badge--proposed">Proposed</span> when it's a reasonable starting point that hasn't been broadly tested yet. Firmware behavior changes between releases — current Meshtastic documentation wins over this page.
 </div>
 
-Each setting shows where to find it in the Meshtastic app, then the equivalent [CLI](https://meshtastic.org/docs/software/python/cli/) command. Menu paths follow the Android app; iOS and the web client use the same section names in a slightly different layout.
+Each setting shows where to find it in the Meshtastic app on Android and iPhone. Every path starts from the app's **Settings** screen.
 
 ## Region and Frequency
 
 Meshtastic requires every device to declare a **LoRa region**, which sets the legal frequency band, power limits, and duty cycle for where the radio operates. <span class="badge badge--verified">Verified</span>
 
-**In the app:** Radio configuration → LoRa → Region → **US**.
-
-```
-meshtastic --set lora.region US
-```
+**Android:** Radio configuration → LoRa → Region → **US**. **iPhone:** Radio Configuration → LoRa → Region → **US**.
 
 Puerto Rico falls under United States frequency allocation for the unlicensed ISM band that Meshtastic uses. Set your region accordingly, and confirm against the [official Meshtastic region list](https://meshtastic.org/docs/configuration/radio/lora/#region) — this list is maintained upstream and is the authoritative source, not this page.
 
@@ -43,11 +39,7 @@ Choosing the right role matters more for the health of the shared mesh than almo
 
 </div>
 
-**In the app:** Radio configuration → Device → Role.
-
-```
-meshtastic --set device.role CLIENT
-```
+**Android:** Radio configuration → Device → Device Role. **iPhone:** Device Configuration → Device → Device Role.
 
 <div class="callout callout--warning">
 <span class="callout-label">Router is not "more powerful client"</span>
@@ -74,11 +66,7 @@ A node can't transmit and receive at the same time — every hop a message takes
 
 </div>
 
-**In the app:** Radio configuration → LoRa → Hop limit.
-
-```
-meshtastic --set lora.hop_limit 3
-```
+**Android:** Radio configuration → LoRa → Hop limit. **iPhone:** Radio Configuration → LoRa → Hop limit.
 
 <span class="badge badge--proposed">Proposed</span> — never go higher than 5. A node set to 6+ "just in case" doesn't get better reach, it just makes every failed delivery more expensive for the whole mesh.
 
@@ -91,11 +79,7 @@ Favorites aren't just a shortcut in the app's node list — on the roles above, 
 
 Favoriting a Router does **not** turn a Client Base node into something that repeats all of its traffic — that's the first mechanism's job, and it only applies to your own favorited gear. The two lists overlap in the UI but not in effect.
 
-```
-meshtastic --set-favorite-node !a1b2c3d4
-```
-
-Same action is available in the app: long-press a node in the node list → **Favorite**.
+**In the app:** long-press a node in the node list → **Favorite**.
 
 <span class="badge badge--proposed">Proposed</span> — on a Client Base rooftop node: favorite every node you own that lives indoors, plus any legitimate local Router/Router Late sites, then run a traceroute before and after to confirm it actually changed the path.
 
@@ -105,7 +89,7 @@ How often a node announces its position and telemetry directly trades off **fres
 
 For why a fixed rooftop node on default timers quietly degrades everyone's range, and how to walk each interval out to the baseline, see [Your Stationary Node Is Talking Too Much](/blog/broadcast-intervals-airtime-en/).
 
-<div class="table-wrap">
+<div class="table-wrap table-wrap--fit">
 
 | Setting | Mobile nodes | Stationary nodes | Notes |
 |---|---|---|---|
@@ -120,31 +104,9 @@ For why a fixed rooftop node on default timers quietly degrades everyone's range
 
 </div>
 
-**In the app:** node info broadcast is under Radio configuration → Device; position and GPS intervals under Radio configuration → Position; telemetry under Module configuration → Telemetry; map report under Module configuration → MQTT.
+**Android:** node info broadcast is under Radio configuration → Device; position and GPS intervals under Radio configuration → Position; telemetry under Module configuration → Telemetry; map report under Module configuration → MQTT.
 
-<details>
-<summary>CLI commands — mobile and stationary</summary>
-
-```
-# Mobile nodes
-meshtastic --set position.position_broadcast_secs 3600
-meshtastic --set position.gps_update_interval 300
-meshtastic --set position.broadcast_smart_minimum_distance 100
-meshtastic --set position.broadcast_smart_minimum_interval_secs 60
-meshtastic --set position.position_broadcast_smart_enabled true
-meshtastic --set telemetry.device_update_interval 3600
-meshtastic --set telemetry.environment_update_interval 3600
-
-# Stationary nodes
-meshtastic --set position.position_broadcast_secs 43200
-meshtastic --set position.gps_update_interval 21600
-meshtastic --set position.position_broadcast_smart_enabled false
-meshtastic --set telemetry.device_update_interval 21600
-meshtastic --set telemetry.environment_update_interval 21600
-meshtastic --set telemetry.power_update_interval 3600
-```
-
-</details>
+**iPhone:** node info broadcast is under Device Configuration → Device; position and GPS intervals under Device Configuration → Position; telemetry under Module Configuration → Telemetry; map report under Module Configuration → MQTT.
 
 <span class="badge badge--proposed">Proposed</span> — a field-tested starting baseline, not yet re-tuned for Puerto Rico's terrain or mesh density. Coordinate with nearby operators before broadcasting more frequently than this on a shared channel.
 
@@ -153,7 +115,7 @@ meshtastic --set telemetry.power_update_interval 3600
 
 Position Flags control which fields ride inside every Position packet. Fewer flags means a smaller packet and less airtime — worth trimming on a fixed node that doesn't need to report speed or heading.
 
-<div class="table-wrap">
+<div class="table-wrap table-wrap--fit">
 
 | Flag | Mobile nodes | Fixed nodes | Notes |
 |---|---|---|---|
@@ -166,14 +128,7 @@ Position Flags control which fields ride inside every Position packet. Fewer fla
 
 </div>
 
-```
-# Mobile
-meshtastic --set position.position_flags ALTITUDE,ALTITUDE_MSL,SPEED,HEADING,SATINVIEW
-
-# Fixed
-meshtastic --set position.position_flags ALTITUDE,ALTITUDE_MSL,GEOIDAL_SEPARATION
-meshtastic --set position.fixed_position true
-```
+**In the app:** Position Flags and Fixed Position are under Radio configuration → Position on Android, and Device Configuration → Position on iPhone. On a fixed node, also turn on **Fixed Position**.
 
 </details>
 
@@ -181,7 +136,7 @@ meshtastic --set position.fixed_position true
 
 Neighbor Info lets a node report which other nodes it can directly hear, along with signal quality — this is what turns the mesh from a black box into something you can actually visualize and debug. Enabling it on stationary and rooftop nodes helps build a real picture of Puerto Rico coverage over time (see [Puerto Rico Mesh](/pr-mesh/)).
 
-Requires Meshtastic app/firmware 2.2.0 or newer. Enable both the module and "Transmit Over LoRa" — the iOS app can't currently configure this module, so use the web client or CLI instead.
+Requires Meshtastic app/firmware 2.2.0 or newer. Enable both the module and "Transmit Over LoRa".
 
 <div class="table-wrap table-wrap--fit">
 
@@ -192,18 +147,7 @@ Requires Meshtastic app/firmware 2.2.0 or newer. Enable both the module and "Tra
 
 </div>
 
-**In the app (Android or web client):** Module configuration → Neighbor Info — turn on the module and Transmit Over LoRa, then set the update interval.
-
-<details>
-<summary>CLI commands</summary>
-
-```
-meshtastic --set neighbor_info.enabled true
-meshtastic --set neighbor_info.transmit_over_lora true
-meshtastic --set neighbor_info.update_interval 39600   # 11h, stationary — use 14400 (4h) for mobile
-```
-
-</details>
+**Android:** Module configuration → Neighbor Info. **iPhone:** Module Configuration → Neighbor Info. Turn on the module and Transmit Over LoRa, then set the update interval.
 
 Impact on channel congestion is minimal at these intervals — enable it, but don't set it aggressively low on relay-heavy nodes. <span class="badge badge--proposed">Proposed</span>
 
@@ -219,9 +163,9 @@ For a step-by-step walkthrough of the whole chain — root topic, OK to MQTT, up
 
 ### Bridge setup
 
-- **OK to MQTT** — Radio configuration → LoRa → turn on **OK to MQTT**.
-- **Uplink on, downlink off** — open each channel under Channels and set **Uplink** on, **Downlink** off.
-- **Root topic** — Puerto Rico traffic on the public MQTT server publishes under **`msh/US/PR`**, following the standard `msh/<country>/<region>` structure. Confirm this matches your node's configured root topic before bridging, so your traffic lands where PR coverage tools expect it. Set it under Module configuration → MQTT. <span class="badge badge--verified">Verified</span>
+- **OK to MQTT** — in LoRa settings (Radio configuration → LoRa on Android, Radio Configuration → LoRa on iPhone), turn on **OK to MQTT**.
+- **Uplink on, downlink off** — open each channel under Radio configuration → Channels (iPhone: Radio Configuration → Channels) and set **Uplink** on, **Downlink** off.
+- **Root topic** — Puerto Rico traffic on the public MQTT server publishes under **`msh/US/PR`**, following the standard `msh/<country>/<region>` structure. Confirm this matches your node's configured root topic before bridging, so your traffic lands where PR coverage tools expect it. Set it under Module configuration → MQTT (iPhone: Module Configuration → MQTT). <span class="badge badge--verified">Verified</span>
 
 <div class="callout callout--warning">
 <span class="callout-label">Keep downlink off</span>

@@ -11,17 +11,13 @@ lang: es
 Estos valores parten de lo que otras redes comunitarias de Meshtastic han probado en el campo, y se están ajustando para Puerto Rico. Cada uno se marca como <span class="badge badge--verified">Verificado</span> cuando varios operadores de Puerto Rico lo han confirmado en el campo, o <span class="badge badge--proposed">Propuesto</span> cuando es un punto de partida razonable que aún no se ha probado ampliamente. El comportamiento del firmware cambia entre versiones — la documentación vigente de Meshtastic manda sobre esta página.
 </div>
 
-Cada ajuste indica dónde encontrarlo en la app de Meshtastic y luego el comando equivalente del [CLI](https://meshtastic.org/docs/software/python/cli/). Las rutas de menú siguen la app de Android (en inglés); iOS y el cliente web usan los mismos nombres de sección con una disposición un poco distinta.
+Cada ajuste indica dónde encontrarlo en la app de Meshtastic en Android y iPhone. Todas las rutas empiezan en la pantalla **Settings** de la app, y usan los nombres de menú en inglés.
 
 ## Región y Frecuencia
 
 Meshtastic requiere que cada equipo declare una **región LoRa**, que fija la banda de frecuencia legal, los límites de potencia y el ciclo de trabajo para donde opera la radio. <span class="badge badge--verified">Verificado</span>
 
-**En la app:** Radio configuration → LoRa → Region → **US**.
-
-```
-meshtastic --set lora.region US
-```
+**Android:** Radio configuration → LoRa → Region → **US**. **iPhone:** Radio Configuration → LoRa → Region → **US**.
 
 Puerto Rico cae bajo la asignación de frecuencia de Estados Unidos para la banda ISM sin licencia que usa Meshtastic. Configura tu región en consecuencia, y confírmalo contra la [lista oficial de regiones de Meshtastic](https://meshtastic.org/docs/configuration/radio/lora/#region) — esta lista se mantiene upstream y es la fuente autoritativa, no esta página.
 
@@ -44,11 +40,7 @@ Elegir el rol correcto importa más para la salud de la malla compartida que cas
 
 </div>
 
-**En la app:** Radio configuration → Device → Role.
-
-```
-meshtastic --set device.role CLIENT
-```
+**Android:** Radio configuration → Device → Device Role. **iPhone:** Device Configuration → Device → Device Role.
 
 <div class="callout callout--warning">
 <span class="callout-label">Router no es un "client más potente"</span>
@@ -75,11 +67,7 @@ Un nodo no puede transmitir y recibir al mismo tiempo — cada salto que toma un
 
 </div>
 
-**En la app:** Radio configuration → LoRa → Hop limit.
-
-```
-meshtastic --set lora.hop_limit 3
-```
+**Android:** Radio configuration → LoRa → Hop limit. **iPhone:** Radio Configuration → LoRa → Hop limit.
 
 <span class="badge badge--proposed">Propuesto</span> — nunca subas de 5. Un nodo configurado a 6+ "por si acaso" no obtiene mejor alcance, solo hace cada entrega fallida más cara para toda la malla.
 
@@ -92,11 +80,7 @@ Los favoritos no son solo un atajo en la lista de nodos de la app — en los rol
 
 Marcar un Router como favorito **no** convierte un nodo Client Base en algo que repite todo su tráfico — ese es el trabajo del primer mecanismo, y solo aplica a tu propio equipo marcado como favorito. Las dos listas se solapan en la interfaz pero no en efecto.
 
-```
-meshtastic --set-favorite-node !a1b2c3d4
-```
-
-La misma acción está disponible en la app: mantén presionado un nodo en la lista de nodos → **Favorito**.
+**En la app:** mantén presionado un nodo en la lista de nodos → **Favorite**.
 
 <span class="badge badge--proposed">Propuesto</span> — en un nodo Client Base en techo: marca como favorito cada nodo tuyo que viva en interiores, más cualquier sitio local legítimo Router/Router Late, luego corre un traceroute antes y después para confirmar que de verdad cambió la ruta.
 
@@ -106,7 +90,7 @@ Con qué frecuencia un nodo anuncia su posición y telemetría intercambia direc
 
 Para entender por qué un nodo fijo de techo con los temporizadores por defecto degrada el alcance de todos, y cómo alargar cada intervalo hasta la base, consulta [Tu nodo estacionario habla demasiado](/es/blog/intervalos-transmision-airtime-es/).
 
-<div class="table-wrap">
+<div class="table-wrap table-wrap--fit">
 
 | Ajuste | Nodos móviles | Nodos estacionarios | Notas |
 |---|---|---|---|
@@ -121,31 +105,9 @@ Para entender por qué un nodo fijo de techo con los temporizadores por defecto 
 
 </div>
 
-**En la app:** la transmisión de info del nodo está en Radio configuration → Device; los intervalos de posición y GPS en Radio configuration → Position; la telemetría en Module configuration → Telemetry; el reporte al mapa en Module configuration → MQTT.
+**Android:** la transmisión de info del nodo está en Radio configuration → Device; los intervalos de posición y GPS en Radio configuration → Position; la telemetría en Module configuration → Telemetry; el reporte al mapa en Module configuration → MQTT.
 
-<details>
-<summary>Comandos CLI — móvil y estacionario</summary>
-
-```
-# Nodos móviles
-meshtastic --set position.position_broadcast_secs 3600
-meshtastic --set position.gps_update_interval 300
-meshtastic --set position.broadcast_smart_minimum_distance 100
-meshtastic --set position.broadcast_smart_minimum_interval_secs 60
-meshtastic --set position.position_broadcast_smart_enabled true
-meshtastic --set telemetry.device_update_interval 3600
-meshtastic --set telemetry.environment_update_interval 3600
-
-# Nodos estacionarios
-meshtastic --set position.position_broadcast_secs 43200
-meshtastic --set position.gps_update_interval 21600
-meshtastic --set position.position_broadcast_smart_enabled false
-meshtastic --set telemetry.device_update_interval 21600
-meshtastic --set telemetry.environment_update_interval 21600
-meshtastic --set telemetry.power_update_interval 3600
-```
-
-</details>
+**iPhone:** la transmisión de info del nodo está en Device Configuration → Device; los intervalos de posición y GPS en Device Configuration → Position; la telemetría en Module Configuration → Telemetry; el reporte al mapa en Module Configuration → MQTT.
 
 <span class="badge badge--proposed">Propuesto</span> — una base de partida probada en el campo, aún no reajustada para el terreno o la densidad de malla de Puerto Rico. Coordina con operadores cercanos antes de transmitir más frecuentemente que esto en un canal compartido.
 
@@ -154,7 +116,7 @@ meshtastic --set telemetry.power_update_interval 3600
 
 Los Position Flags controlan qué campos viajan dentro de cada paquete de Posición. Menos flags significa un paquete más pequeño y menos tiempo de aire — vale la pena recortarlos en un nodo fijo que no necesita reportar velocidad ni rumbo.
 
-<div class="table-wrap">
+<div class="table-wrap table-wrap--fit">
 
 | Flag | Nodos móviles | Nodos fijos | Notas |
 |---|---|---|---|
@@ -167,14 +129,7 @@ Los Position Flags controlan qué campos viajan dentro de cada paquete de Posici
 
 </div>
 
-```
-# Móvil
-meshtastic --set position.position_flags ALTITUDE,ALTITUDE_MSL,SPEED,HEADING,SATINVIEW
-
-# Fijo
-meshtastic --set position.position_flags ALTITUDE,ALTITUDE_MSL,GEOIDAL_SEPARATION
-meshtastic --set position.fixed_position true
-```
+**En la app:** Position Flags y Fixed Position están en Radio configuration → Position en Android, y en Device Configuration → Position en iPhone. En un nodo fijo, activa también **Fixed Position**.
 
 </details>
 
@@ -182,7 +137,7 @@ meshtastic --set position.fixed_position true
 
 Neighbor Info permite que un nodo reporte qué otros nodos puede escuchar directamente, junto con la calidad de señal — esto es lo que convierte la malla de una caja negra en algo que de verdad puedes visualizar y depurar. Activarlo en nodos estacionarios y en techo ayuda a construir una imagen real de la cobertura de Puerto Rico con el tiempo (consulta [Malla de Puerto Rico](/es/pr-mesh/)).
 
-Requiere la app/firmware de Meshtastic 2.2.0 o más nuevo. Activa tanto el módulo como "Transmit Over LoRa" — la app de iOS actualmente no puede configurar este módulo, así que usa el cliente web o el CLI en su lugar.
+Requiere la app/firmware de Meshtastic 2.2.0 o más nuevo. Activa tanto el módulo como "Transmit Over LoRa".
 
 <div class="table-wrap table-wrap--fit">
 
@@ -193,18 +148,7 @@ Requiere la app/firmware de Meshtastic 2.2.0 o más nuevo. Activa tanto el módu
 
 </div>
 
-**En la app (Android o cliente web):** Module configuration → Neighbor Info — activa el módulo y Transmit Over LoRa, y luego fija el intervalo de actualización.
-
-<details>
-<summary>Comandos CLI</summary>
-
-```
-meshtastic --set neighbor_info.enabled true
-meshtastic --set neighbor_info.transmit_over_lora true
-meshtastic --set neighbor_info.update_interval 39600   # 11h, estacionario — usa 14400 (4h) para móvil
-```
-
-</details>
+**Android:** Module configuration → Neighbor Info. **iPhone:** Module Configuration → Neighbor Info. Activa el módulo y Transmit Over LoRa, y luego fija el intervalo de actualización.
 
 El impacto en la congestión del canal es mínimo en estos intervalos — actívalo, pero no lo pongas agresivamente bajo en nodos con mucha retransmisión. <span class="badge badge--proposed">Propuesto</span>
 
@@ -220,9 +164,9 @@ Para un recorrido paso a paso de toda la cadena — root topic, OK to MQTT, solo
 
 ### Configuración del puente
 
-- **OK to MQTT** — Radio configuration → LoRa → activa **OK to MQTT**.
-- **Uplink activado, downlink desactivado** — abre cada canal en Channels y deja **Uplink** activado y **Downlink** desactivado.
-- **Root topic** — el tráfico de Puerto Rico en el servidor MQTT público se publica bajo **`msh/US/PR`**, siguiendo la estructura estándar `msh/<país>/<región>`. Confirma que esto corresponde al root topic configurado de tu nodo antes de puentear, para que tu tráfico aterrice donde las herramientas de cobertura de PR lo esperan. Se configura en Module configuration → MQTT. <span class="badge badge--verified">Verificado</span>
+- **OK to MQTT** — en los ajustes de LoRa (Radio configuration → LoRa en Android, Radio Configuration → LoRa en iPhone), activa **OK to MQTT**.
+- **Uplink activado, downlink desactivado** — abre cada canal en Radio configuration → Channels (iPhone: Radio Configuration → Channels) y deja **Uplink** activado y **Downlink** desactivado.
+- **Root topic** — el tráfico de Puerto Rico en el servidor MQTT público se publica bajo **`msh/US/PR`**, siguiendo la estructura estándar `msh/<país>/<región>`. Confirma que esto corresponde al root topic configurado de tu nodo antes de puentear, para que tu tráfico aterrice donde las herramientas de cobertura de PR lo esperan. Se configura en Module configuration → MQTT (iPhone: Module Configuration → MQTT). <span class="badge badge--verified">Verificado</span>
 
 <div class="callout callout--warning">
 <span class="callout-label">Mantén el downlink desactivado</span>
