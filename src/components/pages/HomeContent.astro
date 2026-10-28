@@ -110,12 +110,6 @@ const { nodes: meshNodes, live: meshLive } = await getNodes();
       <p>{h.splitCommunityBody}</p>
       <a href={p("/community/")} class="btn btn-primary">{h.splitCommunityCta}</a>
     </div>
-    <div class="split-card">
-      <p class="eyebrow">{h.splitStartEyebrow}</p>
-      <h2>{h.splitStartTitle}</h2>
-      <p>{h.splitStartBody}</p>
-      <a href={p("/getting-started/")} class="btn btn-secondary">{h.splitStartCta}</a>
-    </div>
   </div>
 </section>
 
@@ -289,11 +283,10 @@ const { nodes: meshNodes, live: meshLive } = await getNodes();
   .quickstart-list p { margin: 0; font-size: 0.92rem; }
 
   .split-grid { display: grid; gap: 1.5rem; grid-template-columns: 1fr; }
-  @media (min-width: 780px) { .split-grid { grid-template-columns: 1fr 1fr; } }
   .split-card { border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2rem; background: var(--bg-raised); }
   .split-card--accent { background: var(--primary); color: var(--primary-ink); border-color: transparent; }
   .split-card--accent h2, .split-card--accent .eyebrow { color: var(--primary-ink); }
-  .split-card--accent p { color: color-mix(in srgb, var(--primary-ink) 85%, transparent); }
+  .split-card--accent p { color: color-mix(in srgb, var(--primary-ink) 85%, transparent); max-width: 60ch; }
   .split-card--accent .eyebrow::before { background: var(--primary-ink); }
   .split-card--accent .btn-primary { background: var(--bg-raised); color: var(--primary); }
 

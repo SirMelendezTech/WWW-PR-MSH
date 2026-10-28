@@ -127,11 +127,40 @@ table {
   margin: 1.5em 0;
 }
 .table-wrap table { border: none; margin: 0; border-radius: 0; }
+/* Narrow (2–3 column) tables fit the prose column on desktop instead of scrolling. */
+@media (min-width: 720px) {
+  .table-wrap--fit table { min-width: 0; }
+}
 caption { text-align: left; padding: 0.75em 1em; font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-faint); }
 th, td { text-align: left; padding: 0.7em 1em; border-bottom: 1px solid var(--border); vertical-align: top; }
 thead th { background: var(--bg-sunken); font-family: var(--font-display); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-soft); position: sticky; top: 0; }
 tbody tr:last-child td { border-bottom: none; }
 tbody tr:hover { background: color-mix(in srgb, var(--secondary) 6%, transparent); }
+
+/* App menu paths (Settings docs). The icon is always paired with its text label;
+   it inherits the ink color so it meets non-text contrast in both themes. */
+.app-paths { display: grid; gap: 0.4rem; margin: 1.25em 0; padding: 0.85rem 1rem; background: var(--bg-sunken); border-radius: var(--radius-md); }
+.app-paths p { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 0.75rem; align-items: baseline; margin: 0; color: var(--ink-soft); }
+@media (max-width: 480px) {
+  .app-paths p { grid-template-columns: 1fr; gap: 0.1rem; }
+  .app-paths p + p { margin-top: 0.4rem; }
+}
+.platform { display: inline-flex; align-items: center; gap: 0.4em; font-weight: 600; color: var(--ink); white-space: nowrap; }
+.platform::before {
+  content: "";
+  flex: none;
+  width: 1.15em;
+  height: 1.15em;
+  background-color: currentColor;
+  -webkit-mask: var(--platform-icon) center / contain no-repeat;
+  mask: var(--platform-icon) center / contain no-repeat;
+}
+.platform--android { --platform-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill-rule='evenodd' d='M3 18a9 9 0 0 1 18 0H3Zm5.5-3.5a1.1 1.1 0 1 0 0-2.2 1.1 1.1 0 0 0 0 2.2Zm7 0a1.1 1.1 0 1 0 0-2.2 1.1 1.1 0 0 0 0 2.2Z'/%3E%3Cpath d='M7 10.4 5.2 7.4M17 10.4l1.8-3' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E"); }
+.platform--ios { --platform-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='6' y='2' width='12' height='20' rx='3' fill='none' stroke='black' stroke-width='1.8'/%3E%3Crect x='10' y='4.6' width='4' height='1.6' rx='.8'/%3E%3C/svg%3E"); }
+thead th .platform { text-transform: none; letter-spacing: 0; font-size: 0.9rem; }
+@media (forced-colors: active) {
+  .platform::before { background-color: CanvasText; }
+}
 
 /* Code blocks + copy button */
 pre {
