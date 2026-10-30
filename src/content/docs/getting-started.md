@@ -9,6 +9,8 @@ section: Documentation
 
 Meshtastic is open-source firmware that runs on small, inexpensive LoRa radios. Two or more devices running it can send text messages, share GPS position, and relay traffic for each other — no cell tower, no Wi-Fi, no monthly bill. Each radio is a **node**. When a message can't reach its destination directly, nearby nodes automatically **relay** it, hop by hop, until it arrives. That relaying is what makes it a *mesh*.
 
+Heard of **MeshCore**? It's a different LoRa protocol that can't talk to Meshtastic radios. The Puerto Rico mesh runs Meshtastic — see [Meshtastic vs MeshCore](/protocols/) for how they compare.
+
 In Puerto Rico, where hurricanes and grid failures have repeatedly knocked out cellular service for days or weeks at a time, that off-grid property is the whole point. A pocket radio that keeps talking to your family, your hiking group, or your barrio after the towers go dark is worth understanding before you need it.
 
 ## What hardware do I need?

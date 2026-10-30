@@ -10,6 +10,8 @@ lang: es
 
 Meshtastic es firmware de código abierto que corre en radios LoRa pequeñas y económicas. Dos o más equipos que lo ejecutan pueden enviar mensajes de texto, compartir posición GPS y retransmitir tráfico entre sí — sin torre celular, sin Wi-Fi, sin factura mensual. Cada radio es un **nodo**. Cuando un mensaje no puede llegar a su destino directamente, los nodos cercanos lo **retransmiten** automáticamente, salto por salto, hasta que llega. Esa retransmisión es lo que la convierte en una *malla* (*mesh*).
 
+¿Has oído de **MeshCore**? Es otro protocolo LoRa que no se comunica con radios Meshtastic. La malla de Puerto Rico usa Meshtastic — consulta [Meshtastic vs MeshCore](/es/protocols/) para ver cómo se comparan.
+
 En Puerto Rico, donde los huracanes y las fallas de la red eléctrica han dejado repetidamente sin servicio celular por días o semanas, esa propiedad de funcionar sin infraestructura es el punto central. Una radio de bolsillo que sigue comunicándose con tu familia, tu grupo de excursión o tu barrio después de que las torres se apagan vale la pena entenderla antes de necesitarla.
 
 ## ¿Qué hardware necesito?

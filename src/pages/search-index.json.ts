@@ -12,6 +12,7 @@ const docRoutes: Record<string, string> = {
   hardware: "/hardware/",
   settings: "/settings/",
   "how-it-works": "/how-it-works/",
+  protocols: "/protocols/",
   "pr-mesh": "/pr-mesh/",
 };
 
