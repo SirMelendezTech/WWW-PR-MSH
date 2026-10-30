@@ -13,7 +13,7 @@ Comparado contra Meshtastic 2.7.26 (estable), Meshtastic 2.8.1 (alpha) y MeshCor
 
 Meshtastic y MeshCore envían mensajes de texto por radios LoRa sin servicio celular y sin internet. La diferencia que determina todo lo demás es **quién retransmite**: en Meshtastic, cada nodo puede retransmitir por defecto; en MeshCore, solo los **repetidores** dedicados retransmiten, y las radios personales solo envían y reciben.
 
-**La malla de Puerto Rico usa Meshtastic.** Todo lo demás en este sitio — configuración, roles, el mapa — está escrito para Meshtastic.
+**PRMSH usa Meshtastic.** Todo lo demás en este sitio — configuración, roles, el mapa — está escrito para Meshtastic. Su red hermana, [MeshCore Puerto Rico](https://meshcore.prmsh.com/), usa MeshCore en toda la isla.
 
 ## La respuesta corta
 
@@ -127,7 +127,7 @@ Sí, regrabando el firmware. Configura la región y el preset de nuevo después 
 Depende de la red. MeshCore conviene a redes planificadas con repetidores, sobre todo en ciudades densas donde el tiempo de aire escasea. Meshtastic conviene a grupos sin infraestructura fija. En la práctica, usa lo que use tu malla local.
 
 **¿Debo usar MeshCore en Puerto Rico?**
-No para llegar a la malla de PRMSH — usa Meshtastic, y una radio MeshCore no la verá. Empieza por [Primeros Pasos](/es/getting-started/).
+Para llegar a la malla de PRMSH, no — usa Meshtastic, y una radio MeshCore no la verá. Empieza por [Primeros Pasos](/es/getting-started/). Si MeshCore te conviene más, únete a la red hermana, [MeshCore Puerto Rico](https://meshcore.prmsh.com/).
 
 **¿MeshCore es gratis?**
 Sí. El firmware tiene licencia MIT y la app es gratis, con una compra opcional para gestionar repetidores desde el teléfono sin el temporizador.

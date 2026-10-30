@@ -12,7 +12,7 @@ Compared against Meshtastic 2.7.26 (stable), Meshtastic 2.8.1 (alpha), and MeshC
 
 Meshtastic and MeshCore both send text messages over LoRa radios with no cell service and no internet. The difference that drives everything else is **who relays**: in Meshtastic, every node can relay by default; in MeshCore, only dedicated **repeaters** relay, and personal radios only send and receive.
 
-**The Puerto Rico mesh runs Meshtastic.** Everything else on this site — settings, roles, the map — is written for Meshtastic.
+**PRMSH runs Meshtastic.** Everything else on this site — settings, roles, the map — is written for Meshtastic. Its sister network, [MeshCore Puerto Rico](https://meshcore.prmsh.com/), runs MeshCore across the island.
 
 ## The short answer
 
@@ -126,7 +126,7 @@ Yes, by reflashing. Set region and preset again afterward — nothing carries ov
 It depends on the network. MeshCore suits planned, repeater-based networks, especially dense cities where airtime runs short. Meshtastic suits groups with no fixed infrastructure. In practice, run whatever your local mesh runs.
 
 **Should I use MeshCore in Puerto Rico?**
-Not to reach the PRMSH mesh — it runs Meshtastic, and a MeshCore radio won't see it. Start with [Getting Started](/getting-started/).
+To reach the PRMSH mesh, no — it runs Meshtastic, and a MeshCore radio won't see it. Start with [Getting Started](/getting-started/). If MeshCore fits you better, join the sister network, [MeshCore Puerto Rico](https://meshcore.prmsh.com/).
 
 **Is MeshCore free?**
 Yes. The firmware is MIT-licensed and the app is free, with an optional purchase for phone-based repeater management without the wait timer.
