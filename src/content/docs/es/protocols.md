@@ -35,7 +35,7 @@ Los dos protocolos usan formatos de paquete, cifrado, palabras de sincronizació
 
 ## Lado a lado
 
-<div class="table-wrap">
+<div class="table-wrap table-wrap--fit">
 
 | | Meshtastic | MeshCore |
 |---|---|---|

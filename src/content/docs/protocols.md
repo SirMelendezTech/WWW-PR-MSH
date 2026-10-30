@@ -34,7 +34,7 @@ The two protocols use different packet formats, encryption, LoRa sync words, and
 
 ## Side by side
 
-<div class="table-wrap">
+<div class="table-wrap table-wrap--fit">
 
 | | Meshtastic | MeshCore |
 |---|---|---|
