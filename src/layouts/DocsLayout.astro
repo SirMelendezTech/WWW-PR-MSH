@@ -22,6 +22,7 @@ const docsNavBase = [
   { label: { en: "Recommended Hardware", es: "Hardware Recomendado" }, href: "/hardware/" },
   { label: { en: "Recommended Settings", es: "Configuración Recomendada" }, href: "/settings/" },
   { label: { en: "How Meshtastic Works", es: "Cómo Funciona Meshtastic" }, href: "/how-it-works/" },
+  { label: { en: "Meshtastic vs MeshCore", es: "Meshtastic vs MeshCore" }, href: "/protocols/" },
   { label: { en: "Puerto Rico Mesh", es: "Malla Puerto Rico" }, href: "/pr-mesh/" },
 ];
 const docsNav = docsNavBase.map((item) => ({
@@ -31,7 +32,7 @@ const docsNav = docsNavBase.map((item) => ({
 const path = Astro.url.pathname;
 const toc = headings.filter((h) => h.depth === 2);
 
-// The five docs pages are a reading order, not a menu. Find where this page
+// The six docs pages are a reading order, not a menu. Find where this page
 // sits so the sidebar can number it and the footer can point to the next step.
 const currentIndex = docsNav.findIndex((item) => path.startsWith(item.href));
 const prev = currentIndex > 0 ? docsNav[currentIndex - 1] : null;
