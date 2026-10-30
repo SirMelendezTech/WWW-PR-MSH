@@ -6,10 +6,12 @@ import { localizePath } from "../../lib/i18n";
 import { useStrings, categoryLabel } from "../../lib/ui-strings";
 import { getBlogPosts, blogPostHref } from "../../lib/blog";
 import { getNodes } from "../../lib/nodes";
+import { MESHCORE_PR_URL } from "../../lib/community";
 
 interface Props { lang: Locale }
 const { lang } = Astro.props;
-const h = useStrings(lang).home;
+const t = useStrings(lang);
+const h = t.home;
 const p = (href: string) => localizePath(href, lang);
 
 const posts = (await getBlogPosts(lang)).slice(0, 3);
@@ -42,7 +44,11 @@ const { nodes: meshNodes, live: meshLive } = await getNodes();
       <h2>{h.introTitle}</h2>
       <p>{h.introBody1}</p>
       <p>{h.introBody2}</p>
-      <a href={p("/how-it-works/")} class="link-arrow">{h.introLink}</a>
+      <p>{h.sisterBefore}<a href={MESHCORE_PR_URL} target="_blank" rel="noopener">{h.sisterLink}<span class="sr-only"> {t.opensInNewTab}</span></a>{h.sisterAfter}</p>
+      <div class="intro-links">
+        <a href={p("/how-it-works/")} class="link-arrow">{h.introLink}</a>
+        <a href={p("/protocols/")} class="link-arrow">{h.compareLink}</a>
+      </div>
     </div>
     <div class="intro-card">
       <p class="eyebrow">{h.whyEyebrow}</p>
@@ -108,7 +114,10 @@ const { nodes: meshNodes, live: meshLive } = await getNodes();
       <p class="eyebrow">{h.splitCommunityEyebrow}</p>
       <h2>{h.splitCommunityTitle}</h2>
       <p>{h.splitCommunityBody}</p>
-      <a href={p("/community/")} class="btn btn-primary">{h.splitCommunityCta}</a>
+      <div class="split-actions">
+        <a href={p("/community/")} class="btn btn-primary">{h.splitCommunityCta}</a>
+        <a href={MESHCORE_PR_URL} class="btn btn-secondary" target="_blank" rel="noopener">{h.splitCommunitySister}<span class="sr-only"> {t.opensInNewTab}</span></a>
+      </div>
     </div>
   </div>
 </section>
@@ -252,6 +261,7 @@ const { nodes: meshNodes, live: meshLive } = await getNodes();
 
   .link-arrow { display: inline-block; margin-top: 1.25rem; font-weight: 600; text-decoration: none; color: var(--secondary); }
   .link-arrow:hover { text-decoration: underline; }
+  .intro-links { display: flex; flex-wrap: wrap; column-gap: 1.75rem; }
 
   /* Every one of these four claims is really an absence — no tower, no
      permission, no contract, no company — so the kicker names what the mesh
@@ -289,6 +299,10 @@ const { nodes: meshNodes, live: meshLive } = await getNodes();
   .split-card--accent p { color: color-mix(in srgb, var(--primary-ink) 85%, transparent); max-width: 60ch; }
   .split-card--accent .eyebrow::before { background: var(--primary-ink); }
   .split-card--accent .btn-primary { background: var(--bg-raised); color: var(--primary); }
+  .split-card--accent .btn-secondary { color: var(--primary-ink); border-color: color-mix(in srgb, var(--primary-ink) 60%, transparent); }
+  .split-card--accent .btn-secondary:hover { color: var(--primary-ink); border-color: var(--primary-ink); }
+  .split-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  .split-actions .btn { white-space: normal; max-width: 100%; text-align: center; }
 
   /* Same log treatment as the blog index — three most recent as rows against
      a numbered rail, not a card wall. */

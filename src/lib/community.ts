@@ -10,3 +10,7 @@ export const REDDIT_GLOBAL_URL = "https://www.reddit.com/r/meshtastic/";
 // SKYNET, the RNPR resilient-communications program. Shared by the Community
 // page and Links page.
 export const SKYNET_URL = "https://skynetmesh.com/";
+
+// MeshCore Puerto Rico, PRMSH's sister network on the MeshCore protocol.
+// Shared by the home page, footer, Community page, and Links page.
+export const MESHCORE_PR_URL = "https://meshcore.prmsh.com/";

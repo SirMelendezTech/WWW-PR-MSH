@@ -50,6 +50,7 @@ const en = {
     linksResources: "Links & resources",
     github: "Source on GitHub",
     discord: "Community Discord",
+    sisterNetwork: "MeshCore PR (sister network)",
     nodesReporting: (online: number, total: number) =>
       `${online} of ${total} nodes reporting`,
     rebuilt: (date: string) => `site rebuilt ${date}`,
@@ -152,6 +153,10 @@ const en = {
     introBody2:
       "Puerto Rico has already lived through weeks without cell service after Hurricane María and Fiona. This mesh exists so the next outage doesn't mean total silence.",
     introLink: "See how it actually works →",
+    sisterBefore: "PRMSH has a sister project: ",
+    sisterLink: "MeshCore Puerto Rico (meshcore.prmsh.com)",
+    sisterAfter: ", the island's MeshCore network. The radio protocol is different, so the two meshes can't hear each other.",
+    compareLink: "Compare Meshtastic and MeshCore →",
     whyEyebrow: "Why PRMSH",
     whyItems: [
       "Built for Puerto Rico's terrain, climate, and hurricane risk",
@@ -215,6 +220,7 @@ const en = {
     splitCommunityBody:
       "Meet other Meshtastic users in Puerto Rico. Share knowledge, compare antennas and configurations, and help extend coverage together.",
     splitCommunityCta: "Join the Community",
+    splitCommunitySister: "See the sister network at meshcore.prmsh.com",
 
     blogEyebrow: "From the blog",
     blogTitle: "Latest from PRMSH",
@@ -242,6 +248,9 @@ const en = {
     projectsExampleLink: "PalmasMesh",
     projectsExampleAfter:
       ", a free neighborhood mesh network in Palmas del Mar, Humacao, built and run by residents as a backup for when power and cell service go down.",
+    projectsSisterBefore: "Running MeshCore instead? ",
+    projectsSisterLink: "MeshCore Puerto Rico",
+    projectsSisterAfter: " is PRMSH's sister network on the island — same goal, different radio protocol.",
     projectsSkynetBefore: "At island scale, ",
     projectsSkynetLink: "SKYNET",
     projectsSkynetAfter:
@@ -382,6 +391,7 @@ const en = {
       monitor:
         "Live community monitoring for participating Puerto Rico nodes.",
       palmasmesh: "Neighborhood mesh network in Palmas del Mar, Humacao, run by residents.",
+      meshcorePr: "PRMSH's sister network: Puerto Rico's MeshCore mesh. Different protocol — it can't talk to Meshtastic radios.",
       skynet:
         "Resilient communications and technology program of Resilient Network Puerto Rico, Inc. (RNPR) — community networks, technical education, and preparedness tools.",
       discord:
@@ -505,6 +515,7 @@ const es: Strings = {
     linksResources: "Enlaces y recursos",
     github: "Código en GitHub",
     discord: "Discord de la comunidad",
+    sisterNetwork: "MeshCore PR (red hermana)",
     nodesReporting: (online: number, total: number) =>
       `${online} de ${total} nodos reportando`,
     rebuilt: (date: string) => `sitio reconstruido ${date}`,
@@ -608,6 +619,10 @@ const es: Strings = {
     introBody2:
       "Puerto Rico ya ha vivido semanas sin servicio celular tras los huracanes María y Fiona. Esta malla existe para que el próximo apagón no signifique silencio total.",
     introLink: "Mira cómo funciona de verdad →",
+    sisterBefore: "PRMSH tiene un proyecto hermano: ",
+    sisterLink: "MeshCore Puerto Rico (meshcore.prmsh.com)",
+    sisterAfter: ", la red MeshCore de la isla. El protocolo de radio es distinto, así que las dos mallas no se escuchan entre sí.",
+    compareLink: "Compara Meshtastic y MeshCore →",
     whyEyebrow: "Por qué PRMSH",
     whyItems: [
       "Construida para el terreno, el clima y el riesgo de huracanes de Puerto Rico",
@@ -671,6 +686,7 @@ const es: Strings = {
     splitCommunityBody:
       "Conoce a otros usuarios de Meshtastic en Puerto Rico. Comparte conocimiento, compara antenas y configuraciones, y ayuda a ampliar la cobertura en conjunto.",
     splitCommunityCta: "Únete a la Comunidad",
+    splitCommunitySister: "Ver la red hermana en meshcore.prmsh.com",
 
     blogEyebrow: "Del blog",
     blogTitle: "Lo más reciente de PRMSH",
@@ -698,6 +714,9 @@ const es: Strings = {
     projectsExampleLink: "PalmasMesh",
     projectsExampleAfter:
       ", una malla vecinal gratuita en Palmas del Mar, Humacao, que los residentes construyen y operan como respaldo para cuando se van la luz y la señal celular.",
+    projectsSisterBefore: "¿Usas MeshCore? ",
+    projectsSisterLink: "MeshCore Puerto Rico",
+    projectsSisterAfter: " es la red hermana de PRMSH en la isla — la misma meta, otro protocolo de radio.",
     projectsSkynetBefore: "A escala de toda la isla, ",
     projectsSkynetLink: "SKYNET",
     projectsSkynetAfter:
@@ -840,6 +859,7 @@ const es: Strings = {
       monitor:
         "Monitoreo comunitario en vivo de los nodos participantes de Puerto Rico.",
       palmasmesh: "Malla vecinal en Palmas del Mar, Humacao, operada por residentes.",
+      meshcorePr: "Red hermana de PRMSH: la malla MeshCore de Puerto Rico. Protocolo distinto — no se comunica con radios Meshtastic.",
       skynet:
         "Programa de comunicaciones resilientes y tecnología de Resilient Network Puerto Rico, Inc. (RNPR) — redes comunitarias, educación técnica y herramientas de preparación.",
       discord:

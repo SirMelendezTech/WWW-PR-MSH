@@ -2,7 +2,7 @@
 import Breadcrumbs from "../Breadcrumbs.astro";
 import type { Locale } from "../../lib/i18n";
 import { useStrings } from "../../lib/ui-strings";
-import { DISCORD_INVITE_URL, FACEBOOK_GROUP_URL, REDDIT_PR_URL, REDDIT_GLOBAL_URL, SKYNET_URL } from "../../lib/community";
+import { DISCORD_INVITE_URL, FACEBOOK_GROUP_URL, REDDIT_PR_URL, REDDIT_GLOBAL_URL, SKYNET_URL, MESHCORE_PR_URL } from "../../lib/community";
 
 interface Props { lang: Locale }
 const { lang } = Astro.props;
@@ -18,6 +18,7 @@ const prCommunity = [
   { name: "PRMSH Community Discord", url: DISCORD_INVITE_URL, note: l.notes.discord },
   { name: "Puerto Rico Meshtastic group (Facebook)", url: FACEBOOK_GROUP_URL, note: l.notes.facebookGroup },
   { name: "r/MeshtasticPuertoRico (Reddit)", url: REDDIT_PR_URL, note: l.notes.redditPR },
+  { name: "MeshCore Puerto Rico", url: MESHCORE_PR_URL, note: l.notes.meshcorePr },
   { name: "PalmasMesh", url: "https://palmasmesh.com/", note: l.notes.palmasmesh },
   { name: "SKYNET", url: SKYNET_URL, note: l.notes.skynet },
 ];
