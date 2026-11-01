@@ -24,7 +24,7 @@ const { title, description, noIndex = false, lang = "en", image = "/og-default.p
 const altLocaleHref = "altLocaleHref" in Astro.props ? Astro.props.altLocaleHref ?? null : undefined;
 const t = useStrings(lang);
 const siteTitle = title === t.home.title ? title : `${title} | PRMSH`;
-const site = Astro.site ?? new URL("https://prmsh.com");
+const site = Astro.site ?? new URL("https://meshtastic.prmsh.com");
 const selfPath = Astro.url.pathname;
 const canonical = new URL(selfPath, site).toString();
 const ogImage = new URL(image, site).toString();

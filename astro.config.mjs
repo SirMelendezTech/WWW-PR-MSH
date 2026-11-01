@@ -9,7 +9,7 @@ import rehypeTableWrap from './plugins/rehype-table-wrap.mjs';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://prmsh.com',
+  site: 'https://meshtastic.prmsh.com',
   integrations: [
     mdx(),
     sitemap({
