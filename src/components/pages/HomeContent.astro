@@ -53,29 +53,9 @@ const { nodes: meshNodes, live: meshLive } = await getNodes();
     <div class="intro-card">
       <p class="eyebrow">{h.whyEyebrow}</p>
       <ul>
-        {h.whyItems.map((item) => <li>{item}</li>)}
+        {h.whyItems.map((item) => <li><strong>{item.lead}</strong> {item.body}</li>)}
       </ul>
     </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="container">
-    <div class="section-head">
-      <p class="eyebrow">{h.featuresEyebrow}</p>
-      <h2>{h.featuresTitle}</h2>
-    </div>
-    <dl class="claims">
-      {h.features.map((feature) => (
-        <div class="claim">
-          <dt>
-            <span class="claim-kicker">{feature.kicker}</span>
-            <span class="claim-title">{feature.title}</span>
-          </dt>
-          <dd>{feature.body}</dd>
-        </div>
-      ))}
-    </dl>
   </div>
 </section>
 
@@ -195,23 +175,19 @@ const { nodes: meshNodes, live: meshLive } = await getNodes();
   }
   .hero h1 { margin-top: 0.5rem; }
 
-  /* The text arrives on the same clock as the terrain sequence: the lead
-     settles in the first second, the aside lands as the packet reaches the
-     far coast (~1.8s). One orchestrated load, not six separate entrances. */
+  /* The H1 is painted on first frame (it is the LCP element and the page's
+     answer to "what is this?"). Supporting copy settles in right behind it,
+     all within ~0.75s, so nothing important waits on the terrain sequence. */
   @media (prefers-reduced-motion: no-preference) {
-    .hero-lead > .eyebrow,
-    .hero-lead > h1,
     .hero-lead > .hero-sub,
     .hero-lead > .hero-actions,
     .hero-aside {
       opacity: 0;
-      animation: hero-rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation: hero-rise 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
-    .hero-lead > .eyebrow { animation-delay: 0.2s; }
-    .hero-lead > h1 { animation-delay: 0.35s; }
-    .hero-lead > .hero-sub { animation-delay: 0.6s; }
-    .hero-lead > .hero-actions { animation-delay: 0.85s; }
-    .hero-aside { animation-delay: 1.8s; }
+    .hero-lead > .hero-sub { animation-delay: 0.1s; }
+    .hero-lead > .hero-actions { animation-delay: 0.2s; }
+    .hero-aside { animation-delay: 0.3s; }
   }
   @keyframes hero-rise {
     from { opacity: 0; transform: translateY(6px); }
@@ -219,14 +195,15 @@ const { nodes: meshNodes, live: meshLive } = await getNodes();
   }
 
   /* The three paragraphs were doing three different jobs at one size: this one
-     explains, the pull states the argument, the note is an aside. */
+     explains, the pull states the argument, the note is an aside. The pull
+     stays well below the H1 so the hero has one headline, not two. */
   .hero-sub { font-size: 1.22rem; max-width: 52ch; margin: 1.1rem 0 0; color: var(--ink-soft); }
   .hero-pull {
     font-family: var(--font-display);
-    font-weight: 600;
-    font-size: clamp(1.25rem, 1.05rem + 0.7vw, 1.6rem);
-    line-height: 1.28;
-    color: var(--ink);
+    font-weight: 500;
+    font-size: clamp(1.1rem, 1rem + 0.3vw, 1.25rem);
+    line-height: 1.4;
+    color: var(--ink-soft);
     border-left: 3px solid var(--accent);
     padding-left: 1.15rem;
     margin: 0;
@@ -263,28 +240,9 @@ const { nodes: meshNodes, live: meshLive } = await getNodes();
   .link-arrow:hover { text-decoration: underline; }
   .intro-links { display: flex; flex-wrap: wrap; column-gap: 1.75rem; }
 
-  /* Every one of these four claims is really an absence — no tower, no
-     permission, no contract, no company — so the kicker names what the mesh
-     does without, and that repetition replaces four icons in tinted chips.
-     Two uneven columns rather than a four-up wall of equal cards. */
-  .claims { display: grid; grid-template-columns: 1fr; margin: 0; }
-  @media (min-width: 780px) {
-    .claims { grid-template-columns: 1.15fr 1fr; column-gap: 3.5rem; }
-  }
-  .claim { border-top: 1px solid var(--border); padding: 1.35rem 0 1.5rem; }
-  .claim dt { margin: 0; }
-  .claim-kicker {
-    display: block;
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.13em;
-    color: var(--accent);
-    margin-bottom: 0.5rem;
-  }
-  .claim-title { display: block; font-family: var(--font-display); font-weight: 600; font-size: 1.15rem; color: var(--ink); }
-  .claim dd { margin: 0.5rem 0 0; max-width: 46ch; color: var(--ink-soft); }
+  /* Each reason is an absence (no contract, no permission, no company); the
+     bold lead names it so the list scans in one pass. */
+  .intro-card li strong { color: var(--ink); font-weight: 600; }
 
   .quickstart-list { list-style: none; margin: 0 0 2rem; padding: 0; display: grid; gap: 1.1rem; max-width: 640px; }
   .quickstart-list li { display: flex; gap: 1.1rem; align-items: flex-start; }
