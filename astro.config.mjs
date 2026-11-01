@@ -6,6 +6,7 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 
 import rehypeTableWrap from './plugins/rehype-table-wrap.mjs';
+import rehypeTerrainProfile from './plugins/rehype-terrain-profile.mjs';
 
 // https://astro.build/config
 export default defineConfig({
@@ -20,7 +21,7 @@ export default defineConfig({
     }),
   ],
   markdown: {
-    rehypePlugins: [rehypeTableWrap],
+    rehypePlugins: [rehypeTableWrap, rehypeTerrainProfile],
   },
   i18n: {
     defaultLocale: 'en',

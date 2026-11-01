@@ -427,6 +427,7 @@ const en = {
     legendOnline: "Heard in the last 3 hours",
     legendOffline: "Quiet longer than that",
     legendHint: "Point at a node for its name",
+    reliefCredit: "Relief: AWS Terrain Tiles (SRTM, USGS 3DEP)",
     cta: "View full map →",
   },
 
@@ -870,6 +871,7 @@ const es: Strings = {
     legendOnline: "Escuchado en las últimas 3 horas",
     legendOffline: "Callado desde hace más",
     legendHint: "Apunta a un nodo para ver su nombre",
+    reliefCredit: "Relieve: AWS Terrain Tiles (SRTM, USGS 3DEP)",
     cta: "Ver el mapa completo →",
   },
 

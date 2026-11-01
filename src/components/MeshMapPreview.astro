@@ -3,6 +3,8 @@ import type { MeshNode } from "../lib/nodes";
 import type { Locale } from "../lib/i18n";
 import { localizePath } from "../lib/i18n";
 import { useStrings } from "../lib/ui-strings";
+import frame from "../data/map-frame.json";
+import terrain from "../data/terrain.json";
 
 interface Props {
   nodes: MeshNode[];
@@ -14,13 +16,10 @@ const m = useStrings(lang).mapPreview;
 
 // Frame: the main island, Vieques, and St. Thomas — the eastern end of what
 // this mesh actually reaches. Mona and St. Croix are left out; both would cost
-// a fifth of the width for water no node reports from.
-const LON0 = -67.3;
-const LON1 = -64.83;
-const LAT0 = 17.92;
-const LAT1 = 18.55;
-const VW = 1000;
-const VH = 269; // = VW * (LAT1-LAT0) / ((LON1-LON0) * cos(mean lat))
+// a fifth of the width for water no node reports from. The constants live in
+// src/data/map-frame.json because scripts/terrain.mjs projects the relief
+// with the same numbers.
+const { lon0: LON0, lon1: LON1, lat0: LAT0, lat1: LAT1, vw: VW, vh: VH } = frame;
 
 // Coastlines from Natural Earth 1:10m (public domain): the main island,
 // Vieques, Culebra and St. Thomas, projected once with the
@@ -68,6 +67,9 @@ const label = live ? m.nodes : m.sampleNodes;
       <g class="coast">
         {COAST.map((d) => <path d={d} />)}
       </g>
+      <g class="relief" aria-hidden="true">
+        {terrain.bands.map((b, i) => <path class={`band band-${i + 1}`} d={b.d} fill-rule="evenodd" />)}
+      </g>
       <g class="marks">
         {plotted.map((n, i) => (
           <g class={`mark mark--${n.status}`} style={`--d:${(i % 9) * 0.35}s`}>
@@ -102,6 +104,7 @@ const label = live ? m.nodes : m.sampleNodes;
       <span class="key key--online">{m.legendOnline}</span>
       <span class="key key--offline">{m.legendOffline}</span>
       <span class="key key--hint">{m.legendHint}</span>
+      <span class="key key--credit">{m.reliefCredit}</span>
     </figcaption>
   </figure>
 
@@ -140,6 +143,22 @@ const label = live ? m.nodes : m.sampleNodes;
     stroke-width: 1.2;
     stroke-linejoin: round;
   }
+
+  /* Relief: one hue (the card's own white), stepping up in opacity with
+     height, so the island reads as plain → karst → Cordillera without adding
+     a second colour. The nodes stay the only saturated thing on the map.
+     Bands start at 150 m, inside the Natural Earth coastline above. */
+  .band {
+    fill: #fff;
+    stroke: color-mix(in srgb, #fff 26%, transparent);
+    stroke-width: 0.5;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+  }
+  .band-1 { fill-opacity: 0.05; }
+  .band-2 { fill-opacity: 0.06; }
+  .band-3 { fill-opacity: 0.08; }
+  .band-4 { fill-opacity: 0.11; }
 
   /* Hover feedback rides on the stroke, not the radius: `r` as a CSS property
      is still uneven across browsers, and a ring reads at this dot size anyway. */
@@ -252,6 +271,7 @@ const label = live ? m.nodes : m.sampleNodes;
     color: color-mix(in srgb, #fff 62%, transparent);
   }
   .key { display: inline-flex; align-items: center; gap: 0.45em; }
+  .key--credit { text-transform: none; letter-spacing: 0; color: color-mix(in srgb, #fff 45%, transparent); }
   .key--online::before, .key--offline::before {
     content: "";
     width: 8px;
