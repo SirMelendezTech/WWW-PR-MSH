@@ -212,7 +212,16 @@ const { nodes: meshNodes, live: meshLive } = await getNodes();
 
   /* One button and one link, not two buttons: these are not equal actions. */
   .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1.4rem; margin-top: 2rem; }
-  .hero-alt { margin-top: 0; }
+  /* `.hero-actions` in the selector so this beats `.link-arrow`'s margin,
+     which is declared later at the same specificity. The halo keeps the
+     terrain line from running through the link text. */
+  .hero-actions .hero-alt {
+    margin-top: 0;
+    padding: 0.2em 0.45em;
+    margin-left: -0.45em;
+    border-radius: var(--radius-sm);
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+  }
   @media (max-width: 640px) {
     .hero-actions { gap: 1.1rem; }
     .hero-actions .btn { width: 100%; }

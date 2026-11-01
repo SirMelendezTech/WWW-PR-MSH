@@ -46,7 +46,10 @@ const plotted = nodes
   }))
   .sort((a, b) => Number(a.status === "online") - Number(b.status === "online"));
 
-const onlineCount = plotted.filter((n) => n.status === "online").length;
+// The stat describes the whole network, the same count the footer shows;
+// a node or two outside the frame (Mona, St. Croix) still counts.
+const onlineCount = nodes.filter((n) => n.status === "online").length;
+const plottedOnline = plotted.filter((n) => n.status === "online").length;
 const label = live ? m.nodes : m.sampleNodes;
 ---
 <section class="coverage">
@@ -62,7 +65,7 @@ const label = live ? m.nodes : m.sampleNodes;
       class="coverage-map"
       viewBox={`0 0 ${VW} ${VH}`}
       role="img"
-      aria-label={m.mapAria(plotted.length, onlineCount)}
+      aria-label={m.mapAria(plotted.length, plottedOnline)}
     >
       <g class="coast">
         {COAST.map((d) => <path d={d} />)}
@@ -97,7 +100,7 @@ const label = live ? m.nodes : m.sampleNodes;
     <p class="coverage-stat">
       <span class="stat-figure">{onlineCount}</span>
       <span class="stat-label">{m.statOnline}</span>
-      <span class="stat-sub">{m.statOf} {plotted.length} {label}</span>
+      <span class="stat-sub">{m.statOf} {nodes.length} {label}</span>
     </p>
 
     <figcaption class="coverage-legend">

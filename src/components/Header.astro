@@ -102,7 +102,7 @@ function isActive(href: string) {
           <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/>
         </svg>
       </a>
-      <a href={langSwitchHref} data-lang-choice={otherLocale} class="icon-btn lang-switch header-extra" aria-label={otherLocale === "es" ? t.nav.switchToSpanish : t.nav.switchToEnglish}>
+      <a href={langSwitchHref} data-lang-choice={otherLocale} class="icon-btn lang-switch" aria-label={otherLocale === "es" ? t.nav.switchToSpanish : t.nav.switchToEnglish}>
         {otherLocale.toUpperCase()}
       </a>
       <ThemeToggle lang={locale} />
@@ -119,11 +119,6 @@ function isActive(href: string) {
       {navItems.map((item) => (
         <li><a href={item.href} aria-current={isActive(item.href) ? "page" : undefined}>{item.label}</a></li>
       ))}
-      <li class="mobile-nav-extra">
-        <a href={langSwitchHref} data-lang-choice={otherLocale}>
-          {otherLocale === "es" ? t.nav.switchToSpanish : t.nav.switchToEnglish}
-        </a>
-      </li>
       <li class="mobile-nav-extra">
         <a href={DISCORD_INVITE_URL} target="_blank" rel="noopener noreferrer">{t.nav.discordAria}</a>
       </li>
@@ -215,8 +210,10 @@ function isActive(href: string) {
 
   .lang-switch { font-family: var(--font-mono); font-size: 0.74rem; font-weight: 700; letter-spacing: 0.03em; text-decoration: none; width: auto; padding: 0 0.5em; }
 
-  /* Below 520px the row only fits the brand plus three controls, so the
-     GitHub and language links move into the menu instead of overflowing. */
+  /* Below 520px the row fits the brand plus four controls: search, language,
+     theme and menu. Language stays in the bar because a visitor who landed
+     on the wrong one should not have to open a menu to fix it; Discord and
+     GitHub move into the menu instead of overflowing. */
   .header-extra { display: none; }
   .mobile-nav-extra { display: block; }
   @media (min-width: 520px) {

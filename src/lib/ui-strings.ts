@@ -144,7 +144,7 @@ const en = {
     heroSub3:
       "Easy at any age. Use it every day — it's already on when the cell towers go dark.",
     heroCtaPrimary: "Get Started",
-    heroCtaSecondary: "Explore the Mesh",
+    heroCtaSecondary: "Explore the PR Mesh",
 
     introEyebrow: "What is Meshtastic?",
     introTitle: "Radios that talk to each other, not to a tower.",
@@ -586,7 +586,7 @@ const es: Strings = {
     heroSub3:
       "Fácil a cualquier edad. Úsala a diario — ya está encendida cuando las torres celulares se apagan.",
     heroCtaPrimary: "Comenzar",
-    heroCtaSecondary: "Explorar la Malla",
+    heroCtaSecondary: "Explorar la Malla PR",
 
     introEyebrow: "¿Qué es Meshtastic?",
     introTitle: "Radios que se hablan entre sí, no con una torre.",
