@@ -160,6 +160,16 @@ const label = live ? m.nodes : m.sampleNodes;
   .band-3 { fill-opacity: 0.08; }
   .band-4 { fill-opacity: 0.11; }
 
+  /* At phone width the map is ~80px tall and the desktop steps blur into the
+     land fill. Roughly double each step so the Cordillera still reads. */
+  @media (max-width: 779px) {
+    .band { stroke: color-mix(in srgb, #fff 40%, transparent); }
+    .band-1 { fill-opacity: 0.10; }
+    .band-2 { fill-opacity: 0.13; }
+    .band-3 { fill-opacity: 0.17; }
+    .band-4 { fill-opacity: 0.24; }
+  }
+
   /* Hover feedback rides on the stroke, not the radius: `r` as a CSS property
      is still uneven across browsers, and a ring reads at this dot size anyway. */
   .mark-dot {
