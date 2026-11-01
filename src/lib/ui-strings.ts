@@ -135,14 +135,14 @@ const en = {
     title: "PRMSH — Puerto Rico Meshtastic Community",
     description:
       "PRMSH is the Puerto Rico Meshtastic community — a resource for building, learning about, and expanding decentralized LoRa mesh communication throughout Puerto Rico.",
-    heroEyebrow: "Community LoRa network · Puerto Rico",
+    heroEyebrow: "PRMSH · Meshtastic network · Puerto Rico",
     heroTitle: "Stays connected when everything else goes down.",
     heroSub1:
       "PRMSH is a community-built Meshtastic® radio network that lets you send messages without cell service, Wi-Fi, or the internet. You pair a small, affordable radio with an app on your phone — that radio talks directly to nearby radios, relaying your message from one to the next until it reaches its destination.",
     heroSub2:
       "Some devices even have their own screen and keyboard, so you don't need a phone at all.",
     heroSub3:
-      "Simple enough for any age to set up and use for fun day to day — which means it's already working the moment cell service isn't.",
+      "Easy at any age. Use it every day — it's already on when the cell towers go dark.",
     heroCtaPrimary: "Get Started",
     heroCtaSecondary: "Explore the Mesh",
 
@@ -601,14 +601,14 @@ const es: Strings = {
     title: "PRMSH — Comunidad Meshtastic de Puerto Rico",
     description:
       "PRMSH es la comunidad Meshtastic de Puerto Rico — un recurso comunitario para construir, aprender sobre y ampliar la comunicación mesh LoRa descentralizada por todo Puerto Rico.",
-    heroEyebrow: "Red LoRa comunitaria · Puerto Rico",
+    heroEyebrow: "PRMSH · Red Meshtastic · Puerto Rico",
     heroTitle: "Sigue conectada cuando todo lo demás se cae.",
     heroSub1:
       "PRMSH es una red de radio Meshtastic® construida por la comunidad que te permite enviar mensajes sin servicio celular, Wi-Fi ni internet. Emparejas una radio pequeña y económica con una app en tu teléfono — esa radio se comunica directamente con radios cercanas, retransmitiendo tu mensaje de una a otra hasta que llega a su destino.",
     heroSub2:
       "Algunos equipos hasta tienen su propia pantalla y teclado, así que no necesitas teléfono para nada.",
     heroSub3:
-      "Suficientemente simple para que cualquier edad la configure y la use por diversión en el día a día — lo que significa que ya está funcionando en el momento en que el servicio celular no lo está.",
+      "Fácil a cualquier edad. Úsala a diario — ya está encendida cuando las torres celulares se apagan.",
     heroCtaPrimary: "Comenzar",
     heroCtaSecondary: "Explorar la Malla",
 

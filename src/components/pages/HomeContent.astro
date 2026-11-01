@@ -195,23 +195,19 @@ const { nodes: meshNodes, live: meshLive } = await getNodes();
   }
   .hero h1 { margin-top: 0.5rem; }
 
-  /* The text arrives on the same clock as the terrain sequence: the lead
-     settles in the first second, the aside lands as the packet reaches the
-     far coast (~1.8s). One orchestrated load, not six separate entrances. */
+  /* The H1 is painted on first frame (it is the LCP element and the page's
+     answer to "what is this?"). Supporting copy settles in right behind it,
+     all within ~0.75s, so nothing important waits on the terrain sequence. */
   @media (prefers-reduced-motion: no-preference) {
-    .hero-lead > .eyebrow,
-    .hero-lead > h1,
     .hero-lead > .hero-sub,
     .hero-lead > .hero-actions,
     .hero-aside {
       opacity: 0;
-      animation: hero-rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation: hero-rise 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
-    .hero-lead > .eyebrow { animation-delay: 0.2s; }
-    .hero-lead > h1 { animation-delay: 0.35s; }
-    .hero-lead > .hero-sub { animation-delay: 0.6s; }
-    .hero-lead > .hero-actions { animation-delay: 0.85s; }
-    .hero-aside { animation-delay: 1.8s; }
+    .hero-lead > .hero-sub { animation-delay: 0.1s; }
+    .hero-lead > .hero-actions { animation-delay: 0.2s; }
+    .hero-aside { animation-delay: 0.3s; }
   }
   @keyframes hero-rise {
     from { opacity: 0; transform: translateY(6px); }
@@ -219,14 +215,15 @@ const { nodes: meshNodes, live: meshLive } = await getNodes();
   }
 
   /* The three paragraphs were doing three different jobs at one size: this one
-     explains, the pull states the argument, the note is an aside. */
+     explains, the pull states the argument, the note is an aside. The pull
+     stays well below the H1 so the hero has one headline, not two. */
   .hero-sub { font-size: 1.22rem; max-width: 52ch; margin: 1.1rem 0 0; color: var(--ink-soft); }
   .hero-pull {
     font-family: var(--font-display);
-    font-weight: 600;
-    font-size: clamp(1.25rem, 1.05rem + 0.7vw, 1.6rem);
-    line-height: 1.28;
-    color: var(--ink);
+    font-weight: 500;
+    font-size: clamp(1.1rem, 1rem + 0.3vw, 1.25rem);
+    line-height: 1.4;
+    color: var(--ink-soft);
     border-left: 3px solid var(--accent);
     padding-left: 1.15rem;
     margin: 0;
