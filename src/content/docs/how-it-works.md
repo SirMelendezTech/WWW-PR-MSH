@@ -41,6 +41,10 @@ Rebroadcasting isn't a free-for-all. Meshtastic uses **managed flooding**: befor
 
 More hops mean more reach, but also more airtime consumed and more delay. This is the core reason node *placement* matters so much — a well-placed relay node can turn a 4-hop message into a 1-hop message for an entire neighborhood. It's also why very large meshes throttle themselves: past roughly 40 active nodes in range of each other, devices automatically stretch out their own broadcast intervals so the shared airtime doesn't collapse under everyone's routine traffic.
 
+<figure data-terrain-profile data-aria="Elevation profile from Ponce over Cerro de Punta to Arecibo. The direct path is blocked by the mountains. Two hops through Cerro de Punta are clear." data-hop="Hop {n}: {km} km" data-blocked="Blocked" data-scale="Height exaggerated about {x}×. Antennas 10 m above ground.">
+<figcaption>Real terrain between Ponce and Arecibo. The Cordillera Central blocks the direct path, so a radio in Ponce can't reach Arecibo on its own. One node on Cerro de Punta can see both towns, and the message arrives in two hops.</figcaption>
+</figure>
+
 ## Signal strength
 
 Meshtastic reports **RSSI** (Received Signal Strength Indicator) for every node it hears — roughly, how loud the signal arrived. Lower (more negative) numbers mean a weaker signal. It's a useful first check when a link seems unreliable, but RSSI alone doesn't tell you *why* — that's what SNR is for.

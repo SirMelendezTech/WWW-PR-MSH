@@ -42,6 +42,10 @@ La retransmisión no es una barra libre. Meshtastic usa **inundación gestionada
 
 Más saltos significan más alcance, pero también más tiempo de aire consumido y más retraso. Esta es la razón central por la que la *ubicación* de los nodos importa tanto — un nodo de retransmisión bien ubicado puede convertir un mensaje de 4 saltos en un mensaje de 1 salto para un vecindario entero. También es por lo que las mallas muy grandes se autolimitan: pasado aproximadamente 40 nodos activos dentro del alcance unos de otros, los equipos automáticamente alargan sus propios intervalos de transmisión para que el tiempo de aire compartido no colapse bajo el tráfico rutinario de todos.
 
+<figure data-terrain-profile data-aria="Perfil de elevación de Ponce a Arecibo pasando por Cerro de Punta. Las montañas bloquean el camino directo. Los dos saltos por Cerro de Punta están despejados." data-hop="Salto {n}: {km} km" data-blocked="Bloqueado" data-scale="Altura exagerada unas {x} veces. Antenas a 10 m del suelo.">
+<figcaption>Terreno real entre Ponce y Arecibo. La Cordillera Central bloquea el camino directo, así que una radio en Ponce no llega sola a Arecibo. Un solo nodo en Cerro de Punta ve ambos pueblos, y el mensaje llega en dos saltos.</figcaption>
+</figure>
+
 ## Intensidad de señal
 
 Meshtastic reporta **RSSI** (Received Signal Strength Indicator, indicador de intensidad de señal recibida) para cada nodo que escucha — a grandes rasgos, qué tan fuerte llegó la señal. Números más bajos (más negativos) significan una señal más débil. Es una primera comprobación útil cuando un enlace parece poco confiable, pero el RSSI por sí solo no te dice *por qué* — para eso está el SNR.

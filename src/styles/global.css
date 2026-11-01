@@ -290,3 +290,51 @@ code { font-family: var(--font-mono); }
   font-weight: 600;
 }
 .skip-link:focus { top: 12px; }
+
+/* Terrain profile (How Meshtastic Works → Hops). Generated from real
+   elevation by plugins/rehype-terrain-profile.mjs. The ground is the quiet
+   part; the two colours that matter are the hop lines (they work) and the
+   direct line (it doesn't). Labels are HTML laid over the SVG so they stay
+   readable at phone width instead of shrinking with the drawing. */
+.terrain-profile { margin: 2rem 0; max-width: 760px; }
+.tp-plot { position: relative; padding-top: 1.6rem; }
+.tp-plot svg { display: block; width: 100%; height: auto; overflow: visible; }
+.tp-ground {
+  fill: color-mix(in srgb, var(--hue-turquoise) 16%, transparent);
+  stroke: color-mix(in srgb, var(--hue-turquoise) 70%, transparent);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+.tp-sea { stroke: var(--border-strong); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.tp-hop { stroke: var(--secondary); stroke-width: 2.5; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.tp-direct, .tp-hop.is-blocked {
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-dasharray: 6 5;
+  vector-effect: non-scaling-stroke;
+}
+.tp-x { stroke: var(--accent); stroke-width: 3; stroke-linecap: round; fill: none; vector-effect: non-scaling-stroke; }
+.tp-node { fill: var(--bg); stroke: var(--ink); stroke-width: 2; vector-effect: non-scaling-stroke; }
+
+.tp-labels { position: absolute; inset: 1.6rem 0 0 0; pointer-events: none; }
+.tp-labels > span { position: absolute; white-space: nowrap; font-size: 0.8rem; line-height: 1.2; }
+.tp-stop { transform: translate(-50%, calc(-100% - 10px)); color: var(--ink-soft); }
+.tp-stop strong { color: var(--ink); font-weight: 600; }
+.tp-stop.is-start { transform: translate(-2px, calc(-100% - 10px)); }
+.tp-stop.is-end { transform: translate(calc(-100% + 2px), calc(-100% - 10px)); }
+.tp-hop-label {
+  transform: translate(-50%, -50%);
+  padding: 0.1rem 0.4rem;
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  color: var(--secondary);
+  font-weight: 600;
+}
+.tp-blocked-label { transform: translate(12px, -130%); color: var(--accent); font-weight: 600; }
+.tp-scale { margin: 0.5rem 0 0; font-size: 0.78rem; color: var(--ink-faint); }
+.terrain-profile figcaption { margin-top: 0.6rem; font-size: 0.92rem; color: var(--ink-soft); max-width: 68ch; }
+@media (max-width: 599px) {
+  .tp-labels > span { font-size: 0.7rem; }
+  .tp-hop-label { display: none; }
+}
