@@ -53,29 +53,9 @@ const { nodes: meshNodes, live: meshLive } = await getNodes();
     <div class="intro-card">
       <p class="eyebrow">{h.whyEyebrow}</p>
       <ul>
-        {h.whyItems.map((item) => <li>{item}</li>)}
+        {h.whyItems.map((item) => <li><strong>{item.lead}</strong> {item.body}</li>)}
       </ul>
     </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="container">
-    <div class="section-head">
-      <p class="eyebrow">{h.featuresEyebrow}</p>
-      <h2>{h.featuresTitle}</h2>
-    </div>
-    <dl class="claims">
-      {h.features.map((feature) => (
-        <div class="claim">
-          <dt>
-            <span class="claim-kicker">{feature.kicker}</span>
-            <span class="claim-title">{feature.title}</span>
-          </dt>
-          <dd>{feature.body}</dd>
-        </div>
-      ))}
-    </dl>
   </div>
 </section>
 
@@ -260,28 +240,9 @@ const { nodes: meshNodes, live: meshLive } = await getNodes();
   .link-arrow:hover { text-decoration: underline; }
   .intro-links { display: flex; flex-wrap: wrap; column-gap: 1.75rem; }
 
-  /* Every one of these four claims is really an absence — no tower, no
-     permission, no contract, no company — so the kicker names what the mesh
-     does without, and that repetition replaces four icons in tinted chips.
-     Two uneven columns rather than a four-up wall of equal cards. */
-  .claims { display: grid; grid-template-columns: 1fr; margin: 0; }
-  @media (min-width: 780px) {
-    .claims { grid-template-columns: 1.15fr 1fr; column-gap: 3.5rem; }
-  }
-  .claim { border-top: 1px solid var(--border); padding: 1.35rem 0 1.5rem; }
-  .claim dt { margin: 0; }
-  .claim-kicker {
-    display: block;
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.13em;
-    color: var(--accent);
-    margin-bottom: 0.5rem;
-  }
-  .claim-title { display: block; font-family: var(--font-display); font-weight: 600; font-size: 1.15rem; color: var(--ink); }
-  .claim dd { margin: 0.5rem 0 0; max-width: 46ch; color: var(--ink-soft); }
+  /* Each reason is an absence (no contract, no permission, no company); the
+     bold lead names it so the list scans in one pass. */
+  .intro-card li strong { color: var(--ink); font-weight: 600; }
 
   .quickstart-list { list-style: none; margin: 0 0 2rem; padding: 0; display: grid; gap: 1.1rem; max-width: 640px; }
   .quickstart-list li { display: flex; gap: 1.1rem; align-items: flex-start; }

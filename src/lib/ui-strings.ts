@@ -138,7 +138,7 @@ const en = {
     heroEyebrow: "PRMSH · Meshtastic network · Puerto Rico",
     heroTitle: "Stays connected when everything else goes down.",
     heroSub1:
-      "PRMSH is a community-built Meshtastic® radio network that lets you send messages without cell service, Wi-Fi, or the internet. You pair a small, affordable radio with an app on your phone — that radio talks directly to nearby radios, relaying your message from one to the next until it reaches its destination.",
+      "PRMSH is a community-built Meshtastic® radio network. Pair a small, affordable radio with your phone and send messages with no cell service, Wi-Fi, or internet.",
     heroSub2:
       "Some devices even have their own screen and keyboard, so you don't need a phone at all.",
     heroSub3:
@@ -159,34 +159,9 @@ const en = {
     compareLink: "Compare Meshtastic and MeshCore →",
     whyEyebrow: "Why PRMSH",
     whyItems: [
-      "Built for Puerto Rico's terrain, climate, and hurricane risk",
-      "Open documentation so anyone can join, configure, and contribute",
-      "Useful today for hikers and boaters, critical during outages",
-    ],
-
-    featuresEyebrow: "Why it works",
-    featuresTitle: "Off-grid, low-cost, and built together",
-    features: [
-      {
-        kicker: "Without a tower",
-        title: "Off-Grid Communication",
-        body: "Communicate using LoRa radios without relying on cellular networks or internet access.",
-      },
-      {
-        kicker: "Without permission",
-        title: "Build the Mesh",
-        body: "Add a node anywhere useful — home, rooftop, or trail — to extend coverage for everyone nearby.",
-      },
-      {
-        kicker: "Without a contract",
-        title: "Low Cost",
-        body: "Start experimenting for the price of a nice dinner, with hardware that keeps working for years.",
-      },
-      {
-        kicker: "Without a company",
-        title: "Community Powered",
-        body: "Learn, experiment, and improve the network together — no company decides how it's used.",
-      },
+      { lead: "No contract.", body: "A starter radio costs about as much as a nice dinner and keeps working for years." },
+      { lead: "No permission.", body: "Put a node at home, on a rooftop, or along a trail, and everyone nearby gains coverage." },
+      { lead: "No company.", body: "The docs are open, and the community decides how the network grows." },
     ],
 
     quickstartEyebrow: "Getting started",
@@ -604,7 +579,7 @@ const es: Strings = {
     heroEyebrow: "PRMSH · Red Meshtastic · Puerto Rico",
     heroTitle: "Sigue conectada cuando todo lo demás se cae.",
     heroSub1:
-      "PRMSH es una red de radio Meshtastic® construida por la comunidad que te permite enviar mensajes sin servicio celular, Wi-Fi ni internet. Emparejas una radio pequeña y económica con una app en tu teléfono — esa radio se comunica directamente con radios cercanas, retransmitiendo tu mensaje de una a otra hasta que llega a su destino.",
+      "PRMSH es una red de radio Meshtastic® construida por la comunidad. Empareja una radio pequeña y económica con tu teléfono y envía mensajes sin servicio celular, Wi-Fi ni internet.",
     heroSub2:
       "Algunos equipos hasta tienen su propia pantalla y teclado, así que no necesitas teléfono para nada.",
     heroSub3:
@@ -625,34 +600,9 @@ const es: Strings = {
     compareLink: "Compara Meshtastic y MeshCore →",
     whyEyebrow: "Por qué PRMSH",
     whyItems: [
-      "Construida para el terreno, el clima y el riesgo de huracanes de Puerto Rico",
-      "Documentación abierta para que cualquiera pueda unirse, configurar y contribuir",
-      "Útil hoy para excursionistas y navegantes, crítica durante los apagones",
-    ],
-
-    featuresEyebrow: "Por qué funciona",
-    featuresTitle: "Sin red eléctrica, de bajo costo y construida en conjunto",
-    features: [
-      {
-        kicker: "Sin torre",
-        title: "Comunicación Sin Red",
-        body: "Comunícate usando radios LoRa sin depender de redes celulares ni acceso a internet.",
-      },
-      {
-        kicker: "Sin permiso",
-        title: "Construye la Malla",
-        body: "Añade un nodo en cualquier lugar útil — casa, techo o vereda — para ampliar la cobertura de todos los que te rodean.",
-      },
-      {
-        kicker: "Sin contrato",
-        title: "Bajo Costo",
-        body: "Empieza a experimentar por el precio de una buena cena, con hardware que sigue funcionando por años.",
-      },
-      {
-        kicker: "Sin compañía",
-        title: "Impulsada por la Comunidad",
-        body: "Aprende, experimenta y mejora la red en conjunto — ninguna compañía decide cómo se usa.",
-      },
+      { lead: "Sin contrato.", body: "Una radio para empezar cuesta lo que una buena cena y sigue funcionando por años." },
+      { lead: "Sin permiso.", body: "Pon un nodo en tu casa, en un techo o en una vereda, y todos a tu alrededor ganan cobertura." },
+      { lead: "Sin compañía.", body: "La documentación es abierta y la comunidad decide cómo crece la red." },
     ],
 
     quickstartEyebrow: "Primeros pasos",
