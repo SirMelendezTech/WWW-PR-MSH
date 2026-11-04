@@ -52,6 +52,7 @@ const en = {
     github: "Source on GitHub",
     discord: "Community Discord",
     sisterNetwork: "MeshCore PR (sister network)",
+    nodeGuides: "Node setup guides (Spanish)",
     nodesReporting: (online: number, total: number) =>
       `${online} of ${total} nodes reporting`,
     rebuilt: (date: string) => `site rebuilt ${date}`,
@@ -377,6 +378,8 @@ const en = {
       redditPR: "Threaded questions and answers about the Puerto Rico mesh that stay searchable.",
       redditGlobal:
         "Global Meshtastic subreddit, in English — project news and troubleshooting from operators worldwide.",
+      nodeGuides:
+        "Step-by-step guides for setting up Meshtastic and MeshCore nodes on the Puerto Rico mesh. In Spanish.",
       mallapr:
         "Puerto Rico network monitor and map — the live data source behind this site's Node Map.",
       meshview:
@@ -499,6 +502,7 @@ const es: Strings = {
     github: "Código en GitHub",
     discord: "Discord de la comunidad",
     sisterNetwork: "MeshCore PR (red hermana)",
+    nodeGuides: "Guías de configuración de nodos",
     nodesReporting: (online: number, total: number) =>
       `${online} de ${total} nodos reportando`,
     rebuilt: (date: string) => `sitio reconstruido ${date}`,
@@ -827,6 +831,8 @@ const es: Strings = {
       redditPR: "Preguntas y respuestas en hilos sobre la malla de Puerto Rico, que se pueden buscar después.",
       redditGlobal:
         "Subreddit global de Meshtastic, en inglés — noticias del proyecto y ayuda de operadores de todo el mundo.",
+      nodeGuides:
+        "Guías paso a paso para configurar nodos Meshtastic y MeshCore en la malla de Puerto Rico.",
       mallapr:
         "Monitor y mapa de la red de Puerto Rico — la fuente de datos en vivo detrás del Mapa de Nodos de este sitio.",
       meshview:

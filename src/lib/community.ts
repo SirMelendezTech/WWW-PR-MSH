@@ -14,3 +14,7 @@ export const SKYNET_URL = "https://skynetmesh.com/";
 // MeshCore Puerto Rico, PRMSH's sister network on the MeshCore protocol.
 // Shared by the home page, footer, Community page, and Links page.
 export const MESHCORE_PR_URL = "https://meshcore.prmsh.com/";
+
+// PRMSH node guides: step-by-step setup for Meshtastic and MeshCore nodes on
+// the Puerto Rico mesh (Spanish). Shared by the footer and Links page.
+export const NODE_GUIDES_URL = "https://guia.prmsh.com/";
