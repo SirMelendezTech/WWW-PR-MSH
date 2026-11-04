@@ -13,16 +13,24 @@ const t = useStrings(lang).search;
   data-lang={lang}
   data-i18n-prompt={t.prompt}
   data-i18n-noresults={t.noResults}
+  data-i18n-loading={t.loading}
+  data-i18n-error={t.loadError}
+  data-i18n-result-one={t.resultOne}
+  data-i18n-result-many={t.resultMany}
 >
   <div class="search-box">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" class="search-icon">
       <circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>
     </svg>
-    <input id="search-input" type="search" placeholder={t.placeholder} autocomplete="off" aria-label={t.queryAria} />
+    <input id="search-input" type="search" placeholder={t.placeholder} autocomplete="off" aria-label={t.queryAria} aria-describedby="search-message" />
     <kbd class="search-esc">Esc</kbd>
   </div>
-  <ul id="search-results" class="search-results" role="listbox"></ul>
-  <p id="search-empty" class="search-empty">{t.prompt}</p>
+  <ul id="search-results" class="search-results"></ul>
+  <div id="search-empty" class="search-empty" data-state="idle">
+    <p id="search-message">{t.prompt}</p>
+    <button id="search-retry" class="search-retry" type="button" hidden>{t.retry}</button>
+  </div>
+  <p id="search-status" class="sr-only" role="status" aria-live="polite"></p>
 </dialog>
 
 <style>
@@ -72,10 +80,11 @@ const t = useStrings(lang).search;
   }
 
   /*
-    Results are injected client-side via innerHTML, so these elements never
-    receive Astro's scoping attribute — style them with :global().
+    Results are built client-side, so these elements never receive Astro's
+    scoping attribute — style them with :global().
   */
   .search-results { list-style: none; margin: 0; padding: 0.5rem; overflow-y: auto; }
+  .search-results:empty { display: none; }
   .search-results :global(a) {
     display: block;
     padding: 0.7rem 0.8rem;
@@ -84,60 +93,157 @@ const t = useStrings(lang).search;
     color: var(--ink);
   }
   .search-results :global(a:hover),
-  .search-results :global(a[aria-selected="true"]) { background: var(--bg-sunken); }
+  .search-results :global(a:focus-visible) { background: var(--bg-sunken); }
+  .search-results :global(a:focus-visible) { outline-offset: -2px; }
   .search-results :global(.result-section) { font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--secondary); display: block; margin-bottom: 0.15em; }
   .search-results :global(.result-title) { font-family: var(--font-display); font-weight: 600; display: block; }
   .search-results :global(.result-excerpt) { font-size: 0.85rem; color: var(--ink-faint); display: block; margin-top: 0.2em; }
 
-  .search-empty { padding: 1.5rem 1.1rem; color: var(--ink-faint); font-size: 0.9rem; margin: 0; }
+  .search-empty { padding: 1.5rem 1.1rem; }
+  .search-empty[hidden] { display: none; }
+  .search-empty p { color: var(--ink-faint); font-size: 0.9rem; margin: 0; }
+  .search-empty[data-state="error"] p { color: var(--ink-soft); }
+  .search-retry {
+    margin-top: 0.85rem;
+    padding: 0.45rem 0.9rem;
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--ink);
+    background: var(--bg-sunken);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+  }
+  .search-retry[hidden] { display: none; }
+  .search-retry:hover { border-color: var(--ink-faint); }
 </style>
 
 <script>
   type Entry = { title: string; section: string; url: string; excerpt: string; lang?: "en" | "es" };
-  let index: Entry[] | null = null;
 
   const dialog = document.getElementById("search-dialog") as HTMLDialogElement | null;
   const input = document.getElementById("search-input") as HTMLInputElement | null;
   const results = document.getElementById("search-results") as HTMLUListElement | null;
   const empty = document.getElementById("search-empty");
+  const message = document.getElementById("search-message");
+  const retry = document.getElementById("search-retry") as HTMLButtonElement | null;
+  const status = document.getElementById("search-status");
   const openBtn = document.getElementById("search-open");
 
-  const PROMPT = dialog?.dataset.i18nPrompt || "Type to search PRMSH documentation and blog posts.";
-  const NO_RESULTS = dialog?.dataset.i18nNoresults || "No results. Try a different term.";
-  const LANG = dialog?.dataset.lang === "es" ? "es" : "en";
+  const d = dialog?.dataset ?? {};
+  const PROMPT = d.i18nPrompt || "Type to search PRMSH documentation and blog posts.";
+  const NO_RESULTS = d.i18nNoresults || "No results. Try a different term.";
+  const LOADING = d.i18nLoading || "Loading search…";
+  const LOAD_ERROR = d.i18nError || "Search could not load. Check your connection and try again.";
+  const RESULT_ONE = d.i18nResultOne || "1 result";
+  const RESULT_MANY = d.i18nResultMany || "{n} results";
+  const LANG = d.lang === "es" ? "es" : "en";
+  const MAX_RESULTS = 20;
 
-  async function ensureIndex() {
-    if (index) return index;
-    const res = await fetch("/search-index.json");
-    const all: Entry[] = await res.json();
-    // Show only entries for the language of the page the dialog is on.
-    index = all.filter((e) => (e.lang ?? "en") === LANG);
-    return index;
+  type State = "idle" | "loading" | "empty" | "error";
+
+  let index: Entry[] | null = null;
+  let pending: Promise<Entry[]> | null = null;
+
+  // One request at a time; a failed request is forgotten so Retry can try again.
+  function ensureIndex(): Promise<Entry[]> {
+    if (index) return Promise.resolve(index);
+    if (!pending) {
+      pending = fetch("/search-index.json")
+        .then((res) => {
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          return res.json() as Promise<Entry[]>;
+        })
+        .then((all) => {
+          // Show only entries for the language of the page the dialog is on.
+          index = all.filter((e) => (e.lang ?? "en") === LANG);
+          return index;
+        })
+        .finally(() => { pending = null; });
+    }
+    return pending;
+  }
+
+  function showMessage(text: string, state: State) {
+    if (!empty || !message || !results) return;
+    results.replaceChildren();
+    empty.hidden = false;
+    empty.dataset.state = state;
+    message.textContent = text;
+    if (retry) retry.hidden = state !== "error";
+    // The idle prompt is already the input's description; announce the rest.
+    if (status) status.textContent = state === "idle" ? "" : text;
+  }
+
+  function span(className: string, text: string) {
+    const el = document.createElement("span");
+    el.className = className;
+    el.textContent = text;
+    return el;
   }
 
   function render(items: Entry[]) {
     if (!results || !empty) return;
-    results.innerHTML = "";
     if (items.length === 0) {
-      empty.hidden = false;
-      empty.textContent = NO_RESULTS;
+      showMessage(NO_RESULTS, "empty");
       return;
     }
     empty.hidden = true;
-    for (const item of items.slice(0, 20)) {
-      const li = document.createElement("li");
-      const a = document.createElement("a");
-      a.href = item.url;
-      a.innerHTML = `<span class="result-section">${item.section}</span><span class="result-title">${item.title}</span><span class="result-excerpt">${item.excerpt}</span>`;
-      li.appendChild(a);
-      results.appendChild(li);
+    results.replaceChildren(
+      ...items.slice(0, MAX_RESULTS).map((item) => {
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+        a.href = item.url;
+        a.append(
+          span("result-section", item.section),
+          span("result-title", item.title),
+          span("result-excerpt", item.excerpt),
+        );
+        li.appendChild(a);
+        return li;
+      })
+    );
+    if (status) {
+      status.textContent = items.length === 1 ? RESULT_ONE : RESULT_MANY.replace("{n}", String(items.length));
     }
   }
 
-  async function openDialog() {
-    dialog?.showModal();
+  async function runQuery() {
+    if (!input) return;
+    const q = input.value.trim().toLowerCase();
+    if (!q) {
+      showMessage(PROMPT, "idle");
+      return;
+    }
+    if (!index) showMessage(LOADING, "loading");
+    let list: Entry[];
+    try {
+      list = await ensureIndex();
+    } catch {
+      showMessage(LOAD_ERROR, "error");
+      return;
+    }
+    // Drop a stale answer if the visitor kept typing while the index loaded.
+    if (input.value.trim().toLowerCase() !== q) return;
+    render(list.filter((e) =>
+      e.title.toLowerCase().includes(q) || e.excerpt.toLowerCase().includes(q) || e.section.toLowerCase().includes(q)
+    ));
+  }
+
+  function openDialog() {
+    if (!dialog) return;
+    if (!dialog.open) dialog.showModal();
     input?.focus();
-    await ensureIndex();
+    input?.select();
+    // Warm the index in the background; a failure shows once the visitor types.
+    ensureIndex().catch(() => {});
+  }
+
+  function isTypingTarget(el: Element | null) {
+    if (!el) return false;
+    if (el instanceof HTMLElement && el.isContentEditable) return true;
+    return el.tagName === "INPUT" || el.tagName === "TEXTAREA" || el.tagName === "SELECT";
   }
 
   openBtn?.addEventListener("click", openDialog);
@@ -145,8 +251,9 @@ const t = useStrings(lang).search;
     if ((e.key === "k" || e.key === "K") && (e.metaKey || e.ctrlKey)) {
       e.preventDefault();
       openDialog();
+      return;
     }
-    if (e.key === "/" && document.activeElement?.tagName !== "INPUT" && !dialog?.open) {
+    if (e.key === "/" && !e.metaKey && !e.ctrlKey && !e.altKey && !dialog?.open && !isTypingTarget(document.activeElement)) {
       e.preventDefault();
       openDialog();
     }
@@ -156,17 +263,26 @@ const t = useStrings(lang).search;
     if (e.target === dialog) dialog.close();
   });
 
-  input?.addEventListener("input", async () => {
-    const q = input.value.trim().toLowerCase();
-    if (!q) {
-      if (empty) { empty.hidden = false; empty.textContent = PROMPT; }
-      if (results) results.innerHTML = "";
-      return;
+  input?.addEventListener("input", runQuery);
+  retry?.addEventListener("click", () => {
+    input?.focus();
+    runQuery();
+  });
+
+  // Arrow keys move between the input and the result links. Enter follows the
+  // focused link natively, and Tab keeps working as usual.
+  dialog?.addEventListener("keydown", (e) => {
+    if (e.key !== "ArrowDown" && e.key !== "ArrowUp") return;
+    const links = Array.from(results?.querySelectorAll("a") ?? []);
+    if (links.length === 0) return;
+    const at = links.indexOf(document.activeElement as HTMLAnchorElement);
+    e.preventDefault();
+    if (e.key === "ArrowDown") {
+      links[Math.min(at + 1, links.length - 1)].focus();
+    } else if (at <= 0) {
+      input?.focus();
+    } else {
+      links[at - 1].focus();
     }
-    const list = await ensureIndex();
-    const matches = (list || []).filter((e) =>
-      e.title.toLowerCase().includes(q) || e.excerpt.toLowerCase().includes(q) || e.section.toLowerCase().includes(q)
-    );
-    render(matches);
   });
 </script>

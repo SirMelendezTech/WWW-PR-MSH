@@ -23,6 +23,7 @@ const en = {
     viewSourceAria: "View source on GitHub",
     discordAria: "Join the PRMSH Discord",
     openMenuAria: "Open menu",
+    closeMenuAria: "Close menu",
     primaryNavAria: "Primary",
     mobileNavAria: "Mobile",
     switchToEnglish: "View in English",
@@ -51,6 +52,7 @@ const en = {
     github: "Source on GitHub",
     discord: "Community Discord",
     sisterNetwork: "MeshCore PR (sister network)",
+    nodeGuides: "Node setup guides (Spanish)",
     nodesReporting: (online: number, total: number) =>
       `${online} of ${total} nodes reporting`,
     rebuilt: (date: string) => `site rebuilt ${date}`,
@@ -376,6 +378,8 @@ const en = {
       redditPR: "Threaded questions and answers about the Puerto Rico mesh that stay searchable.",
       redditGlobal:
         "Global Meshtastic subreddit, in English — project news and troubleshooting from operators worldwide.",
+      nodeGuides:
+        "Step-by-step guides for setting up Meshtastic and MeshCore nodes on the Puerto Rico mesh. In Spanish.",
       mallapr:
         "Puerto Rico network monitor and map — the live data source behind this site's Node Map.",
       meshview:
@@ -437,10 +441,16 @@ const en = {
     queryAria: "Search query",
     prompt: "Type to search PRMSH documentation and blog posts.",
     noResults: "No results. Try a different term.",
+    loading: "Loading search…",
+    loadError: "Search could not load. Check your connection and try again.",
+    retry: "Try again",
+    resultOne: "1 result",
+    resultMany: "{n} results",
   },
 
   themeToggle: {
-    aria: "Switch color theme",
+    toDark: "Switch to dark theme",
+    toLight: "Switch to light theme",
   },
 };
 
@@ -464,6 +474,7 @@ const es: Strings = {
     viewSourceAria: "Ver el código fuente en GitHub",
     discordAria: "Únete al Discord de PRMSH",
     openMenuAria: "Abrir menú",
+    closeMenuAria: "Cerrar menú",
     primaryNavAria: "Principal",
     mobileNavAria: "Móvil",
     switchToEnglish: "Ver en inglés",
@@ -492,6 +503,7 @@ const es: Strings = {
     github: "Código en GitHub",
     discord: "Discord de la comunidad",
     sisterNetwork: "MeshCore PR (red hermana)",
+    nodeGuides: "Guías de configuración de nodos",
     nodesReporting: (online: number, total: number) =>
       `${online} de ${total} nodos reportando`,
     rebuilt: (date: string) => `sitio reconstruido ${date}`,
@@ -820,6 +832,8 @@ const es: Strings = {
       redditPR: "Preguntas y respuestas en hilos sobre la malla de Puerto Rico, que se pueden buscar después.",
       redditGlobal:
         "Subreddit global de Meshtastic, en inglés — noticias del proyecto y ayuda de operadores de todo el mundo.",
+      nodeGuides:
+        "Guías paso a paso para configurar nodos Meshtastic y MeshCore en la malla de Puerto Rico.",
       mallapr:
         "Monitor y mapa de la red de Puerto Rico — la fuente de datos en vivo detrás del Mapa de Nodos de este sitio.",
       meshview:
@@ -881,10 +895,16 @@ const es: Strings = {
     queryAria: "Consulta de búsqueda",
     prompt: "Escribe para buscar en la documentación y el blog de PRMSH.",
     noResults: "Sin resultados. Prueba con otro término.",
+    loading: "Cargando la búsqueda…",
+    loadError: "La búsqueda no pudo cargar. Revisa tu conexión e inténtalo otra vez.",
+    retry: "Intentar otra vez",
+    resultOne: "1 resultado",
+    resultMany: "{n} resultados",
   },
 
   themeToggle: {
-    aria: "Cambiar el tema de color",
+    toDark: "Cambiar al tema oscuro",
+    toLight: "Cambiar al tema claro",
   },
 };
 

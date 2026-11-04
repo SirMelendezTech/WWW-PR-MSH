@@ -80,8 +80,10 @@ const absUrl = (p: string) => new URL(p, site).toString();
 
   <script is:inline>
     (function () {
-      const stored = localStorage.getItem("meshpr-theme");
-      if (stored) document.documentElement.setAttribute("data-theme", stored);
+      try {
+        const stored = localStorage.getItem("meshpr-theme");
+        if (stored) document.documentElement.setAttribute("data-theme", stored);
+      } catch (e) {}
     })();
   </script>
 
