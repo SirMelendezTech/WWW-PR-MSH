@@ -23,6 +23,7 @@ const en = {
     viewSourceAria: "View source on GitHub",
     discordAria: "Join the PRMSH Discord",
     openMenuAria: "Open menu",
+    closeMenuAria: "Close menu",
     primaryNavAria: "Primary",
     mobileNavAria: "Mobile",
     switchToEnglish: "View in English",
@@ -436,10 +437,16 @@ const en = {
     queryAria: "Search query",
     prompt: "Type to search PRMSH documentation and blog posts.",
     noResults: "No results. Try a different term.",
+    loading: "Loading search…",
+    loadError: "Search could not load. Check your connection and try again.",
+    retry: "Try again",
+    resultOne: "1 result",
+    resultMany: "{n} results",
   },
 
   themeToggle: {
-    aria: "Switch color theme",
+    toDark: "Switch to dark theme",
+    toLight: "Switch to light theme",
   },
 };
 
@@ -463,6 +470,7 @@ const es: Strings = {
     viewSourceAria: "Ver el código fuente en GitHub",
     discordAria: "Únete al Discord de PRMSH",
     openMenuAria: "Abrir menú",
+    closeMenuAria: "Cerrar menú",
     primaryNavAria: "Principal",
     mobileNavAria: "Móvil",
     switchToEnglish: "Ver en inglés",
@@ -879,10 +887,16 @@ const es: Strings = {
     queryAria: "Consulta de búsqueda",
     prompt: "Escribe para buscar en la documentación y el blog de PRMSH.",
     noResults: "Sin resultados. Prueba con otro término.",
+    loading: "Cargando la búsqueda…",
+    loadError: "La búsqueda no pudo cargar. Revisa tu conexión e inténtalo otra vez.",
+    retry: "Intentar otra vez",
+    resultOne: "1 resultado",
+    resultMany: "{n} resultados",
   },
 
   themeToggle: {
-    aria: "Cambiar el tema de color",
+    toDark: "Cambiar al tema oscuro",
+    toLight: "Cambiar al tema claro",
   },
 };
 
