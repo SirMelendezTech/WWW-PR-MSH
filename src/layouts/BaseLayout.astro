@@ -72,7 +72,8 @@ const absUrl = (p: string) => new URL(p, site).toString();
   <meta name="twitter:image" content={ogImage} />
 
   {/* Ackee: self-hosted, cookieless page-view analytics. Production builds
-       only, so `astro dev` never counts as a visit. */}
+       only, so `astro dev` never counts as a visit. `detailed` also records
+       OS, device, browser, screen size and language. */}
   {import.meta.env.PROD && (
     <script
       is:inline
@@ -80,6 +81,7 @@ const absUrl = (p: string) => new URL(p, site).toString();
       src="https://meshcore-ackee-7307a6-196-12-191-109.sslip.io/tracker.js"
       data-ackee-server="https://meshcore-ackee-7307a6-196-12-191-109.sslip.io"
       data-ackee-domain-id="fc31ac98-ac0b-4690-870c-08f434d66d3d"
+      data-ackee-opts='{"detailed":true}'
     ></script>
   )}
 
