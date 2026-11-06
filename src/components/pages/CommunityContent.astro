@@ -4,118 +4,389 @@ import type { Locale } from "../../lib/i18n";
 import { localizePath } from "../../lib/i18n";
 import { useStrings } from "../../lib/ui-strings";
 import { blogPostHref } from "../../lib/blog";
+import { getNodes } from "../../lib/nodes";
 import { DISCORD_INVITE_URL, FACEBOOK_GROUP_URL, REDDIT_PR_URL, SKYNET_URL, MESHCORE_PR_URL } from "../../lib/community";
+import frame from "../../data/map-frame.json";
+import coast from "../../data/coast.json";
 
 interface Props { lang: Locale }
 const { lang } = Astro.props;
-const c = useStrings(lang).community;
 const t = useStrings(lang);
+const c = t.community;
 const p = (href: string) => localizePath(href, lang);
 const hurricanePost = lang === "es" ? "lista-preparacion-huracanes-es" : "hurricane-season-checklist";
----
-<div class="container page-head">
-  <Breadcrumbs lang={lang} items={[{ label: c.crumb }]} />
-  <p class="eyebrow">{c.eyebrow}</p>
-  <h1>{c.h1}</h1>
-  <p class="page-lede">{c.lede}</p>
-</div>
+const newTab = ` ${t.opensInNewTab}`;
 
-<div class="container community-list">
-  {[
-    { id: "projects", heading: c.projectsHeading },
-    { id: "chat", heading: c.chatHeading },
-    { id: "operators", heading: c.operatorsHeading },
-    { id: "events", heading: c.eventsHeading },
-    { id: "field-testing", heading: c.fieldTestingHeading },
-    { id: "emergency-comms", heading: c.emergencyHeading },
-    { id: "contribute", heading: c.contributeHeading },
-  ].map((entry, i) => (
-    <section class="community-entry" id={entry.id}>
-      <p class="entry-mark">
-        <span class="entry-num" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
-        <span>{entry.heading}</span>
-      </p>
-      <div class="entry-body">
-        {entry.id === "projects" && (
-          <Fragment>
-            <p>{c.projectsBody}</p>
-            <p>{c.projectsExampleBefore}<a href="https://palmasmesh.com/" target="_blank" rel="noopener noreferrer">{c.projectsExampleLink}<span class="sr-only"> {t.opensInNewTab}</span></a>{c.projectsExampleAfter}</p>
-            <p>{c.projectsSisterBefore}<a href={MESHCORE_PR_URL} target="_blank" rel="noopener noreferrer">{c.projectsSisterLink}<span class="sr-only"> {t.opensInNewTab}</span></a>{c.projectsSisterAfter}</p>
-            <p>{c.projectsSkynetBefore}<a href={SKYNET_URL} target="_blank" rel="noopener noreferrer">{c.projectsSkynetLink}<span class="sr-only"> {t.opensInNewTab}</span></a>{c.projectsSkynetAfter}</p>
-          </Fragment>
-        )}
-        {entry.id === "chat" && (
-          <Fragment>
-            <p>{c.chatBodyBefore}<a href={DISCORD_INVITE_URL} target="_blank" rel="noopener noreferrer">{c.chatBodyLink}<span class="sr-only"> {t.opensInNewTab}</span></a>{c.chatBodyAfter}</p>
-            <p>{c.chatOtherIntro}</p>
-            <ul class="bullet-list">
-              <li><a href={FACEBOOK_GROUP_URL} target="_blank" rel="noopener noreferrer">{c.chatFacebookLink}<span class="sr-only"> {t.opensInNewTab}</span></a>{c.chatFacebookNote}</li>
-              <li><a href={REDDIT_PR_URL} target="_blank" rel="noopener noreferrer">{c.chatRedditPRLink}<span class="sr-only"> {t.opensInNewTab}</span></a>{c.chatRedditPRNote}</li>
-            </ul>
-          </Fragment>
-        )}
-        {entry.id === "operators" && (
-          <p>{c.operatorsBodyBefore}<a href={p("/pr-mesh/")}>{c.operatorsBodyLink}</a>{c.operatorsBodyAfter}</p>
-        )}
-        {entry.id === "events" && (
-          <p>{c.eventsBodyBefore}<a href="#chat">{c.eventsBodyLink}</a>{c.eventsBodyAfter}</p>
-        )}
-        {entry.id === "field-testing" && (
-          <Fragment>
-            <p>{c.fieldTestingBody1Before}<a href={p("/blog/")}>{c.fieldTestingBody1Link}</a>{c.fieldTestingBody1After}</p>
-            <p>{c.fieldTestingBody2Before}<a href="https://github.com/meshtastic/antenna-reports" target="_blank" rel="noopener noreferrer">{c.fieldTestingBody2Link}<span class="sr-only"> {t.opensInNewTab}</span></a>{c.fieldTestingBody2After}</p>
-          </Fragment>
-        )}
-        {entry.id === "emergency-comms" && (
-          <p>{c.emergencyBodyBefore}<a href={blogPostHref(lang, hurricanePost)}>{c.emergencyBodyLink}</a>{c.emergencyBodyAfter}</p>
-        )}
-        {entry.id === "contribute" && (
-          <ul class="bullet-list">
-            {c.contributeItems.map((item) => <li>{item.text}</li>)}
-            <li>{c.contributeItem3Before}<a href={p("/pr-mesh/")}>{c.contributeItem3Link}</a>{c.contributeItem3After}</li>
-            <li>{c.contributeItem4}</li>
-          </ul>
-        )}
-      </div>
-    </section>
-  ))}
+// The island uses the Node Map's projection and coastline, so the faint node
+// dots land where the Node Map puts them. Nodes refresh on each site build.
+const { lon0, lon1, lat0, lat1, vw, vh } = frame;
+const project = (lng: number, lat: number) => ({
+  x: ((lng - lon0) / (lon1 - lon0)) * vw,
+  y: ((lat1 - lat) / (lat1 - lat0)) * vh,
+});
+const { nodes } = await getNodes();
+const dots = nodes
+  .filter((n) => n.lng >= lon0 && n.lng <= lon1 && n.lat >= lat0 && n.lat <= lat1)
+  .map((n) => project(n.lng, n.lat));
+
+// Palmas del Mar, Humacao.
+const palmas = project(-65.8, 18.085);
+
+// Crop to the main island plus Vieques and Culebra; St. Thomas sits past
+// x = 900 and carries no project. Extra room above and below holds labels.
+const VB = { x: 0, y: -20, w: 860, h: vh + 40 };
+const pct = (x: number, y: number) =>
+  `left:${(((x - VB.x) / VB.w) * 100).toFixed(2)}%;top:${(((y - VB.y) / VB.h) * 100).toFixed(2)}%`;
+
+const channels = [
+  { key: "discord", url: DISCORD_INVITE_URL, row: c.channels.discord },
+  { key: "facebook", url: FACEBOOK_GROUP_URL, row: c.channels.facebook },
+  { key: "reddit", url: REDDIT_PR_URL, row: c.channels.reddit },
+] as const;
+---
+<div class="container community">
+  <div class="page-head">
+    <Breadcrumbs lang={lang} items={[{ label: c.crumb }]} />
+    <h1>{c.h1}</h1>
+    <p class="page-lede">{c.lede}</p>
+  </div>
+
+  <!-- The one bold element: the island, with each project placed where it
+       works. Everything after it stays in a quiet 64ch column. -->
+  <figure class="island">
+    <div class="island-stage">
+      <svg
+        class="island-map"
+        viewBox={`${VB.x} ${VB.y} ${VB.w} ${VB.h}`}
+        role="img"
+        aria-label={c.islandAria(dots.length)}
+      >
+        <defs>
+          <radialGradient id="skynet-halo" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" class="halo-stop-in" />
+            <stop offset="70%" class="halo-stop-mid" />
+            <stop offset="100%" class="halo-stop-out" />
+          </radialGradient>
+        </defs>
+        <ellipse class="halo" cx="352" cy="138" rx="392" ry="138" fill="url(#skynet-halo)" />
+        <ellipse class="halo-ring" cx="352" cy="138" rx="392" ry="138" />
+        <g class="island-coast">
+          {coast.paths.map((d) => <path d={d} />)}
+        </g>
+        <g class="island-nodes">
+          {dots.map((d) => <circle cx={d.x.toFixed(1)} cy={d.y.toFixed(1)} r="2.6" />)}
+        </g>
+        <g class="pin pin--palmas">
+          <circle class="pin-ring" cx={palmas.x} cy={palmas.y} r="15" />
+          <circle class="pin-dot" cx={palmas.x} cy={palmas.y} r="6.5" />
+        </g>
+      </svg>
+
+      <!-- Labels are HTML so they stay readable at any width and translate
+           with the page. Wide screens pin them to the map; narrow screens
+           list them under it as a key. -->
+      <ul class="island-labels" aria-hidden="true">
+        <li class="island-label island-label--skynet" style={pct(70, 2)}>
+          <span class="key key--halo"></span>{c.islandSkynet}
+        </li>
+        <li class="island-label island-label--palmas" style={pct(palmas.x + 22, palmas.y + 6)}>
+          <span class="key key--pin"></span>{c.islandPalmas}
+        </li>
+      </ul>
+    </div>
+    <figcaption class="island-caption">
+      <span class="key key--node" aria-hidden="true"></span>
+      {c.islandCaptionBefore}<a href={p("/map/")}>{c.islandCaptionLink}</a>{c.islandCaptionAfter}
+    </figcaption>
+  </figure>
+
+  <section class="block" id="chat" aria-labelledby="chat-h">
+    <h2 id="chat-h">{c.talkHeading}</h2>
+    <p>{c.talkIntro}</p>
+
+    <table class="channels" role="table">
+      <caption class="sr-only">{c.talkCaption}</caption>
+      <thead role="rowgroup">
+        <tr role="row">
+          <th scope="col" role="columnheader">{c.colChannel}</th>
+          <th scope="col" role="columnheader">{c.colBestFor}</th>
+          <th scope="col" role="columnheader">{c.colLanguage}</th>
+          <th scope="col" role="columnheader">{c.colAccount}</th>
+        </tr>
+      </thead>
+      <tbody role="rowgroup">
+        {channels.map((ch) => (
+          <tr role="row">
+            <th scope="row" role="rowheader" class="ch-name">
+              <a href={ch.url} target="_blank" rel="noopener noreferrer">
+                {ch.row.name}<span class="sr-only">{newTab}</span>
+              </a>
+            </th>
+            <td role="cell" class="ch-best">{ch.row.bestFor}</td>
+            <td role="cell" class="ch-meta" data-label={c.colLanguage}>{ch.row.language}</td>
+            <td role="cell" class="ch-meta" data-label={c.colAccount}>{ch.row.account}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+
+    <p id="operators">{c.siteBefore}<a href={p("/pr-mesh/")}>{c.siteLink}</a>{c.siteAfter}</p>
+  </section>
+
+  <section class="block" id="projects" aria-labelledby="projects-h">
+    <h2 id="projects-h">{c.joinHeading}</h2>
+    <ul class="projects">
+      <li class="project" data-project="palmas">
+        <h3>
+          <a href="https://palmasmesh.com/" target="_blank" rel="noopener noreferrer">
+            {c.projects.palmas.name}<span class="sr-only">{newTab}</span>
+          </a>
+          <span class="project-place">{c.projects.palmas.place}</span>
+        </h3>
+        <p>{c.projects.palmas.body}</p>
+      </li>
+      <li class="project" data-project="skynet">
+        <h3>
+          <a href={SKYNET_URL} target="_blank" rel="noopener noreferrer">
+            {c.projects.skynet.name}<span class="sr-only">{newTab}</span>
+          </a>
+          <span class="project-place">{c.projects.skynet.place}</span>
+        </h3>
+        <p>{c.projects.skynet.body}</p>
+      </li>
+      <li class="project">
+        <h3>{c.ownName}</h3>
+        <p>{c.ownBody}</p>
+      </li>
+    </ul>
+    <p class="aside">{c.sisterBefore}<a href={MESHCORE_PR_URL} target="_blank" rel="noopener noreferrer">{c.sisterLink}<span class="sr-only">{newTab}</span></a>{c.sisterAfter}</p>
+  </section>
+
+  <section class="block" id="help" aria-labelledby="help-h">
+    <h2 id="help-h">{c.helpHeading}</h2>
+
+    <h3 id="field-testing">{c.fieldHeading}</h3>
+    <p>{c.field1Before}<a href={p("/blog/")}>{c.field1Link}</a>{c.field1After}</p>
+    <p>{c.field2Before}<a href="https://github.com/meshtastic/antenna-reports" target="_blank" rel="noopener noreferrer">{c.field2Link}<span class="sr-only">{newTab}</span></a>{c.field2After}</p>
+
+    <h3 id="emergency-comms">{c.emergencyHeading}</h3>
+    <p>{c.emergencyBefore}<a href={blogPostHref(lang, hurricanePost)}>{c.emergencyLink}</a>{c.emergencyAfter}</p>
+
+    <h3 id="contribute">{c.contributeHeading}</h3>
+    <ul class="plain-list">
+      {c.contributeItems.map((item) => <li>{item}</li>)}
+      <li>{c.gapsBefore}<a href={p("/pr-mesh/")}>{c.gapsLink}</a>{c.gapsAfter}</li>
+    </ul>
+  </section>
+
+  <section class="block" id="events" aria-labelledby="events-h">
+    <h2 id="events-h">{c.meetupsHeading}</h2>
+    <p>{c.meetupsBefore}<a href={DISCORD_INVITE_URL} target="_blank" rel="noopener noreferrer">{c.meetupsLink}<span class="sr-only">{newTab}</span></a>{c.meetupsAfter}</p>
+  </section>
 </div>
 
 <style>
-  .page-head { padding-block: 2.5rem 1rem; max-width: 68ch; }
+  .community { padding-bottom: 5rem; }
+  .page-head { padding-block: 2.5rem 1.75rem; max-width: 64ch; }
   .page-lede { font-size: 1.1rem; margin-top: 0.5rem; }
 
-  .community-list { padding-block: 2rem 5rem; }
+  /* ---------- the island ---------- */
+  .island {
+    margin: 0 0 1rem;
+    padding: 1.25rem 1rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--bg-raised);
+  }
+  @media (min-width: 700px) {
+    .island { padding: 1.75rem 2rem 1.25rem; }
+  }
 
-  .community-entry {
-    display: grid;
-    grid-template-columns: 1fr;
+  .island-stage { position: relative; }
+  .island-map { display: block; width: 100%; height: auto; overflow: hidden; }
+
+  .halo-stop-in { stop-color: var(--secondary); stop-opacity: 0.16; }
+  .halo-stop-mid { stop-color: var(--secondary); stop-opacity: 0.08; }
+  .halo-stop-out { stop-color: var(--secondary); stop-opacity: 0; }
+  .halo-ring {
+    fill: none;
+    stroke: var(--secondary);
+    stroke-opacity: 0.45;
+    stroke-width: 1.25;
+    stroke-dasharray: 3 6;
+    vector-effect: non-scaling-stroke;
+    transition: stroke-opacity 0.2s ease;
+  }
+
+  /* A thin line, not a filled shape: the island is the stage, the projects
+     are the actors. */
+  .island-coast path {
+    fill: color-mix(in srgb, var(--bg) 70%, transparent);
+    stroke: var(--ink-soft);
+    stroke-width: 1.1;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .island-nodes circle { fill: var(--ink-faint); fill-opacity: 0.4; }
+
+  .pin-dot { fill: var(--accent); stroke: var(--bg-raised); stroke-width: 2; vector-effect: non-scaling-stroke; }
+  .pin-ring {
+    fill: none;
+    stroke: var(--accent);
+    stroke-opacity: 0.45;
+    stroke-width: 1.5;
+    vector-effect: non-scaling-stroke;
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: stroke-opacity 0.2s ease;
+  }
+
+  /* On a phone the island is ~100px tall; scale markers about their own
+     centre so they stay visible without leaving their coordinates. */
+  @media (max-width: 699px) {
+    .pin-dot, .island-nodes circle { transform-box: fill-box; transform-origin: center; }
+    .pin-dot { transform: scale(1.8); }
+    .pin-ring { transform: scale(1.8); }
+    .island-nodes circle { transform: scale(1.6); }
+  }
+
+  /* Hovering or focusing a project lower on the page answers "where is
+     that?" on the map. Only motion on the page, and only on request. */
+  .community:has(.project[data-project="palmas"]:hover, .project[data-project="palmas"]:focus-within) .pin-ring {
+    stroke-opacity: 1;
+  }
+  .community:has(.project[data-project="skynet"]:hover, .project[data-project="skynet"]:focus-within) .halo-ring {
+    stroke-opacity: 1;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .community:has(.project[data-project="palmas"]:hover, .project[data-project="palmas"]:focus-within) .pin-ring {
+      animation: pin-pulse 1.6s ease-out infinite;
+    }
+  }
+  @keyframes pin-pulse {
+    0% { transform: scale(1); stroke-opacity: 0.9; }
+    100% { transform: scale(1.9); stroke-opacity: 0; }
+  }
+
+  /* Labels and key */
+  .island-labels {
+    list-style: none;
+    margin: 0.85rem 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.25rem;
+  }
+  .island-label {
+    display: inline-flex;
+    align-items: center;
     gap: 0.5rem;
-    border-top: 1px solid var(--border);
-    padding-block: 1.75rem 2rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  @media (min-width: 700px) {
+    .island-labels { margin: 0; }
+    .island-label {
+      position: absolute;
+      white-space: nowrap;
+      padding: 0.1rem 0.45rem;
+      border-radius: var(--radius-sm);
+      background: color-mix(in srgb, var(--bg-raised) 85%, transparent);
+    }
+    .island-label--skynet { color: var(--secondary); }
+    .island-label .key { display: none; }
+  }
+
+  .key { display: inline-block; flex-shrink: 0; border-radius: 50%; }
+  .key--halo { width: 0.9rem; height: 0.9rem; border: 1.5px dashed var(--secondary); background: color-mix(in srgb, var(--secondary) 12%, transparent); }
+  .key--pin { width: 0.7rem; height: 0.7rem; background: var(--accent); }
+  .key--node { width: 0.45rem; height: 0.45rem; background: color-mix(in srgb, var(--ink-faint) 55%, transparent); margin-right: 0.45rem; vertical-align: 0.1em; }
+
+  .island-caption { margin-top: 0.85rem; font-size: 0.85rem; color: var(--ink-soft); max-width: 64ch; }
+
+  /* ---------- the column ---------- */
+  .block {
+    max-width: 64ch;
+    padding-top: 2.5rem;
     scroll-margin-top: calc(var(--header-h) + 16px);
   }
-  @media (min-width: 820px) {
-    .community-entry { grid-template-columns: 13rem minmax(0, 1fr); gap: 0 2.5rem; align-items: start; }
-  }
+  .block h2 { margin: 0 0 0.6rem; }
+  .block h3 { font-size: 1.1rem; margin: 1.6rem 0 0.4rem; scroll-margin-top: calc(var(--header-h) + 16px); }
+  .block h2 + h3 { margin-top: 0.75rem; }
+  .block p { margin: 0 0 0.85rem; }
+  .aside { font-size: 0.93rem; }
 
-  .entry-mark {
-    display: flex;
-    gap: 0.7rem;
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.09em;
+  /* Channel comparison: a real table, because the job is comparing. */
+  /* Resets the global data-table look (scroll box, sunken uppercase header,
+     640px minimum) that suits wide spec tables but not a three-row compare. */
+  .channels {
+    display: table;
+    width: 100%;
+    min-width: 0;
+    margin: 1.1rem 0 1.25rem;
+    border: none;
+    border-radius: 0;
+    overflow: visible;
+    border-collapse: collapse;
+    font-size: 0.93rem;
+  }
+  .channels th, .channels td {
+    text-align: left;
+    vertical-align: top;
+    padding: 0.7rem 1rem 0.7rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .channels tbody tr:last-child th, .channels tbody tr:last-child td { border-bottom: none; }
+  .channels thead th {
+    position: static;
+    background: none;
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-transform: none;
+    letter-spacing: 0;
     color: var(--ink-soft);
-    margin: 0;
+    border-bottom: 1px solid var(--border-strong);
+    padding-block: 0 0.45rem;
   }
-  .entry-num { color: var(--accent); font-weight: 700; }
+  .channels tbody tr:hover { background: none; }
+  .ch-name { font-weight: 600; white-space: nowrap; }
+  .ch-name a { font-family: var(--font-display); }
+  .ch-best { color: var(--ink-soft); width: 42%; }
+  .ch-meta { color: var(--ink-soft); }
 
-  .entry-body p { font-size: 0.98rem; margin: 0; max-width: 64ch; }
-  .entry-body p + p { margin-top: 0.85rem; }
+  /* Narrow screens: each row becomes a short block. Name, then what it's for,
+     then language and account on one muted line with their column names. */
+  @media (max-width: 699px) {
+    .channels, .channels tbody, .channels tr, .channels th, .channels td { display: block; }
+    .channels thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .channels tbody tr { padding-block: 0.75rem; }
+    .channels th, .channels td { padding: 0; }
+    .ch-best { margin-top: 0.15rem; }
+    .channels th, .channels td { border-bottom: none; }
+    .channels tbody tr + tr { border-top: 1px solid var(--border); }
+    .ch-best { width: auto; }
+    .ch-meta { font-size: 0.85rem; }
+    .ch-meta::before { content: attr(data-label) ": "; color: var(--ink-soft); font-weight: 600; }
+    .ch-best + .ch-meta { margin-top: 0.3rem; }
+  }
 
-  .bullet-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
-  .entry-body p + .bullet-list { margin-top: 0.6rem; }
-  .bullet-list li { padding-left: 1.3em; position: relative; font-size: 0.98rem; color: var(--ink-soft); max-width: 64ch; }
-  .bullet-list li::before { content: "›"; position: absolute; left: 0; color: var(--secondary); font-weight: 700; }
+  .projects { list-style: none; margin: 0.9rem 0 1rem; padding: 0; }
+  .project { padding-block: 0.85rem; }
+  .project + .project { border-top: 1px solid var(--border); }
+  .project h3 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.25rem 0.75rem;
+    margin: 0 0 0.3rem;
+    font-size: 1.05rem;
+  }
+  .project-place { font-family: var(--font-body); font-size: 0.85rem; font-weight: 500; color: var(--ink-soft); }
+  .project p { margin: 0; font-size: 0.95rem; }
+
+  .plain-list { margin: 0; padding-left: 1.2rem; display: grid; gap: 0.45rem; color: var(--ink-soft); }
+  .plain-list li::marker { color: var(--secondary); }
 </style>
