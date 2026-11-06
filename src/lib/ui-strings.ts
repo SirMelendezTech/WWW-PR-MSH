@@ -218,13 +218,6 @@ const en = {
     h1: "Built by the people using it",
     lede: "There's no company behind PRMSH. Operators put up nodes, share what they learn, and help each other extend coverage. Here's how to find them and get involved.",
 
-    islandAria: (nodes: number) =>
-      `Map of Puerto Rico. SKYNET works across the whole island. PalmasMesh is in Humacao, on the east coast. Faint dots mark the ${nodes} nodes on the Node Map.`,
-    islandSkynet: "SKYNET, island-wide",
-    islandPalmas: "PalmasMesh, Humacao",
-    islandCaptionBefore: "Where community projects run. Faint dots are the nodes on the ",
-    islandCaptionLink: "Node Map",
-    islandCaptionAfter: ", as of the last site update.",
 
     talkHeading: "Talk to operators",
     talkIntro: "Ask before you buy or mount anything. Operators near you know which sites already have coverage.",
@@ -701,13 +694,6 @@ const es: Strings = {
     h1: "Construida por quienes la usan",
     lede: "No hay ninguna compañía detrás de PRMSH. Los operadores instalan nodos, comparten lo que aprenden y se ayudan a ampliar la cobertura. Así puedes encontrarlos y participar.",
 
-    islandAria: (nodes: number) =>
-      `Mapa de Puerto Rico. SKYNET trabaja en toda la isla. PalmasMesh está en Humacao, en la costa este. Los puntos tenues marcan los ${nodes} nodos del Mapa de Nodos.`,
-    islandSkynet: "SKYNET, toda la isla",
-    islandPalmas: "PalmasMesh, Humacao",
-    islandCaptionBefore: "Dónde operan los proyectos comunitarios. Los puntos tenues son los nodos del ",
-    islandCaptionLink: "Mapa de Nodos",
-    islandCaptionAfter: ", según la última actualización del sitio.",
 
     talkHeading: "Habla con operadores",
     talkIntro: "Pregunta antes de comprar o instalar nada. Los operadores cerca de ti saben qué sitios ya tienen cobertura.",
