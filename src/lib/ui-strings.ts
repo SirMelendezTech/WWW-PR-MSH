@@ -215,70 +215,86 @@ const en = {
     description:
       "Where Puerto Rico Meshtastic operators find each other, share projects, coordinate events, and help each other build coverage.",
     crumb: "Community",
-    eyebrow: "Community",
     h1: "Built by the people using it",
-    lede: "There's no company behind PRMSH — just operators who put up nodes, share what they learn, and help each other extend coverage. Here's how to find them and get involved.",
-    projectsHeading: "Community Projects",
-    projectsBody:
-      "Ongoing efforts include coverage mapping for underserved regions, coordinated rooftop deployments, and shared documentation for local settings. If you're starting a project — a neighborhood node cluster, a trailhead repeater — post it where other operators can find and support it.",
-    projectsExampleBefore: "One example is ",
-    projectsExampleLink: "PalmasMesh",
-    projectsExampleAfter:
-      ", a free neighborhood mesh network in Palmas del Mar, Humacao, built and run by residents as a backup for when power and cell service go down.",
-    projectsSisterBefore: "Running MeshCore instead? ",
-    projectsSisterLink: "MeshCore Puerto Rico",
-    projectsSisterAfter: " is PRMSH's sister network on the island — same goal, different radio protocol.",
-    projectsSkynetBefore: "At island scale, ",
-    projectsSkynetLink: "SKYNET",
-    projectsSkynetAfter:
-      " is the resilient communications and technology program of Resilient Network Puerto Rico, Inc. (RNPR) — community-powered communications, technical education, infrastructure, research, and public tools to strengthen preparedness across Puerto Rico.",
-    operatorsHeading: "Node Operators",
-    operatorsBodyBefore:
-      "Operators across San Juan Metro, Bayamón, Caguas, Ponce, Mayagüez, and beyond keep the mesh running. See current regional status on ",
-    operatorsBodyLink: "Puerto Rico Mesh",
-    operatorsBodyAfter:
-      ", and connect with nearby operators before choosing a site for a new node — coordinating placement avoids duplicate coverage and fills real gaps instead.",
-    chatHeading: "Community Chat",
-    chatBodyBefore:
-      "Day-to-day conversation happens on the ",
-    chatBodyLink: "PRMSH Community Discord",
-    chatBodyAfter:
-      " — ask questions, share node builds, and find operators near you before you put up a new node.",
-    chatOtherIntro: "Operators also meet outside Discord:",
-    chatFacebookLink: "Puerto Rico Meshtastic Facebook group",
-    chatFacebookNote: " — posts, photos, and news from around the island.",
-    chatRedditPRLink: "r/MeshtasticPuertoRico",
-    chatRedditPRNote: " — threaded questions and answers that stay searchable.",
-    eventsHeading: "Events",
-    eventsBodyBefore:
-      "Meetups, build nights, and range-test outings happen periodically as the community grows. Watch the channels under ",
-    eventsBodyLink: "Community Chat",
-    eventsBodyAfter:
-      " for what's currently scheduled — this page intentionally doesn't hardcode dates that would go stale.",
-    fieldTestingHeading: "Field Testing",
-    fieldTestingBody1Before:
-      "Range and coverage tests — hilltop to hilltop, coastal path, urban canyon — are some of the most useful contributions anyone can make. A documented test with hardware, antenna, distance, and result helps every future node placement decision. See ",
-    fieldTestingBody1Link: "the blog",
-    fieldTestingBody1After: " for past field reports and how they're written up.",
-    fieldTestingBody2Before: "Testing an antenna specifically? Submit your numbers to the upstream ",
-    fieldTestingBody2Link: "Meshtastic Antenna Reports",
-    fieldTestingBody2After:
-      " project rather than a local writeup — it keeps the data in one place other operators, in Puerto Rico and beyond, can actually find.",
-    emergencyHeading: "Emergency Communications",
-    emergencyBodyBefore:
-      "Meshtastic is not a replacement for licensed emergency services, but it is a useful layer of household and neighborhood resilience during outages. See the ",
-    emergencyBodyLink: "hurricane-season checklist",
-    emergencyBodyAfter:
-      " for practical prep steps, and treat official emergency management guidance as authoritative for anything safety-critical.",
-    contributeHeading: "How to Contribute",
+    lede: "There's no company behind PRMSH. Operators put up nodes, share what they learn, and help each other extend coverage. Here's how to find them and get involved.",
+
+
+    talkHeading: "Talk to operators",
+    talkIntro: "Ask before you buy or mount anything. Operators near you know which sites already have coverage.",
+    talkCaption: "Community channels: what each is for, its language, and the account it needs",
+    colChannel: "Channel",
+    colBestFor: "Best for",
+    colLanguage: "Language",
+    colAccount: "Account",
+    channels: {
+      discord: {
+        name: "PRMSH Discord",
+        bestFor: "Day-to-day chat, questions, and finding operators near you",
+        language: "Spanish and English",
+        account: "Discord",
+      },
+      facebook: {
+        name: "Facebook group",
+        bestFor: "Photos and news from around the island",
+        language: "Spanish",
+        account: "Facebook",
+      },
+      reddit: {
+        name: "r/MeshtasticPuertoRico",
+        bestFor: "Questions and answers that stay searchable",
+        language: "Spanish and English",
+        account: "Reddit, to post",
+      },
+    },
+    siteBefore: "Choosing a site for a new node? Check regional status on ",
+    siteLink: "Puerto Rico Mesh",
+    siteAfter: " and ask in the Discord first. Coordinated placement fills real gaps instead of doubling coverage.",
+
+    joinHeading: "Join a project",
+    projects: {
+      palmas: {
+        name: "PalmasMesh",
+        place: "Humacao",
+        body: "A free neighborhood mesh in Palmas del Mar, built and run by residents as a backup for when power and cell service go down.",
+      },
+      skynet: {
+        name: "SKYNET",
+        place: "Island-wide",
+        body: "The communications program of Resilient Network Puerto Rico, Inc. (RNPR): community networks, technical education, and preparedness tools.",
+      },
+    },
+    ownName: "Start your own",
+    ownBody: "A neighborhood node cluster, a trailhead repeater, a coordinated rooftop. Post it in the Discord so other operators can find and support it.",
+    sisterBefore: "Running MeshCore instead? ",
+    sisterLink: "MeshCore Puerto Rico",
+    sisterAfter: " is PRMSH's sister network: same goal, different radio protocol.",
+
+    helpHeading: "Help the mesh",
+    fieldHeading: "Field testing",
+    field1Before: "Range tests, hilltop to hilltop or along the coast, are among the most useful things anyone can do. Write down the hardware, antenna, distance, and result. See ",
+    field1Link: "past field reports on the blog",
+    field1After: ".",
+    field2Before: "Testing an antenna? Send your numbers to ",
+    field2Link: "Meshtastic Antenna Reports",
+    field2After: " so operators everywhere can find them.",
+    emergencyHeading: "Emergency communications",
+    emergencyBefore: "Meshtastic doesn't replace licensed emergency services, but it adds a layer of household and neighborhood resilience during outages. Start with the ",
+    emergencyLink: "hurricane-season checklist",
+    emergencyAfter: ", and follow official emergency guidance for anything safety-critical.",
+    contributeHeading: "Other ways to help",
     contributeItems: [
-      { text: "Put up a node — even a modest home node helps." },
-      { text: "Document a field test or hardware review and share it." },
+      "Put up a node. Even a modest home node helps.",
+      "Write up a field test or a hardware review and share it.",
+      "Help a newcomer configure their first radio.",
     ],
-    contributeItem3Before: "Report coverage gaps you find so ",
-    contributeItem3Link: "Puerto Rico Mesh",
-    contributeItem3After: " stays accurate.",
-    contributeItem4: "Help newcomers get their first radio configured.",
+    gapsBefore: "Report coverage gaps you find so ",
+    gapsLink: "Puerto Rico Mesh",
+    gapsAfter: " stays accurate.",
+
+    meetupsHeading: "Meetups",
+    meetupsBefore: "Meetups, build nights, and range-test outings are announced in the ",
+    meetupsLink: "PRMSH Discord",
+    meetupsAfter: ". This page doesn't list dates, so nothing here goes stale.",
   },
 
   map: {
@@ -352,58 +368,66 @@ const en = {
   links: {
     title: "Links & Resources",
     description:
-      "Official Puerto Rico mesh resources, the Meshtastic project, and reference documentation.",
+      "Puerto Rico mesh tools, community channels, device setup, and reference material, grouped by what you want to do.",
     crumb: "Links",
-    eyebrow: "Links & Resources",
     h1: "Where to go from here",
-    lede: "All external links open in a new tab and are marked accordingly.",
-    externalBadge: "External",
-    externalBadgeSr: " — opens in a new tab",
-    prHeading: "Puerto Rico Network Tools",
-    prCommunityHeading: "Puerto Rico Community",
-    projectHeading: "Official Meshtastic Project",
-    wideCommunityHeading: "Wider Meshtastic Community",
-    referenceHeading: "Reference Documentation",
+    lede: "Tools, people, and references for the Puerto Rico mesh, grouped by what you want to do. Every link opens in a new tab.",
+    externalBadgeSr: " (opens in a new tab)",
+    groups: {
+      network: "See the network",
+      talk: "Talk to people",
+      projects: "Projects in Puerto Rico",
+      setup: "Set up a device",
+      learn: "Learn more",
+      global: "Global community",
+    },
+    names: {
+      monitor: "PRMSH MeshMonitor",
+      mallapr: "Malla PR",
+      meshview: "MeshView PR",
+      discord: "PRMSH Discord",
+      facebookGroup: "Puerto Rico Meshtastic group on Facebook",
+      redditPR: "r/MeshtasticPuertoRico on Reddit",
+      palmasmesh: "PalmasMesh",
+      skynet: "SKYNET",
+      meshcorePr: "MeshCore Puerto Rico",
+      nodeGuides: "PRMSH node guides",
+      flasher: "Meshtastic Web Flasher",
+      hwList: "Meshtastic supported hardware",
+      cli: "Meshtastic CLI reference",
+      azSettings: "Arizona recommended settings",
+      azHardware: "Arizona recommended hardware",
+      meshtasticOrg: "Meshtastic.org",
+      antennaReports: "Meshtastic Antenna Reports",
+      rfindex: "RF Index",
+      redditGlobal: "r/meshtastic on Reddit",
+      awesomeHw: "Awesome Meshtastic: hardware and sensors",
+      awesomeServer: "Awesome Meshtastic: server software",
+      malla: "Malla source code",
+    } as Record<string, string>,
     notes: {
-      monitor:
-        "Live community monitoring for participating Puerto Rico nodes.",
-      palmasmesh: "Neighborhood mesh network in Palmas del Mar, Humacao, run by residents.",
-      meshcorePr: "PRMSH's sister network: Puerto Rico's MeshCore mesh. Different protocol — it can't talk to Meshtastic radios.",
-      skynet:
-        "Resilient communications and technology program of Resilient Network Puerto Rico, Inc. (RNPR) — community networks, technical education, and preparedness tools.",
-      discord:
-        "Community Discord server for Puerto Rico mesh operators — questions, builds, and coordination.",
-      facebookGroup:
-        "Posts, photos, and news from operators around the island.",
-      redditPR: "Threaded questions and answers about the Puerto Rico mesh that stay searchable.",
-      redditGlobal:
-        "Global Meshtastic subreddit, in English — project news and troubleshooting from operators worldwide.",
-      nodeGuides:
-        "Step-by-step guides for setting up Meshtastic and MeshCore nodes on the Puerto Rico mesh. In Spanish.",
-      mallapr:
-        "Puerto Rico network monitor and map — the live data source behind this site's Node Map.",
-      meshview:
-        "Live packet feed for the Puerto Rico mesh — messages, telemetry, and which nodes are hearing each other as traffic arrives.",
-      meshtasticOrg:
-        "Official Meshtastic project — firmware, apps, and documentation.",
-      flasher:
-        "Flash firmware to a supported device directly from the browser — no drivers or CLI needed.",
-      hwList: "Current, maintained list of supported devices.",
-      cli: "Command-line configuration reference.",
-      antennaReports:
-        "Community-submitted, real-world antenna performance data from operators worldwide.",
-      awesomeHw:
-        "Community-maintained roundup of boards, sensors, and less common builds.",
-      awesomeServer:
-        "Community-maintained roundup of MQTT servers, dashboards, and mesh monitoring tools.",
-      malla:
-        "Open-source Meshtastic network analyzer (MIT) that powers Malla PR's live map and this site's Node Map data.",
-      azSettings:
-        "Reference documentation that inspired this site's structure.",
-      azHardware:
-        "Reference documentation that inspired this site's structure.",
-      rfindex:
-        "Side-by-side device and antenna specs from Austin Mesh, with bench VSWR measurements and SWR sweep charts. Covers MeshCore hardware too, so check which stack a listing refers to.",
+      monitor: "Live community monitoring for participating Puerto Rico nodes.",
+      mallapr: "Network monitor and map. The live data behind this site's Node Map.",
+      meshview: "Live packet feed: messages, telemetry, and which nodes hear each other.",
+      discord: "Questions, builds, and coordination with Puerto Rico operators.",
+      facebookGroup: "Posts, photos, and news from operators around the island.",
+      redditPR: "Threaded questions and answers that stay searchable.",
+      palmasmesh: "Neighborhood mesh in Palmas del Mar, Humacao, run by residents.",
+      skynet: "RNPR's resilient communications program: networks, education, preparedness.",
+      meshcorePr: "PRMSH's sister network. Different protocol; it can't talk to Meshtastic radios.",
+      nodeGuides: "Step-by-step setup for Meshtastic and MeshCore nodes on this mesh. In Spanish.",
+      flasher: "Official tool. Flash firmware from the browser, no drivers or CLI needed.",
+      hwList: "Official, maintained list of supported devices.",
+      cli: "Official command-line configuration reference.",
+      azSettings: "Another community's recommended settings. Not specific to Puerto Rico.",
+      azHardware: "Another community's hardware picks. Not specific to Puerto Rico.",
+      meshtasticOrg: "The official project: firmware, apps, and documentation.",
+      antennaReports: "Real-world antenna performance data submitted by operators worldwide.",
+      rfindex: "Device and antenna specs with bench VSWR measurements. Covers MeshCore hardware too.",
+      redditGlobal: "Global subreddit in English: project news and troubleshooting.",
+      awesomeHw: "Community roundup of boards, sensors, and less common builds.",
+      awesomeServer: "Community roundup of MQTT servers, dashboards, and monitoring tools.",
+      malla: "Open-source network analyzer (MIT) that powers Malla PR and the Node Map data.",
     } as Record<string, string>,
   },
 
@@ -667,72 +691,86 @@ const es: Strings = {
     description:
       "Donde los operadores de Meshtastic en Puerto Rico se encuentran, comparten proyectos, coordinan eventos y se ayudan a construir cobertura.",
     crumb: "Comunidad",
-    eyebrow: "Comunidad",
     h1: "Construida por quienes la usan",
-    lede: "No hay ninguna compañía detrás de PRMSH — solo operadores que instalan nodos, comparten lo que aprenden y se ayudan a ampliar la cobertura. Así puedes encontrarlos y participar.",
-    projectsHeading: "Proyectos Comunitarios",
-    projectsBody:
-      "Los esfuerzos en curso incluyen el mapeo de cobertura para regiones desatendidas, despliegues coordinados en techos y documentación compartida para configuraciones locales. Si vas a empezar un proyecto — un grupo de nodos de barrio, un repetidor en el inicio de una vereda — publicálo donde otros operadores puedan encontrarlo y apoyarlo.",
-    projectsExampleBefore: "Un ejemplo es ",
-    projectsExampleLink: "PalmasMesh",
-    projectsExampleAfter:
-      ", una malla vecinal gratuita en Palmas del Mar, Humacao, que los residentes construyen y operan como respaldo para cuando se van la luz y la señal celular.",
-    projectsSisterBefore: "¿Usas MeshCore? ",
-    projectsSisterLink: "MeshCore Puerto Rico",
-    projectsSisterAfter: " es la red hermana de PRMSH en la isla — la misma meta, otro protocolo de radio.",
-    projectsSkynetBefore: "A escala de toda la isla, ",
-    projectsSkynetLink: "SKYNET",
-    projectsSkynetAfter:
-      " es el programa de comunicaciones resilientes y tecnología de Resilient Network Puerto Rico, Inc. (RNPR) — comunicaciones impulsadas por la comunidad, educación técnica, infraestructura, investigación y herramientas públicas para fortalecer la preparación en todo Puerto Rico.",
-    operatorsHeading: "Operadores de Nodos",
-    operatorsBodyBefore:
-      "Operadores en el área metro de San Juan, Bayamón, Caguas, Ponce, Mayagüez y más allá mantienen la malla funcionando. Consulta el estado regional actual en ",
-    operatorsBodyLink: "Malla de Puerto Rico",
-    operatorsBodyAfter:
-      ", y coordínate con operadores cercanos antes de elegir un sitio para un nodo nuevo — coordinar la ubicación evita cobertura duplicada y en su lugar llena huecos reales.",
-    chatHeading: "Chat de la Comunidad",
-    chatBodyBefore:
-      "La conversación del día a día ocurre en el ",
-    chatBodyLink: "Discord de la comunidad PRMSH",
-    chatBodyAfter:
-      " — haz preguntas, comparte tus nodos y encuentra operadores cerca de ti antes de instalar un nodo nuevo.",
-    chatOtherIntro: "Los operadores también se reúnen fuera de Discord:",
-    chatFacebookLink: "grupo de Facebook de Meshtastic en Puerto Rico",
-    chatFacebookNote: " — publicaciones, fotos y noticias de toda la isla.",
-    chatRedditPRLink: "r/MeshtasticPuertoRico",
-    chatRedditPRNote: " — preguntas y respuestas en hilos que se pueden buscar después.",
-    eventsHeading: "Eventos",
-    eventsBodyBefore:
-      "Encuentros, noches de armado y salidas de prueba de alcance ocurren periódicamente a medida que crece la comunidad. Sigue los canales de ",
-    eventsBodyLink: "Chat Comunitario",
-    eventsBodyAfter:
-      " para ver qué está programado — esta página intencionalmente no fija fechas que quedarían obsoletas.",
-    fieldTestingHeading: "Pruebas de Campo",
-    fieldTestingBody1Before:
-      "Las pruebas de alcance y cobertura — de cima a cima, por sendero costero, en cañón urbano — son de las contribuciones más útiles que cualquiera puede hacer. Una prueba documentada con hardware, antena, distancia y resultado ayuda a cada decisión futura de ubicación de nodos. Consulta ",
-    fieldTestingBody1Link: "el blog",
-    fieldTestingBody1After:
-      " para ver reportes de campo anteriores y cómo se redactan.",
-    fieldTestingBody2Before:
-      "¿Estás probando una antena en concreto? Envía tus números al proyecto upstream ",
-    fieldTestingBody2Link: "Meshtastic Antenna Reports",
-    fieldTestingBody2After:
-      " en lugar de a un reporte local — mantiene los datos en un solo lugar que otros operadores, en Puerto Rico y más allá, pueden encontrar de verdad.",
-    emergencyHeading: "Comunicaciones de Emergencia",
-    emergencyBodyBefore:
-      "Meshtastic no reemplaza a los servicios de emergencia licenciados, pero es una capa útil de resiliencia del hogar y el vecindario durante los apagones. Consulta la ",
-    emergencyBodyLink: "lista de preparación para la temporada de huracanes",
-    emergencyBodyAfter:
-      " para pasos prácticos de preparación, y trata la orientación oficial de manejo de emergencias como autoritativa para cualquier cosa crítica para la seguridad.",
-    contributeHeading: "Cómo Contribuir",
+    lede: "No hay ninguna compañía detrás de PRMSH. Los operadores instalan nodos, comparten lo que aprenden y se ayudan a ampliar la cobertura. Así puedes encontrarlos y participar.",
+
+
+    talkHeading: "Habla con operadores",
+    talkIntro: "Pregunta antes de comprar o instalar nada. Los operadores cerca de ti saben qué sitios ya tienen cobertura.",
+    talkCaption: "Canales de la comunidad: para qué sirve cada uno, su idioma y la cuenta que necesita",
+    colChannel: "Canal",
+    colBestFor: "Ideal para",
+    colLanguage: "Idioma",
+    colAccount: "Cuenta",
+    channels: {
+      discord: {
+        name: "Discord de PRMSH",
+        bestFor: "Conversación diaria, preguntas y encontrar operadores cerca de ti",
+        language: "Español e inglés",
+        account: "Discord",
+      },
+      facebook: {
+        name: "Grupo de Facebook",
+        bestFor: "Fotos y noticias de toda la isla",
+        language: "Español",
+        account: "Facebook",
+      },
+      reddit: {
+        name: "r/MeshtasticPuertoRico",
+        bestFor: "Preguntas y respuestas que se pueden buscar después",
+        language: "Español e inglés",
+        account: "Reddit, para publicar",
+      },
+    },
+    siteBefore: "¿Vas a escoger un sitio para un nodo nuevo? Consulta el estado regional en ",
+    siteLink: "Malla de Puerto Rico",
+    siteAfter: " y pregunta primero en el Discord. Coordinar la ubicación llena huecos reales en vez de duplicar cobertura.",
+
+    joinHeading: "Únete a un proyecto",
+    projects: {
+      palmas: {
+        name: "PalmasMesh",
+        place: "Humacao",
+        body: "Una malla vecinal gratuita en Palmas del Mar, que los residentes construyen y operan como respaldo para cuando se van la luz y la señal celular.",
+      },
+      skynet: {
+        name: "SKYNET",
+        place: "Toda la isla",
+        body: "El programa de comunicaciones de Resilient Network Puerto Rico, Inc. (RNPR): redes comunitarias, educación técnica y herramientas de preparación.",
+      },
+    },
+    ownName: "Empieza el tuyo",
+    ownBody: "Un grupo de nodos de barrio, un repetidor en el inicio de una vereda, un techo coordinado. Publícalo en el Discord para que otros operadores lo encuentren y lo apoyen.",
+    sisterBefore: "¿Usas MeshCore? ",
+    sisterLink: "MeshCore Puerto Rico",
+    sisterAfter: " es la red hermana de PRMSH: la misma meta, otro protocolo de radio.",
+
+    helpHeading: "Ayuda a la malla",
+    fieldHeading: "Pruebas de campo",
+    field1Before: "Las pruebas de alcance, de cima a cima o por la costa, son de lo más útil que cualquiera puede hacer. Anota el hardware, la antena, la distancia y el resultado. Mira los ",
+    field1Link: "reportes de campo en el blog",
+    field1After: ".",
+    field2Before: "¿Estás probando una antena? Envía tus números a ",
+    field2Link: "Meshtastic Antenna Reports",
+    field2After: " para que operadores de todas partes los encuentren.",
+    emergencyHeading: "Comunicaciones de emergencia",
+    emergencyBefore: "Meshtastic no reemplaza a los servicios de emergencia licenciados, pero añade una capa de resiliencia al hogar y al vecindario durante los apagones. Empieza con la ",
+    emergencyLink: "lista de preparación para la temporada de huracanes",
+    emergencyAfter: ", y sigue la orientación oficial de emergencias para todo lo que sea crítico para la seguridad.",
+    contributeHeading: "Otras formas de ayudar",
     contributeItems: [
-      { text: "Instala un nodo — hasta un modesto nodo casero ayuda." },
-      { text: "Documenta una prueba de campo o reseña de hardware y compártela." },
+      "Instala un nodo. Hasta un modesto nodo casero ayuda.",
+      "Escribe sobre una prueba de campo o una reseña de hardware y compártela.",
+      "Ayuda a alguien nuevo a configurar su primera radio.",
     ],
-    contributeItem3Before: "Reporta los huecos de cobertura que encuentres para que ",
-    contributeItem3Link: "Malla de Puerto Rico",
-    contributeItem3After: " se mantenga precisa.",
-    contributeItem4: "Ayuda a los nuevos a configurar su primera radio.",
+    gapsBefore: "Reporta los huecos de cobertura que encuentres para que ",
+    gapsLink: "Malla de Puerto Rico",
+    gapsAfter: " se mantenga precisa.",
+
+    meetupsHeading: "Encuentros",
+    meetupsBefore: "Los encuentros, las noches de armado y las salidas de prueba de alcance se anuncian en el ",
+    meetupsLink: "Discord de PRMSH",
+    meetupsAfter: ". Esta página no lista fechas, así que nada aquí se queda viejo.",
   },
 
   map: {
@@ -806,59 +844,67 @@ const es: Strings = {
   links: {
     title: "Enlaces y Recursos",
     description:
-      "Recursos oficiales de la malla de Puerto Rico, el proyecto Meshtastic y documentación de referencia.",
+      "Herramientas de la malla de Puerto Rico, canales de la comunidad, configuración de equipos y material de referencia, agrupados según lo que quieras hacer.",
     crumb: "Enlaces",
-    eyebrow: "Enlaces y Recursos",
     h1: "Hacia dónde seguir",
-    lede: "Todos los enlaces externos se abren en una pestaña nueva y están marcados como tales.",
-    externalBadge: "Externo",
-    externalBadgeSr: " — se abre en una pestaña nueva",
-    prHeading: "Herramientas de la Red de Puerto Rico",
-    prCommunityHeading: "Comunidad de Puerto Rico",
-    projectHeading: "Proyecto Oficial de Meshtastic",
-    wideCommunityHeading: "Comunidad Meshtastic Global",
-    referenceHeading: "Documentación de Referencia",
-    notes: {
-      monitor:
-        "Monitoreo comunitario en vivo de los nodos participantes de Puerto Rico.",
-      palmasmesh: "Malla vecinal en Palmas del Mar, Humacao, operada por residentes.",
-      meshcorePr: "Red hermana de PRMSH: la malla MeshCore de Puerto Rico. Protocolo distinto — no se comunica con radios Meshtastic.",
-      skynet:
-        "Programa de comunicaciones resilientes y tecnología de Resilient Network Puerto Rico, Inc. (RNPR) — redes comunitarias, educación técnica y herramientas de preparación.",
-      discord:
-        "Servidor de Discord de la comunidad para operadores de la malla en Puerto Rico — preguntas, proyectos y coordinación.",
-      facebookGroup:
-        "Publicaciones, fotos y noticias de operadores de toda la isla.",
-      redditPR: "Preguntas y respuestas en hilos sobre la malla de Puerto Rico, que se pueden buscar después.",
-      redditGlobal:
-        "Subreddit global de Meshtastic, en inglés — noticias del proyecto y ayuda de operadores de todo el mundo.",
-      nodeGuides:
-        "Guías paso a paso para configurar nodos Meshtastic y MeshCore en la malla de Puerto Rico.",
-      mallapr:
-        "Monitor y mapa de la red de Puerto Rico — la fuente de datos en vivo detrás del Mapa de Nodos de este sitio.",
-      meshview:
-        "Flujo de paquetes en vivo de la malla de Puerto Rico — mensajes, telemetría y qué nodos se oyen entre sí según entra el tráfico.",
-      meshtasticOrg:
-        "Proyecto oficial de Meshtastic — firmware, apps y documentación.",
-      flasher:
-        "Graba firmware en un equipo compatible directamente desde el navegador — sin controladores ni CLI.",
-      hwList: "Lista actual y mantenida de equipos compatibles.",
-      cli: "Referencia de configuración por línea de comandos.",
-      antennaReports:
-        "Datos reales de rendimiento de antenas, enviados por la comunidad de operadores de todo el mundo.",
-      awesomeHw:
-        "Recopilación mantenida por la comunidad de placas, sensores y armados menos comunes.",
-      awesomeServer:
-        "Recopilación mantenida por la comunidad de servidores MQTT, paneles y herramientas de monitoreo de mallas.",
-      malla:
-        "Analizador de redes Meshtastic de código abierto (MIT) que impulsa el mapa en vivo de Malla PR y los datos del Mapa de Nodos de este sitio.",
-      azSettings:
-        "Documentación de referencia que inspiró la estructura de este sitio.",
-      azHardware:
-        "Documentación de referencia que inspiró la estructura de este sitio.",
-      rfindex:
-        "Especificaciones de equipos y antenas lado a lado, de Austin Mesh, con mediciones de VSWR en banco y gráficas de barrido de SWR. También cubre hardware de MeshCore, así que verifica a cuál se refiere cada ficha.",
+    lede: "Herramientas, gente y referencias para la malla de Puerto Rico, agrupadas según lo que quieras hacer. Todos los enlaces se abren en una pestaña nueva.",
+    externalBadgeSr: " (se abre en una pestaña nueva)",
+    groups: {
+      network: "Ver la red",
+      talk: "Hablar con la gente",
+      projects: "Proyectos en Puerto Rico",
+      setup: "Configurar un equipo",
+      learn: "Aprender más",
+      global: "Comunidad global",
     },
+    names: {
+      monitor: "PRMSH MeshMonitor",
+      mallapr: "Malla PR",
+      meshview: "MeshView PR",
+      discord: "Discord de PRMSH",
+      facebookGroup: "Grupo de Meshtastic de Puerto Rico en Facebook",
+      redditPR: "r/MeshtasticPuertoRico en Reddit",
+      palmasmesh: "PalmasMesh",
+      skynet: "SKYNET",
+      meshcorePr: "MeshCore Puerto Rico",
+      nodeGuides: "Guías de nodos de PRMSH",
+      flasher: "Meshtastic Web Flasher",
+      hwList: "Hardware compatible con Meshtastic",
+      cli: "Referencia del CLI de Meshtastic",
+      azSettings: "Configuración recomendada de Arizona",
+      azHardware: "Hardware recomendado de Arizona",
+      meshtasticOrg: "Meshtastic.org",
+      antennaReports: "Meshtastic Antenna Reports",
+      rfindex: "RF Index",
+      redditGlobal: "r/meshtastic en Reddit",
+      awesomeHw: "Awesome Meshtastic: hardware y sensores",
+      awesomeServer: "Awesome Meshtastic: software de servidor",
+      malla: "Código fuente de Malla",
+    } as Record<string, string>,
+    notes: {
+      monitor: "Monitoreo comunitario en vivo de los nodos participantes de Puerto Rico.",
+      mallapr: "Monitor y mapa de la red. Los datos en vivo detrás del Mapa de Nodos de este sitio.",
+      meshview: "Flujo de paquetes en vivo: mensajes, telemetría y qué nodos se oyen entre sí.",
+      discord: "Preguntas, proyectos y coordinación con operadores de Puerto Rico.",
+      facebookGroup: "Publicaciones, fotos y noticias de operadores de toda la isla.",
+      redditPR: "Preguntas y respuestas en hilos que se pueden buscar después.",
+      palmasmesh: "Malla vecinal en Palmas del Mar, Humacao, operada por residentes.",
+      skynet: "Programa de comunicaciones resilientes de RNPR: redes, educación y preparación.",
+      meshcorePr: "Red hermana de PRMSH. Otro protocolo; no se comunica con radios Meshtastic.",
+      nodeGuides: "Configuración paso a paso de nodos Meshtastic y MeshCore en esta malla.",
+      flasher: "Herramienta oficial. Instala el firmware desde el navegador, sin drivers ni CLI.",
+      hwList: "Lista oficial y mantenida de equipos compatibles. En inglés.",
+      cli: "Referencia oficial de configuración por línea de comandos. En inglés.",
+      azSettings: "Configuración recomendada por otra comunidad. No es específica de Puerto Rico.",
+      azHardware: "Selección de hardware de otra comunidad. No es específica de Puerto Rico.",
+      meshtasticOrg: "El proyecto oficial: firmware, aplicaciones y documentación.",
+      antennaReports: "Datos reales de rendimiento de antenas enviados por operadores de todo el mundo.",
+      rfindex: "Especificaciones de equipos y antenas con medidas de VSWR. Incluye hardware MeshCore.",
+      redditGlobal: "Subreddit global en inglés: noticias del proyecto y solución de problemas.",
+      awesomeHw: "Recopilación comunitaria de placas, sensores y montajes menos comunes.",
+      awesomeServer: "Recopilación comunitaria de servidores MQTT, paneles y herramientas de monitoreo.",
+      malla: "Analizador de red de código abierto (MIT) que alimenta Malla PR y el Mapa de Nodos.",
+    } as Record<string, string>,
   },
 
   notFound: {

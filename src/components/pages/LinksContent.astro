@@ -2,83 +2,108 @@
 import Breadcrumbs from "../Breadcrumbs.astro";
 import type { Locale } from "../../lib/i18n";
 import { useStrings } from "../../lib/ui-strings";
-import { DISCORD_INVITE_URL, FACEBOOK_GROUP_URL, REDDIT_PR_URL, REDDIT_GLOBAL_URL, SKYNET_URL, MESHCORE_PR_URL, NODE_GUIDES_URL } from "../../lib/community";
+import {
+  DISCORD_INVITE_URL,
+  FACEBOOK_GROUP_URL,
+  REDDIT_PR_URL,
+  REDDIT_GLOBAL_URL,
+  SKYNET_URL,
+  MESHCORE_PR_URL,
+  NODE_GUIDES_URL,
+} from "../../lib/community";
 
 interface Props { lang: Locale }
 const { lang } = Astro.props;
 const l = useStrings(lang).links;
 
-const prTools = [
-  { name: "PRMSH Node Guides", url: NODE_GUIDES_URL, note: l.notes.nodeGuides },
-  { name: "PRMSH MeshMonitor", url: "https://monitor.prmsh.com/", note: l.notes.monitor },
-  { name: "Malla PR", url: "https://malla.prmsh.com/map", note: l.notes.mallapr },
-  { name: "MeshView PR", url: "https://meshview.prmsh.com/", note: l.notes.meshview },
-];
-
-const prCommunity = [
-  { name: "PRMSH Community Discord", url: DISCORD_INVITE_URL, note: l.notes.discord },
-  { name: "Puerto Rico Meshtastic group (Facebook)", url: FACEBOOK_GROUP_URL, note: l.notes.facebookGroup },
-  { name: "r/MeshtasticPuertoRico (Reddit)", url: REDDIT_PR_URL, note: l.notes.redditPR },
-  { name: "MeshCore Puerto Rico", url: MESHCORE_PR_URL, note: l.notes.meshcorePr },
-  { name: "PalmasMesh", url: "https://palmasmesh.com/", note: l.notes.palmasmesh },
-  { name: "SKYNET", url: SKYNET_URL, note: l.notes.skynet },
-];
-
-const project = [
-  { name: "Meshtastic.org", url: "https://meshtastic.org", note: l.notes.meshtasticOrg },
-  { name: "Meshtastic Web Flasher", url: "https://flasher.meshtastic.org/", note: l.notes.flasher },
-  { name: "Meshtastic hardware list", url: "https://meshtastic.org/docs/hardware/devices/", note: l.notes.hwList },
-  { name: "Meshtastic CLI reference", url: "https://meshtastic.org/docs/software/python/cli/", note: l.notes.cli },
-  { name: "Meshtastic Antenna Reports", url: "https://github.com/meshtastic/antenna-reports", note: l.notes.antennaReports },
-];
-
-const wideCommunity = [
-  { name: "r/meshtastic (Reddit)", url: REDDIT_GLOBAL_URL, note: l.notes.redditGlobal },
-  { name: "Awesome Meshtastic — Hardware & Sensors", url: "https://github.com/SignalGap/awesome-meshtastic#hardware-and-sensors", note: l.notes.awesomeHw },
-  { name: "Awesome Meshtastic — Server Software", url: "https://github.com/ShakataGaNai/awesome-meshtastic#server-software", note: l.notes.awesomeServer },
-  { name: "Malla", url: "https://github.com/zenitraM/malla", note: l.notes.malla },
-];
-
-const reference = [
-  { name: "RF Index", url: "https://www.rfindex.com/", note: l.notes.rfindex },
-  { name: "Arizona Meshtastic Community — Recommended Settings", url: "https://azmsh.net/docs/recommended-settings.html", note: l.notes.azSettings },
-  { name: "Arizona Meshtastic Community — Recommended Hardware", url: "https://azmsh.net/docs/recommended-hardware.html", note: l.notes.azHardware },
-];
-
-const groups = [
-  { heading: l.prHeading, items: prTools },
-  { heading: l.prCommunityHeading, items: prCommunity },
-  { heading: l.projectHeading, items: project },
-  { heading: l.wideCommunityHeading, items: wideCommunity },
-  { heading: l.referenceHeading, items: reference },
+// Groups are named for what a visitor wants to do, not for who owns the link.
+// Whether a link is official goes in its note, where it matters. Names and
+// notes are keyed into ui-strings so /es/links/ is fully Spanish.
+const groups: { id: string; heading: string; items: { key: string; url: string }[] }[] = [
+  {
+    id: "network",
+    heading: l.groups.network,
+    items: [
+      { key: "monitor", url: "https://monitor.prmsh.com/" },
+      { key: "mallapr", url: "https://malla.prmsh.com/map" },
+      { key: "meshview", url: "https://meshview.prmsh.com/" },
+    ],
+  },
+  {
+    id: "talk",
+    heading: l.groups.talk,
+    items: [
+      { key: "discord", url: DISCORD_INVITE_URL },
+      { key: "facebookGroup", url: FACEBOOK_GROUP_URL },
+      { key: "redditPR", url: REDDIT_PR_URL },
+    ],
+  },
+  {
+    id: "projects",
+    heading: l.groups.projects,
+    items: [
+      { key: "palmasmesh", url: "https://palmasmesh.com/" },
+      { key: "skynet", url: SKYNET_URL },
+      { key: "meshcorePr", url: MESHCORE_PR_URL },
+    ],
+  },
+  {
+    id: "setup",
+    heading: l.groups.setup,
+    items: [
+      { key: "nodeGuides", url: NODE_GUIDES_URL },
+      { key: "flasher", url: "https://flasher.meshtastic.org/" },
+      { key: "hwList", url: "https://meshtastic.org/docs/hardware/devices/" },
+      { key: "cli", url: "https://meshtastic.org/docs/software/python/cli/" },
+      { key: "azSettings", url: "https://azmsh.net/docs/recommended-settings.html" },
+      { key: "azHardware", url: "https://azmsh.net/docs/recommended-hardware.html" },
+    ],
+  },
+  {
+    id: "learn",
+    heading: l.groups.learn,
+    items: [
+      { key: "meshtasticOrg", url: "https://meshtastic.org" },
+      { key: "antennaReports", url: "https://github.com/meshtastic/antenna-reports" },
+      { key: "rfindex", url: "https://www.rfindex.com/" },
+    ],
+  },
+  {
+    id: "global",
+    heading: l.groups.global,
+    items: [
+      { key: "redditGlobal", url: REDDIT_GLOBAL_URL },
+      { key: "awesomeHw", url: "https://github.com/SignalGap/awesome-meshtastic#hardware-and-sensors" },
+      { key: "awesomeServer", url: "https://github.com/ShakataGaNai/awesome-meshtastic#server-software" },
+      { key: "malla", url: "https://github.com/zenitraM/malla" },
+    ],
+  },
 ];
 
 const host = (u: string) => {
   try { return new URL(u).hostname.replace(/^www\./, ""); } catch { return ""; }
 };
 ---
-<div class="container page-head">
-  <Breadcrumbs lang={lang} items={[{ label: l.crumb }]} />
-  <p class="eyebrow">{l.eyebrow}</p>
-  <h1>{l.h1}</h1>
-  <p class="page-lede">{l.lede}</p>
+<div class="container">
+  <div class="page-head">
+    <Breadcrumbs lang={lang} items={[{ label: l.crumb }]} />
+    <h1>{l.h1}</h1>
+    <p class="page-lede">{l.lede}</p>
+  </div>
 </div>
 
-<div class="container links-sections">
-  {groups.map((group, gi) => (
-    <section class="link-group">
-      <p class="group-mark">
-        <span class="group-num" aria-hidden="true">{String(gi + 1).padStart(2, "0")}</span>
-        <span>{group.heading}</span>
-      </p>
+<div class="container link-index">
+  {groups.map((group) => (
+    <section class="link-group" id={group.id} aria-labelledby={`${group.id}-h`}>
+      <h2 id={`${group.id}-h`} class="group-heading">{group.heading}</h2>
       <ul class="link-list">
         {group.items.map((item) => (
-          <li>
-            <a href={item.url} target="_blank" rel="noopener noreferrer">
-              {item.name}<span class="ext-arrow" aria-hidden="true">↗</span><span class="sr-only">{l.externalBadgeSr}</span>
+          <li class="link-row">
+            <a class="link-name" href={item.url} target="_blank" rel="noopener noreferrer">
+              {l.names[item.key]}<span class="sr-only">{l.externalBadgeSr}</span>
             </a>
+            <p class="link-note">{l.notes[item.key]}</p>
             <span class="link-host">{host(item.url)}</span>
-            <p>{item.note}</p>
           </li>
         ))}
       </ul>
@@ -87,56 +112,84 @@ const host = (u: string) => {
 </div>
 
 <style>
-  .page-head { padding-block: 2.5rem 1rem; max-width: 68ch; }
+  .page-head { padding-block: 2.5rem 1.5rem; max-width: 64ch; }
   .page-lede { font-size: 1.05rem; margin-top: 0.5rem; }
 
-  .links-sections { padding-block: 2rem 5rem; display: grid; gap: 0; }
+  /* A quiet index: the group name sits in a narrow left rail and each link is
+     one ruled line. Nothing here competes for attention; the names do the
+     work, so they carry the only weight on the page. */
+  .link-index { padding-block: 0.5rem 5rem; }
 
-  .link-group { display: grid; grid-template-columns: 1fr; gap: 0.5rem; }
-  @media (min-width: 820px) {
-    .link-group { grid-template-columns: 12rem minmax(0, 1fr); gap: 0 2.5rem; align-items: start; }
+  .link-group {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+    padding-block: 1.25rem 1.5rem;
+    border-top: 1px solid var(--border-strong);
+    scroll-margin-top: calc(var(--header-h) + 16px);
   }
-  .link-group + .link-group { margin-top: 1rem; }
-
-  .group-mark {
-    display: flex;
-    gap: 0.7rem;
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.09em;
-    color: var(--ink-soft);
-    margin: 0;
-    padding-top: 1.6rem;
-  }
-  .group-num { color: var(--accent); font-weight: 700; }
-  @media (min-width: 820px) {
-    .group-mark { position: sticky; top: calc(var(--header-h) + 20px); }
+  @media (min-width: 900px) {
+    .link-group { grid-template-columns: 11rem minmax(0, 1fr); gap: 0 2.5rem; }
   }
 
-  .link-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
-  .link-list li {
-    border-top: 1px solid var(--border);
-    padding: 1.4rem 0 1.5rem;
+  .group-heading {
+    font-size: 1rem;
+    line-height: 1.35;
+    color: var(--ink);
+    margin: 0.55rem 0 0.25rem;
   }
-  .link-list a {
+
+  .link-list { list-style: none; margin: 0; padding: 0; }
+
+  /* Phone: name and host on one line, note under them.
+     Desktop: name, note and host across one line. */
+  .link-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "name host"
+      "note note";
+    column-gap: 1rem;
+    row-gap: 0.15rem;
+    padding-block: 0.6rem;
+  }
+  .link-row + .link-row { border-top: 1px solid var(--border); }
+  @media (min-width: 900px) {
+    .link-row {
+      grid-template-columns: 15rem minmax(0, 1fr) 10.5rem;
+      grid-template-areas: "name note host";
+      align-items: baseline;
+    }
+  }
+
+  .link-name {
+    grid-area: name;
     font-family: var(--font-display);
     font-weight: 600;
-    font-size: 1.05rem;
-    text-decoration: none;
+    font-size: 1rem;
+    line-height: 1.35;
     color: var(--ink);
+    text-decoration: none;
   }
-  .link-list a:hover { color: var(--secondary); text-decoration: underline; text-underline-offset: 3px; }
-  .ext-arrow { margin-left: 0.3em; color: var(--ink-faint); font-weight: 400; }
-  .link-list a:hover .ext-arrow { color: var(--secondary); }
+  .link-name:hover { color: var(--secondary); text-decoration: underline; text-underline-offset: 3px; }
 
-  .link-host {
-    display: block;
-    margin-top: 0.25rem;
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    color: var(--ink-faint);
-    letter-spacing: 0.02em;
+  .link-note {
+    grid-area: note;
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.45;
+    color: var(--ink-soft);
+    max-width: 64ch;
   }
-  .link-list p { margin: 0.55rem 0 0; font-size: 0.9rem; max-width: 56ch; color: var(--ink-soft); }
+
+  /* The host answers "where does this go?" before the click. Small body face,
+     right-aligned so the column reads as a margin note, not as data.
+     --ink-soft, not --ink-faint: faint is under 4.5:1 on the light theme. */
+  .link-host {
+    grid-area: host;
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+    text-align: right;
+    overflow-wrap: anywhere;
+  }
 </style>
