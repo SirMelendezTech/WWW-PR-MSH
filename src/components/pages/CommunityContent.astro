@@ -29,6 +29,7 @@ const channels = [
 
   <section class="block" id="chat" aria-labelledby="chat-h">
     <h2 id="chat-h">{c.talkHeading}</h2>
+    <div class="block-body">
     <p>{c.talkIntro}</p>
 
     <table class="channels" role="table">
@@ -58,10 +59,12 @@ const channels = [
     </table>
 
     <p id="operators">{c.siteBefore}<a href={p("/pr-mesh/")}>{c.siteLink}</a>{c.siteAfter}</p>
+    </div>
   </section>
 
   <section class="block" id="projects" aria-labelledby="projects-h">
     <h2 id="projects-h">{c.joinHeading}</h2>
+    <div class="block-body">
     <ul class="projects">
       <li class="project">
         <h3>
@@ -87,28 +90,36 @@ const channels = [
       </li>
     </ul>
     <p class="aside">{c.sisterBefore}<a href={MESHCORE_PR_URL} target="_blank" rel="noopener noreferrer">{c.sisterLink}<span class="sr-only">{newTab}</span></a>{c.sisterAfter}</p>
+    </div>
   </section>
 
   <section class="block" id="help" aria-labelledby="help-h">
     <h2 id="help-h">{c.helpHeading}</h2>
-
+    <div class="block-body help-grid">
+    <div class="help-item">
     <h3 id="field-testing">{c.fieldHeading}</h3>
     <p>{c.field1Before}<a href={p("/blog/")}>{c.field1Link}</a>{c.field1After}</p>
     <p>{c.field2Before}<a href="https://github.com/meshtastic/antenna-reports" target="_blank" rel="noopener noreferrer">{c.field2Link}<span class="sr-only">{newTab}</span></a>{c.field2After}</p>
-
+    </div>
+    <div class="help-item">
     <h3 id="emergency-comms">{c.emergencyHeading}</h3>
     <p>{c.emergencyBefore}<a href={blogPostHref(lang, hurricanePost)}>{c.emergencyLink}</a>{c.emergencyAfter}</p>
-
+    </div>
+    <div class="help-item">
     <h3 id="contribute">{c.contributeHeading}</h3>
     <ul class="plain-list">
       {c.contributeItems.map((item) => <li>{item}</li>)}
       <li>{c.gapsBefore}<a href={p("/pr-mesh/")}>{c.gapsLink}</a>{c.gapsAfter}</li>
     </ul>
+    </div>
+    </div>
   </section>
 
   <section class="block" id="events" aria-labelledby="events-h">
     <h2 id="events-h">{c.meetupsHeading}</h2>
+    <div class="block-body">
     <p>{c.meetupsBefore}<a href={DISCORD_INVITE_URL} target="_blank" rel="noopener noreferrer">{c.meetupsLink}<span class="sr-only">{newTab}</span></a>{c.meetupsAfter}</p>
+    </div>
   </section>
 </div>
 
@@ -117,16 +128,39 @@ const channels = [
   .page-head { padding-block: 2.5rem 1.75rem; max-width: 64ch; }
   .page-lede { font-size: 1.1rem; margin-top: 0.5rem; }
 
+  /* Same skeleton as the Links page: on desktop the section name sits in a
+     left rail and the content takes the rest of the row, so the table and
+     the project and help lists can spread out instead of leaving the right
+     half empty. Running text still stops at 64ch. */
   .block {
-    max-width: 64ch;
-    padding-top: 2.5rem;
+    padding-block: 2rem;
+    border-top: 1px solid var(--border-strong);
     scroll-margin-top: calc(var(--header-h) + 16px);
   }
-  .page-head + .block { padding-top: 0.75rem; }
-  .block h2 { margin: 0 0 0.6rem; }
-  .block h3 { font-size: 1.1rem; margin: 1.6rem 0 0.4rem; scroll-margin-top: calc(var(--header-h) + 16px); }
-  .block h2 + h3 { margin-top: 0.75rem; }
+  .page-head + .block { margin-top: 0.5rem; }
+  .block h2 { margin: 0 0 0.75rem; }
+  @media (min-width: 900px) {
+    .block {
+      display: grid;
+      grid-template-columns: 13rem minmax(0, 1fr);
+      gap: 0 2.5rem;
+      align-items: start;
+    }
+    .block h2 { font-size: 1.35rem; line-height: 1.3; margin: 0.1rem 0 0; }
+  }
+  .block-body > p { max-width: 64ch; margin: 0 0 0.85rem; }
+  .block-body > p:last-child { margin-bottom: 0; }
+  .block h3 { font-size: 1.05rem; margin: 0 0 0.4rem; scroll-margin-top: calc(var(--header-h) + 16px); }
   .block p { margin: 0 0 0.85rem; }
+
+  /* Help: three short, equal topics. Side by side once there is room for
+     each to hold a readable line; stacked before that. */
+  .help-grid { display: grid; gap: 1.5rem; }
+  @media (min-width: 1100px) {
+    .help-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2.25rem; }
+  }
+  .help-item p, .help-item li { font-size: 0.95rem; }
+  .help-item p:last-child { margin-bottom: 0; }
   .aside { font-size: 0.93rem; }
 
   /* Channel comparison: a real table, because the job is comparing. */
@@ -136,7 +170,7 @@ const channels = [
     display: table;
     width: 100%;
     min-width: 0;
-    margin: 1.1rem 0 1.25rem;
+    margin: 0.5rem 0 1.25rem;
     border: none;
     border-radius: 0;
     overflow: visible;
@@ -165,7 +199,7 @@ const channels = [
   .channels tbody tr:hover { background: none; }
   .ch-name { font-weight: 600; white-space: nowrap; }
   .ch-name a { font-family: var(--font-display); }
-  .ch-best { color: var(--ink-soft); width: 42%; }
+  .ch-best { color: var(--ink-soft); width: 46%; }
   .ch-meta { color: var(--ink-soft); }
 
   /* Narrow screens: each row becomes a short block. Name, then what it's for,
@@ -184,9 +218,15 @@ const channels = [
     .ch-best + .ch-meta { margin-top: 0.3rem; }
   }
 
-  .projects { list-style: none; margin: 0.9rem 0 1rem; padding: 0; }
+  .projects { list-style: none; margin: 0 0 1.25rem; padding: 0; }
   .project { padding-block: 0.85rem; }
+  .project:first-child { padding-top: 0; }
   .project + .project { border-top: 1px solid var(--border); }
+  @media (min-width: 1100px) {
+    .projects { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2.25rem; }
+    .project, .project:first-child { padding-block: 0; }
+    .project + .project { border-top: none; }
+  }
   .project h3 {
     display: flex;
     flex-wrap: wrap;
