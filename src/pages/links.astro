@@ -3,8 +3,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import LinksContent from "../components/pages/LinksContent.astro";
 import { useStrings } from "../lib/ui-strings";
 
-const l = useStrings("en").links;
+const l = useStrings("es").links;
 ---
-<BaseLayout title={l.title} description={l.description}>
-  <LinksContent lang="en" />
+<BaseLayout title={l.title} description={l.description} lang="es">
+  <LinksContent lang="es" />
 </BaseLayout>

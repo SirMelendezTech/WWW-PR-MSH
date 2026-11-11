@@ -84,10 +84,10 @@ Punto de partida sugerido de Puerto Rico para un nodo estacionario:
 | Telemetría de potencia (solo solar) | 1 hora |
 | Map report | 6 horas |
 
-La tabla completa, con los valores de nodo móvil al lado y el bloque de CLI para ambos, está en [Configuración Recomendada → Intervalos de Transmisión](/es/settings/#intervalos-de-transmisión). Trátala como un piso desde el cual coordinar hacia arriba, no como una meta hacia la cual correr hacia abajo — si quieres transmitir más seguido que esto en un canal compartido, habla primero con los operadores a tu alrededor.
+La tabla completa, con los valores de nodo móvil al lado y el bloque de CLI para ambos, está en [Configuración Recomendada → Intervalos de Transmisión](/settings/#intervalos-de-transmisión). Trátala como un piso desde el cual coordinar hacia arriba, no como una meta hacia la cual correr hacia abajo — si quieres transmitir más seguido que esto en un canal compartido, habla primero con los operadores a tu alrededor.
 
 ## Verifica tu trabajo
 
-Después de cambiar los intervalos, observa las métricas del dispositivo por un día. La utilización de canal en el canal primario debería quedar baja — unos pocos por ciento en un área normal. Si sigue alta con tu nodo callado, la carga viene de otro lado de la malla, y esa es una conversación para la [comunidad](/es/community/), no un cambio de ajustes de tu parte.
+Después de cambiar los intervalos, observa las métricas del dispositivo por un día. La utilización de canal en el canal primario debería quedar baja — unos pocos por ciento en un área normal. Si sigue alta con tu nodo callado, la carga viene de otro lado de la malla, y esa es una conversación para la [comunidad](/community/), no un cambio de ajustes de tu parte.
 
-Este es el mismo tema que [el problema del backbone de la malla de Puerto Rico](/es/blog/backbone-mesh-puerto-rico-es/): la red rara vez necesita *más* de un solo nodo. Necesita que cada nodo gaste el canal compartido de forma deliberada.
+Este es el mismo tema que [el problema del backbone de la malla de Puerto Rico](/blog/backbone-mesh-puerto-rico-es/): la red rara vez necesita *más* de un solo nodo. Necesita que cada nodo gaste el canal compartido de forma deliberada.

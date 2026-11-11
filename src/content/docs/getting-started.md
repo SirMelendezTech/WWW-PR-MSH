@@ -9,7 +9,7 @@ section: Documentation
 
 Meshtastic is open-source firmware that runs on small, inexpensive LoRa radios. Two or more devices running it can send text messages, share GPS position, and relay traffic for each other — no cell tower, no Wi-Fi, no monthly bill. Each radio is a **node**. When a message can't reach its destination directly, nearby nodes automatically **relay** it, hop by hop, until it arrives. That relaying is what makes it a *mesh*.
 
-Heard of **MeshCore**? It's a different LoRa protocol that can't talk to Meshtastic radios. The Puerto Rico mesh runs Meshtastic — see [Meshtastic vs MeshCore](/protocols/) for how they compare.
+Heard of **MeshCore**? It's a different LoRa protocol that can't talk to Meshtastic radios. The Puerto Rico mesh runs Meshtastic — see [Meshtastic vs MeshCore](/en/protocols/) for how they compare.
 
 In Puerto Rico, where hurricanes and grid failures have repeatedly knocked out cellular service for days or weeks at a time, that off-grid property is the whole point. A pocket radio that keeps talking to your family, your hiking group, or your barrio after the towers go dark is worth understanding before you need it.
 
@@ -17,7 +17,7 @@ In Puerto Rico, where hurricanes and grid failures have repeatedly knocked out c
 
 At minimum: **one Meshtastic-compatible LoRa radio** and **a phone or computer** to configure it and read messages. Two people talking to each other need two radios — Meshtastic is a network, not a walkie-talkie app that works alone.
 
-If you haven't bought hardware yet, read [Recommended Hardware](/hardware/) first — it breaks devices down by how you'll actually use them (backpack, home base, rooftop, solar) instead of listing specs.
+If you haven't bought hardware yet, read [Recommended Hardware](/en/hardware/) first — it breaks devices down by how you'll actually use them (backpack, home base, rooftop, solar) instead of listing specs.
 
 ## Installing the Meshtastic app
 
@@ -43,7 +43,7 @@ Most devices also connect over <strong>USB serial</strong> to the desktop/web cl
 
 Every radio must be set to the correct **LoRa region**, which determines the legal frequency band and duty cycle it operates under. This is not optional and not a matter of preference — it must match where the radio physically operates. In the app, open **Radio Configuration → LoRa** and choose your region from the list.
 
-See [Recommended Settings → Region and Frequency](/settings/#region-and-frequency) for what applies in Puerto Rico specifically.
+See [Recommended Settings → Region and Frequency](/en/settings/#region-and-frequency) for what applies in Puerto Rico specifically.
 
 <div class="callout">
 <span class="callout-label">Prefer the command line?</span>
@@ -52,13 +52,13 @@ Set the region from the CLI with <code>meshtastic --set lora.region US</code>.
 
 ## Choosing a node role
 
-New radios default to a general-purpose **Client** role, which is the right choice for almost everyone starting out. Roles like **Client Mute** and **Router** exist for specific placements and can hurt the network if misapplied — read [Recommended Settings → Node Roles](/settings/#node-roles) before changing this.
+New radios default to a general-purpose **Client** role, which is the right choice for almost everyone starting out. Roles like **Client Mute** and **Router** exist for specific placements and can hurt the network if misapplied — read [Recommended Settings → Node Roles](/en/settings/#node-roles) before changing this.
 
 ## Joining the Puerto Rico mesh
 
 Meshtastic nodes talk on **channels** — shared encryption keys and names that determine who can read your traffic. Out of the box, every device ships with a `LongFast` primary channel using default keys, which lets you talk to *any* nearby Meshtastic node worldwide using default settings. That's a fine starting point for testing range with a friend.
 
-To find and coordinate with other Puerto Rico operators, see [Puerto Rico Mesh](/pr-mesh/) and the [Community](/community/) page — node operators regularly share coverage info and, where they choose to, additional channel details there.
+To find and coordinate with other Puerto Rico operators, see [Puerto Rico Mesh](/en/pr-mesh/) and the [Community](/en/community/) page — node operators regularly share coverage info and, where they choose to, additional channel details there.
 
 ## Sending your first message
 
@@ -70,4 +70,4 @@ A channel bundles a **name**, a **pre-shared key**, and modem settings. Anyone w
 
 ## Understanding nodes and hops
 
-Every message carries a **hop limit** — the maximum number of times other nodes will relay it before giving up. Each relay is a **hop**. A message from your handheld to a friend three ridgelines away might take three or four hops through other people's nodes to arrive. This is why coverage depends on *participation*: the more well-placed nodes on the mesh, the farther messages travel. See [How Meshtastic Works](/how-it-works/) for the mechanics, and [Puerto Rico Mesh](/pr-mesh/) for where coverage currently stands.
+Every message carries a **hop limit** — the maximum number of times other nodes will relay it before giving up. Each relay is a **hop**. A message from your handheld to a friend three ridgelines away might take three or four hops through other people's nodes to arrive. This is why coverage depends on *participation*: the more well-placed nodes on the mesh, the farther messages travel. See [How Meshtastic Works](/en/how-it-works/) for the mechanics, and [Puerto Rico Mesh](/en/pr-mesh/) for where coverage currently stands.

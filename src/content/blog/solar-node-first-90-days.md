@@ -13,7 +13,7 @@ Ninety days ago we deployed a solar-powered node at a site with no mains power a
 
 ## What we built
 
-A weatherproofed enclosure housing the radio, a LiFePO4 battery pack, a small charge controller, and an external antenna on a short mast. Sized deliberately for Puerto Rico's rainy season rather than a best-case sunny day — see the reasoning in [Recommended Hardware → Solar Nodes](/hardware/#solar-nodes).
+A weatherproofed enclosure housing the radio, a LiFePO4 battery pack, a small charge controller, and an external antenna on a short mast. Sized deliberately for Puerto Rico's rainy season rather than a best-case sunny day — see the reasoning in [Recommended Hardware → Solar Nodes](/en/hardware/#solar-nodes).
 
 ## What went right
 
@@ -25,6 +25,6 @@ The first enclosure gasket wasn't rated for the humidity swings at the site, and
 
 ## Coverage impact
 
-Nearby Client nodes that previously needed two hops to reach the rest of the mesh now reach it in one, through this node. It isn't running as a Router — it's a plain Client with good elevation, which turned out to be enough. See [Recommended Settings → Node Roles](/settings/#node-roles) for why we made that call deliberately rather than defaulting to Router.
+Nearby Client nodes that previously needed two hops to reach the rest of the mesh now reach it in one, through this node. It isn't running as a Router — it's a plain Client with good elevation, which turned out to be enough. See [Recommended Settings → Node Roles](/en/settings/#node-roles) for why we made that call deliberately rather than defaulting to Router.
 
-If you're considering a similar deployment, [Community](/community/) is the place to compare notes with other operators before you commit to a site.
+If you're considering a similar deployment, [Community](/en/community/) is the place to compare notes with other operators before you commit to a site.

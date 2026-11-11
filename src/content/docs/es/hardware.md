@@ -31,7 +31,7 @@ Casi todas las placas de esta página están construidas alrededor de una de dos
 
 ## Nodos portátiles / de mano
 
-Para una mochila, guantera, clip de cinturón o bolsillo. Prioridades: duración de batería, tamaño y una pantalla que puedas leer al aire libre. Estos casi siempre corren como **Client** o **Client Mute** — consulta [Roles de Nodo](/es/settings/#roles-de-nodo).
+Para una mochila, guantera, clip de cinturón o bolsillo. Prioridades: duración de batería, tamaño y una pantalla que puedas leer al aire libre. Estos casi siempre corren como **Client** o **Client Mute** — consulta [Roles de Nodo](/settings/#roles-de-nodo).
 
 - **Punto de entrada económico**: placas como la Seeed Wio Tracker L1 (unos $30 — 800 mAh, GPS integrado, OLED pequeña) te ponen en la malla barato. La variante L1 Pro (unos $43) añade una pantalla más grande y carga solar.
 - **Mejor duración de batería**: placas que usan una celda 18650 estándar — la Heltec T114 es un ejemplo común (~$25–45 según la configuración) — pueden estirarse a cerca de una semana entre cargas, frente a 2–3 días para placas más pequeñas de batería fija.
@@ -74,12 +74,12 @@ Nodos interiores que corren con alimentación USB, usualmente colocados cerca de
 
 ## Nodos en techo / de gran elevación
 
-Instalaciones permanentes destinadas a extender la cobertura para la comunidad más amplia, no solo un hogar. Estos importan más en crestas y techos con línea de vista genuina hacia otros nodos o centros de población — consulta [Malla de Puerto Rico](/es/pr-mesh/) para dónde existen actualmente los huecos de cobertura.
+Instalaciones permanentes destinadas a extender la cobertura para la comunidad más amplia, no solo un hogar. Estos importan más en crestas y techos con línea de vista genuina hacia otros nodos o centros de población — consulta [Malla de Puerto Rico](/pr-mesh/) para dónde existen actualmente los huecos de cobertura.
 
 - **Opción económica**: una placa ESP32 enchufada (p. ej. clase Heltec LoRa32 V4, ~$25–30) con una antena externa cubre la mayoría de los despliegues en techo sin necesitar GPS — la posición del nodo se puede fijar manualmente ya que no se está moviendo.
 - **Opción de alta potencia**: existen placas potenciadas que corren un módulo LoRa de 1W (30 dBm) para terreno genuinamente difícil de cubrir, pero revisa las cuentas antes de recurrir a una — las reglas de EE. UU. topan la potencia radiada efectiva a 36 dBm, así que una radio de 1W emparejada con una antena de alta ganancia puede acercarse a ese techo rápido. Más potencia no es automáticamente mejor; también eleva tu propia huella de tiempo de aire para todos los cercanos.
 - Un gabinete a prueba de intemperie no es negociable — espera sol, aire salado y lluvia de temporada de huracanes.
-- Considera si este nodo debe correr como **Router** o **Router Late** — y lee primero la advertencia en [Configuración Recomendada](/es/settings/#roles-de-nodo). Un nodo en techo corrido como Client simple a menudo sigue siendo la mejor opción.
+- Considera si este nodo debe correr como **Router** o **Router Late** — y lee primero la advertencia en [Configuración Recomendada](/settings/#roles-de-nodo). Un nodo en techo corrido como Client simple a menudo sigue siendo la mejor opción.
 
 ## Nodos solares
 

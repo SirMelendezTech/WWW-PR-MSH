@@ -2,7 +2,7 @@
 
 Community site for the Puerto Rico [Meshtastic](https://meshtastic.org) mesh — documentation, hardware and settings guidance, a blog, and a live node map for the island's network. Lives at [meshtastic.prmsh.com](https://meshtastic.prmsh.com).
 
-Built with [Astro](https://astro.build): content collections for docs/blog, static output, a build-time fetch to [Malla PR](https://malla.prmsh.com/map) for live node positions. Fully bilingual — English and Spanish.
+Built with [Astro](https://astro.build): content collections for docs/blog, static output, a build-time fetch to [Malla PR](https://malla.prmsh.com/map) for live node positions. Fully bilingual — Spanish (default, at the root) and English (under `/en/`).
 
 ## Project structure
 
@@ -55,16 +55,16 @@ English is served unprefixed (`/hardware/`); Spanish is served under `/es/` (`/e
 
 No company runs this — it's built by whoever shows up. Ways to help, roughly easiest to hardest:
 
-- **Report a coverage gap or a stale fact.** Something on [Puerto Rico Mesh](https://meshtastic.prmsh.com/pr-mesh/) or [Recommended Hardware](https://meshtastic.prmsh.com/hardware/) wrong or out of date? Open an issue, or edit the relevant file in `src/content/docs/` and send a PR — it's plain Markdown.
-- **Write a field report.** Range tests, a solar node build, an antenna comparison — add a Markdown file to `src/content/blog/` following the frontmatter shape of an existing post (`title`, `description`, `pubDate`, `author`, `category`, `tags`, `readingTime`, and `lang` for Spanish). See [Community → Field Testing](https://meshtastic.prmsh.com/community/#field-testing) for what makes a report useful.
+- **Report a coverage gap or a stale fact.** Something on [Puerto Rico Mesh](https://meshtastic.prmsh.com/en/pr-mesh/) or [Recommended Hardware](https://meshtastic.prmsh.com/en/hardware/) wrong or out of date? Open an issue, or edit the relevant file in `src/content/docs/` and send a PR — it's plain Markdown.
+- **Write a field report.** Range tests, a solar node build, an antenna comparison — add a Markdown file to `src/content/blog/` following the frontmatter shape of an existing post (`title`, `description`, `pubDate`, `author`, `category`, `tags`, `readingTime`, and `lang` for Spanish). See [Community → Field Testing](https://meshtastic.prmsh.com/en/community/#field-testing) for what makes a report useful.
 - **Translate a page.** Add the Spanish doc under `src/content/docs/es/` with `lang: es`, or a Spanish blog post sharing the English post's `translationKey`. UI strings go in `src/lib/ui-strings.ts`.
-- **Fix or extend a docs page.** Everything under [Documentation](https://meshtastic.prmsh.com/getting-started/) lives in `src/content/docs/*.md` — content is separate from layout, so you don't need to touch an `.astro` file to edit copy.
+- **Fix or extend a docs page.** Everything under [Documentation](https://meshtastic.prmsh.com/en/getting-started/) lives in `src/content/docs/*.md` — content is separate from layout, so you don't need to touch an `.astro` file to edit copy.
 - **Improve the node map.** Live data comes from [Malla PR](https://malla.prmsh.com/map) via `src/lib/nodes.ts`, fetched at build time (that API has no CORS headers, so it can't run in the browser). Fixes to the mapping logic or fallback behavior are welcome.
 - **Ship a UI/design change.** Components live in `src/components/`, shared design tokens in `src/styles/tokens.css`. Keep dark and light mode both working, check mobile, and keep both languages rendering before opening a PR.
 
 Before sending a PR: run `npm run build` locally and make sure it completes clean. Keep pull requests scoped — one fix or one feature, not a grab bag.
 
-Not a coder? You can still help: run a node, document your setup, or point out something confusing by opening an issue. See [Community](https://meshtastic.prmsh.com/community/) for other ways in.
+Not a coder? You can still help: run a node, document your setup, or point out something confusing by opening an issue. See [Community](https://meshtastic.prmsh.com/en/community/) for other ways in.
 
 ## License
 

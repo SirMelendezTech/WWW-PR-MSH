@@ -4,7 +4,7 @@ import BlogLayout from "../../../layouts/BlogLayout.astro";
 import { getBlogPosts, relatedPosts, alternateLocaleHref } from "../../../lib/blog";
 
 export async function getStaticPaths() {
-  const posts = await getBlogPosts("es");
+  const posts = await getBlogPosts("en");
   return posts.map((post) => ({
     params: { slug: post.id },
     props: { post, allPosts: posts },
@@ -14,9 +14,9 @@ export async function getStaticPaths() {
 const { post, allPosts } = Astro.props;
 const { Content } = await render(post);
 const related = relatedPosts(post, allPosts);
-// null when this post has no English counterpart — the header falls back to the
-// English blog index, and no hreflang alternate is emitted.
-const altLocaleHref = await alternateLocaleHref(post, "en");
+// null when this post has no Spanish translation yet — the header falls back to
+// the Spanish blog index, and no hreflang alternate is emitted.
+const altLocaleHref = await alternateLocaleHref(post, "es");
 ---
 <BlogLayout
   title={post.data.title}
@@ -27,7 +27,7 @@ const altLocaleHref = await alternateLocaleHref(post, "en");
   category={post.data.category}
   tags={post.data.tags}
   related={related}
-  lang="es"
+  lang="en"
   altLocaleHref={altLocaleHref}
 >
   <Content />

@@ -3,8 +3,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import CommunityContent from "../components/pages/CommunityContent.astro";
 import { useStrings } from "../lib/ui-strings";
 
-const c = useStrings("en").community;
+const c = useStrings("es").community;
 ---
-<BaseLayout title={c.title} description={c.description}>
-  <CommunityContent lang="en" />
+<BaseLayout title={c.title} description={c.description} lang="es">
+  <CommunityContent lang="es" />
 </BaseLayout>

@@ -30,7 +30,7 @@ Almost every board on this page is built around one of two chip families, and it
 
 ## Portable / handheld nodes
 
-For a backpack, glovebox, belt clip, or pocket. Priorities: battery life, size, and a display you can read outdoors. These almost always run as **Client** or **Client Mute** — see [Node Roles](/settings/#node-roles).
+For a backpack, glovebox, belt clip, or pocket. Priorities: battery life, size, and a display you can read outdoors. These almost always run as **Client** or **Client Mute** — see [Node Roles](/en/settings/#node-roles).
 
 - **Budget entry point**: boards like the Seeed Wio Tracker L1 (around $30 — 800 mAh, built-in GPS, small OLED) get you on the mesh cheaply. The L1 Pro variant (about $43) adds a bigger screen and solar charging.
 - **Best battery life**: boards that take a standard 18650 cell — the Heltec T114 is a common example (~$25–45 depending on configuration) — can stretch to roughly a week between charges, versus 2–3 days for smaller fixed-battery boards.
@@ -73,12 +73,12 @@ Indoor nodes running off USB power, usually placed near a window for the best in
 
 ## Rooftop / high elevation nodes
 
-Permanent installations meant to extend coverage for the wider community, not just one household. These matter most on ridgelines and rooftops with genuine line of sight to other nodes or population centers — see [Puerto Rico Mesh](/pr-mesh/) for where coverage gaps currently exist.
+Permanent installations meant to extend coverage for the wider community, not just one household. These matter most on ridgelines and rooftops with genuine line of sight to other nodes or population centers — see [Puerto Rico Mesh](/en/pr-mesh/) for where coverage gaps currently exist.
 
 - **Budget option**: a plugged-in ESP32 board (e.g. Heltec LoRa32 V4 class, ~$25–30) with an external antenna covers most rooftop deployments without needing GPS — the node's position can be set manually since it isn't moving.
 - **High-power option**: boosted boards running a 1W (30 dBm) LoRa module exist for genuinely hard-to-cover terrain, but check the math before reaching for one — U.S. rules cap effective radiated power at 36 dBm, so a 1W radio paired with a high-gain antenna can get close to that ceiling fast. More power isn't automatically better; it raises your own airtime footprint for everyone nearby too.
 - Weatherproof enclosure is non-negotiable — expect sun, salt air, and hurricane-season rain.
-- Consider whether this node should run as **Router** or **Router Late** — and read the warning in [Recommended Settings](/settings/#node-roles) first. A rooftop node run as a plain Client is often still the better choice.
+- Consider whether this node should run as **Router** or **Router Late** — and read the warning in [Recommended Settings](/en/settings/#node-roles) first. A rooftop node run as a plain Client is often still the better choice.
 
 ## Solar nodes
 

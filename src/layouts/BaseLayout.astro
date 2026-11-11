@@ -3,7 +3,8 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import SearchDialog from "../components/SearchDialog.astro";
 import { useStrings } from "../lib/ui-strings";
-import { localizePath, type Locale } from "../lib/i18n";
+import { localizePath, defaultLocale, type Locale } from "../lib/i18n";
+import { DISCORD_INVITE_URL, FACEBOOK_GROUP_URL, REDDIT_PR_URL } from "../lib/community";
 import "../styles/global.css";
 
 interface Props {
@@ -19,8 +20,14 @@ interface Props {
    * - null: no counterpart exists (no hreflang alternate emitted)
    */
   altLocaleHref?: string | null;
+  /** "article" for blog posts; everything else is a "website" page. */
+  ogType?: "website" | "article";
+  /** Blog posts only: emitted as article:published_time. */
+  publishedTime?: Date;
+  /** Extra schema.org objects for this page, merged into the JSON-LD graph. */
+  jsonLd?: Record<string, unknown>[];
 }
-const { title, description, noIndex = false, lang = "en", image = "/og-default.png" } = Astro.props;
+const { title, description, noIndex = false, lang = "es", image = "/og-default.png", ogType = "website", publishedTime, jsonLd = [] } = Astro.props;
 const altLocaleHref = "altLocaleHref" in Astro.props ? Astro.props.altLocaleHref ?? null : undefined;
 const t = useStrings(lang);
 const siteTitle = title === t.home.title ? title : `${title} | PRMSH`;
@@ -37,6 +44,47 @@ const showAlternates = !noIndex && counterpartPath !== null;
 const enPath = lang === "en" ? selfPath : counterpartPath;
 const esPath = lang === "es" ? selfPath : counterpartPath;
 const absUrl = (p: string) => new URL(p, site).toString();
+// x-default is the Spanish (unprefixed) URL: Spanish is the site's default locale.
+const defaultPath = defaultLocale === "es" ? esPath : enPath;
+
+// schema.org graph. The Organization and WebSite nodes go on every page so
+// other nodes (articles, breadcrumbs) can reference them by @id.
+const orgId = absUrl("/#organization");
+const websiteId = absUrl("/#website");
+const graph = noIndex
+  ? []
+  : [
+      {
+        "@type": "Organization",
+        "@id": orgId,
+        name: "PRMSH",
+        alternateName: lang === "es" ? "Comunidad Meshtastic de Puerto Rico" : "Puerto Rico Meshtastic Community",
+        url: absUrl("/"),
+        logo: absUrl("/favicon.svg"),
+        areaServed: { "@type": "Place", name: "Puerto Rico" },
+        sameAs: [DISCORD_INVITE_URL, FACEBOOK_GROUP_URL, REDDIT_PR_URL],
+      },
+      {
+        "@type": "WebSite",
+        "@id": websiteId,
+        name: "PRMSH",
+        url: absUrl("/"),
+        inLanguage: ["es-PR", "en-US"],
+        publisher: { "@id": orgId },
+      },
+      {
+        "@type": "WebPage",
+        "@id": `${canonical}#webpage`,
+        url: canonical,
+        name: siteTitle,
+        description,
+        inLanguage: lang === "es" ? "es-PR" : "en-US",
+        isPartOf: { "@id": websiteId },
+      },
+      ...jsonLd,
+    ];
+// Escape "<" so no string value can close the <script> element early.
+const jsonLdText = JSON.stringify({ "@context": "https://schema.org", "@graph": graph }).replace(/</g, "\\u003c");
 ---
 <!doctype html>
 <html lang={lang}>
@@ -52,11 +100,12 @@ const absUrl = (p: string) => new URL(p, site).toString();
     <>
       <link rel="alternate" hreflang="en" href={absUrl(enPath as string)} />
       <link rel="alternate" hreflang="es" href={absUrl(esPath as string)} />
-      <link rel="alternate" hreflang="x-default" href={absUrl(enPath as string)} />
+      <link rel="alternate" hreflang="x-default" href={absUrl(defaultPath as string)} />
     </>
   )}
 
-  <meta property="og:type" content="website" />
+  <meta property="og:type" content={ogType} />
+  {publishedTime && <meta property="article:published_time" content={publishedTime.toISOString()} />}
   <meta property="og:title" content={siteTitle} />
   <meta property="og:description" content={description} />
   <meta property="og:site_name" content="PRMSH" />
@@ -70,6 +119,7 @@ const absUrl = (p: string) => new URL(p, site).toString();
   <meta name="twitter:title" content={siteTitle} />
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={ogImage} />
+  {graph.length > 0 && <script type="application/ld+json" set:html={jsonLdText} />}
 
   {/* Ackee: self-hosted, cookieless page-view analytics. Production builds
        only, so `astro dev` never counts as a visit. `detailed` also records
@@ -101,23 +151,6 @@ const absUrl = (p: string) => new URL(p, site).toString();
     })();
   </script>
 
-  <script is:inline>
-    // Send Spanish-preferring browsers to the /es/ version on first visit.
-    // Skipped once the visitor makes an explicit language choice (meshpr-lang),
-    // and never runs on pages that are already under /es/.
-    (function () {
-      try {
-        var p = location.pathname;
-        if (p === "/es" || p.indexOf("/es/") === 0) return;
-        if (localStorage.getItem("meshpr-lang")) return;
-        var primary = (navigator.languages && navigator.languages[0]) || navigator.language || "";
-        if (String(primary).toLowerCase().indexOf("es") !== 0) return;
-        // Blog post slugs are not mirrored across locales — fall back to the index.
-        var target = /^\/blog\/.+/.test(p) ? "/es/blog/" : "/es" + (p === "/" ? "/" : p);
-        location.replace(target + location.search + location.hash);
-      } catch (e) {}
-    })();
-  </script>
 </head>
 <body
   data-i18n-copy={t.copyButton.copy}

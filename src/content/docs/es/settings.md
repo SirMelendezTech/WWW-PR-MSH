@@ -26,7 +26,7 @@ Puerto Rico cae bajo la asignación de frecuencia de Estados Unidos para la band
 
 No adivines una región ni copies una de la comunidad de otro país. Un ajuste de región incorrecto puede transmitir fuera de los límites legales y no se comunicará de forma confiable con los nodos locales configurados correctamente.
 
-La región no es lo único que fija tu frecuencia. El **nombre del canal primario** se hashea a un slot de frecuencia, así que renombrarlo, reordenar canales o importar un QR de canal puede mover un nodo fuera de la frecuencia regional sin avisar — consulta [El canal que moviste no era un canal — era tu frecuencia](/es/blog/orden-canales-slot-frecuencia-es/) para saber cómo pasa eso y cuándo fijar `lora.channel_num` a propósito.
+La región no es lo único que fija tu frecuencia. El **nombre del canal primario** se hashea a un slot de frecuencia, así que renombrarlo, reordenar canales o importar un QR de canal puede mover un nodo fuera de la frecuencia regional sin avisar — consulta [El canal que moviste no era un canal — era tu frecuencia](/blog/orden-canales-slot-frecuencia-es/) para saber cómo pasa eso y cuándo fijar `lora.channel_num` a propósito.
 
 ## Roles de Nodo
 
@@ -55,13 +55,13 @@ Un rol Router o Router Late cambia cómo un nodo participa en la temporización 
 
 <span class="badge badge--proposed">Propuesto</span> — los nodos móviles/de mano por defecto a Client Mute; los nodos caseros por defecto a Client; un nodo en techo que retransmite principalmente para tu propio equipo debe correr Client Base con tus nodos interiores como favoritos, no Router Late; Router/Router Late reservado para sitios en techo o cresta confirmados de que extienden cobertura, acordados con otros operadores locales primero.
 
-Para el razonamiento completo detrás de Client Base vs. Router Late — incluyendo por qué un techo configurado como Router Late usualmente añade congestión en lugar de cobertura — consulta [La red mesh de Puerto Rico no tiene backbone](/es/blog/backbone-mesh-puerto-rico-es/).
+Para el razonamiento completo detrás de Client Base vs. Router Late — incluyendo por qué un techo configurado como Router Late usualmente añade congestión en lugar de cobertura — consulta [La red mesh de Puerto Rico no tiene backbone](/blog/backbone-mesh-puerto-rico-es/).
 
-Si un sitio sí califica como infraestructura, la próxima pregunta es cuál de los tres roles de infraestructura debe correr — `ROUTER` interrumpe a sus vecinos, `ROUTER_LATE` nunca lo hace, y `REPEATER` es invisible para la lista de nodos, el mapa y el traceroute. Consulta [Router, Router Late o Repeater](/es/blog/router-vs-router-late-vs-repeater-es/).
+Si un sitio sí califica como infraestructura, la próxima pregunta es cuál de los tres roles de infraestructura debe correr — `ROUTER` interrumpe a sus vecinos, `ROUTER_LATE` nunca lo hace, y `REPEATER` es invisible para la lista de nodos, el mapa y el traceroute. Consulta [Router, Router Late o Repeater](/blog/router-vs-router-late-vs-repeater-es/).
 
 ## Máximo de Saltos
 
-Un nodo no puede transmitir y recibir al mismo tiempo — cada salto que toma un mensaje es tiempo de aire que todos los demás nodos tienen que esperar. El límite de saltos topa cuántas veces se puede retransmitir un mensaje antes de que la malla se rinda con él (consulta [Saltos](/es/how-it-works/#saltos)). Más alto no es más seguro; solo significa que un paquete perdido o en bucle quema más tiempo de aire compartido antes de que se descarte.
+Un nodo no puede transmitir y recibir al mismo tiempo — cada salto que toma un mensaje es tiempo de aire que todos los demás nodos tienen que esperar. El límite de saltos topa cuántas veces se puede retransmitir un mensaje antes de que la malla se rinda con él (consulta [Saltos](/how-it-works/#saltos)). Más alto no es más seguro; solo significa que un paquete perdido o en bucle quema más tiempo de aire compartido antes de que se descarte.
 
 <div class="table-wrap table-wrap--fit">
 
@@ -97,7 +97,7 @@ Marcar un Router como favorito **no** convierte un nodo Client Base en algo que 
 
 Con qué frecuencia un nodo anuncia su posición y telemetría intercambia directamente **frescura** por **tiempo de aire** — cada transmisión es tiempo de aire que todos los demás nodos tienen que esperar. La base de abajo usa transmisión de posición inteligente para los nodos móviles (envía al moverse, no solo por temporizador) e intervalos largos y magros para cualquier cosa estacionaria.
 
-Para entender por qué un nodo fijo de techo con los temporizadores por defecto degrada el alcance de todos, y cómo alargar cada intervalo hasta la base, consulta [Tu nodo estacionario habla demasiado](/es/blog/intervalos-transmision-airtime-es/).
+Para entender por qué un nodo fijo de techo con los temporizadores por defecto degrada el alcance de todos, y cómo alargar cada intervalo hasta la base, consulta [Tu nodo estacionario habla demasiado](/blog/intervalos-transmision-airtime-es/).
 
 <div class="table-wrap table-wrap--fit">
 
@@ -158,7 +158,7 @@ Position Flags y Fixed Position están en la pantalla Position. En un nodo fijo,
 
 ## Neighbor Info
 
-Neighbor Info permite que un nodo reporte qué otros nodos puede escuchar directamente, junto con la calidad de señal — esto es lo que convierte la malla de una caja negra en algo que de verdad puedes visualizar y depurar. Activarlo en nodos estacionarios y en techo ayuda a construir una imagen real de la cobertura de Puerto Rico con el tiempo (consulta [Malla de Puerto Rico](/es/pr-mesh/)).
+Neighbor Info permite que un nodo reporte qué otros nodos puede escuchar directamente, junto con la calidad de señal — esto es lo que convierte la malla de una caja negra en algo que de verdad puedes visualizar y depurar. Activarlo en nodos estacionarios y en techo ayuda a construir una imagen real de la cobertura de Puerto Rico con el tiempo (consulta [Malla de Puerto Rico](/pr-mesh/)).
 
 Requiere la app/firmware de Meshtastic 2.2.0 o más nuevo. Activa tanto el módulo como "Transmit Over LoRa".
 
@@ -188,7 +188,7 @@ MQTT es una forma de puentear el tráfico de la malla hacia internet — un nodo
 
 Si sí puenteas un nodo a MQTT, los ajustes importan más allá de las credenciales del broker en sí.
 
-Para un recorrido paso a paso de toda la cadena — root topic, OK to MQTT, solo-uplink, y los ajustes de posición que deciden si apareces — consulta [Cómo poner tu nodo en el mapa de la malla de Puerto Rico](/es/blog/puente-mqtt-mapa-pr-es/).
+Para un recorrido paso a paso de toda la cadena — root topic, OK to MQTT, solo-uplink, y los ajustes de posición que deciden si apareces — consulta [Cómo poner tu nodo en el mapa de la malla de Puerto Rico](/blog/puente-mqtt-mapa-pr-es/).
 
 ### Configuración del puente
 
@@ -215,7 +215,7 @@ El downlink canaliza el tráfico MQTT del lado de internet de vuelta a la malla 
 
 <div class="callout callout--warning">
 <span class="callout-label">Aquí no se publican credenciales</span>
-Este sitio no publica direcciones de servidores MQTT, nombres de usuario, contraseñas ni claves de canales privados. Si quieres tu nodo puenteado a un servidor de monitoreo comunitario, coordina directamente con el operador de ese servidor — consulta <a href="/es/links/">Enlaces y Recursos</a> y <a href="/es/community/">Comunidad</a>.
+Este sitio no publica direcciones de servidores MQTT, nombres de usuario, contraseñas ni claves de canales privados. Si quieres tu nodo puenteado a un servidor de monitoreo comunitario, coordina directamente con el operador de ese servidor — consulta <a href="/links/">Enlaces y Recursos</a> y <a href="/community/">Comunidad</a>.
 </div>
 
 Si corres tu propio puente MQTT, trata las credenciales igual que cualquier otro inicio de sesión de servidor: no las reutilices, y no las subas a un repo público ni a una exportación de configuración.

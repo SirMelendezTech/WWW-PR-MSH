@@ -11,10 +11,10 @@ interface Props {
   description: string;
   headings: Heading[];
   lang?: Locale;
-  /** true when this page is showing English content under an /es/ URL because no translation exists yet */
+  /** true when this page is showing English content under a Spanish URL because no translation exists yet */
   untranslated?: boolean;
 }
-const { title, description, headings, lang = "en", untranslated = false } = Astro.props;
+const { title, description, headings, lang = "es", untranslated = false } = Astro.props;
 const t = useStrings(lang);
 
 const docsNavBase = [
@@ -30,6 +30,18 @@ const docsNav = docsNavBase.map((item) => ({
   href: localizePath(item.href, lang),
 }));
 const path = Astro.url.pathname;
+const site = Astro.site ?? new URL("https://meshtastic.prmsh.com");
+const pageUrl = new URL(path, site).toString();
+const articleLd = {
+  "@type": "TechArticle",
+  "@id": `${pageUrl}#article`,
+  headline: title,
+  description,
+  inLanguage: (untranslated ? "en" : lang) === "es" ? "es-PR" : "en-US",
+  about: { "@type": "Thing", name: "Meshtastic" },
+  publisher: { "@id": new URL("/#organization", site).toString() },
+  mainEntityOfPage: { "@id": `${pageUrl}#webpage` },
+};
 const toc = headings.filter((h) => h.depth === 2);
 
 // The six docs pages are a reading order, not a menu. Find where this page
@@ -39,7 +51,7 @@ const prev = currentIndex > 0 ? docsNav[currentIndex - 1] : null;
 const next =
   currentIndex >= 0 && currentIndex < docsNav.length - 1 ? docsNav[currentIndex + 1] : null;
 ---
-<BaseLayout title={title} description={description} lang={lang}>
+<BaseLayout title={title} description={description} lang={lang} jsonLd={[articleLd]}>
   <div class="container docs-shell">
     <aside class="docs-sidebar">
       <p class="docs-sidebar-label">{t.docs.readingOrder}</p>

@@ -3,7 +3,7 @@ import type { Locale } from "../lib/i18n";
 import { useStrings } from "../lib/ui-strings";
 
 interface Props { lang?: Locale }
-const { lang = "en" } = Astro.props;
+const { lang = "es" } = Astro.props;
 const t = useStrings(lang).search;
 ---
 <dialog

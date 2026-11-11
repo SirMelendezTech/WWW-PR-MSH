@@ -12,7 +12,7 @@ Cuatro cosas determinan si un área dada tiene cobertura utilizable:
 
 - **Ubicación del nodo** — una radio en un valle cubre un valle; una radio en una cresta puede cubrir varios valles.
 - **Terreno** — la Cordillera Central de Puerto Rico bloquea la línea de vista igual que bloquea el clima. La elevación es la palanca más grande sobre el alcance.
-- **Hardware y antena** — consulta [Hardware Recomendado](/es/hardware/); una buena antena en alto le gana a una radio potente en una ventana.
+- **Hardware y antena** — consulta [Hardware Recomendado](/hardware/); una buena antena en alto le gana a una radio potente en una ventana.
 - **Participación** — cada nodo Client adicional amplía el *alcance* de la malla, incluso sin retransmitir, simplemente dándole a otros nodos algo por donde saltar.
 
 Si estás decidiendo dónde poner un nodo, prioriza la elevación y la línea de vista genuina hacia centros de población por encima de la conveniencia. Un nodo en un techo mirando hacia una pared de edificios vecinos hace menos por la malla que una antena modesta con vista despejada hacia un valle.
@@ -32,15 +32,15 @@ Si estás decidiendo dónde poner un nodo, prioriza la elevación y la línea de
 
 <div class="callout">
 <span class="callout-label">¿Tienes un nodo activo, o planeas uno?</span>
-La información de cobertura aquí refleja lo que ha compartido la comunidad. Consulta el <a href="/es/map/">Mapa de Nodos</a> para posiciones en vivo donde los operadores han optado por participar, y la página de <a href="/es/community/">Comunidad</a> para coordinar con otros operadores antes de elegir un sitio.
+La información de cobertura aquí refleja lo que ha compartido la comunidad. Consulta el <a href="/map/">Mapa de Nodos</a> para posiciones en vivo donde los operadores han optado por participar, y la página de <a href="/community/">Comunidad</a> para coordinar con otros operadores antes de elegir un sitio.
 </div>
 
 ## Mapa de cobertura en vivo
 
 <div class="map-placeholder">
   <p><strong>Mapa de cobertura en vivo</strong></p>
-  <p>La página dedicada del <a href="/es/map/">Mapa de Nodos</a> muestra las posiciones actuales de los nodos, obtenidas del PRMSH Network Dashboard en cada compilación del sitio.</p>
-  <a href="/es/map/" class="btn btn-secondary">Abrir el Mapa de Nodos →</a>
+  <p>La página dedicada del <a href="/map/">Mapa de Nodos</a> muestra las posiciones actuales de los nodos, obtenidas del PRMSH Network Dashboard en cada compilación del sitio.</p>
+  <a href="/map/" class="btn btn-secondary">Abrir el Mapa de Nodos →</a>
 </div>
 
 <style>

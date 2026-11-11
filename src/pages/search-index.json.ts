@@ -2,6 +2,7 @@ import type { APIRoute } from "astro";
 import { getCollection } from "astro:content";
 import { useStrings } from "../lib/ui-strings";
 import { blogPostHref } from "../lib/blog";
+import { localizePath } from "../lib/i18n";
 
 export const prerender = true;
 
@@ -32,7 +33,7 @@ export const GET: APIRoute = async () => {
     ...enDocs.map((d) => ({
       title: d.data.title,
       section: en.docs.sidebarLabel,
-      url: docRoutes[d.id] ?? "/",
+      url: localizePath(docRoutes[d.id] ?? "/", "en"),
       excerpt: d.data.description,
       lang: "en" as const,
     })),
@@ -43,14 +44,14 @@ export const GET: APIRoute = async () => {
       excerpt: p.data.description,
       lang: "en" as const,
     })),
-    { title: en.community.title, section: "Site", url: "/community/", excerpt: en.community.description, lang: "en" },
-    { title: en.map.title, section: "Site", url: "/map/", excerpt: en.map.description, lang: "en" },
-    { title: en.links.title, section: "Site", url: "/links/", excerpt: en.links.description, lang: "en" },
+    { title: en.community.title, section: "Site", url: "/en/community/", excerpt: en.community.description, lang: "en" },
+    { title: en.map.title, section: "Site", url: "/en/map/", excerpt: en.map.description, lang: "en" },
+    { title: en.links.title, section: "Site", url: "/en/links/", excerpt: en.links.description, lang: "en" },
 
     ...esDocs.map((d) => ({
       title: d.data.title,
       section: es.docs.sidebarLabel,
-      url: docRoutes[d.id.replace(/^es\//, "")] ? `/es${docRoutes[d.id.replace(/^es\//, "")]}` : "/es/",
+      url: docRoutes[d.id.replace(/^es\//, "")] ?? "/",
       excerpt: d.data.description,
       lang: "es" as const,
     })),
@@ -61,9 +62,9 @@ export const GET: APIRoute = async () => {
       excerpt: p.data.description,
       lang: "es" as const,
     })),
-    { title: es.community.title, section: "Sitio", url: "/es/community/", excerpt: es.community.description, lang: "es" },
-    { title: es.map.title, section: "Sitio", url: "/es/map/", excerpt: es.map.description, lang: "es" },
-    { title: es.links.title, section: "Sitio", url: "/es/links/", excerpt: es.links.description, lang: "es" },
+    { title: es.community.title, section: "Sitio", url: "/community/", excerpt: es.community.description, lang: "es" },
+    { title: es.map.title, section: "Sitio", url: "/map/", excerpt: es.map.description, lang: "es" },
+    { title: es.links.title, section: "Sitio", url: "/links/", excerpt: es.links.description, lang: "es" },
   ];
 
   return new Response(JSON.stringify(entries), {

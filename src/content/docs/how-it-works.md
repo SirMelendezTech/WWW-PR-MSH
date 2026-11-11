@@ -55,13 +55,13 @@ Meshtastic reports **RSSI** (Received Signal Strength Indicator) for every node 
 
 ## GPS
 
-Devices with GPS can broadcast their position, which is what makes coverage maps and Neighbor Info visualizations possible (see [Puerto Rico Mesh](/pr-mesh/)). Position broadcasting is configurable and optional — a node doesn't need GPS, or need to share its position, to send and receive messages.
+Devices with GPS can broadcast their position, which is what makes coverage maps and Neighbor Info visualizations possible (see [Puerto Rico Mesh](/en/pr-mesh/)). Position broadcasting is configurable and optional — a node doesn't need GPS, or need to share its position, to send and receive messages.
 
 ## Channels
 
 A **channel** is a named, pre-shared encryption key that determines who can read a given set of messages. There's a detail here that surprises people: the channel *name* isn't just a label — it's hashed to pick which LoRa frequency slot the radio actually transmits on within your region's band. Two nodes with the same channel name and key aren't just able to read each other's messages, they're on the same frequency in the first place.
 
-Every device ships with a default public channel so strangers can test connectivity with each other; anything you actually want private needs its own channel with a key you generate and share only with people you trust. See [Understanding channels](/getting-started/#understanding-channels) for the practical setup.
+Every device ships with a default public channel so strangers can test connectivity with each other; anything you actually want private needs its own channel with a key you generate and share only with people you trust. See [Understanding channels](/en/getting-started/#understanding-channels) for the practical setup.
 
 ## Encryption
 
@@ -71,11 +71,11 @@ Meshtastic channels are encrypted with AES — 128-bit for a standard key, 256-b
 
 **MQTT** is an optional bridge from the radio mesh to the internet: a node with internet access can publish what it hears to an MQTT server, powering things like public coverage maps. It is entirely separate from the mesh itself — LoRa keeps working with zero internet involved.
 
-Position data shared this way is typically rounded to a coarser precision than the node's actual GPS fix before it's published — the same precision setting that governs what shows up on the [Node Map](/map/). MQTT can also get overloaded: the public default server carries a lot of traffic on the shared default channel, and a node uplinking to it can end up struggling to keep up. See [Recommended Settings → MQTT](/settings/#mqtt) for how Puerto Rico operators use it, and what we deliberately don't publish here.
+Position data shared this way is typically rounded to a coarser precision than the node's actual GPS fix before it's published — the same precision setting that governs what shows up on the [Node Map](/en/map/). MQTT can also get overloaded: the public default server carries a lot of traffic on the shared default channel, and a node uplinking to it can end up struggling to keep up. See [Recommended Settings → MQTT](/en/settings/#mqtt) for how Puerto Rico operators use it, and what we deliberately don't publish here.
 
 ## Store and forward
 
-**Store and forward** lets a capable node cache messages and replay them to devices that were briefly out of range or asleep when the message first went out — useful for nodes that sleep to save battery, or for catching a handheld up after it reconnects. It only works on boards with a chunk of extra onboard memory (PSRAM) to hold the message queue — the ESP32-based boards mentioned in [Recommended Hardware](/hardware/) qualify, most simpler nRF52840 handhelds don't. A board with default settings can typically hold on the order of several thousand recent messages before the oldest ones age out.
+**Store and forward** lets a capable node cache messages and replay them to devices that were briefly out of range or asleep when the message first went out — useful for nodes that sleep to save battery, or for catching a handheld up after it reconnects. It only works on boards with a chunk of extra onboard memory (PSRAM) to hold the message queue — the ESP32-based boards mentioned in [Recommended Hardware](/en/hardware/) qualify, most simpler nRF52840 handhelds don't. A board with default settings can typically hold on the order of several thousand recent messages before the oldest ones age out.
 
 ## MeshCore
 

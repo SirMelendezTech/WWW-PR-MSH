@@ -20,8 +20,8 @@ Over 48 hours, the rooftop node logged direct contact (zero hops) with 9 distinc
 
 ## The takeaway
 
-If you're choosing between a stronger antenna and a better vantage point, take the vantage point. This lines up with what [Recommended Hardware → Antennas](/hardware/#antennas) already recommends: mounting height changes range more reliably than almost any other single factor. A $15 antenna up high will usually beat a $60 antenna behind glass.
+If you're choosing between a stronger antenna and a better vantage point, take the vantage point. This lines up with what [Recommended Hardware → Antennas](/en/hardware/#antennas) already recommends: mounting height changes range more reliably than almost any other single factor. A $15 antenna up high will usually beat a $60 antenna behind glass.
 
-For the physical-layer reasoning behind this result — the FCC power ceiling, path-loss exponents, and Fresnel-zone clearance — see [Height vs. Power: Why You Can't Buy More Range](/blog/height-vs-power-en/).
+For the physical-layer reasoning behind this result — the FCC power ceiling, path-loss exponents, and Fresnel-zone clearance — see [Height vs. Power: Why You Can't Buy More Range](/en/blog/height-vs-power-en/).
 
-If you're mapping out where Puerto Rico still needs coverage, see [Puerto Rico Mesh](/pr-mesh/) — line-of-sight gaps, not raw radio count, are usually the limiting factor.
+If you're mapping out where Puerto Rico still needs coverage, see [Puerto Rico Mesh](/en/pr-mesh/) — line-of-sight gaps, not raw radio count, are usually the limiting factor.
