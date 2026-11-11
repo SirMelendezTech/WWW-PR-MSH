@@ -11,7 +11,7 @@ readingTime: 11 min
 
 # Router, Router Late, or Repeater: picking a role for a real infrastructure site
 
-Most role questions on this island are answered by "run `CLIENT`." I've [made that argument at length](/blog/client-base-rooftop-nodes/): a rooftop in a populated neighborhood is not infrastructure, and setting it to `ROUTER_LATE` because it's high up makes the mesh worse.
+Most role questions on this island are answered by "run `CLIENT`." I've [made that argument at length](/en/blog/client-base-rooftop-nodes/): a rooftop in a populated neighborhood is not infrastructure, and setting it to `ROUTER_LATE` because it's high up makes the mesh worse.
 
 This post is for the other case — the one where you cleared that bar. A tower with an open sea path. A ridge site that a whole valley depends on. Something permanent, elevated, and genuinely bridging coverage nobody else can reach.
 
@@ -67,10 +67,10 @@ There's a real argument for this. A pure relay that never originates traffic spe
 
 But think about what you give up on an island where the mesh is still being mapped:
 
-- **It won't appear on the [Node Map](/map/).** No position broadcast means nothing to place. Your site contributes coverage that no one planning the next node can see.
+- **It won't appear on the [Node Map](/en/map/).** No position broadcast means nothing to place. Your site contributes coverage that no one planning the next node can see.
 - **Traceroute shows it as "Unknown"** if it isn't in the querying node's list — so when somebody debugs a path through your site, they get a mystery hop.
-- **You can't check on it remotely.** No telemetry means no channel utilization, no battery voltage, no way to know it's healthy short of driving there. For a solar site on a ridge, that's a real operational cost — see [the power budget post](/blog/power-budget-solar-node-en/) for what you'd be flying blind on.
-- **Nobody can tell it's yours.** In a mesh whose actual problem is [operators not talking to each other](/blog/client-base-rooftop-nodes/), an anonymous node that preempts its neighbors is not a great contribution to the conversation.
+- **You can't check on it remotely.** No telemetry means no channel utilization, no battery voltage, no way to know it's healthy short of driving there. For a solar site on a ridge, that's a real operational cost — see [the power budget post](/en/blog/power-budget-solar-node-en/) for what you'd be flying blind on.
+- **Nobody can tell it's yours.** In a mesh whose actual problem is [operators not talking to each other](/en/blog/client-base-rooftop-nodes/), an anonymous node that preempts its neighbors is not a great contribution to the conversation.
 
 There's also a mechanical detail worth knowing: `rebroadcast_mode` is a separate setting from role, and most of its values work on any role. Only **`ALL_SKIP_DECODING`** — rebroadcast without even decoding the packet — is restricted to `REPEATER`. If what you actually wanted was to filter *what* gets relayed (`LOCAL_ONLY` to ignore foreign meshes, `KNOWN_ONLY` to relay only for nodes in your NodeDB, `CORE_PORTNUMS_ONLY` to drop TAK and range-test traffic), you can set that on a `ROUTER` and keep your visibility. You do not have to go invisible to get selective.
 
@@ -82,7 +82,7 @@ For Puerto Rico specifically, my read:
 
 **Use `ROUTER_LATE`** if the site is the only path for a pocket of nodes but isn't a wide-area hub. You guarantee the link without silencing anybody. This is also the safer choice when you're not certain your coverage beats your neighbors' — it fails gracefully, because worst case you're a `CLIENT` that spends extra airtime.
 
-**Think hard before `REPEATER`.** The airtime it saves is real but small; the visibility it costs is large while we're still building the map. If the channel is congested enough that a router's own telemetry is the problem, the better first move is [stretching that node's broadcast intervals](/blog/broadcast-intervals-airtime-en/) — you keep the node visible and get most of the saving. Reserve `REPEATER` for a site where you've measured the congestion, you've already lengthened the intervals, and you're deliberately accepting that the node disappears from everyone's view.
+**Think hard before `REPEATER`.** The airtime it saves is real but small; the visibility it costs is large while we're still building the map. If the channel is congested enough that a router's own telemetry is the problem, the better first move is [stretching that node's broadcast intervals](/en/blog/broadcast-intervals-airtime-en/) — you keep the node visible and get most of the saving. Reserve `REPEATER` for a site where you've measured the congestion, you've already lengthened the intervals, and you're deliberately accepting that the node disappears from everyone's view.
 
 And one deprecation to note: **`ROUTER_CLIENT` was removed in firmware 2.3.15.** If you're reading an older guide that recommends it, that guide predates roughly three years of routing changes — treat the rest of its advice with the same suspicion.
 
@@ -116,6 +116,6 @@ The roles are tools for a network that has a backbone. Choosing between them tho
 - [Demystifying ROUTER_LATE](https://meshtastic.org/blog/demystifying-router-late/) — Meshtastic blog: the defer-instead-of-cancel behavior and the "identical to a CLIENT at that location" comparison
 - [Choosing The Right Device Role](https://meshtastic.org/blog/choosing-the-right-device-role/) — Meshtastic blog: `REPEATER` turning off broadcasted traffic
 - [Mesh Broadcast Algorithm](https://meshtastic.org/docs/overview/mesh-algo/) — Meshtastic docs: contention windows and managed flooding
-- Previous post: *[Puerto Rico's Mesh Has No Backbone](/blog/client-base-rooftop-nodes/)*
+- Previous post: *[Puerto Rico's Mesh Has No Backbone](/en/blog/client-base-rooftop-nodes/)*
 
 *73 de WP4TZV*

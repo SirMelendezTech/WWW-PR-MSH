@@ -58,7 +58,7 @@ The two protocols use different packet formats, encryption, LoRa sync words, and
 - A node that hears a packet waits briefly and listens before rebroadcasting. Nodes with weaker signal — usually farther away — get to relay first, which pushes the message outward.
 - The **hop limit** (default 3, max 7) stops a message from spreading forever.
 - Since 2.6, direct messages learn a **next-hop** route after a reply, and fall back to flooding if that neighbor goes quiet.
-- Roles set relay behavior: `CLIENT` relays when needed, `CLIENT_MUTE` never relays, `ROUTER` and `ROUTER_LATE` always rebroadcast. See [Recommended Settings](/settings/#node-roles) for which role fits Puerto Rico nodes.
+- Roles set relay behavior: `CLIENT` relays when needed, `CLIENT_MUTE` never relays, `ROUTER` and `ROUTER_LATE` always rebroadcast. See [Recommended Settings](/en/settings/#node-roles) for which role fits Puerto Rico nodes.
 - In 2.8, background broadcasts lower their own hop limit once channel utilization reaches about 20%. Chat keeps the full limit.
 
 ### MeshCore: repeaters and learned paths
@@ -77,7 +77,7 @@ Neither, by protocol alone. Range per hop comes from radio settings, transmit po
 - MeshCore's narrower preset uses less airtime per message and sits in a smaller slice of noisy spectrum.
 - Some MeshCore regions run SF8 or SF9, which narrows the gap.
 
-The number and placement of relays matter more than the preset — which in Puerto Rico's terrain means elevation. See [Why Elevation Beats Wattage](/blog/why-elevation-beats-wattage/).
+The number and placement of relays matter more than the preset — which in Puerto Rico's terrain means elevation. See [Why Elevation Beats Wattage](/en/blog/why-elevation-beats-wattage/).
 
 ## Encryption and privacy
 
@@ -88,7 +88,7 @@ In both systems, **anyone on the mesh can read the default public channel**. Use
 
 ## Apps and hardware
 
-- **Same boards:** Heltec V3 and V4, RAK WisBlock, LilyGo T-Beam, T-Echo, T-Deck, and Seeed T1000-E run either firmware. See [Recommended Hardware](/hardware/).
+- **Same boards:** Heltec V3 and V4, RAK WisBlock, LilyGo T-Beam, T-Echo, T-Deck, and Seeed T1000-E run either firmware. See [Recommended Hardware](/en/hardware/).
 - **Meshtastic apps:** free and open source for Android, iPhone, and web. They connect over Bluetooth, Wi-Fi, or USB.
 - **MeshCore app:** the official app is free on Android, iPhone, desktop, and web, but closed source. The firmware is open, and community clients exist. Standalone devices like the T-Deck run MeshCore without a phone.
 
@@ -126,7 +126,7 @@ Yes, by reflashing. Set region and preset again afterward — nothing carries ov
 It depends on the network. MeshCore suits planned, repeater-based networks, especially dense cities where airtime runs short. Meshtastic suits groups with no fixed infrastructure. In practice, run whatever your local mesh runs.
 
 **Should I use MeshCore in Puerto Rico?**
-To reach the PRMSH mesh, no — it runs Meshtastic, and a MeshCore radio won't see it. Start with [Getting Started](/getting-started/). If MeshCore fits you better, join the sister network, [MeshCore Puerto Rico](https://meshcore.prmsh.com/).
+To reach the PRMSH mesh, no — it runs Meshtastic, and a MeshCore radio won't see it. Start with [Getting Started](/en/getting-started/). If MeshCore fits you better, join the sister network, [MeshCore Puerto Rico](https://meshcore.prmsh.com/).
 
 **Is MeshCore free?**
 Yes. The firmware is MIT-licensed and the app is free, with an optional purchase for phone-based repeater management without the wait timer.

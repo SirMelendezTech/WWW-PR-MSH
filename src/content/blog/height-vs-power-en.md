@@ -173,6 +173,6 @@ When someone asks why their node isn't reaching, the first question isn't how ma
 * [47 CFR § 15.247](https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-15/subpart-C/subject-group-ECFR2f2e5828339709e/section-15.247) — power limits, reduction for gain above 6 dBi, and point-to-point exceptions (which do not include 902–928 MHz)
 * Previous post: *Puerto Rico's Mesh Network Has No Backbone*
 * Previous post: *Nodes Out of Time*
-* Field report: [Why elevation beats wattage every time](/blog/why-elevation-beats-wattage/) — the same conclusion, measured across two neighborhood rooftop nodes
+* Field report: [Why elevation beats wattage every time](/en/blog/why-elevation-beats-wattage/) — the same conclusion, measured across two neighborhood rooftop nodes
 
 *73 de WP4TZV*

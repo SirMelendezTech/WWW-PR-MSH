@@ -25,7 +25,7 @@ Puerto Rico falls under United States frequency allocation for the unlicensed IS
 
 Do not guess a region or copy one from another country's community. An incorrect region setting can transmit outside legal limits and won't reliably talk to correctly-configured local nodes.
 
-Region isn't the only thing that sets your frequency. The **primary channel's name** hashes to a frequency slot, so renaming it, reordering channels, or importing a channel QR can silently move a node off the regional frequency — see [The Channel You Moved Wasn't a Channel — It Was Your Frequency](/blog/channel-order-frequency-slot-en/) for how that happens and when to pin `lora.channel_num` on purpose.
+Region isn't the only thing that sets your frequency. The **primary channel's name** hashes to a frequency slot, so renaming it, reordering channels, or importing a channel QR can silently move a node off the regional frequency — see [The Channel You Moved Wasn't a Channel — It Was Your Frequency](/en/blog/channel-order-frequency-slot-en/) for how that happens and when to pin `lora.channel_num` on purpose.
 
 ## Node Roles
 
@@ -54,13 +54,13 @@ A Router or Router Late role changes how a node participates in mesh timing and 
 
 <span class="badge badge--proposed">Proposed</span> — mobile/handheld nodes default to Client Mute; home nodes default to Client; a rooftop node relaying mainly for your own gear should run Client Base with your indoor nodes favorited, not Router Late; Router/Router Late reserved for rooftop or ridge sites confirmed to extend coverage, agreed on with other local operators first.
 
-For the full reasoning behind Client Base vs. Router Late — including why a rooftop set to Router Late usually adds congestion instead of coverage — see [Puerto Rico's Mesh Has No Backbone](/blog/client-base-rooftop-nodes/).
+For the full reasoning behind Client Base vs. Router Late — including why a rooftop set to Router Late usually adds congestion instead of coverage — see [Puerto Rico's Mesh Has No Backbone](/en/blog/client-base-rooftop-nodes/).
 
-If a site genuinely does qualify as infrastructure, the next question is which of the three infrastructure roles it should run — `ROUTER` preempts its neighbors, `ROUTER_LATE` never does, and `REPEATER` is invisible to the nodes list, the map, and traceroute. See [Router, Router Late, or Repeater](/blog/router-vs-router-late-vs-repeater-en/).
+If a site genuinely does qualify as infrastructure, the next question is which of the three infrastructure roles it should run — `ROUTER` preempts its neighbors, `ROUTER_LATE` never does, and `REPEATER` is invisible to the nodes list, the map, and traceroute. See [Router, Router Late, or Repeater](/en/blog/router-vs-router-late-vs-repeater-en/).
 
 ## Max Hops
 
-A node can't transmit and receive at the same time — every hop a message takes is airtime every other node has to wait through. The hop limit caps how many times a message can be relayed before the mesh gives up on it (see [Hops](/how-it-works/#hops)). Higher isn't safer; it just means a lost or looping packet burns more shared airtime before it's dropped.
+A node can't transmit and receive at the same time — every hop a message takes is airtime every other node has to wait through. The hop limit caps how many times a message can be relayed before the mesh gives up on it (see [Hops](/en/how-it-works/#hops)). Higher isn't safer; it just means a lost or looping packet burns more shared airtime before it's dropped.
 
 <div class="table-wrap table-wrap--fit">
 
@@ -96,7 +96,7 @@ Favoriting a Router does **not** turn a Client Base node into something that rep
 
 How often a node announces its position and telemetry directly trades off **freshness** against **airtime** — every broadcast is airtime every other node has to wait through. The baseline below uses smart-position broadcasting for mobile nodes (send on movement, not just on a timer) and long, lean intervals for anything stationary.
 
-For why a fixed rooftop node on default timers quietly degrades everyone's range, and how to walk each interval out to the baseline, see [Your Stationary Node Is Talking Too Much](/blog/broadcast-intervals-airtime-en/).
+For why a fixed rooftop node on default timers quietly degrades everyone's range, and how to walk each interval out to the baseline, see [Your Stationary Node Is Talking Too Much](/en/blog/broadcast-intervals-airtime-en/).
 
 <div class="table-wrap table-wrap--fit">
 
@@ -157,7 +157,7 @@ Position Flags and Fixed Position are on the Position screen. On a fixed node, a
 
 ## Neighbor Info
 
-Neighbor Info lets a node report which other nodes it can directly hear, along with signal quality — this is what turns the mesh from a black box into something you can actually visualize and debug. Enabling it on stationary and rooftop nodes helps build a real picture of Puerto Rico coverage over time (see [Puerto Rico Mesh](/pr-mesh/)).
+Neighbor Info lets a node report which other nodes it can directly hear, along with signal quality — this is what turns the mesh from a black box into something you can actually visualize and debug. Enabling it on stationary and rooftop nodes helps build a real picture of Puerto Rico coverage over time (see [Puerto Rico Mesh](/en/pr-mesh/)).
 
 Requires Meshtastic app/firmware 2.2.0 or newer. Enable both the module and "Transmit Over LoRa".
 
@@ -187,7 +187,7 @@ MQTT is a way to bridge mesh traffic to the internet — a node with an internet
 
 If you do bridge a node to MQTT, settings matter beyond the broker credentials themselves.
 
-For a step-by-step walkthrough of the whole chain — root topic, OK to MQTT, uplink-only, and the position settings that decide whether you show up at all — see [Getting Your Node Onto the Puerto Rico Mesh Map](/blog/mqtt-bridge-pr-map-en/).
+For a step-by-step walkthrough of the whole chain — root topic, OK to MQTT, uplink-only, and the position settings that decide whether you show up at all — see [Getting Your Node Onto the Puerto Rico Mesh Map](/en/blog/mqtt-bridge-pr-map-en/).
 
 ### Bridge setup
 
@@ -214,7 +214,7 @@ Downlink pipes internet-side MQTT traffic back onto the radio mesh. Left on, it 
 
 <div class="callout callout--warning">
 <span class="callout-label">No credentials published here</span>
-This site does not publish MQTT server addresses, usernames, passwords, or private channel keys. If you want your node bridged to a community monitoring server, coordinate directly with the operator of that server — see <a href="/links/">Links &amp; Resources</a> and <a href="/community/">Community</a>.
+This site does not publish MQTT server addresses, usernames, passwords, or private channel keys. If you want your node bridged to a community monitoring server, coordinate directly with the operator of that server — see <a href="/en/links/">Links &amp; Resources</a> and <a href="/en/community/">Community</a>.
 </div>
 
 If you run your own MQTT bridge, treat the credentials the same as any other server login: don't reuse them, and don't commit them to a public repo or config export.

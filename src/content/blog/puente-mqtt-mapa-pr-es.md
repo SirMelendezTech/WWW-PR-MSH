@@ -12,9 +12,9 @@ lang: es
 
 # Cómo poner tu nodo en el mapa de la malla de Puerto Rico
 
-El [Mapa de Nodos](/es/map/) se construye con lo que los nodos publican a MQTT bajo el tema de Puerto Rico. Si tu nodo no está ahí, no es un error del mapa — significa que tu nodo no está puenteando a MQTT, no publica bajo el tema que el mapa lee, o no envía posición. Los tres se arreglan en unos minutos.
+El [Mapa de Nodos](/map/) se construye con lo que los nodos publican a MQTT bajo el tema de Puerto Rico. Si tu nodo no está ahí, no es un error del mapa — significa que tu nodo no está puenteando a MQTT, no publica bajo el tema que el mapa lee, o no envía posición. Los tres se arreglan en unos minutos.
 
-Este post recorre toda la cadena. Nada de esto cambia cómo tu nodo habla por LoRa — MQTT es un canal lateral hacia internet, y la malla de radio sigue funcionando durante apagones sin importar MQTT. Consulta [Configuración Recomendada → MQTT](/es/settings/#mqtt) para la tabla de referencia que esto amplía.
+Este post recorre toda la cadena. Nada de esto cambia cómo tu nodo habla por LoRa — MQTT es un canal lateral hacia internet, y la malla de radio sigue funcionando durante apagones sin importar MQTT. Consulta [Configuración Recomendada → MQTT](/settings/#mqtt) para la tabla de referencia que esto amplía.
 
 ## Qué requiere realmente "estar en el mapa"
 
@@ -65,7 +65,7 @@ El canal índice 0 es tu primario. Activa uplink solo en canales que de verdad q
 
 ### Deja el downlink desactivado
 
-El downlink canaliza el tráfico MQTT del lado de internet de vuelta a la malla de radio. En un canal compartido eso significa que cada paquete de cada nodo puenteado en cualquier lado compite por airtime local que nunca necesitó gastarse. Solo-uplink es el valor por defecto correcto para un nodo puente de Puerto Rico — estás aportando visibilidad, no importando carga. Es el mismo razonamiento detrás de mantener [los intervalos de transmisión largos en nodos estacionarios](/es/blog/intervalos-transmision-airtime-es/).
+El downlink canaliza el tráfico MQTT del lado de internet de vuelta a la malla de radio. En un canal compartido eso significa que cada paquete de cada nodo puenteado en cualquier lado compite por airtime local que nunca necesitó gastarse. Solo-uplink es el valor por defecto correcto para un nodo puente de Puerto Rico — estás aportando visibilidad, no importando carga. Es el mismo razonamiento detrás de mantener [los intervalos de transmisión largos en nodos estacionarios](/blog/intervalos-transmision-airtime-es/).
 
 ## Aún necesitas enviar una posición
 
@@ -100,4 +100,4 @@ Si corres tu propio broker en lugar del servidor público, trata esas credencial
 
 ---
 
-Una vez que estás en el mapa, también eres parte del panorama de cobertura que la comunidad usa para planear dónde deben ir los próximos nodos — consulta [Malla de Puerto Rico](/es/pr-mesh/).
+Una vez que estás en el mapa, también eres parte del panorama de cobertura que la comunidad usa para planear dónde deben ir los próximos nodos — consulta [Malla de Puerto Rico](/pr-mesh/).

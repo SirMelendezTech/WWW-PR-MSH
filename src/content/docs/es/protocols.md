@@ -59,7 +59,7 @@ Los dos protocolos usan formatos de paquete, cifrado, palabras de sincronizació
 - Un nodo que escucha un paquete espera un momento y escucha antes de retransmitirlo. Los nodos con señal más débil — normalmente los más lejanos — retransmiten primero, lo que empuja el mensaje hacia afuera.
 - El **límite de saltos** (por defecto 3, máximo 7) evita que un mensaje se propague para siempre.
 - Desde 2.6, los mensajes directos aprenden una ruta **next-hop** después de una respuesta, y vuelven a inundar si ese vecino deja de responder.
-- Los roles fijan cómo retransmite el nodo: `CLIENT` retransmite cuando hace falta, `CLIENT_MUTE` nunca retransmite, `ROUTER` y `ROUTER_LATE` siempre retransmiten. Consulta [Configuración Recomendada](/es/settings/#roles-de-nodo) para ver qué rol le toca a cada nodo en Puerto Rico.
+- Los roles fijan cómo retransmite el nodo: `CLIENT` retransmite cuando hace falta, `CLIENT_MUTE` nunca retransmite, `ROUTER` y `ROUTER_LATE` siempre retransmiten. Consulta [Configuración Recomendada](/settings/#roles-de-nodo) para ver qué rol le toca a cada nodo en Puerto Rico.
 - En 2.8, los broadcasts de fondo bajan su propio límite de saltos cuando la utilización del canal llega a cerca de 20%. El chat mantiene el límite completo.
 
 ### MeshCore: repetidores y rutas aprendidas
@@ -78,7 +78,7 @@ Ninguno, solo por el protocolo. El alcance por salto depende de la configuració
 - El preset más estrecho de MeshCore usa menos tiempo de aire por mensaje y ocupa una franja más pequeña de espectro ruidoso.
 - Algunas regiones corren MeshCore en SF8 o SF9, lo que reduce la diferencia.
 
-La cantidad y ubicación de los nodos que retransmiten importa más que el preset — y en el terreno de Puerto Rico eso significa altura. Consulta [Altura vs. potencia](/es/blog/altura-vs-potencia-es/).
+La cantidad y ubicación de los nodos que retransmiten importa más que el preset — y en el terreno de Puerto Rico eso significa altura. Consulta [Altura vs. potencia](/blog/altura-vs-potencia-es/).
 
 ## Cifrado y privacidad
 
@@ -89,7 +89,7 @@ En ambos sistemas, **cualquiera en la malla puede leer el canal público por def
 
 ## Apps y hardware
 
-- **Las mismas placas:** Heltec V3 y V4, RAK WisBlock, LilyGo T-Beam, T-Echo, T-Deck y Seeed T1000-E corren cualquiera de los dos firmwares. Consulta [Hardware Recomendado](/es/hardware/).
+- **Las mismas placas:** Heltec V3 y V4, RAK WisBlock, LilyGo T-Beam, T-Echo, T-Deck y Seeed T1000-E corren cualquiera de los dos firmwares. Consulta [Hardware Recomendado](/hardware/).
 - **Apps de Meshtastic:** gratis y de código abierto para Android, iPhone y web. Se conectan por Bluetooth, Wi-Fi o USB.
 - **App de MeshCore:** la app oficial es gratis en Android, iPhone, escritorio y web, pero de código cerrado. El firmware es abierto, y existen clientes de la comunidad. Equipos autónomos como el T-Deck corren MeshCore sin teléfono.
 
@@ -127,7 +127,7 @@ Sí, regrabando el firmware. Configura la región y el preset de nuevo después 
 Depende de la red. MeshCore conviene a redes planificadas con repetidores, sobre todo en ciudades densas donde el tiempo de aire escasea. Meshtastic conviene a grupos sin infraestructura fija. En la práctica, usa lo que use tu malla local.
 
 **¿Debo usar MeshCore en Puerto Rico?**
-Para llegar a la malla de PRMSH, no — usa Meshtastic, y una radio MeshCore no la verá. Empieza por [Primeros Pasos](/es/getting-started/). Si MeshCore te conviene más, únete a la red hermana, [MeshCore Puerto Rico](https://meshcore.prmsh.com/).
+Para llegar a la malla de PRMSH, no — usa Meshtastic, y una radio MeshCore no la verá. Empieza por [Primeros Pasos](/getting-started/). Si MeshCore te conviene más, únete a la red hermana, [MeshCore Puerto Rico](https://meshcore.prmsh.com/).
 
 **¿MeshCore es gratis?**
 Sí. El firmware tiene licencia MIT y la app es gratis, con una compra opcional para gestionar repetidores desde el teléfono sin el temporizador.

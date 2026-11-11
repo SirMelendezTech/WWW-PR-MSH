@@ -11,7 +11,7 @@ Four things determine whether a given area has usable coverage:
 
 - **Node placement** — a radio in a valley covers a valley; a radio on a ridge can cover several valleys.
 - **Terrain** — Puerto Rico's Cordillera Central blocks line of sight the same way it blocks weather. Elevation is the single biggest lever on range.
-- **Hardware and antenna** — see [Recommended Hardware](/hardware/); a good antenna up high beats a strong radio in a window.
+- **Hardware and antenna** — see [Recommended Hardware](/en/hardware/); a good antenna up high beats a strong radio in a window.
 - **Participation** — every additional Client node extends the *reach* of the mesh, even without relaying, simply by giving other nodes something to hop through.
 
 If you're deciding where to put a node, prioritize elevation and genuine line of sight to population centers over convenience. A rooftop node facing a wall of neighboring buildings does less for the mesh than a modest antenna with a clear view down a valley.
@@ -31,15 +31,15 @@ If you're deciding where to put a node, prioritize elevation and genuine line of
 
 <div class="callout">
 <span class="callout-label">Have a node up, or planning one?</span>
-Coverage information here reflects what's been shared by the community. See the <a href="/map/">Node Map</a> for live positions where operators have opted in, and the <a href="/community/">Community</a> page to connect with other operators before choosing a site.
+Coverage information here reflects what's been shared by the community. See the <a href="/en/map/">Node Map</a> for live positions where operators have opted in, and the <a href="/en/community/">Community</a> page to connect with other operators before choosing a site.
 </div>
 
 ## Live coverage map
 
 <div class="map-placeholder">
   <p><strong>Live coverage map</strong></p>
-  <p>The dedicated <a href="/map/">Node Map</a> page shows current node positions, pulled from the PRMSH Network Dashboard at each site build.</p>
-  <a href="/map/" class="btn btn-secondary">Open the Node Map →</a>
+  <p>The dedicated <a href="/en/map/">Node Map</a> page shows current node positions, pulled from the PRMSH Network Dashboard at each site build.</p>
+  <a href="/en/map/" class="btn btn-secondary">Open the Node Map →</a>
 </div>
 
 <style>

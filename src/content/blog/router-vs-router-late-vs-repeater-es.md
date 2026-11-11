@@ -12,7 +12,7 @@ lang: es
 
 # Router, Router Late o Repeater: escoger el rol para un sitio de infraestructura real
 
-Casi todas las preguntas de rol en esta isla se contestan con "corre `CLIENT`". Ya [hice ese argumento largo](/es/blog/backbone-mesh-puerto-rico-es/): un techo en un vecindario poblado no es infraestructura, y ponerlo en `ROUTER_LATE` porque está alto empeora la malla.
+Casi todas las preguntas de rol en esta isla se contestan con "corre `CLIENT`". Ya [hice ese argumento largo](/blog/backbone-mesh-puerto-rico-es/): un techo en un vecindario poblado no es infraestructura, y ponerlo en `ROUTER_LATE` porque está alto empeora la malla.
 
 Este post es para el otro caso — ese donde sí pasaste la barra. Una torre con vista despejada al mar. Un sitio en una cresta del que depende un valle entero. Algo permanente, elevado, y que de verdad puentea cobertura que nadie más alcanza.
 
@@ -68,10 +68,10 @@ Hay un argumento real para esto. Un relé puro que nunca origina tráfico no gas
 
 Pero piensa en lo que entregas a cambio en una isla donde la malla todavía se está mapeando:
 
-- **No aparecerá en el [Mapa de Nodos](/es/map/).** Sin transmisión de posición no hay nada que colocar. Tu sitio aporta cobertura que nadie que planifique el próximo nodo puede ver.
+- **No aparecerá en el [Mapa de Nodos](/map/).** Sin transmisión de posición no hay nada que colocar. Tu sitio aporta cobertura que nadie que planifique el próximo nodo puede ver.
 - **El traceroute lo muestra como "Unknown"** si no está en la lista del nodo que consulta — así que cuando alguien depure una ruta por tu sitio, obtiene un salto misterioso.
-- **No puedes revisarlo remotamente.** Sin telemetría no hay utilización de canal, no hay voltaje de batería, no hay forma de saber que está sano salvo manejar hasta allá. Para un sitio solar en una cresta, ese es un costo operativo real — consulta [el post de presupuesto de energía](/es/blog/presupuesto-energia-nodo-solar-es/) para ver a ciegas de qué estarías volando.
-- **Nadie puede saber que es tuyo.** En una malla cuyo problema real es [que los operadores no se hablan](/es/blog/backbone-mesh-puerto-rico-es/), un nodo anónimo que interrumpe a sus vecinos no es una gran aportación a la conversación.
+- **No puedes revisarlo remotamente.** Sin telemetría no hay utilización de canal, no hay voltaje de batería, no hay forma de saber que está sano salvo manejar hasta allá. Para un sitio solar en una cresta, ese es un costo operativo real — consulta [el post de presupuesto de energía](/blog/presupuesto-energia-nodo-solar-es/) para ver a ciegas de qué estarías volando.
+- **Nadie puede saber que es tuyo.** En una malla cuyo problema real es [que los operadores no se hablan](/blog/backbone-mesh-puerto-rico-es/), un nodo anónimo que interrumpe a sus vecinos no es una gran aportación a la conversación.
 
 También hay un detalle mecánico que vale saber: `rebroadcast_mode` es un ajuste aparte del rol, y la mayoría de sus valores funcionan en cualquier rol. Solo **`ALL_SKIP_DECODING`** — retransmitir sin siquiera decodificar el paquete — está restringido a `REPEATER`. Si lo que de verdad querías era filtrar *qué* se retransmite (`LOCAL_ONLY` para ignorar mallas ajenas, `KNOWN_ONLY` para retransmitir solo a nodos en tu NodeDB, `CORE_PORTNUMS_ONLY` para descartar tráfico TAK y de range-test), puedes ponerlo en un `ROUTER` y conservar tu visibilidad. No tienes que volverte invisible para ser selectivo.
 
@@ -83,7 +83,7 @@ Para Puerto Rico específicamente, mi lectura:
 
 **Usa `ROUTER_LATE`** si el sitio es el único camino para un bolsillo de nodos pero no es un concentrador de área amplia. Garantizas el enlace sin callar a nadie. También es la opción más segura cuando no estás seguro de que tu cobertura le gane a la de tus vecinos — falla con gracia, porque en el peor caso eres un `CLIENT` que gasta tiempo al aire de más.
 
-**Piensa bien antes de `REPEATER`.** El tiempo al aire que ahorra es real pero pequeño; la visibilidad que cuesta es grande mientras seguimos construyendo el mapa. Si el canal está tan congestionado que la telemetría propia de un router es el problema, la mejor primera jugada es [alargar los intervalos de transmisión de ese nodo](/es/blog/intervalos-transmision-airtime-es/) — mantienes el nodo visible y obtienes casi todo el ahorro. Reserva `REPEATER` para un sitio donde ya mediste la congestión, ya alargaste los intervalos, y aceptas deliberadamente que el nodo desaparezca de la vista de todos.
+**Piensa bien antes de `REPEATER`.** El tiempo al aire que ahorra es real pero pequeño; la visibilidad que cuesta es grande mientras seguimos construyendo el mapa. Si el canal está tan congestionado que la telemetría propia de un router es el problema, la mejor primera jugada es [alargar los intervalos de transmisión de ese nodo](/blog/intervalos-transmision-airtime-es/) — mantienes el nodo visible y obtienes casi todo el ahorro. Reserva `REPEATER` para un sitio donde ya mediste la congestión, ya alargaste los intervalos, y aceptas deliberadamente que el nodo desaparezca de la vista de todos.
 
 Y una deprecación que anotar: **`ROUTER_CLIENT` se eliminó en el firmware 2.3.15.** Si estás leyendo una guía vieja que lo recomienda, esa guía es anterior a como tres años de cambios de enrutamiento — trata el resto de sus consejos con la misma sospecha.
 
@@ -117,6 +117,6 @@ Los roles son herramientas para una red que tiene backbone. Escoger entre ellos 
 - [Demystifying ROUTER_LATE](https://meshtastic.org/blog/demystifying-router-late/) — blog de Meshtastic: el comportamiento de diferir en vez de cancelar y la comparación "idéntico a un CLIENT en esa ubicación"
 - [Choosing The Right Device Role](https://meshtastic.org/blog/choosing-the-right-device-role/) — blog de Meshtastic: `REPEATER` apagando el tráfico transmitido
 - [Mesh Broadcast Algorithm](https://meshtastic.org/docs/overview/mesh-algo/) — documentación de Meshtastic: ventanas de contención y flooding administrado
-- Post anterior: *[La red mesh de Puerto Rico no tiene backbone](/es/blog/backbone-mesh-puerto-rico-es/)*
+- Post anterior: *[La red mesh de Puerto Rico no tiene backbone](/blog/backbone-mesh-puerto-rico-es/)*
 
 *73 de WP4TZV*

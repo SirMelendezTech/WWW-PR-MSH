@@ -14,7 +14,7 @@ Cell networks in Puerto Rico have gone down for days to weeks after major storms
 ## Before the season starts
 
 - **Charge and test every device you own.** A radio that's been in a drawer since last year needs a firmware check and a full charge cycle before you trust it.
-- **Confirm your region and channel settings** haven't drifted — see [Getting Started → Configuring your region](/getting-started/#configuring-your-region).
+- **Confirm your region and channel settings** haven't drifted — see [Getting Started → Configuring your region](/en/getting-started/#configuring-your-region).
 - **Write down (on paper) the node names and channel details** you'd want family members to use. Don't rely on a phone that might be dead when you need this.
 - **Identify a backup power plan** for your home node — even a small power bank buys days of runtime for a low-power radio.
 
@@ -26,7 +26,7 @@ Cell networks in Puerto Rico have gone down for days to weeks after major storms
 
 ## After the storm
 
-- **Report what worked and what didn't.** Coverage gaps found the hard way during a real event are exactly the information that improves [Puerto Rico Mesh](/pr-mesh/) planning for next time.
-- **Consider a more permanent installation** if a temporary setup proved its worth — see [Recommended Hardware → Rooftop / High Elevation Nodes](/hardware/#rooftop-high-elevation-nodes).
+- **Report what worked and what didn't.** Coverage gaps found the hard way during a real event are exactly the information that improves [Puerto Rico Mesh](/en/pr-mesh/) planning for next time.
+- **Consider a more permanent installation** if a temporary setup proved its worth — see [Recommended Hardware → Rooftop / High Elevation Nodes](/en/hardware/#rooftop--high-elevation-nodes).
 
 This is community guidance, not an emergency management plan. Follow official guidance from Puerto Rico's emergency management agencies for anything safety-critical — Meshtastic is a communication tool, not a substitute for it.

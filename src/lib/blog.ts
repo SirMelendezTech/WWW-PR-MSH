@@ -1,5 +1,5 @@
 import { getCollection, type CollectionEntry } from "astro:content";
-import type { Locale } from "./i18n";
+import { localizePath, type Locale } from "./i18n";
 
 export type BlogPost = CollectionEntry<"blog">;
 
@@ -20,7 +20,7 @@ export function relatedPosts(post: BlogPost, all: BlogPost[], limit = 3) {
 
 /** URL for a post id in the given locale. */
 export function blogPostHref(lang: Locale, id: string): string {
-  return lang === "es" ? `/es/blog/${id}/` : `/blog/${id}/`;
+  return localizePath(`/blog/${id}/`, lang);
 }
 
 /**

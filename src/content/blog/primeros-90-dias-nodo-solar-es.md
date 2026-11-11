@@ -14,7 +14,7 @@ Hace noventa días desplegamos un nodo alimentado por energía solar en un sitio
 
 ## Lo que construimos
 
-Una caja impermeabilizada que alberga la radio, un paquete de baterías LiFePO4, un pequeño controlador de carga y una antena externa montada en un mástil corto. El sistema fue dimensionado deliberadamente para la temporada de lluvias de Puerto Rico, en lugar de basarnos en un día soleado en las mejores condiciones. Consulta [Hardware recomendado → Nodos solares](/hardware/#solar-nodes) para conocer el razonamiento.
+Una caja impermeabilizada que alberga la radio, un paquete de baterías LiFePO4, un pequeño controlador de carga y una antena externa montada en un mástil corto. El sistema fue dimensionado deliberadamente para la temporada de lluvias de Puerto Rico, en lugar de basarnos en un día soleado en las mejores condiciones. Consulta [Hardware recomendado → Nodos solares](/hardware/#nodos-solares) para conocer el razonamiento.
 
 ## Lo que salió bien
 
@@ -26,6 +26,6 @@ La primera junta de la caja no estaba clasificada para soportar las variaciones 
 
 ## Impacto en la cobertura
 
-Los nodos Client cercanos que antes necesitaban dos saltos para llegar al resto de la malla ahora lo hacen en un solo salto, a través de este nodo. No está funcionando como Router, sino como un Client normal con una buena elevación, lo que resultó ser suficiente. Consulta [Configuración recomendada → Roles de los nodos](/settings/#node-roles) para entender por qué tomamos esta decisión deliberadamente en lugar de utilizar Router por defecto.
+Los nodos Client cercanos que antes necesitaban dos saltos para llegar al resto de la malla ahora lo hacen en un solo salto, a través de este nodo. No está funcionando como Router, sino como un Client normal con una buena elevación, lo que resultó ser suficiente. Consulta [Configuración recomendada → Roles de los nodos](/settings/#roles-de-nodo) para entender por qué tomamos esta decisión deliberadamente en lugar de utilizar Router por defecto.
 
 Si estás considerando un despliegue similar, [Comunidad](/community/) es el lugar indicado para intercambiar experiencias con otros operadores antes de comprometerte con un sitio.

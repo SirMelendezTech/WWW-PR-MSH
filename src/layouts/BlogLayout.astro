@@ -2,7 +2,7 @@
 import BaseLayout from "./BaseLayout.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import TerrainSignature from "../components/TerrainSignature.astro";
-import type { Locale } from "../lib/i18n";
+import { localizePath, type Locale } from "../lib/i18n";
 import { useStrings, categoryLabel } from "../lib/ui-strings";
 
 interface RelatedPost { id: string; title: string; category: string }
@@ -18,13 +18,37 @@ interface Props {
   lang?: Locale;
   altLocaleHref?: string | null;
 }
-const { title, description, author, pubDate, readingTime, category, tags, related, lang = "en", altLocaleHref = null } = Astro.props;
+const { title, description, author, pubDate, readingTime, category, tags, related, lang = "es", altLocaleHref = null } = Astro.props;
 const t = useStrings(lang).blogPost;
-const blogHref = lang === "es" ? "/es/blog/" : "/blog/";
+const blogHref = localizePath("/blog/", lang);
 const postHref = (id: string) => `${blogHref}${id}/`;
+const site = Astro.site ?? new URL("https://meshtastic.prmsh.com");
+const pageUrl = new URL(Astro.url.pathname, site).toString();
+const articleLd = {
+  "@type": "BlogPosting",
+  "@id": `${pageUrl}#article`,
+  headline: title,
+  description,
+  datePublished: pubDate.toISOString(),
+  inLanguage: lang === "es" ? "es-PR" : "en-US",
+  author: { "@type": "Person", name: author },
+  publisher: { "@id": new URL("/#organization", site).toString() },
+  mainEntityOfPage: { "@id": `${pageUrl}#webpage` },
+  image: new URL("/og-default.png", site).toString(),
+  articleSection: category,
+  keywords: tags.join(", "),
+};
 const dateStr = pubDate.toLocaleDateString(lang === "es" ? "es-PR" : "en-US", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
 ---
-<BaseLayout title={title} description={description} lang={lang} altLocaleHref={altLocaleHref}>
+<BaseLayout
+  title={title}
+  description={description}
+  lang={lang}
+  altLocaleHref={altLocaleHref}
+  ogType="article"
+  publishedTime={pubDate}
+  jsonLd={[articleLd]}
+>
   <article class="post">
     <div class="container post-head">
       <Breadcrumbs lang={lang} items={[{ label: t.blogCrumb, href: blogHref }, { label: title }]} />

@@ -10,7 +10,7 @@ lang: es
 
 Meshtastic es firmware de código abierto que corre en radios LoRa pequeñas y económicas. Dos o más equipos que lo ejecutan pueden enviar mensajes de texto, compartir posición GPS y retransmitir tráfico entre sí — sin torre celular, sin Wi-Fi, sin factura mensual. Cada radio es un **nodo**. Cuando un mensaje no puede llegar a su destino directamente, los nodos cercanos lo **retransmiten** automáticamente, salto por salto, hasta que llega. Esa retransmisión es lo que la convierte en una *malla* (*mesh*).
 
-¿Has oído de **MeshCore**? Es otro protocolo LoRa que no se comunica con radios Meshtastic. La malla de Puerto Rico usa Meshtastic — consulta [Meshtastic vs MeshCore](/es/protocols/) para ver cómo se comparan.
+¿Has oído de **MeshCore**? Es otro protocolo LoRa que no se comunica con radios Meshtastic. La malla de Puerto Rico usa Meshtastic — consulta [Meshtastic vs MeshCore](/protocols/) para ver cómo se comparan.
 
 En Puerto Rico, donde los huracanes y las fallas de la red eléctrica han dejado repetidamente sin servicio celular por días o semanas, esa propiedad de funcionar sin infraestructura es el punto central. Una radio de bolsillo que sigue comunicándose con tu familia, tu grupo de excursión o tu barrio después de que las torres se apagan vale la pena entenderla antes de necesitarla.
 
@@ -18,7 +18,7 @@ En Puerto Rico, donde los huracanes y las fallas de la red eléctrica han dejado
 
 Como mínimo: **una radio LoRa compatible con Meshtastic** y **un teléfono o computadora** para configurarla y leer mensajes. Dos personas que quieran hablarse necesitan dos radios — Meshtastic es una red, no una app de walkie-talkie que funcione sola.
 
-Si aún no has comprado hardware, lee primero [Hardware Recomendado](/es/hardware/) — desglosa los equipos según cómo los vas a usar de verdad (mochila, base en casa, techo, solar) en lugar de listar especificaciones.
+Si aún no has comprado hardware, lee primero [Hardware Recomendado](/hardware/) — desglosa los equipos según cómo los vas a usar de verdad (mochila, base en casa, techo, solar) en lugar de listar especificaciones.
 
 ## Instalar la app de Meshtastic
 
@@ -44,7 +44,7 @@ La mayoría de los equipos también se conectan por <strong>USB serial</strong> 
 
 Toda radio debe estar configurada a la **región LoRa** correcta, que determina la banda de frecuencia legal y el ciclo de trabajo bajo el que opera. Esto no es opcional ni cuestión de preferencia — debe corresponder al lugar donde la radio opera físicamente. En la app, abre **Radio Configuration → LoRa** y elige tu región de la lista.
 
-Consulta [Configuración Recomendada → Región y Frecuencia](/es/settings/#región-y-frecuencia) para lo que aplica en Puerto Rico específicamente.
+Consulta [Configuración Recomendada → Región y Frecuencia](/settings/#región-y-frecuencia) para lo que aplica en Puerto Rico específicamente.
 
 <div class="callout">
 <span class="callout-label">¿Prefieres la línea de comandos?</span>
@@ -53,13 +53,13 @@ Configura la región desde el CLI con <code>meshtastic --set lora.region US</cod
 
 ## Elegir un rol de nodo
 
-Las radios nuevas vienen por defecto con un rol **Client** de propósito general, que es la opción correcta para casi todos los que empiezan. Roles como **Client Mute** y **Router** existen para ubicaciones específicas y pueden dañar la red si se aplican mal — lee [Configuración Recomendada → Roles de Nodo](/es/settings/#roles-de-nodo) antes de cambiar esto.
+Las radios nuevas vienen por defecto con un rol **Client** de propósito general, que es la opción correcta para casi todos los que empiezan. Roles como **Client Mute** y **Router** existen para ubicaciones específicas y pueden dañar la red si se aplican mal — lee [Configuración Recomendada → Roles de Nodo](/settings/#roles-de-nodo) antes de cambiar esto.
 
 ## Unirte a la malla de Puerto Rico
 
 Los nodos de Meshtastic se comunican en **canales** — claves de cifrado y nombres compartidos que determinan quién puede leer tu tráfico. De fábrica, cada equipo viene con un canal primario `LongFast` usando claves por defecto, lo que te permite hablar con *cualquier* nodo Meshtastic cercano en el mundo usando la configuración por defecto. Ese es un buen punto de partida para probar alcance con un amigo.
 
-Para encontrar y coordinar con otros operadores de Puerto Rico, consulta [Malla de Puerto Rico](/es/pr-mesh/) y la página de [Comunidad](/es/community/) — los operadores de nodos comparten regularmente información de cobertura y, donde así lo eligen, detalles adicionales de canales.
+Para encontrar y coordinar con otros operadores de Puerto Rico, consulta [Malla de Puerto Rico](/pr-mesh/) y la página de [Comunidad](/community/) — los operadores de nodos comparten regularmente información de cobertura y, donde así lo eligen, detalles adicionales de canales.
 
 ## Enviar tu primer mensaje
 
@@ -71,4 +71,4 @@ Un canal agrupa un **nombre**, una **clave precompartida** y ajustes de módem. 
 
 ## Entender los nodos y los saltos
 
-Cada mensaje lleva un **límite de saltos** — el número máximo de veces que otros nodos lo retransmitirán antes de rendirse. Cada retransmisión es un **salto** (*hop*). Un mensaje desde tu equipo de mano hasta un amigo a tres cordilleras de distancia podría tomar tres o cuatro saltos a través de los nodos de otras personas para llegar. Por esto la cobertura depende de la *participación*: mientras más nodos bien ubicados haya en la malla, más lejos viajan los mensajes. Consulta [Cómo Funciona Meshtastic](/es/how-it-works/) para la mecánica, y [Malla de Puerto Rico](/es/pr-mesh/) para dónde está la cobertura actualmente.
+Cada mensaje lleva un **límite de saltos** — el número máximo de veces que otros nodos lo retransmitirán antes de rendirse. Cada retransmisión es un **salto** (*hop*). Un mensaje desde tu equipo de mano hasta un amigo a tres cordilleras de distancia podría tomar tres o cuatro saltos a través de los nodos de otras personas para llegar. Por esto la cobertura depende de la *participación*: mientras más nodos bien ubicados haya en la malla, más lejos viajan los mensajes. Consulta [Cómo Funciona Meshtastic](/how-it-works/) para la mecánica, y [Malla de Puerto Rico](/pr-mesh/) para dónde está la cobertura actualmente.

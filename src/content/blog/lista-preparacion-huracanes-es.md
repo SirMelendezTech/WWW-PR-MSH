@@ -15,7 +15,7 @@ Las redes celulares en Puerto Rico han quedado fuera de servicio durante días e
 ## Antes de que comience la temporada
 
 - **Carga y prueba todos los dispositivos que tengas.** Una radio que ha estado guardada en un cajón desde el año pasado necesita una comprobación del firmware y un ciclo completo de carga antes de que vuelvas a confiar en ella.
-- **Confirma que la configuración de región y canales no haya cambiado** — consulta [Primeros pasos → Configuración de tu región](/getting-started/#configuring-your-region).
+- **Confirma que la configuración de región y canales no haya cambiado** — consulta [Primeros pasos → Configuración de tu región](/getting-started/#configurar-tu-región).
 - **Anota en papel los nombres de los nodos y los detalles de los canales** que quieras que utilicen tus familiares. No dependas de un teléfono que podría estar sin batería cuando más lo necesites.
 - **Identifica un plan de energía de respaldo** para el nodo de tu hogar. Incluso una batería portátil pequeña puede proporcionar días de autonomía a una radio de bajo consumo.
 
@@ -28,6 +28,6 @@ Las redes celulares en Puerto Rico han quedado fuera de servicio durante días e
 ## Después de la tormenta
 
 - **Informa qué funcionó y qué no.** Los puntos sin cobertura que se descubren de la manera más difícil durante un evento real son precisamente la información que ayuda a mejorar la planificación de [Puerto Rico Mesh](/pr-mesh/) para la próxima ocasión.
-- **Considera una instalación más permanente** si una configuración temporal demostró ser útil. Consulta [Hardware recomendado → Nodos en tejados / de gran elevación](/hardware/#rooftop-high-elevation-nodes).
+- **Considera una instalación más permanente** si una configuración temporal demostró ser útil. Consulta [Hardware recomendado → Nodos en tejados / de gran elevación](/hardware/#nodos-en-techo--de-gran-elevación).
 
 Esta es una guía comunitaria, no un plan de gestión de emergencias. Para cualquier asunto relacionado con la seguridad, sigue las indicaciones oficiales de las agencias de gestión de emergencias de Puerto Rico. Meshtastic es una herramienta de comunicación, no un sustituto de los servicios de emergencia.

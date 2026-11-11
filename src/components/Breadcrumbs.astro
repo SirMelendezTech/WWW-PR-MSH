@@ -1,13 +1,29 @@
 ---
-import type { Locale } from "../lib/i18n";
+import { localizePath, type Locale } from "../lib/i18n";
 import { useStrings } from "../lib/ui-strings";
 
 interface Crumb { label: string; href?: string }
 interface Props { items: Crumb[]; lang?: Locale }
-const { items, lang = "en" } = Astro.props;
+const { items, lang = "es" } = Astro.props;
 const t = useStrings(lang);
-const homeHref = lang === "es" ? "/es/" : "/";
+const homeHref = localizePath("/", lang);
+
+// BreadcrumbList for search results. The last crumb has no href: it is the
+// current page, so it takes this page's own URL.
+const site = Astro.site ?? new URL("https://meshtastic.prmsh.com");
+const trail = [{ label: t.breadcrumbs.home, href: homeHref }, ...items];
+const breadcrumbLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: trail.map((c, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    name: c.label,
+    item: new URL(c.href ?? Astro.url.pathname, site).toString(),
+  })),
+}).replace(/</g, "\\u003c");
 ---
+<script type="application/ld+json" set:html={breadcrumbLd} />
 <nav class="breadcrumbs" aria-label={t.breadcrumbs.ariaLabel}>
   <ol>
     <li><a href={homeHref}>{t.breadcrumbs.home}</a></li>

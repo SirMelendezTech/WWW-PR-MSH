@@ -56,13 +56,13 @@ Meshtastic reporta **RSSI** (Received Signal Strength Indicator, indicador de in
 
 ## GPS
 
-Los equipos con GPS pueden transmitir su posición, que es lo que hace posible los mapas de cobertura y las visualizaciones de Neighbor Info (consulta [Malla de Puerto Rico](/es/pr-mesh/)). La transmisión de posición es configurable y opcional — un nodo no necesita GPS, ni necesita compartir su posición, para enviar y recibir mensajes.
+Los equipos con GPS pueden transmitir su posición, que es lo que hace posible los mapas de cobertura y las visualizaciones de Neighbor Info (consulta [Malla de Puerto Rico](/pr-mesh/)). La transmisión de posición es configurable y opcional — un nodo no necesita GPS, ni necesita compartir su posición, para enviar y recibir mensajes.
 
 ## Canales
 
 Un **canal** es una clave de cifrado precompartida con nombre que determina quién puede leer un conjunto dado de mensajes. Hay un detalle aquí que sorprende a la gente: el *nombre* del canal no es solo una etiqueta — se convierte en hash para elegir en qué ranura de frecuencia LoRa transmite realmente la radio dentro de la banda de tu región. Dos nodos con el mismo nombre y clave de canal no solo pueden leer los mensajes del otro, están en la misma frecuencia en primer lugar.
 
-Cada equipo viene con un canal público por defecto para que desconocidos puedan probar conectividad entre sí; cualquier cosa que de verdad quieras privada necesita su propio canal con una clave que tú generes y compartas solo con gente en quien confíes. Consulta [Entender los canales](/es/getting-started/#entender-los-canales) para la configuración práctica.
+Cada equipo viene con un canal público por defecto para que desconocidos puedan probar conectividad entre sí; cualquier cosa que de verdad quieras privada necesita su propio canal con una clave que tú generes y compartas solo con gente en quien confíes. Consulta [Entender los canales](/getting-started/#entender-los-canales) para la configuración práctica.
 
 ## Cifrado
 
@@ -72,11 +72,11 @@ Los canales de Meshtastic están cifrados con AES — 128 bits para una clave es
 
 **MQTT** es un puente opcional desde la malla de radio hacia internet: un nodo con acceso a internet puede publicar lo que escucha a un servidor MQTT, alimentando cosas como mapas públicos de cobertura. Es completamente separado de la malla en sí — LoRa sigue funcionando sin nada de internet involucrado.
 
-Los datos de posición compartidos de esta forma típicamente se redondean a una precisión más gruesa que la ubicación GPS real del nodo antes de publicarse — el mismo ajuste de precisión que gobierna lo que aparece en el [Mapa de Nodos](/es/map/). MQTT también se puede sobrecargar: el servidor público por defecto carga mucho tráfico en el canal por defecto compartido, y un nodo que sube datos a él puede terminar batallando para mantener el ritmo. Consulta [Configuración Recomendada → MQTT](/es/settings/#mqtt) para cómo lo usan los operadores de Puerto Rico, y qué deliberadamente no publicamos aquí.
+Los datos de posición compartidos de esta forma típicamente se redondean a una precisión más gruesa que la ubicación GPS real del nodo antes de publicarse — el mismo ajuste de precisión que gobierna lo que aparece en el [Mapa de Nodos](/map/). MQTT también se puede sobrecargar: el servidor público por defecto carga mucho tráfico en el canal por defecto compartido, y un nodo que sube datos a él puede terminar batallando para mantener el ritmo. Consulta [Configuración Recomendada → MQTT](/settings/#mqtt) para cómo lo usan los operadores de Puerto Rico, y qué deliberadamente no publicamos aquí.
 
 ## Store and forward
 
-**Store and forward** (almacenar y reenviar) permite que un nodo capaz guarde mensajes en caché y los reproduzca a equipos que estaban brevemente fuera de alcance o dormidos cuando el mensaje salió por primera vez — útil para nodos que duermen para ahorrar batería, o para poner al día a un equipo de mano después de que se reconecta. Solo funciona en placas con un bloque de memoria interna adicional (PSRAM) para retener la cola de mensajes — las placas basadas en ESP32 mencionadas en [Hardware Recomendado](/es/hardware/) califican, la mayoría de los equipos de mano nRF52840 más simples no. Una placa con la configuración por defecto típicamente puede retener del orden de varios miles de mensajes recientes antes de que los más viejos venzan.
+**Store and forward** (almacenar y reenviar) permite que un nodo capaz guarde mensajes en caché y los reproduzca a equipos que estaban brevemente fuera de alcance o dormidos cuando el mensaje salió por primera vez — útil para nodos que duermen para ahorrar batería, o para poner al día a un equipo de mano después de que se reconecta. Solo funciona en placas con un bloque de memoria interna adicional (PSRAM) para retener la cola de mensajes — las placas basadas en ESP32 mencionadas en [Hardware Recomendado](/hardware/) califican, la mayoría de los equipos de mano nRF52840 más simples no. Una placa con la configuración por defecto típicamente puede retener del orden de varios miles de mensajes recientes antes de que los más viejos venzan.
 
 ## MeshCore
 

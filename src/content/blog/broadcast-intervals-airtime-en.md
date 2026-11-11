@@ -83,10 +83,10 @@ Puerto Rico's suggested starting point for a stationary node:
 | Power telemetry (solar only) | 1 hour |
 | Map report | 6 hours |
 
-The full table, with mobile-node values alongside and the CLI block for both, is in [Recommended Settings → Broadcast Intervals](/settings/#broadcast-intervals). Treat it as a floor to coordinate up from, not a target to race down toward — if you want to broadcast more often than this on a shared channel, talk to the operators around you first.
+The full table, with mobile-node values alongside and the CLI block for both, is in [Recommended Settings → Broadcast Intervals](/en/settings/#broadcast-intervals). Treat it as a floor to coordinate up from, not a target to race down toward — if you want to broadcast more often than this on a shared channel, talk to the operators around you first.
 
 ## Check your work
 
-After changing intervals, watch the device metrics for a day. Channel utilization on the primary channel should sit low — a few percent in a normal area. If it's still high with your node quieted down, the load is coming from somewhere else on the mesh, and that's a conversation for the [community](/community/), not a settings change on your end.
+After changing intervals, watch the device metrics for a day. Channel utilization on the primary channel should sit low — a few percent in a normal area. If it's still high with your node quieted down, the load is coming from somewhere else on the mesh, and that's a conversation for the [community](/en/community/), not a settings change on your end.
 
-This is the same theme as [Puerto Rico's mesh backbone problem](/blog/client-base-rooftop-nodes/): the network rarely needs *more* from any single node. It needs each node to spend the shared channel deliberately.
+This is the same theme as [Puerto Rico's mesh backbone problem](/en/blog/client-base-rooftop-nodes/): the network rarely needs *more* from any single node. It needs each node to spend the shared channel deliberately.

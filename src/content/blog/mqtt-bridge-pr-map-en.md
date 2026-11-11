@@ -11,9 +11,9 @@ readingTime: 8 min
 
 # Getting Your Node Onto the Puerto Rico Mesh Map
 
-The [Node Map](/map/) is built from what nodes publish to MQTT under the Puerto Rico topic. If your node isn't on it, that's not a bug in the map — it means your node either isn't bridging to MQTT, isn't publishing under the topic the map reads, or isn't sending a position at all. All three are fixable in a few minutes.
+The [Node Map](/en/map/) is built from what nodes publish to MQTT under the Puerto Rico topic. If your node isn't on it, that's not a bug in the map — it means your node either isn't bridging to MQTT, isn't publishing under the topic the map reads, or isn't sending a position at all. All three are fixable in a few minutes.
 
-This post walks the whole chain. None of it changes how your node talks over LoRa — MQTT is a side channel to the internet, and the radio mesh keeps working through outages regardless. See [Recommended Settings → MQTT](/settings/#mqtt) for the reference table this expands on.
+This post walks the whole chain. None of it changes how your node talks over LoRa — MQTT is a side channel to the internet, and the radio mesh keeps working through outages regardless. See [Recommended Settings → MQTT](/en/settings/#mqtt) for the reference table this expands on.
 
 ## What "being on the map" actually requires
 
@@ -64,7 +64,7 @@ Channel index 0 is your primary. Only enable uplink on channels you actually wan
 
 ### Leave downlink off
 
-Downlink pipes internet-side MQTT traffic back down onto the radio mesh. On a shared channel that means every packet from every bridged node elsewhere competes for local airtime that never needed to be spent. Uplink-only is the correct default for a Puerto Rico bridge node — you're contributing visibility, not importing load. This is the same reasoning behind keeping [broadcast intervals long on stationary nodes](/blog/broadcast-intervals-airtime-en/).
+Downlink pipes internet-side MQTT traffic back down onto the radio mesh. On a shared channel that means every packet from every bridged node elsewhere competes for local airtime that never needed to be spent. Uplink-only is the correct default for a Puerto Rico bridge node — you're contributing visibility, not importing load. This is the same reasoning behind keeping [broadcast intervals long on stationary nodes](/en/blog/broadcast-intervals-airtime-en/).
 
 ## You still need to send a position
 
@@ -99,4 +99,4 @@ If you run your own broker instead of the public server, treat those credentials
 
 ---
 
-Once you're on the map, you're also part of the coverage picture the community uses to plan where the next nodes should go — see [Puerto Rico Mesh](/pr-mesh/).
+Once you're on the map, you're also part of the coverage picture the community uses to plan where the next nodes should go — see [Puerto Rico Mesh](/en/pr-mesh/).
