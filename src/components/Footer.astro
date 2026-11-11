@@ -4,7 +4,14 @@ import type { Locale } from "../lib/i18n";
 import { localizePath } from "../lib/i18n";
 import { useStrings } from "../lib/ui-strings";
 import { getNodes } from "../lib/nodes";
-import { DISCORD_INVITE_URL, MESHCORE_PR_URL, NODE_GUIDES_URL } from "../lib/community";
+import {
+  DISCORD_INVITE_URL,
+  FACEBOOK_GROUP_URL,
+  MESHCORE_PR_URL,
+  NODE_GUIDES_URL,
+  PRMSH_HOME_URL,
+  REDDIT_PR_URL,
+} from "../lib/community";
 
 interface Props { lang?: Locale }
 const { lang = "es" } = Astro.props;
@@ -16,9 +23,8 @@ const year = new Date().getFullYear();
 // Same repo the header links to.
 const GITHUB_REPO_URL = "https://github.com/SirMelendezTech/WWW-PR-MSH";
 
-// The footer isn't a sitemap — the header already carries the whole nav. What
-// it can say that no other footer can is the state of this particular mesh at
-// the moment the site was built.
+// The status line says what no other footer can: the state of this
+// particular mesh at the moment the site was built.
 const { nodes, live } = await getNodes();
 const onlineCount = nodes.filter((n) => n.status === "online").length;
 const buildDate = new Intl.DateTimeFormat(lang === "es" ? "es-PR" : "en-US", {
@@ -27,52 +33,78 @@ const buildDate = new Intl.DateTimeFormat(lang === "es" ? "es-PR" : "en-US", {
   year: "numeric",
   timeZone: "America/Puerto_Rico",
 }).format(new Date());
+
+// Three short columns, the same grouping prmsh.com and meshcore.prmsh.com
+// use: the PRMSH family, this site, and where the community talks.
+type FooterLink = { label: string; href: string; external?: boolean; hreflang?: string };
+const columns: { heading: string; links: FooterLink[] }[] = [
+  {
+    heading: f.colFamily,
+    links: [
+      { label: f.prmshHome, href: PRMSH_HOME_URL, external: true },
+      { label: f.sisterNetwork, href: MESHCORE_PR_URL, external: true },
+      { label: f.nodeGuides, href: NODE_GUIDES_URL, external: true, hreflang: "es" },
+    ],
+  },
+  {
+    heading: f.colSite,
+    links: [
+      { label: t.nav.map, href: p("/map/") },
+      { label: t.nav.protocols, href: p("/protocols/") },
+      { label: f.linksResources, href: p("/links/") },
+      { label: f.github, href: GITHUB_REPO_URL, external: true },
+      { label: f.officialDocs, href: "https://meshtastic.org/docs/", external: true, hreflang: "en" },
+    ],
+  },
+  {
+    heading: f.colCommunity,
+    links: [
+      { label: "Discord", href: DISCORD_INVITE_URL, external: true },
+      { label: "Facebook", href: FACEBOOK_GROUP_URL, external: true },
+      { label: "Reddit", href: REDDIT_PR_URL, external: true },
+    ],
+  },
+];
 ---
 <footer class="site-footer">
   <div class="container footer-top">
     <div class="footer-brand">
       <a href={p("/")} class="brand">
         <MeshMark />
-        <span class="brand-text">PRMSH</span>
+        <span class="brand-name">PRMSH</span>
+        <span class="brand-sep" aria-hidden="true">/</span>
+        <span class="brand-site">Meshtastic</span>
       </a>
       <p>{f.blurb}</p>
     </div>
 
-    <nav class="footer-links" aria-label={f.linksHeading}>
-      <a href={GITHUB_REPO_URL} target="_blank" rel="noopener">
-        {f.github}<span class="sr-only"> {t.opensInNewTab}</span>
-      </a>
-      <a href={DISCORD_INVITE_URL} target="_blank" rel="noopener">
-        {f.discord}<span class="sr-only"> {t.opensInNewTab}</span>
-      </a>
-      <a href={MESHCORE_PR_URL} target="_blank" rel="noopener">
-        {f.sisterNetwork}<span class="sr-only"> {t.opensInNewTab}</span>
-      </a>
-      <a href={NODE_GUIDES_URL} target="_blank" rel="noopener" hreflang="es">
-        {f.nodeGuides}<span class="sr-only"> {t.opensInNewTab}</span>
-      </a>
-      <a href={p("/links/")}>{f.linksResources}</a>
-      <a href="https://meshtastic.org" target="_blank" rel="noopener">
-        Meshtastic.org<span class="sr-only"> {t.opensInNewTab}</span>
-      </a>
-      <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">
-        {f.licenseName}<span class="sr-only"> {t.opensInNewTab}</span>
-      </a>
-    </nav>
+    {columns.map((col) => (
+      <nav class="footer-col" aria-label={col.heading}>
+        <h2 class="footer-heading">{col.heading}</h2>
+        <ul>
+          {col.links.map((l) => (
+            <li>
+              <a href={l.href} target={l.external ? "_blank" : undefined} rel={l.external ? "noopener" : undefined} hreflang={l.hreflang}>
+                {l.label}{l.external && <span class="sr-only"> {t.opensInNewTab}</span>}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    ))}
   </div>
 
   <p class="container footer-status">
     <span class={`status-dot${live ? " is-live" : ""}`} aria-hidden="true"></span>
-    {live && <Fragment>{f.nodesReporting(onlineCount, nodes.length)} <span class="status-sep">·</span> </Fragment>}
-    {f.rebuilt(buildDate)}
+    <span>{live && <Fragment>{f.nodesReporting(onlineCount, nodes.length)}, </Fragment>}{f.rebuilt(buildDate)}</span>
   </p>
 
   <div class="container footer-bottom">
     <p class="disclaimer">{t.footer.disclaimer}</p>
-    <p class="disclaimer">{f.trademarkBefore}<a href="https://github.com/meshtastic" target="_blank" rel="noopener">{f.trademarkLink}</a>{f.trademarkAfter}</p>
+    <p class="disclaimer">{f.trademarkBefore}<a href="https://github.com/meshtastic" target="_blank" rel="noopener">{f.trademarkLink}<span class="sr-only"> {t.opensInNewTab}</span></a>{f.trademarkAfter}</p>
     <p class="disclaimer">{f.platformNotice}</p>
     <p class="footer-legal">
-      {f.copyright(year)} {f.licenseBefore}<a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">{f.licenseName}</a>{f.licenseAfter}
+      {f.copyright(year)} {f.licenseBefore}<a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">{f.licenseName}<span class="sr-only"> {t.opensInNewTab}</span></a>{f.licenseAfter}
     </p>
   </div>
 </footer>
@@ -80,58 +112,66 @@ const buildDate = new Intl.DateTimeFormat(lang === "es" ? "es-PR" : "en-US", {
 <style>
   .site-footer {
     border-top: 1px solid var(--border);
-    background: var(--bg-sunken);
-    margin-top: 5rem;
+    background: var(--bg-raised);
+    margin-top: var(--section-y);
   }
+  /* Pages that end on a full-bleed band (the home CTA) meet the footer
+     directly instead of leaving an empty strip between them. */
+  :global(body:has(main > .cta-section:last-child)) .site-footer { margin-top: 0; }
 
   .footer-top {
     display: grid;
-    gap: 2rem;
-    padding-block: 3.5rem 1.75rem;
-    grid-template-columns: 1fr;
+    gap: var(--s-6) var(--s-5);
+    padding-block: var(--s-8) var(--s-6);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  @media (min-width: 720px) {
-    .footer-top { grid-template-columns: minmax(0, 1fr) auto; align-items: start; gap: 4rem; }
+  .footer-brand { grid-column: 1 / -1; }
+  @media (min-width: 900px) {
+    .footer-top { grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr)); gap: var(--s-7); }
+    .footer-brand { grid-column: auto; }
   }
 
-  .footer-brand .brand { display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; margin-bottom: 0.8rem; }
-  .footer-brand .brand-text { font-family: var(--font-display); font-weight: 700; color: var(--ink); }
-  .footer-brand p { max-width: 44ch; font-size: 0.92rem; margin: 0; }
+  .footer-brand .brand { display: inline-flex; align-items: center; gap: 0.55rem; text-decoration: none; margin-bottom: var(--s-4); }
+  .brand-name { font-family: var(--font-display); font-weight: 750; font-size: 1.2rem; color: var(--ink); letter-spacing: 0.01em; }
+  .brand-sep { color: var(--ink-faint); font-family: var(--font-mono); }
+  .brand-site { font-family: var(--font-display); font-weight: 500; font-size: 1.2rem; color: var(--ink-soft); }
+  .footer-brand p { max-width: 42ch; font-size: var(--t-sm); margin: 0; }
 
-  /* One row of the few destinations that actually only live here. */
-  .footer-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem 1.5rem;
+  .footer-heading {
+    font-family: var(--font-mono);
+    font-size: var(--t-xs);
+    font-weight: 500;
+    letter-spacing: 0;
+    color: var(--ink-soft);
+    margin: 0 0 var(--s-3);
   }
-  @media (min-width: 720px) {
-    .footer-links { flex-direction: column; gap: 0.6rem; text-align: right; }
-  }
-  .footer-links a {
+  .footer-col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-1); }
+  .footer-col a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 32px;
     color: var(--ink-soft);
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: var(--t-sm);
   }
-  .footer-links a:hover { color: var(--secondary); }
+  .footer-col a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
 
   /* Live scrap of this mesh, frozen at build time — same data as the home
-     coverage block. */
+     coverage panel. */
   .footer-status {
     display: flex;
-    align-items: baseline;
-    flex-wrap: wrap;
-    gap: 0.5ch;
-    padding-block: 1.1rem;
+    align-items: center;
+    gap: var(--s-2);
+    padding-block: var(--s-4);
     border-block: 1px solid var(--border);
     font-family: var(--font-mono);
-    font-size: 0.78rem;
-    letter-spacing: 0.02em;
-    color: var(--ink-faint);
-    margin: 0;
+    font-size: var(--t-xs);
+    color: var(--ink-soft);
+    /* margin-block only: a bare `margin: 0` would cancel .container's
+       margin-inline: auto and pin this line to the left edge. */
+    margin-block: 0;
   }
-  .status-sep { color: var(--border-strong); }
   .status-dot {
-    align-self: center;
     width: 7px;
     height: 7px;
     border-radius: 50%;
@@ -145,13 +185,13 @@ const buildDate = new Intl.DateTimeFormat(lang === "es" ? "es-PR" : "en-US", {
 
   .footer-bottom {
     display: grid;
-    gap: 0.9rem;
-    padding-block: 1.6rem 2.5rem;
-    font-size: 0.82rem;
-    color: var(--ink-faint);
+    gap: var(--s-3);
+    padding-block: var(--s-5) var(--s-7);
+    font-size: var(--t-xs);
+    color: var(--ink-soft);
   }
   .footer-bottom p { margin: 0; color: inherit; }
-  .disclaimer { max-width: 68ch; line-height: 1.55; }
+  .disclaimer { max-width: 75ch; line-height: 1.55; }
   .footer-legal a, .disclaimer a { color: inherit; text-decoration: underline; }
-  .footer-legal a:hover, .disclaimer a:hover { color: var(--secondary); }
+  .footer-legal a:hover, .disclaimer a:hover { color: var(--ink); }
 </style>

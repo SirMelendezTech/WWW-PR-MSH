@@ -130,13 +130,11 @@ const next =
     font-size: 0.88rem;
   }
   @media (min-width: 960px) {
-    .docs-sidebar, .docs-toc { position: sticky; top: calc(var(--header-h) + 24px); }
+    .docs-sidebar, .docs-toc { position: sticky; top: calc(var(--header-total) + 24px); }
   }
   .docs-sidebar-label {
     font-family: var(--font-mono);
     font-size: 0.72rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
     color: var(--ink-faint);
     margin: 0 0 0.75rem;
   }
@@ -185,8 +183,6 @@ const next =
   .pager-dir {
     font-family: var(--font-mono);
     font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.09em;
     color: var(--ink-faint);
   }
   .pager-link:hover .pager-dir { color: var(--secondary); }
@@ -203,9 +199,9 @@ const next =
   .docs-lede { font-size: 1.1rem; color: var(--ink-soft); max-width: 62ch; margin-top: 0.75rem; }
 
   .prose { max-width: 72ch; margin-top: 2rem; }
-  .prose :global(h2) { margin-top: 2.2em; padding-top: 0.2em; scroll-margin-top: calc(var(--header-h) + 16px); }
+  .prose :global(h2) { margin-top: 2.2em; padding-top: 0.2em; scroll-margin-top: calc(var(--header-total) + 16px); }
   .prose :global(h2):first-child { margin-top: 0; }
-  .prose :global(h3) { scroll-margin-top: calc(var(--header-h) + 16px); margin-top: 1.6em; }
+  .prose :global(h3) { scroll-margin-top: calc(var(--header-total) + 16px); margin-top: 1.6em; }
   .prose :global(ul), .prose :global(ol) { color: var(--ink-soft); padding-left: 1.3em; }
   .prose :global(li) { margin-bottom: 0.4em; }
   .prose :global(.table-wrap),

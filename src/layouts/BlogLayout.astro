@@ -113,8 +113,6 @@ const dateStr = pubDate.toLocaleDateString(lang === "es" ? "es-PR" : "en-US", { 
     display: inline-block;
     font-family: var(--font-mono);
     font-size: 0.72rem;
-    text-transform: uppercase;
-    letter-spacing: 0.07em;
     color: var(--secondary);
     margin: 1rem 0 0.3rem;
   }
@@ -134,7 +132,6 @@ const dateStr = pubDate.toLocaleDateString(lang === "es" ? "es-PR" : "en-US", { 
   .post-byline dt {
     font-family: var(--font-mono);
     font-size: 0.66rem;
-    text-transform: uppercase;
     letter-spacing: 0.1em;
     color: var(--ink-faint);
   }
@@ -150,7 +147,7 @@ const dateStr = pubDate.toLocaleDateString(lang === "es" ? "es-PR" : "en-US", { 
   @media (min-width: 900px) { .post-body-grid { grid-template-columns: minmax(0, 1fr) 200px; } }
   .post-prose { max-width: 68ch; min-width: 0; }
   .post-aside { font-size: 0.88rem; }
-  .docs-sidebar-label { font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-faint); margin: 0 0 0.75rem; }
+  .docs-sidebar-label { font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-faint); margin: 0 0 0.75rem; }
   .post-tags ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.3rem 0.9rem; }
   .post-tags li { font-family: var(--font-mono); font-size: 0.78rem; color: var(--ink-soft); }
   .post-tags li::before { content: "#"; color: var(--ink-faint); }

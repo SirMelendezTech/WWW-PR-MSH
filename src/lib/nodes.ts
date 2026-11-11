@@ -18,6 +18,8 @@ export interface MeshNode {
   type: "client" | "client-mute" | "router" | "solar";
   status: "online" | "offline";
   lastSeen: string;
+  /** Hours since last heard (live data only); lets the UI phrase it in the page language. */
+  ageHours?: number;
   precisionMeters?: number;
   snr?: number;
 }
@@ -50,6 +52,19 @@ function mapRole(role: string | undefined, hwModel: string | undefined): MeshNod
     default:
       return "client";
   }
+}
+
+/**
+ * "Last heard" phrased in the page language ("hace 2 horas", "2 hours ago").
+ * Sample nodes carry no age, so they keep their preformatted string.
+ */
+export function lastHeard(node: MeshNode, lang: "en" | "es"): string {
+  const age = node.ageHours;
+  if (typeof age !== "number" || Number.isNaN(age)) return node.lastSeen;
+  const rtf = new Intl.RelativeTimeFormat(lang === "es" ? "es-PR" : "en-US", { numeric: "auto" });
+  if (age < 1) return rtf.format(-Math.max(1, Math.round(age * 60)), "minute");
+  if (age < 48) return rtf.format(-Math.round(age), "hour");
+  return rtf.format(-Math.round(age / 24), "day");
 }
 
 function formatLastSeen(ageHours: number): string {
@@ -86,6 +101,7 @@ async function fetchLiveNodes(): Promise<MeshNode[]> {
       type: mapRole(loc.role, loc.hw_model),
       status: loc.age_hours <= 3 ? "online" : "offline",
       lastSeen: formatLastSeen(loc.age_hours),
+      ageHours: loc.age_hours,
       precisionMeters: loc.precision_meters ?? undefined,
       snr: loc.avg_snr ?? undefined,
     }));

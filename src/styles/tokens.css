@@ -39,16 +39,47 @@
   --shadow-md: 0 6px 20px hsl(var(--shadow-color) / 0.10);
   --shadow-lg: 0 16px 40px hsl(var(--shadow-color) / 0.16);
 
-  --font-display: "Space Grotesk", "Arial Narrow", sans-serif;
-  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  /* Type, scale, spacing and shape are shared with prmsh.com and
+     meshcore.prmsh.com so the three sites read as one family. Colour is the
+     one thing each site keeps for itself: this one stays Meshtastic blue,
+     turquoise and red. */
+  --font-display: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --font-body: "Atkinson Hyperlegible Next", "Segoe UI", system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "Cascadia Code", monospace;
 
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 14px;
+  --t-xs: 0.8125rem;
+  --t-sm: 0.9375rem;
+  --t-base: 1.0625rem;
+  --t-lg: 1.25rem;
+  --t-h3: 1.5rem;
+  --t-h2: clamp(2rem, 1.4rem + 2.4vw, 3rem);
+  --t-h1: clamp(2.6rem, 1.6rem + 4.2vw, 4.875rem);
 
-  --container: 1180px;
-  --header-h: 64px;
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-5: 1.5rem;
+  --s-6: 2rem;
+  --s-7: 3rem;
+  --s-8: 4rem;
+  --s-9: 6rem;
+  --section-y: clamp(4rem, 2.75rem + 5vw, 7rem);
+
+  /* Controls get 4px, panels and cards 2px — square enough to read as
+     instrument panels, not app tiles. */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 4px;
+
+  --container: 76rem;
+  --gutter: clamp(1rem, 0.5rem + 2.5vw, 2.5rem);
+  --measure: 38rem;
+  --header-h: 4.25rem;
+  /* Sticky header = family line (2.25rem) + main bar + two 1px rules. */
+  --header-total: calc(var(--header-h) + 2.25rem + 2px);
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @media (prefers-color-scheme: dark) {

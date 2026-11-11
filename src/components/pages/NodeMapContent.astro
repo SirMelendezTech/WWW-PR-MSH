@@ -3,7 +3,7 @@ import Breadcrumbs from "../Breadcrumbs.astro";
 import type { Locale } from "../../lib/i18n";
 import { localizePath } from "../../lib/i18n";
 import { useStrings } from "../../lib/ui-strings";
-import { getNodes } from "../../lib/nodes";
+import { getNodes, lastHeard } from "../../lib/nodes";
 import "leaflet/dist/leaflet.css";
 
 interface Props { lang: Locale }
@@ -12,7 +12,8 @@ const m = useStrings(lang).map;
 const legend = useStrings(lang).mapPreview;
 const p = (href: string) => localizePath(href, lang);
 
-const { nodes, live } = await getNodes();
+const { nodes: rawNodes, live } = await getNodes();
+const nodes = rawNodes.map((n) => ({ ...n, lastSeen: lastHeard(n, lang) }));
 const onlineCount = nodes.filter((n) => n.status === "online").length;
 const nodesLabel = live ? m.ledeNodes : m.ledeSampleNodes;
 // Escape "</" so a node name can't prematurely close the inline JSON <script> tag.
@@ -42,6 +43,8 @@ const nodeDataJson = JSON.stringify(nodes).replace(/<\//g, "<\\/");
     data-i18n-lastseen={m.popupLastSeen}
     data-i18n-snr={m.popupSnr}
     data-i18n-precision={m.popupPrecision}
+    data-i18n-online={legend.statOnline}
+    data-i18n-offline={legend.statOffline}
   ></div>
 
   <aside class="node-list" aria-label={m.nodeListAria}>
@@ -52,7 +55,7 @@ const nodeDataJson = JSON.stringify(nodes).replace(/<\//g, "<\\/");
           <span class={`status-dot status-dot--${n.status}`} aria-hidden="true"></span>
           <div>
             <span class="node-name">{n.name}</span>
-            <span class="node-meta">{n.type} · {m.lastSeen} {n.lastSeen}</span>
+            <span class="node-meta">{n.type}, {m.lastSeen} {n.lastSeen}</span>
           </div>
         </li>
       ))}
@@ -106,8 +109,6 @@ const nodeDataJson = JSON.stringify(nodes).replace(/<\//g, "<\\/");
     margin: 0.9rem 0 0;
     font-family: var(--font-mono);
     font-size: 0.72rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
     color: var(--ink-faint);
   }
   .key { display: inline-flex; align-items: center; gap: 0.45em; }
@@ -139,14 +140,14 @@ const nodeDataJson = JSON.stringify(nodes).replace(/<\//g, "<\\/");
   }
 
   .node-list { border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem; background: var(--bg-raised); }
-  .docs-sidebar-label { font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-faint); margin: 0 0 0.9rem; }
+  .docs-sidebar-label { font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-faint); margin: 0 0 0.9rem; }
   .node-list ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.9rem; max-height: 400px; overflow-y: auto; }
   .node-item { display: flex; gap: 0.6rem; align-items: flex-start; cursor: pointer; }
   .status-dot { width: 9px; height: 9px; border-radius: 50%; margin-top: 0.35em; flex-shrink: 0; }
   .status-dot--online { background: var(--secondary); box-shadow: 0 0 0 3px color-mix(in srgb, var(--secondary) 20%, transparent); }
   .status-dot--offline { background: var(--ink-faint); }
   .node-name { display: block; font-weight: 600; font-size: 0.9rem; }
-  .node-meta { display: block; font-size: 0.78rem; color: var(--ink-faint); text-transform: capitalize; }
+  .node-meta { display: block; font-size: 0.78rem; color: var(--ink-faint); }
 
   /* Each of these reads the mesh along a different axis, so the mono label
      names the measurement rather than numbering the cards. */
@@ -176,7 +177,6 @@ const nodeDataJson = JSON.stringify(nodes).replace(/<\//g, "<\\/");
   .view-measures {
     font-family: var(--font-mono);
     font-size: 0.68rem;
-    text-transform: uppercase;
     letter-spacing: 0.1em;
     font-weight: 700;
     color: var(--secondary);
@@ -202,6 +202,10 @@ const nodeDataJson = JSON.stringify(nodes).replace(/<\//g, "<\\/");
   const T_LAST_SEEN = mapEl?.dataset.i18nLastseen || "Last seen";
   const T_SNR = mapEl?.dataset.i18nSnr || "SNR";
   const T_PRECISION = mapEl?.dataset.i18nPrecision || "Position precision";
+  const T_STATUS: Record<string, string> = {
+    online: mapEl?.dataset.i18nOnline || "online",
+    offline: mapEl?.dataset.i18nOffline || "offline",
+  };
 
   const map = L.map("node-map", { scrollWheelZoom: false }).setView([18.22, -66.45], 9);
 
@@ -227,7 +231,7 @@ const nodeDataJson = JSON.stringify(nodes).replace(/<\//g, "<\\/");
     }).addTo(map);
 
     marker.bindPopup(
-      `<strong>${node.name}</strong><br>${node.type} · ${node.status}<br>${T_LAST_SEEN} ${node.lastSeen}` +
+      `<strong>${node.name}</strong><br>${node.type}, ${T_STATUS[node.status] ?? node.status}<br>${T_LAST_SEEN} ${node.lastSeen}` +
         (typeof node.snr === "number" ? `<br>${T_SNR}: ${node.snr.toFixed(1)} dB` : "") +
         (typeof node.precisionMeters === "number" ? `<br>${T_PRECISION}: ±${Math.round(node.precisionMeters)} m` : "")
     );

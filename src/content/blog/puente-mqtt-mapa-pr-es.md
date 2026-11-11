@@ -10,8 +10,6 @@ readingTime: 8 min
 lang: es
 ---
 
-# Cómo poner tu nodo en el mapa de la malla de Puerto Rico
-
 El [Mapa de Nodos](/map/) se construye con lo que los nodos publican a MQTT bajo el tema de Puerto Rico. Si tu nodo no está ahí, no es un error del mapa — significa que tu nodo no está puenteando a MQTT, no publica bajo el tema que el mapa lee, o no envía posición. Los tres se arreglan en unos minutos.
 
 Este post recorre toda la cadena. Nada de esto cambia cómo tu nodo habla por LoRa — MQTT es un canal lateral hacia internet, y la malla de radio sigue funcionando durante apagones sin importar MQTT. Consulta [Configuración Recomendada → MQTT](/settings/#mqtt) para la tabla de referencia que esto amplía.

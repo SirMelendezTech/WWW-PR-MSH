@@ -3,7 +3,7 @@ import MeshMark from "./MeshMark.astro";
 import ThemeToggle from "./ThemeToggle.astro";
 import { getLocaleFromPath, localizePath } from "../lib/i18n";
 import { useStrings } from "../lib/ui-strings";
-import { DISCORD_INVITE_URL } from "../lib/community";
+import { DISCORD_INVITE_URL, MESHCORE_PR_URL, PRMSH_HOME_URL } from "../lib/community";
 
 const GITHUB_REPO_URL = "https://github.com/SirMelendezTech/WWW-PR-MSH";
 
@@ -25,10 +25,12 @@ const langSwitchHref = altLocaleHref
     ? localizePath("/blog/", otherLocale)
     : localizePath(path, otherLocale);
 const homeHref = localizePath("/", locale);
+// Named in its own language, like every other language picker.
+const otherLocaleName = otherLocale === "es" ? "Español" : "English";
 
 // `topBar: false` keeps a page out of the desktop bar only — the menu and the
-// footer still list it. The Spanish labels are what set the ceiling: at nine
-// entries the bar needs 883px and only 745px fit.
+// footer still list it. Seven items plus search and the Discord button is
+// what fits the Spanish labels at the desktop breakpoint.
 const navItemsBase = [
   { label: t.nav.gettingStarted, href: "/getting-started/" },
   { label: t.nav.hardware, href: "/hardware/" },
@@ -56,12 +58,32 @@ function isActive(href: string) {
 }
 ---
 <header class="site-header">
+  {/* Family line: the same strip meshcore.prmsh.com carries, so a visitor can
+      tell at a glance that this is one PRMSH site of several. It also holds
+      language and theme, which stay reachable at every width. */}
+  <div class="family-bar">
+    <div class="container family-row">
+      <nav class="family-crumbs" aria-label={t.nav.familyAria}>
+        <a href={PRMSH_HOME_URL}>{t.nav.familyHome}</a>
+        <span class="family-sep" aria-hidden="true">/</span>
+        <a href={homeHref} class="is-current">Meshtastic</a>
+      </nav>
+      <div class="family-tools">
+        <a href={MESHCORE_PR_URL} class="family-link family-sister" target="_blank" rel="noopener">
+          {t.nav.sisterShort}<span class="sr-only"> {t.opensInNewTab}</span>
+        </a>
+        <a href={langSwitchHref} class="family-link" hreflang={otherLocale} lang={otherLocale} aria-label={otherLocale === "es" ? t.nav.switchToSpanish : t.nav.switchToEnglish}>
+          {otherLocaleName}
+        </a>
+        <ThemeToggle lang={locale} />
+      </div>
+    </div>
+  </div>
+
   <div class="container header-row">
     <a href={homeHref} class="brand">
       <MeshMark />
-      <span class="brand-text">
-        <span class="brand-name">PRMSH</span>
-      </span>
+      <span class="brand-name">PRMSH</span>
     </a>
 
     <nav class="primary-nav" aria-label={t.nav.primaryNavAria}>
@@ -81,32 +103,11 @@ function isActive(href: string) {
         </svg>
         <kbd class="search-kbd" aria-hidden="true">Ctrl K</kbd>
       </button>
-      <a
-        href={DISCORD_INVITE_URL}
-        class="icon-btn header-extra"
-        aria-label={t.nav.discordAria}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.865-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.74 19.74 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.099.246.198.373.292a.077.077 0 0 1-.006.127 12.3 12.3 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
-        </svg>
+      <a href={DISCORD_INVITE_URL} class="btn btn-primary btn-sm header-cta" target="_blank" rel="noopener noreferrer">
+        {t.nav.discordCta}
+        <svg class="icon-ext" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5"/></svg>
+        <span class="sr-only"> {t.opensInNewTab}</span>
       </a>
-      <a
-        href={GITHUB_REPO_URL || "#"}
-        class="icon-btn header-extra"
-        aria-label={t.nav.viewSourceAria}
-        target={GITHUB_REPO_URL ? "_blank" : undefined}
-        rel={GITHUB_REPO_URL ? "noopener noreferrer" : undefined}
-      >
-        <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/>
-        </svg>
-      </a>
-      <a href={langSwitchHref} class="icon-btn lang-switch" aria-label={otherLocale === "es" ? t.nav.switchToSpanish : t.nav.switchToEnglish}>
-        {otherLocale.toUpperCase()}
-      </a>
-      <ThemeToggle lang={locale} />
       <button
         id="nav-toggle"
         class="icon-btn nav-toggle"
@@ -128,18 +129,15 @@ function isActive(href: string) {
   </div>
 
   <nav id="mobile-nav" class="mobile-nav" aria-label={t.nav.mobileNavAria} hidden>
-    <ul>
+    <ul class="container">
       {navItems.map((item) => (
         <li><a href={item.href} aria-current={isActive(item.href) ? "page" : undefined}>{item.label}</a></li>
       ))}
-      <li class="mobile-nav-extra">
-        <a href={DISCORD_INVITE_URL} target="_blank" rel="noopener noreferrer">{t.nav.discordAria}</a>
-      </li>
-      {GITHUB_REPO_URL && (
-        <li class="mobile-nav-extra">
-          <a href={GITHUB_REPO_URL} target="_blank" rel="noopener noreferrer">{t.nav.viewSourceAria}</a>
-        </li>
-      )}
+    </ul>
+    <ul class="container mobile-nav-secondary">
+      <li><a href={DISCORD_INVITE_URL} target="_blank" rel="noopener noreferrer">{t.nav.discordCta}<span class="sr-only"> {t.opensInNewTab}</span></a></li>
+      <li class="mobile-only-sister"><a href={MESHCORE_PR_URL} target="_blank" rel="noopener">{t.nav.sisterShort}<span class="sr-only"> {t.opensInNewTab}</span></a></li>
+      <li><a href={GITHUB_REPO_URL} target="_blank" rel="noopener noreferrer">{t.nav.viewSourceAria}<span class="sr-only"> {t.opensInNewTab}</span></a></li>
     </ul>
   </nav>
 </header>
@@ -149,68 +147,116 @@ function isActive(href: string) {
     position: sticky;
     top: 0;
     z-index: 50;
-    background: var(--bg);
+    background: color-mix(in srgb, var(--bg) 94%, transparent);
+    backdrop-filter: saturate(1.2) blur(8px);
     border-bottom: 1px solid var(--border);
   }
-  .header-row {
-    height: var(--header-h);
+
+  /* ---- Family line ---- */
+  .family-bar { border-bottom: 1px solid var(--border); background: var(--bg-raised); }
+  .family-row {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    justify-content: space-between;
+    gap: var(--s-4);
+    min-height: 2.25rem;
+    font-family: var(--font-mono);
+    font-size: var(--t-xs);
   }
-  @media (min-width: 1140px) {
-    .header-row { gap: 1.5rem; }
+  .family-crumbs { display: flex; align-items: center; gap: 0.6ch; min-width: 0; white-space: nowrap; }
+  .family-crumbs a { color: var(--ink-soft); text-decoration: underline; text-decoration-color: var(--border-strong); text-underline-offset: 3px; }
+  .family-crumbs a:hover { color: var(--ink); text-decoration-color: currentColor; }
+  .family-crumbs a.is-current { color: var(--ink); text-decoration: none; }
+  .family-sep { color: var(--ink-faint); }
+  .family-tools { display: flex; align-items: center; gap: var(--s-4); }
+  .family-link {
+    position: relative;
+    color: var(--ink-soft);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .family-link:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+  /* 44px-tall hit area inside a 36px strip. */
+  .family-link::after { content: ""; position: absolute; inset: -0.75rem -0.4rem; }
+  .family-sister { display: none; }
+  @media (min-width: 560px) {
+    .family-sister { display: inline; }
+  }
+
+  /* ---- Main bar ---- */
+  .header-row {
+    min-height: var(--header-h);
+    display: flex;
+    align-items: center;
+    gap: var(--s-4);
   }
   .brand {
     display: inline-flex;
     align-items: center;
-    gap: 0.55rem;
+    gap: 0.6rem;
     text-decoration: none;
     margin-right: auto;
     flex-shrink: 0;
   }
-  .brand-text { font-family: var(--font-display); font-weight: 700; font-size: 1rem; color: var(--ink); letter-spacing: -0.01em; }
-  @media (min-width: 420px) {
-    .brand-text { font-size: 1.12rem; }
+  .brand-name {
+    font-family: var(--font-display);
+    font-weight: 750;
+    font-size: 1.25rem;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    color: var(--ink);
   }
-  .brand-name { }
 
   .primary-nav { display: none; }
-  .primary-nav ul { display: flex; gap: 1.6rem; list-style: none; margin: 0; padding: 0; }
+  .primary-nav ul { display: flex; align-items: center; gap: var(--s-1); list-style: none; margin: 0; padding: 0; }
   .primary-nav a {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding-inline: var(--s-2);
     text-decoration: none;
     color: var(--ink-soft);
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    letter-spacing: 0.01em;
-    padding: 0.4em 0;
-    border-bottom: 1.5px solid transparent;
+    font-size: var(--t-sm);
+    font-weight: 500;
     white-space: nowrap;
+    border-radius: var(--radius-md);
+    transition: color 0.16s var(--ease-out);
   }
   .primary-nav a:hover { color: var(--ink); }
-  .primary-nav a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--accent); }
+  /* Current page: ink plus a short red rule under the label, so "you are
+     here" doesn't rely on colour alone. */
+  .primary-nav a[aria-current="page"] { color: var(--ink); font-weight: 700; }
+  .primary-nav a[aria-current="page"]::after {
+    content: "";
+    position: absolute;
+    left: var(--s-2);
+    right: var(--s-2);
+    bottom: 6px;
+    height: 2px;
+    background: var(--accent);
+  }
 
-  @media (min-width: 1140px) {
+  @media (min-width: 1180px) {
     .primary-nav { display: block; }
   }
 
-  /* Plain glyphs, not a rack of bordered toolbar boxes. */
-  .header-actions { display: flex; align-items: center; gap: 0.35rem; flex-shrink: 0; }
+  .header-actions { display: flex; align-items: center; gap: var(--s-2); flex-shrink: 0; }
   .icon-btn {
     position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
     border: none;
+    border-radius: var(--radius-md);
     background: none;
-    color: var(--ink-faint);
+    color: var(--ink-soft);
     cursor: pointer;
+    transition: color 0.16s var(--ease-out), background-color 0.16s var(--ease-out);
   }
-  .icon-btn:hover { color: var(--ink); }
-
-  /* 44px touch target regardless of the smaller visual glyph box. */
+  .icon-btn:hover { color: var(--ink); background: var(--bg-sunken); }
   .icon-btn::after {
     content: "";
     position: absolute;
@@ -228,56 +274,54 @@ function isActive(href: string) {
   .nav-toggle[aria-expanded="true"] .nav-icon-open { display: none; }
   .nav-toggle[aria-expanded="true"] .nav-icon-close { display: block; }
 
-  /* Shortcut hint only where there is room beside the full nav (the Spanish
-     labels leave no slack at 1140px) and where a keyboard is likely. */
   .search-kbd { display: none; }
-  @media (min-width: 1280px) and (hover: hover) {
-    .search-open { width: auto; gap: 0.45rem; padding: 0 0.4rem; }
+  @media (min-width: 1320px) and (hover: hover) {
+    .search-open { width: auto; gap: 0.45rem; padding: 0 0.5rem; }
     .search-kbd {
       display: inline-block;
       font-family: var(--font-mono);
-      font-size: 0.66rem;
+      font-size: 0.68rem;
       line-height: 1;
       padding: 0.3em 0.45em;
       border: 1px solid var(--border-strong);
-      border-radius: 4px;
+      border-radius: var(--radius-sm);
       color: var(--ink-faint);
       white-space: nowrap;
     }
     .search-open:hover .search-kbd { color: var(--ink-soft); }
   }
 
-  .lang-switch { font-family: var(--font-mono); font-size: 0.74rem; font-weight: 700; letter-spacing: 0.03em; text-decoration: none; width: auto; padding: 0 0.5em; }
-
-  /* Below 520px the row fits the brand plus four controls: search, language,
-     theme and menu. Language stays in the bar because a visitor who landed
-     on the wrong one should not have to open a menu to fix it; Discord and
-     GitHub move into the menu instead of overflowing. */
-  .header-extra { display: none; }
-  .mobile-nav-extra { display: block; }
-  @media (min-width: 520px) {
-    .header-extra { display: inline-flex; }
-    .mobile-nav-extra { display: none; }
+  /* Discord is the community's front door, so it gets the one filled button
+     in the header — from tablet width up. On phones it moves into the menu. */
+  .header-cta { display: none; }
+  @media (min-width: 640px) {
+    .header-cta { display: inline-flex; }
   }
 
   /* Declared after `.icon-btn` on purpose: same specificity, so source order
-     decides, and the earlier copy of this rule lost to `display: inline-flex`. */
-  @media (min-width: 1140px) {
+     decides. */
+  @media (min-width: 1180px) {
     .nav-toggle { display: none; }
   }
 
-  .mobile-nav { border-top: 1px solid var(--border); background: var(--bg); }
-  .mobile-nav ul { list-style: none; margin: 0; padding: 0.5rem 0; }
+  .mobile-nav { border-top: 1px solid var(--border); background: var(--bg); max-height: calc(100dvh - 6.5rem); overflow-y: auto; }
+  .mobile-nav ul { list-style: none; margin-block: 0; padding-block: var(--s-2); }
   .mobile-nav a {
-    display: block;
-    padding: 0.85rem 20px;
+    display: flex;
+    align-items: center;
+    min-height: 48px;
     text-decoration: none;
     color: var(--ink-soft);
     font-weight: 500;
     border-bottom: 1px solid var(--border);
   }
-  .mobile-nav a[aria-current="page"] { color: var(--secondary); font-weight: 700; }
-  @media (min-width: 1140px) {
+  .mobile-nav li:last-child a { border-bottom: none; }
+  .mobile-nav a[aria-current="page"] { color: var(--ink); font-weight: 700; box-shadow: inset 3px 0 0 var(--accent); padding-left: var(--s-3); }
+  .mobile-nav-secondary { border-top: 1px solid var(--border); font-size: var(--t-sm); }
+  @media (min-width: 560px) {
+    .mobile-only-sister { display: none; }
+  }
+  @media (min-width: 1180px) {
     .mobile-nav { display: none !important; }
   }
 </style>
@@ -313,5 +357,4 @@ function isActive(href: string) {
   if (/Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent)) {
     document.querySelectorAll(".search-kbd").forEach((el) => { el.textContent = "⌘ K"; });
   }
-
 </script>
