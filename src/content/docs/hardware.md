@@ -9,15 +9,16 @@ Meshtastic hardware ranges from $25 development boards to purpose-built solar re
 
 <div class="callout">
 <span class="callout-label">Community recommendation, not endorsement</span>
-Everything below reflects what Puerto Rico node operators have found reliable in practice. Prices and availability are approximate and will drift — check current listings before buying. No manufacturer sponsors this page, and watch for knockoff boards and antennas on general marketplaces; buy from a board's official store or a known Meshtastic retailer when possible.
+Everything below reflects what Puerto Rico node operators have found reliable in practice. Prices and availability are approximate and will drift — check current listings before buying. No manufacturer sponsors this page, and watch for knockoff boards and antennas on general marketplaces; buy from a board's official store or a known Meshtastic retailer when possible. Prices and models checked in November 2026 against the official Meshtastic device list, RF Index, and manufacturer stores.
 </div>
 
 <div class="callout">
 <span class="callout-label">Just want to get one node up?</span>
-Two starting points, depending on where you'll put it. Full trade-offs and the rest of the field are below.
+Three starting points, depending on what it's for. Full trade-offs and the rest of the field are below.
 <ul>
-<li><strong>Carry it with you</strong> — <a href="#portable--handheld-nodes">Seeed Wio Tracker L1</a>, about $30. Built-in GPS, small OLED, on the mesh straight out of the box.</li>
-<li><strong>Leave it running somewhere fixed</strong> — a <a href="#rooftop--high-elevation-nodes">Heltec LoRa32 V4-class board</a>, about $25–30. Plugged in, no battery to manage.</li>
+<li><strong>Carry it with you</strong> — <a href="#portable--handheld-nodes">Seeed Wio Tracker L1</a>, about $25–35. Built-in GPS, small OLED, on the mesh straight out of the box.</li>
+<li><strong>For the emergency bag</strong> — a 10,000 mAh <a href="#portable--handheld-nodes">Heltec MeshPocket</a>, about $60–80. It's also a power bank: the same device that sends messages charges your phone when the power is out.</li>
+<li><strong>Leave it running somewhere fixed</strong> — a <a href="#rooftop--high-elevation-nodes">Heltec LoRa32 V4-class board</a>, about $18–30. Plugged in, no battery to manage.</li>
 </ul>
 </div>
 
@@ -28,15 +29,18 @@ Almost every board on this page is built around one of two chip families, and it
 - **nRF52840** — sips power. Days to weeks on a single charge, no Wi-Fi. The right choice for anything battery-powered: handhelds, solar nodes.
 - **ESP32 / ESP32-S3** — adds Wi-Fi and more processing headroom, at the cost of battery life (often 1–2 days on internal battery). Makes sense for a node that's plugged in anyway — home base station, rooftop repeater, or a Wi-Fi/MQTT gateway.
 
+The LoRa radio matters as much as the chip. Buy devices with an **SX1262, LR11xx, or LR2021** radio. The official Meshtastic docs no longer recommend **SX127x** radios for new purchases — that covers older boards like the T-Beam V1.1 and some LoRa T3 variants. A cheap used one is fine for practice, but not for a node the community will depend on.
+
 ## Portable / handheld nodes
 
 For a backpack, glovebox, belt clip, or pocket. Priorities: battery life, size, and a display you can read outdoors. These almost always run as **Client** or **Client Mute** — see [Node Roles](/en/settings/#node-roles).
 
-- **Budget entry point**: boards like the Seeed Wio Tracker L1 (around $30 — 800 mAh, built-in GPS, small OLED) get you on the mesh cheaply. The L1 Pro variant (about $43) adds a bigger screen and solar charging.
-- **Best battery life**: boards that take a standard 18650 cell — the Heltec T114 is a common example (~$25–45 depending on configuration) — can stretch to roughly a week between charges, versus 2–3 days for smaller fixed-battery boards.
-- **Sunlight-readable**: E-ink displays stay visible in direct sun and sip almost no power to hold an image — the LILYGO T-Echo (~$60–68) is a common pick, typically good for 5–7 days of normal use. E-ink boards built on the SX1262 radio can be permanently damaged if powered on with no antenna attached — always connect the antenna before powering up.
-- **Premium / most rugged**: boards like the RAK WisMesh Pocket V2 (~$89–99, IP66-rated, external SMA antenna) trade size for a bigger battery and better sealing — a reasonable step up for daily carry or boat use.
-- **Card-style trackers**: slim, sealed trackers like the RAK WisMesh Tag or SenseCAP T-1000e (~$39 each) trade a display and swappable antenna for pocketability — fine as a location beacon, less useful as a primary messaging device.
+- **Budget entry point**: the Seeed Wio Tracker L1 family gets you on the mesh cheaply. The L1 (about $25–35) has GPS and a small OLED; the **L1 E-Ink** (about $30–40) swaps the OLED for a 2.13" e-ink screen you can read in direct sun; the **L1 Pro** (about $40–47) adds a bigger battery, a joystick, and solar charging. The L1 Lite (about $20–30) has no screen.
+- **Biggest battery**: the **Heltec MeshPocket** (about $50–80) is a power bank with a Meshtastic radio and an e-ink screen, in 5,000 or 10,000 mAh versions, with Qi2 wireless charging. In an outage it charges your phone and keeps sending messages. Note: its USB-C port only charges; firmware updates go through the included magnetic cable.
+- **Battery your way**: the **Heltec T114** (about $28–50 depending on configuration) has a connector for an external battery instead of a fixed cell. With a large cell in a case it can stretch to roughly a week between charges.
+- **Sunlight-readable**: e-ink displays stay visible in direct sun and sip almost no power to hold an image. The **LILYGO T-Echo** (about $55–65) is the classic pick, typically good for 5–7 days of normal use; the **Elecrow ThinkNode M1** (about $40–60) is an e-ink alternative. E-ink boards built on the SX1262 radio can be permanently damaged if powered on with no antenna attached — always connect the antenna before powering up.
+- **Premium / most rugged**: the **RAK WisMesh Pocket V2** (about $90–100, IP66, external SMA antenna, 3,200 mAh) trades size for a bigger battery and better sealing — a reasonable step up for daily carry or boat use.
+- **Card-style trackers**: slim and sealed, with no display or swappable antenna. The **SenseCAP T1000-E** (about $35–45, IP65) and **RAK WisMesh Tag** (about $29–50, IP66) are the familiar ones; the newer **SenseCAP MeshTracker X1** (about $43–50, IP66) charges over USB-C, has dual-band (L1+L5) GPS, and lasts up to 5 days depending on the GPS interval. Fine as a location beacon, less useful as a primary messaging device.
 
 An **IP-rated case** or a cheap dry bag matters more in Puerto Rico's humidity and rain than almost anywhere on the mainland U.S. — factor it into the budget for any board that doesn't already ship sealed.
 
@@ -51,12 +55,14 @@ A quick side-by-side of specific handheld models mentioned above — useful once
 
 | Device | Battery | Est. battery life | Screen | Price | Best for |
 |---|---|---|---|---|---|
-| Wio Tracker L1 | 800 mAh | ~2–3 days | 0.96" OLED | ~$30 | Budget pick |
-| Wio Tracker L1 Pro | 2000 mAh | ~2.5 days | 1.3" OLED | ~$43 | Budget with joystick + solar |
-| Heltec T114 | 800–3000 mAh | Up to a week (18650) | 1.14" color | ~$25–45 | Best battery life |
-| LILYGO T-Echo | 850 mAh | ~5–7 days | 1.54" e-ink, sunlight-readable | ~$60–68 | Mid-range, outdoor use |
-| RAK WisMesh Pocket V2 | 3200 mAh | ~3+ days with GPS on | 1.3" OLED | ~$89–99 | Best overall, IP66 rugged |
-| LILYGO T-Deck Plus | 2000 mAh | ~1–2 days | 2.8" color LCD, full keyboard | ~$77–87 | Standalone messaging, no phone needed |
+| Wio Tracker L1 | 800 mAh | ~2–3 days | Small OLED | ~$25–35 | Budget pick |
+| Wio Tracker L1 Pro | 2000 mAh | ~2.5 days | 1.3" OLED | ~$40–47 | Budget with joystick + solar |
+| Heltec T114 | External, your choice | Up to a week with a large cell | 1.14" color (optional) | ~$28–50 | Battery your way |
+| LILYGO T-Echo | 850 mAh | ~5–7 days | 1.54" e-ink, sunlight-readable | ~$55–65 | Mid-range, outdoor use |
+| Heltec MeshPocket | 5000 or 10,000 mAh | Several days; also charges a phone | 2.13" e-ink | ~$50–80 | Emergency bag, outages |
+| RAK WisMesh Pocket V2 | 3200 mAh | ~3+ days with GPS on | 1.3" OLED | ~$90–100 | IP66 rugged daily carry |
+| SenseCAP MeshTracker X1 | 1100 mAh | Up to ~5 days | None | ~$43–50 | IP66 card tracker, USB-C |
+| LILYGO T-Deck Plus | 2000 mAh | ~1–2 days | 2.8" color LCD, full keyboard | ~$79–100 | Standalone messaging, no phone needed |
 
 </div>
 
@@ -64,9 +70,23 @@ Prices and specs shift as manufacturers revise boards — treat this as a starti
 
 </details>
 
+## Standalone messengers (no phone needed)
+
+Devices with their own screen and keyboard: you read and write messages without pairing a phone. Good for someone without a smartphone, for leaving one at an older relative's house, or as a backup when the phone's battery is gone. All of them run on ESP32-S3, so expect 1–2 days of battery and charge them daily.
+
+- **LILYGO T-Deck Plus** (about $79–100) — 2.8" color touchscreen, BlackBerry-style keyboard, GPS. The most widely used of the group.
+- **LILYGO T-Deck Pro** (about $82–93) — the same idea with a 3.1" e-ink touchscreen: easier to read in sun and lighter on power.
+- **LILYGO T-Lora Pager** (about $87–115) — pager form factor with a keyboard and a 2.33" screen; more compact than the T-Decks.
+
 ## Home / stationary nodes
 
 Indoor nodes running off USB power, usually placed near a window for the best indoor-to-outdoor signal path. This is the easiest and cheapest way to become part of the mesh — most of the network is built from nodes exactly like this. A plugged-in ESP32-based board (see chip comparison above) is a reasonable, inexpensive choice here since battery life doesn't matter.
+
+- **Cheapest**: a **Heltec LoRa32 V4** (about $18–30) in a case, with a better antenna than the stock one.
+- **Desk-ready**: the **Muzi Works Base Uno** (about $25) or **Base Duo** (about $35), or the **RAK WisMesh Board ONE** (about $30–54) — nRF52840, so they also run off a battery bank during an outage.
+- **Serious base station**: the **B&Q Station G3** (about $109–159) has an adjustable power amplifier and better reception in noisy RF environments. It needs a supply of at least 25 W between 9 and 19 V; more than 19 V can permanently damage it.
+
+Two rules that matter more than the model:
 
 - Plug-and-forget: pick a device you can leave powered 24/7 without worrying about it.
 - Window placement beats a more powerful radio buried in a closet. LoRa is line-of-sight-sensitive; a few feet of positioning matters more than a few dB of transmit power.
@@ -75,14 +95,14 @@ Indoor nodes running off USB power, usually placed near a window for the best in
 
 Permanent installations meant to extend coverage for the wider community, not just one household. These matter most on ridgelines and rooftops with genuine line of sight to other nodes or population centers — see [Puerto Rico Mesh](/en/pr-mesh/) for where coverage gaps currently exist.
 
-- **Budget option**: a plugged-in ESP32 board (e.g. Heltec LoRa32 V4 class, ~$25–30) with an external antenna covers most rooftop deployments without needing GPS — the node's position can be set manually since it isn't moving.
-- **High-power option**: boosted boards running a 1W (30 dBm) LoRa module exist for genuinely hard-to-cover terrain, but check the math before reaching for one — U.S. rules cap effective radiated power at 36 dBm, so a 1W radio paired with a high-gain antenna can get close to that ceiling fast. More power isn't automatically better; it raises your own airtime footprint for everyone nearby too.
+- **Budget option**: a plugged-in ESP32 board (e.g. Heltec LoRa32 V4 class, ~$18–30) with an external antenna covers most rooftop deployments without needing GPS — the node's position can be set manually since it isn't moving.
+- **High-power option**: for genuinely hard-to-cover terrain there's the **RAK WisMesh 1W Booster** kit (about $39), the **B&Q Station G3** with adjustable output, and 1W variants of several solar repeaters. Check the math before reaching for one — U.S. rules cap effective radiated power at 36 dBm, so a 1W radio paired with a high-gain antenna can get close to that ceiling fast. More power isn't automatically better; it raises your own airtime footprint for everyone nearby too.
 - Weatherproof enclosure is non-negotiable — expect sun, salt air, and hurricane-season rain.
 - Consider whether this node should run as **Router** or **Router Late** — and read the warning in [Recommended Settings](/en/settings/#node-roles) first. A rooftop node run as a plain Client is often still the better choice.
 
 ## Solar nodes
 
-Remote or unattended locations without reliable mains power — a finca, a trailhead, a hilltop with no structure nearby. Solar nodes are what keep the mesh alive when the grid doesn't. Pre-built solar kits exist (small panel + battery + weatherproof housing bundled together) if you'd rather not source and enclose the parts yourself — expect roughly $70–200 depending on panel size and battery capacity.
+Remote or unattended locations without reliable mains power — a finca, a trailhead, a hilltop with no structure nearby. Solar nodes are what keep the mesh alive when the grid doesn't. Pre-built solar kits exist (panel + battery + weatherproof housing bundled together) if you'd rather not source and enclose the parts yourself — expect roughly $80–300 depending on panel size and battery capacity. Current models are under [Pre-built solar nodes](#pre-built-solar-nodes-no-assembly-required).
 
 - Size the panel and battery for Puerto Rico's **rainy-season worst case**, not a sunny afternoon — several consecutive overcast days should not take the node offline.
 - LiFePO4 battery packs handle heat better than generic lithium-ion, which matters for anything mounted outdoors in direct sun.
@@ -180,9 +200,11 @@ Knockoff boards and antennas circulate on general marketplaces, sold as if they 
 |---|---|---|
 | Rokland | store.rokland.com | US-based, fast shipping, strong antenna selection |
 | RAK Wireless | store.rakwireless.com | WisMesh Pocket, Repeater, Tag, 1W booster |
-| B&Q Consulting | shop.uniteng.com | Station G2, Nano G2 Ultra — engineering-focused RF gear |
-| Muziworks | muzi.works | Cases, antennas, the R1 Neo — assembled in the USA |
-| Seeed Studio | seeedstudio.com | Wio Tracker, SenseCAP, Solar P1 |
+| B&Q Consulting | shop.uniteng.com | Station G3, Nano G2 Ultra — engineering-focused RF gear |
+| Heltec | heltec.org | LoRa32 V4, T114, MeshPocket, MeshTower |
+| Elecrow | elecrow.com | ThinkNode M1–M9, including the solar M6 |
+| Muziworks | muzi.works | Cases, antennas, R1 Neo, Base Uno/Duo — assembled in the USA |
+| Seeed Studio | seeedstudio.com | Wio Tracker, SenseCAP T1000-E and MeshTracker X1, Solar P1 |
 | Atlavox | atlavox.com | Pre-built solar nodes and accessories |
 | PeakMesh (Etsy) | Etsy shop | Pre-built solar nodes on RAK hardware, ships from FL |
 
@@ -190,18 +212,23 @@ Knockoff boards and antennas circulate on general marketplaces, sold as if they 
 
 ## Pre-built solar nodes (no assembly required)
 
-If sourcing a panel, battery, charge controller, and enclosure separately isn't appealing, several small builders sell fully assembled solar nodes ready to mount and power on:
+If sourcing a panel, battery, charge controller, and enclosure separately isn't appealing, manufacturers and small builders sell fully assembled solar nodes ready to mount and power on:
 
 <div class="table-wrap">
 
 | Device | Solar | Battery | GPS | Approx. price | Where |
 |---|---|---|---|---|---|
-| RAK WisMesh Repeater | Built in | Built in | No | ~$70–90 | RAK Wireless |
-| SenseCAP Solar P1 Pro | 5W panel | 4× 18650, included | Yes | ~$90 | Seeed Studio |
-| Atlavox Beacon | Built in | Built in | Yes | ~$150–200 | Atlavox |
+| RAK WisMesh Repeater Mini V2 | Built in | 3200 mAh | Optional | ~$90–100 | RAK Wireless |
+| RAK WisMesh Repeater | Built in | Built in | No | ~$100–325 depending on panel | RAK Wireless |
+| Elecrow ThinkNode M6 | 6W panel, MPPT | 2× 18650, included | Yes | ~$80–90 | Elecrow, Muziworks, Atlavox |
+| SenseCAP Solar P1 Pro | 5W panel | 4× 18650, included | Yes | ~$75–140 | Seeed Studio |
+| Heltec MeshTower V2 | 18–24 V panel input | 3× 2800 mAh | — | ~$109–129 | Heltec |
+| Atlavox Beacon | Built in | Built in | Yes | ~$250–300 | Atlavox |
 | Heltec V4 solar node | 25W panel | 6× 18650 | No | ~$120–180 | Etsy builders |
 
 </div>
+
+Most ship in an IP65–IP67 housing; confirm each model's rating before you mount it. The Repeater Mini V2 and MeshTower V2 come in higher-power variants (1W on the Repeater Mini V2, 28 dBm on the MeshTower V2H) — read the power note under [Rooftop nodes](#rooftop--high-elevation-nodes) before picking one.
 
 PeakMesh's Etsy shop specializes in this category and is a frequent recommendation for well-built, discreet mounts:
 
@@ -227,12 +254,15 @@ Every category above, side by side — price, battery, GPS, waterproofing, and t
 
 | Device | Approx. price | Battery | GPS | Display | Antenna connector | Waterproof | Solar-ready | Recommended use | Trade-off |
 |---|---|---|---|---|---|---|---|---|---|
-| Budget handheld (e.g. Wio Tracker L1 class) | ~$30 | 800 mAh, 2–3 days | Yes, built in | Small OLED | U.FL / IPEX | No, needs a case | L1 Pro variant only | First device, learning the app | Small battery limits multi-day use |
-| Long-battery handheld (e.g. Heltec T114 class) | ~$25–45 | Swappable 18650, up to ~1 week | Yes, built in | Color TFT | U.FL / IPEX | No, needs a case | Solar input on some variants | Daily carry, extended trips | Bulkier once an 18650 cell is fitted |
-| E-ink handheld (e.g. LILYGO T-Echo class) | ~$60–68 | ~850 mAh, 5–7 days | Yes, built in | E-ink, sunlight-readable | U.FL / IPEX | Better sealed than dev boards | With add-on panel | Outdoor/EDC carry, multi-day trips | Never power on without the antenna attached |
-| Rugged premium handheld (e.g. RAK WisMesh Pocket class) | ~$89–99 | ~3200 mAh, 3+ days with GPS on | Yes, built in | OLED | External SMA | Yes, IP66 | Yes, solar input | Boat, daily-driver, harsh environments | Higher upfront cost |
-| Plugged-in home/rooftop board (e.g. Heltec LoRa32 V4 class) | ~$25–30 | None — mains/USB powered | No, set manually | Small OLED | External | Depends on enclosure | With external panel + charge controller | Home base station, budget rooftop node | No battery backup unless you add one |
-| Pre-built solar repeater kit | ~$70–200 | Built-in, sized to panel | Varies by model | Usually none (unattended) | External SMA | Yes, purpose-built | Yes, built for it | Unattended rooftop/hilltop coverage nodes | Highest cost; needs a genuine mounting site |
+| Budget handheld (e.g. Wio Tracker L1 class) | ~$25–35 | 800 mAh, 2–3 days | Yes, built in | Small OLED or e-ink | U.FL / IPEX | No, needs a case | L1 Pro variant only | First device, learning the app | Small battery limits multi-day use |
+| Power bank with a radio (e.g. Heltec MeshPocket) | ~$50–80 | 5000–10,000 mAh, charges a phone | No | E-ink | Internal | No | No | Emergency bag, outages | Firmware updates only through its magnetic cable |
+| Battery-your-way handheld (e.g. Heltec T114 class) | ~$28–50 | External, up to ~1 week with a large cell | Optional | Optional color TFT | U.FL / IPEX | No, needs a case | Solar input on some variants | Daily carry, extended trips | You source and fit the battery |
+| E-ink handheld (e.g. LILYGO T-Echo class) | ~$40–65 | ~850 mAh, 5–7 days | Yes, built in | E-ink, sunlight-readable | U.FL / IPEX | Better sealed than dev boards | With add-on panel | Outdoor/EDC carry, multi-day trips | Never power on without the antenna attached |
+| Rugged premium handheld (e.g. RAK WisMesh Pocket V2) | ~$90–100 | ~3200 mAh, 3+ days with GPS on | Yes, built in | OLED | External SMA | Yes, IP66 | Yes, solar input | Boat, daily-driver, harsh environments | Higher upfront cost |
+| Card tracker (e.g. T1000-E, MeshTracker X1) | ~$29–50 | 1–5 days depending on GPS | Yes, built in | None | Internal | Yes, IP65–IP66 | No | Location beacon, pets, vehicles | Can't write messages without a phone |
+| Standalone messenger (e.g. LILYGO T-Deck Plus) | ~$79–115 | ~2000 mAh, 1–2 days | Depends on model | Large screen + keyboard | Depends on model | No | No | Using the mesh without a phone | Needs a daily charge |
+| Plugged-in home/rooftop board (e.g. Heltec LoRa32 V4 class) | ~$18–30 | None — mains/USB powered | No, set manually | Small OLED | External | Depends on enclosure | With external panel + charge controller | Home base station, budget rooftop node | No battery backup unless you add one |
+| Pre-built solar repeater kit | ~$80–300 | Built-in, sized to panel | Varies by model | Usually none (unattended) | External SMA or internal | Yes, purpose-built | Yes, built for it | Unattended rooftop/hilltop coverage nodes | Highest cost; needs a genuine mounting site |
 
 </div>
 
