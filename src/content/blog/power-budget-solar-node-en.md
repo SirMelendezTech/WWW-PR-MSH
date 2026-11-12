@@ -9,8 +9,6 @@ tags: [solar, power, gps, battery, operator]
 readingTime: 14 min
 ---
 
-# Power budget for a node that survives a long outage
-
 Every Meshtastic solar node conversation eventually reaches the same question: how long does it run when the sun stops?
 
 In Puerto Rico that question is not academic. We lose power. Sometimes for hours, sometimes for weeks. And the failure mode people plan for — a dark night — is the easy one. The hard one is five consecutive overcast days in the middle of hurricane season, which is exactly when you'd want the mesh to work.

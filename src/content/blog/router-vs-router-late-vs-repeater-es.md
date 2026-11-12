@@ -10,8 +10,6 @@ readingTime: 11 min
 lang: es
 ---
 
-# Router, Router Late o Repeater: escoger el rol para un sitio de infraestructura real
-
 Casi todas las preguntas de rol en esta isla se contestan con "corre `CLIENT`". Ya [hice ese argumento largo](/blog/backbone-mesh-puerto-rico-es/): un techo en un vecindario poblado no es infraestructura, y ponerlo en `ROUTER_LATE` porque está alto empeora la malla.
 
 Este post es para el otro caso — ese donde sí pasaste la barra. Una torre con vista despejada al mar. Un sitio en una cresta del que depende un valle entero. Algo permanente, elevado, y que de verdad puentea cobertura que nadie más alcanza.

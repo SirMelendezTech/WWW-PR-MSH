@@ -92,7 +92,6 @@ const countLabel = posts.length === 1 ? b.countSuffixOne : b.countSuffix;
   .blog-count {
     font-family: var(--font-mono);
     font-size: 0.8rem;
-    letter-spacing: 0.04em;
     color: var(--ink-faint);
     margin: 1rem 0 0;
   }
@@ -135,12 +134,11 @@ const countLabel = posts.length === 1 ? b.countSuffixOne : b.countSuffix;
     font-size: 0.9rem;
     font-weight: 500;
     color: var(--ink-faint);
-    letter-spacing: 0.06em;
     margin: 0;
     padding-top: 1.4rem;
   }
   @media (min-width: 800px) {
-    .year-mark { position: sticky; top: calc(var(--header-h) + 20px); }
+    .year-mark { position: sticky; top: calc(var(--header-total) + 20px); }
   }
 
   .year-posts { list-style: none; margin: 0; padding: 0; }
@@ -169,8 +167,6 @@ const countLabel = posts.length === 1 ? b.countSuffixOne : b.countSuffix;
   .row-category {
     font-family: var(--font-mono);
     font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.09em;
     color: var(--secondary);
   }
   .row-title {

@@ -9,8 +9,6 @@ tags: [security, monitor, encryption, operator]
 readingTime: 11 min
 ---
 
-# Duplicate Keys in the Puerto Rico Mesh: What That Red Warning Means
-
 On the monitor's Security page, there is a second thing that stands out besides the clocks: nodes flagged with **duplicate keys**. 
 
 It is worth understanding exactly what that means, because it is the most serious warning the monitor can give you—and because a significant portion of what you are seeing right now is probably not a security problem at all, but an artifact of the upgrade to 2.8.

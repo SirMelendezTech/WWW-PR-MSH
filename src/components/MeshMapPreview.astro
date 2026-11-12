@@ -1,5 +1,5 @@
 ---
-import type { MeshNode } from "../lib/nodes";
+import { lastHeard, type MeshNode } from "../lib/nodes";
 import type { Locale } from "../lib/i18n";
 import { localizePath } from "../lib/i18n";
 import { useStrings } from "../lib/ui-strings";
@@ -42,98 +42,141 @@ const plotted = nodes
   }))
   .sort((a, b) => Number(a.status === "online") - Number(b.status === "online"));
 
-// The stat describes the whole network, the same count the footer shows;
+// The counts describe the whole network, the same numbers the footer shows;
 // a node or two outside the frame (Mona, St. Croix) still counts.
 const onlineCount = nodes.filter((n) => n.status === "online").length;
 const plottedOnline = plotted.filter((n) => n.status === "online").length;
-const label = live ? m.nodes : m.sampleNodes;
+const knownLabel = live ? m.statKnown : m.sampleNodes;
+
+// Freshness: the data is fetched at build time, so the build date is the
+// "as of" for every number in this panel.
+const buildDate = new Intl.DateTimeFormat(lang === "es" ? "es-PR" : "en-US", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+  timeZone: "America/Puerto_Rico",
+}).format(new Date());
 ---
 <section class="coverage">
   <div class="coverage-head">
-    <p class="eyebrow">{m.eyebrow}</p>
-    <h2>{m.h2}</h2>
-    <p class="coverage-copy">{m.copy}</p>
-    {!live && <p class="coverage-note">{m.sampleNote}</p>}
+    <div>
+      <p class="eyebrow">{m.eyebrow}</p>
+      <h2>{m.h2}</h2>
+    </div>
+    <div>
+      <p class="coverage-copy">{m.copy}</p>
+      {!live && <p class="coverage-note">{m.sampleNote}</p>}
+    </div>
   </div>
 
-  <figure class="coverage-figure">
-    <svg
-      class="coverage-map"
-      viewBox={`0 0 ${VW} ${VH}`}
-      role="img"
-      aria-label={m.mapAria(plotted.length, plottedOnline)}
-    >
-      <g class="coast">
-        {COAST.map((d) => <path d={d} />)}
-      </g>
-      <g class="relief" aria-hidden="true">
-        {terrain.bands.map((b, i) => <path class={`band band-${i + 1}`} d={b.d} fill-rule="evenodd" />)}
-      </g>
-      <g class="marks">
-        {plotted.map((n, i) => (
-          <g class={`mark mark--${n.status}`} style={`--d:${(i % 9) * 0.35}s`}>
-            {n.status === "online" && <circle class="mark-pulse" cx={n.x} cy={n.y} r="7" />}
-            <circle
-              class="mark-dot"
-              cx={n.x}
-              cy={n.y}
-              r={n.status === "online" ? 4 : 3}
-              data-name={n.name}
-              data-type={n.type}
-              data-status={n.status}
-              data-last={n.lastSeen}
-            />
-          </g>
-        ))}
-      </g>
-    </svg>
-
-    <div class="coverage-readout" role="status" aria-live="off" hidden>
-      <span class="readout-name"></span>
-      <span class="readout-meta"></span>
+  <figure class="panel">
+    <div class="panel-bar">
+      <span class="panel-title">{m.panelLabel}</span>
+      <span class="panel-fresh"><span class={`fresh-dot${live ? " is-live" : ""}`} aria-hidden="true"></span>{m.updated(buildDate)}</span>
     </div>
 
-    <p class="coverage-stat">
-      <span class="stat-figure">{onlineCount}</span>
-      <span class="stat-label">{m.statOnline}</span>
-      <span class="stat-sub">{m.statOf} {nodes.length} {label}</span>
-    </p>
+    <div class="panel-map">
+      <svg
+        class="coverage-map"
+        viewBox={`0 0 ${VW} ${VH}`}
+        role="img"
+        aria-label={m.mapAria(plotted.length, plottedOnline)}
+      >
+        <g class="coast">
+          {COAST.map((d) => <path d={d} />)}
+        </g>
+        <g class="relief" aria-hidden="true">
+          {terrain.bands.map((b, i) => <path class={`band band-${i + 1}`} d={b.d} fill-rule="evenodd" />)}
+        </g>
+        <g class="marks">
+          {plotted.map((n, i) => (
+            <g class={`mark mark--${n.status}`} style={`--d:${(i % 9) * 0.35}s`}>
+              {n.status === "online" && <circle class="mark-pulse" cx={n.x} cy={n.y} r="7" />}
+              <circle
+                class="mark-dot"
+                cx={n.x}
+                cy={n.y}
+                r={n.status === "online" ? 4 : 3}
+                data-name={n.name}
+                data-type={n.type}
+                data-status={n.status}
+                data-last={lastHeard(n, lang)}
+              />
+            </g>
+          ))}
+        </g>
+      </svg>
 
-    <figcaption class="coverage-legend">
-      <span class="key key--online">{m.legendOnline}</span>
-      <span class="key key--offline">{m.legendOffline}</span>
-      <span class="key key--hint">{m.legendHint}</span>
-      <span class="key key--credit">{m.reliefCredit}</span>
-    </figcaption>
+      <div class="coverage-readout" role="status" aria-live="off" hidden>
+        <span class="readout-name"></span>
+        <span class="readout-meta"></span>
+      </div>
+    </div>
+
+    <div class="panel-foot">
+      <dl class="stats">
+        <div class="stat stat--online">
+          <dt>{m.statOnline}</dt>
+          <dd>{onlineCount}</dd>
+        </div>
+        <div class="stat">
+          <dt>{knownLabel}</dt>
+          <dd>{nodes.length}</dd>
+        </div>
+      </dl>
+      <figcaption class="coverage-legend">
+        <span class="key key--online">{m.legendOnline}</span>
+        <span class="key key--offline">{m.legendOffline}</span>
+        <span class="key key--hint">{m.legendHint}</span>
+        <span class="key key--credit">{m.reliefCredit}</span>
+      </figcaption>
+      <a href={localizePath("/map/", lang)} class="btn coverage-cta">{m.cta}</a>
+    </div>
   </figure>
-
-  <a href={localizePath("/map/", lang)} class="btn btn-primary coverage-cta">{m.cta}</a>
 </section>
 
 <style>
-  /* This block is the one place on the home page where the data draws itself,
-     so it carries more weight than the cards around it: flat brand ground, a
-     wider radius, the deepest shadow, and the only oversized numeral. */
-  .coverage {
-    position: relative;
+  .coverage-head {
+    display: grid;
+    gap: var(--s-4) var(--s-8);
+    grid-template-columns: 1fr;
+    align-items: end;
+    margin-bottom: var(--s-6);
+  }
+  @media (min-width: 900px) {
+    .coverage-head { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); }
+  }
+  .coverage-head h2 { margin: 0; }
+  .coverage-copy { margin: 0; max-width: var(--measure); }
+  .coverage-note { font-size: var(--t-sm); color: var(--accent); margin: var(--s-2) 0 0; }
+
+  /* The one block on the home page where data draws itself: it keeps the
+     Meshtastic-blue ground, framed like the sister sites' map panel — a
+     mono title strip on top, the map, and a readout strip at the foot. */
+  .panel {
+    margin: 0;
     background: var(--hue-blue);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg);
     color: #fff;
-    padding: 2rem 1.5rem 1.75rem;
+    border: 1px solid var(--hue-blue-strong);
+    border-radius: var(--radius-sm);
     overflow: hidden;
   }
-  @media (min-width: 780px) {
-    .coverage { padding: 2.5rem 2.5rem 2rem; }
+  .panel-bar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--s-2) var(--s-4);
+    padding: var(--s-3) var(--s-5);
+    border-bottom: 1px solid color-mix(in srgb, #fff 16%, transparent);
+    font-family: var(--font-mono);
+    font-size: var(--t-xs);
   }
+  .panel-title { font-weight: 600; }
+  .panel-fresh { display: inline-flex; align-items: center; gap: var(--s-2); color: color-mix(in srgb, #fff 78%, transparent); }
+  .fresh-dot { width: 7px; height: 7px; border-radius: 50%; background: #9fb0bb; }
+  .fresh-dot.is-live { background: var(--hue-turquoise-bright); box-shadow: 0 0 0 3px color-mix(in srgb, var(--hue-turquoise-bright) 25%, transparent); }
 
-  .coverage-head { max-width: 46ch; }
-  .coverage-head .eyebrow { color: var(--hue-turquoise-bright); }
-  .coverage-head h2 { color: #fff; margin: 0.35rem 0 0.7rem; }
-  .coverage-copy { color: color-mix(in srgb, #fff 78%, transparent); font-size: 1.02rem; margin: 0; }
-  .coverage-note { color: color-mix(in srgb, #fff 60%, transparent); font-size: 0.82rem; margin: 0.6rem 0 0; }
-
-  .coverage-figure { position: relative; margin: 1.75rem 0 0; }
+  .panel-map { position: relative; padding: var(--s-5) var(--s-5) var(--s-3); }
   .coverage-map { display: block; width: 100%; height: auto; }
 
   .coast path {
@@ -143,10 +186,9 @@ const label = live ? m.nodes : m.sampleNodes;
     stroke-linejoin: round;
   }
 
-  /* Relief: one hue (the card's own white), stepping up in opacity with
+  /* Relief: one hue (the panel's own white), stepping up in opacity with
      height, so the island reads as plain → karst → Cordillera without adding
-     a second colour. The nodes stay the only saturated thing on the map.
-     Bands start at 150 m, inside the Natural Earth coastline above. */
+     a second colour. The nodes stay the only saturated thing on the map. */
   .band {
     fill: #fff;
     stroke: color-mix(in srgb, #fff 26%, transparent);
@@ -167,6 +209,7 @@ const label = live ? m.nodes : m.sampleNodes;
     .band-2 { fill-opacity: 0.13; }
     .band-3 { fill-opacity: 0.17; }
     .band-4 { fill-opacity: 0.24; }
+    .panel-map { padding: var(--s-4) var(--s-3) var(--s-2); }
   }
 
   /* Hover feedback rides on the stroke, not the radius: `r` as a CSS property
@@ -178,7 +221,7 @@ const label = live ? m.nodes : m.sampleNodes;
     transition: stroke 0.16s ease, stroke-width 0.16s ease;
   }
   .mark--online .mark-dot { fill: var(--hue-turquoise-bright); }
-  .mark--offline .mark-dot { fill: #7c8f97; }
+  .mark--offline .mark-dot { fill: #9fb0bb; }
   .mark-dot:hover, .mark-dot.is-active { stroke: #fff; stroke-width: 3; }
 
   /* Puerto Rico is a 3.7:1 shape, so in a phone-width column the map is only
@@ -206,44 +249,6 @@ const label = live ? m.nodes : m.sampleNodes;
     50% { transform: scale(1.6); opacity: 0.02; }
   }
 
-  /* Sits on open water south-east of the island — the one corner of the frame
-     no node reports from, so the number never covers real data. */
-  .coverage-stat {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 0.4rem;
-    margin: 1rem 0 0;
-  }
-  @media (min-width: 780px) {
-    .coverage-stat {
-      position: absolute;
-      right: 0;
-      bottom: 0.5rem;
-      margin: 0;
-      display: grid;
-      justify-items: end;
-      gap: 0;
-      text-align: right;
-    }
-  }
-  .stat-figure {
-    font-family: var(--font-display);
-    font-size: clamp(2.6rem, 1.8rem + 3vw, 4.2rem);
-    font-weight: 700;
-    line-height: 0.92;
-    letter-spacing: -0.03em;
-    color: var(--hue-turquoise-bright);
-  }
-  .stat-label {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: #fff;
-  }
-  .stat-sub { font-size: 0.8rem; color: color-mix(in srgb, #fff 62%, transparent); }
-
   /* `display: grid` would otherwise win over the hidden attribute. */
   .coverage-readout[hidden] { display: none; }
   .coverage-readout {
@@ -255,32 +260,50 @@ const label = live ? m.nodes : m.sampleNodes;
     gap: 0.1rem;
     padding: 0.45rem 0.65rem;
     border-radius: var(--radius-sm);
-    background: color-mix(in srgb, #041526 92%, transparent);
+    background: color-mix(in srgb, #041526 94%, transparent);
     border: 1px solid color-mix(in srgb, var(--hue-turquoise-bright) 40%, transparent);
     white-space: nowrap;
   }
-  .readout-name { font-weight: 600; font-size: 0.84rem; }
-  .readout-meta {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: color-mix(in srgb, #fff 65%, transparent);
+  .readout-name { font-weight: 700; font-size: var(--t-sm); }
+  .readout-meta { font-family: var(--font-mono); font-size: 0.72rem; color: color-mix(in srgb, #fff 78%, transparent); }
+
+  /* Foot strip: the two counts, the legend, and the way to the full map. */
+  .panel-foot {
+    display: grid;
+    gap: var(--s-4) var(--s-6);
+    grid-template-columns: 1fr;
+    align-items: center;
+    padding: var(--s-4) var(--s-5) var(--s-5);
+    border-top: 1px solid color-mix(in srgb, #fff 16%, transparent);
   }
+  @media (min-width: 900px) {
+    .panel-foot { grid-template-columns: auto minmax(0, 1fr) auto; }
+  }
+  .stats { display: flex; gap: var(--s-6); margin: 0; }
+  .stat { display: flex; flex-direction: column-reverse; }
+  .stat dt { font-family: var(--font-mono); font-size: var(--t-xs); color: color-mix(in srgb, #fff 78%, transparent); }
+  .stat dd {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 1.5rem + 1.6vw, 2.75rem);
+    font-weight: 720;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+  }
+  .stat--online dd { color: var(--hue-turquoise-bright); }
 
   .coverage-legend {
     display: flex;
-    /* Stops the keys running under the stat that overlaps the map's corner. */
-    max-width: 62%;
     flex-wrap: wrap;
-    gap: 0.35rem 1.1rem;
-    margin: 1rem 0 0;
+    gap: var(--s-1) var(--s-4);
+    margin: 0;
     font-family: var(--font-mono);
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: color-mix(in srgb, #fff 62%, transparent);
+    font-size: 0.75rem;
+    color: color-mix(in srgb, #fff 78%, transparent);
   }
   .key { display: inline-flex; align-items: center; gap: 0.45em; }
-  .key--credit { text-transform: none; letter-spacing: 0; color: color-mix(in srgb, #fff 45%, transparent); }
+  .key--credit { flex-basis: 100%; color: color-mix(in srgb, #fff 66%, transparent); }
   .key--online::before, .key--offline::before {
     content: "";
     width: 8px;
@@ -288,24 +311,20 @@ const label = live ? m.nodes : m.sampleNodes;
     border-radius: 50%;
   }
   .key--online::before { background: var(--hue-turquoise-bright); }
-  .key--offline::before { background: #7c8f97; }
+  .key--offline::before { background: #9fb0bb; }
   .key--hint { display: none; }
   @media (hover: hover) {
     .key--hint { display: inline-flex; }
   }
-  @media (max-width: 779px) {
-    .coverage-legend { max-width: none; }
-  }
 
   .coverage-cta {
-    margin-top: 1.5rem;
     background: var(--hue-turquoise-bright);
+    border-color: var(--hue-turquoise-bright);
     color: #03101d;
-    white-space: nowrap;
+    justify-self: start;
   }
-  @media (min-width: 780px) {
-    .coverage-cta { margin-top: 1.25rem; }
-  }
+  .coverage-cta:hover { background: #fff; border-color: #fff; }
+  .coverage-cta:focus-visible { outline-color: #fff; }
 
   @media (prefers-reduced-motion: reduce) {
     .mark-pulse { animation: none; opacity: 0.14; }
@@ -313,7 +332,7 @@ const label = live ? m.nodes : m.sampleNodes;
 </style>
 
 <script>
-  const figure = document.querySelector<HTMLElement>(".coverage-figure");
+  const figure = document.querySelector<HTMLElement>(".panel-map");
   const readout = figure?.querySelector<HTMLElement>(".coverage-readout");
   const nameEl = readout?.querySelector<HTMLElement>(".readout-name");
   const metaEl = readout?.querySelector<HTMLElement>(".readout-meta");
@@ -328,7 +347,7 @@ const label = live ? m.nodes : m.sampleNodes;
       active = dot;
       dot.classList.add("is-active");
       nameEl.textContent = dot.dataset.name || "";
-      metaEl.textContent = [dot.dataset.type, dot.dataset.last].filter(Boolean).join(" · ");
+      metaEl.textContent = [dot.dataset.type, dot.dataset.last].filter(Boolean).join(", ");
       readout.style.left = `${mark.left - box.left + mark.width / 2}px`;
       readout.style.top = `${mark.top - box.top}px`;
       readout.hidden = false;

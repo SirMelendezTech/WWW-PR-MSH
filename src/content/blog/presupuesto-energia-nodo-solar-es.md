@@ -10,8 +10,6 @@ lang: es
 translationKey: power-budget-solar-node
 ---
 
-# Presupuesto de energía para un nodo que sobreviva un apagón largo
-
 Toda conversación sobre nodos Meshtastic solares llega tarde o temprano a la misma pregunta: ¿cuánto aguanta cuando se va el sol?
 
 En Puerto Rico esa pregunta no es teórica. Aquí se va la luz. A veces horas, a veces semanas. Y el escenario para el que la gente diseña —una noche oscura— es el fácil. El difícil son cinco días nublados seguidos en plena temporada de huracanes, que es exactamente cuando uno querría que la malla funcionara.

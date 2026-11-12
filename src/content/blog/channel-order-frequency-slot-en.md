@@ -9,8 +9,6 @@ tags: [channels, frequency-slot, lora, congestion, operator]
 readingTime: 13 min
 ---
 
-# The channel you moved wasn't a channel — it was your frequency
-
 A node goes quiet. Not offline: it boots, the screen works, the app connects, telemetry updates. It just stops existing as far as the rest of the mesh is concerned. Nobody hears it, it hears nobody.
 
 And it still talks perfectly to the one other node you happened to reconfigure at the same time, which is exactly what makes this take days to figure out.

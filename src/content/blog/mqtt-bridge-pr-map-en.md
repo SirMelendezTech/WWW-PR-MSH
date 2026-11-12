@@ -9,8 +9,6 @@ tags: [mqtt, map, msh-us-pr, monitor, operator]
 readingTime: 8 min
 ---
 
-# Getting Your Node Onto the Puerto Rico Mesh Map
-
 The [Node Map](/en/map/) is built from what nodes publish to MQTT under the Puerto Rico topic. If your node isn't on it, that's not a bug in the map — it means your node either isn't bridging to MQTT, isn't publishing under the topic the map reads, or isn't sending a position at all. All three are fixable in a few minutes.
 
 This post walks the whole chain. None of it changes how your node talks over LoRa — MQTT is a side channel to the internet, and the radio mesh keeps working through outages regardless. See [Recommended Settings → MQTT](/en/settings/#mqtt) for the reference table this expands on.

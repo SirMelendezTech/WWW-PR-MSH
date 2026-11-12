@@ -10,8 +10,6 @@ readingTime: 9 min
 lang: es
 ---
 
-# Tu nodo estacionario habla demasiado
-
 Cada paquete que envía tu nodo es tiempo en el que ningún otro nodo del canal puede transmitir. LoRa con los ajustes que usa Puerto Rico es lento — un solo paquete de posición puede ocupar el aire una buena fracción de segundo, y solo un nodo al alcance puede hablar a la vez. Así que la pregunta que de verdad importa para un nodo de techo no es "qué tan fresca está mi telemetría" — es "cuánto del canal compartido estoy gastando, y en qué".
 
 La respuesta más común, en los nodos que revisamos, es: muchísimo, en información que nunca cambia.

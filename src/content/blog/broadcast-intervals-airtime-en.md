@@ -9,8 +9,6 @@ tags: [broadcast-interval, airtime, channel-utilization, congestion, operator]
 readingTime: 9 min
 ---
 
-# Your Stationary Node Is Talking Too Much
-
 Every packet your node sends is time no other node on the channel can transmit. LoRa at the settings Puerto Rico uses is slow — a single position packet can occupy the air for a good fraction of a second, and only one node in earshot can talk at a time. So the question that actually matters for a rooftop node isn't "how fresh is my telemetry" — it's "how much of the shared channel am I spending, and on what."
 
 The most common answer, on the nodes we look at, is: far too much, on information that never changes.

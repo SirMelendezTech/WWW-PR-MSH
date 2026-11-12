@@ -18,3 +18,7 @@ export const MESHCORE_PR_URL = "https://meshcore.prmsh.com/";
 // PRMSH node guides: step-by-step setup for Meshtastic and MeshCore nodes on
 // the Puerto Rico mesh (Spanish). Shared by the footer and Links page.
 export const NODE_GUIDES_URL = "https://guia.prmsh.com/";
+
+// PRMSH umbrella site. Linked from the header's family line and the footer
+// so this site always reads as one part of PRMSH.
+export const PRMSH_HOME_URL = "https://prmsh.com/";

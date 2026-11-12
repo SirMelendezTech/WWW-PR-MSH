@@ -28,6 +28,10 @@ const en = {
     mobileNavAria: "Mobile",
     switchToEnglish: "View in English",
     switchToSpanish: "Ver en español",
+    familyHome: "PRMSH Community",
+    familyAria: "PRMSH sites",
+    discordCta: "Join the Discord",
+    sisterShort: "MeshCore PR",
   },
 
   breadcrumbs: {
@@ -68,6 +72,11 @@ const en = {
     licenseBefore: "Site content licensed under ",
     licenseName: "CC BY-SA 4.0",
     licenseAfter: ".",
+    colFamily: "PRMSH",
+    colSite: "This site",
+    colCommunity: "Community",
+    prmshHome: "PRMSH home",
+    officialDocs: "Official Meshtastic docs",
   },
 
   docs: {
@@ -137,7 +146,7 @@ const en = {
     title: "PRMSH — Puerto Rico Meshtastic Community",
     description:
       "PRMSH is the Puerto Rico Meshtastic community — a resource for building, learning about, and expanding decentralized LoRa mesh communication throughout Puerto Rico.",
-    heroEyebrow: "PRMSH · Meshtastic network · Puerto Rico",
+    heroEyebrow: "Puerto Rico / Community Meshtastic network",
     heroTitle: "Stays connected when everything else goes down.",
     heroSub1:
       "PRMSH is a community-built Meshtastic® radio network. Pair a small, affordable radio with your phone and send messages with no cell service, Wi-Fi, or internet.",
@@ -154,16 +163,17 @@ const en = {
       "Meshtastic is open-source firmware for LoRa radios, and every node that joins does more than send its own messages — it extends the reach of everyone else's too, relaying traffic across the island one radio at a time.",
     introBody2:
       "Puerto Rico has already lived through weeks without cell service after Hurricane María and Fiona. This mesh exists so the next outage doesn't mean total silence.",
-    introLink: "See how it actually works →",
+    introLink: "See how it actually works",
     sisterBefore: "PRMSH has a sister project: ",
     sisterLink: "MeshCore Puerto Rico (meshcore.prmsh.com)",
     sisterAfter: ", the island's MeshCore network. The radio protocol is different, so the two meshes can't hear each other.",
-    compareLink: "Compare Meshtastic and MeshCore →",
+    compareLink: "Compare Meshtastic and MeshCore",
     whyEyebrow: "Why PRMSH",
     whyItems: [
       { lead: "No contract.", body: "A starter radio costs about as much as a nice dinner and keeps working for years." },
       { lead: "No permission.", body: "Put a node at home, on a rooftop, or along a trail, and everyone nearby gains coverage." },
       { lead: "No company.", body: "The docs are open, and the community decides how the network grows." },
+      { lead: "Built by neighbors.", body: "Every node is a radio someone installed and looks after. The network is the sum of those radios." },
     ],
 
     quickstartEyebrow: "Getting started",
@@ -201,7 +211,7 @@ const en = {
 
     blogEyebrow: "From the blog",
     blogTitle: "Latest from PRMSH",
-    blogReadAll: "Read all posts →",
+    blogReadAll: "Read all posts",
 
     ctaTitle: "Every node makes the mesh stronger.",
     ctaBody:
@@ -450,13 +460,17 @@ const en = {
     sampleNodes: "sample nodes",
     statOf: "of",
     statOnline: "online",
+    statKnown: "known nodes",
+    statOffline: "offline",
+    panelLabel: "PR mesh",
+    updated: (date: string) => `Data from the ${date} build`,
     mapAria: (total: number, online: number) =>
       `Map of Puerto Rico, Vieques and St. Thomas showing ${total} mesh nodes, ${online} of them online. Node markers cluster around the San Juan metro area and the east of the island.`,
     legendOnline: "Heard in the last 3 hours",
     legendOffline: "Quiet longer than that",
     legendHint: "Point at a node for its name",
     reliefCredit: "Relief: AWS Terrain Tiles (SRTM, USGS 3DEP)",
-    cta: "View full map →",
+    cta: "View full map",
   },
 
   search: {
@@ -503,6 +517,10 @@ const es: Strings = {
     mobileNavAria: "Móvil",
     switchToEnglish: "Ver en inglés",
     switchToSpanish: "Ver en español",
+    familyHome: "Comunidad PRMSH",
+    familyAria: "Sitios de PRMSH",
+    discordCta: "Únete al Discord",
+    sisterShort: "MeshCore PR",
   },
 
   breadcrumbs: {
@@ -544,6 +562,11 @@ const es: Strings = {
     licenseBefore: "Contenido del sitio bajo licencia ",
     licenseName: "CC BY-SA 4.0",
     licenseAfter: ".",
+    colFamily: "PRMSH",
+    colSite: "Este sitio",
+    colCommunity: "Comunidad",
+    prmshHome: "Inicio de PRMSH",
+    officialDocs: "Documentación oficial de Meshtastic",
   },
 
   docs: {
@@ -613,7 +636,7 @@ const es: Strings = {
     title: "PRMSH — Comunidad Meshtastic de Puerto Rico",
     description:
       "PRMSH es la comunidad Meshtastic de Puerto Rico — un recurso comunitario para construir, aprender sobre y ampliar la comunicación mesh LoRa descentralizada por todo Puerto Rico.",
-    heroEyebrow: "PRMSH · Red Meshtastic · Puerto Rico",
+    heroEyebrow: "Puerto Rico / Red Meshtastic comunitaria",
     heroTitle: "Sigue conectada cuando todo lo demás se cae.",
     heroSub1:
       "PRMSH es una red de radio Meshtastic® construida por la comunidad. Empareja una radio pequeña y económica con tu teléfono y envía mensajes sin servicio celular, Wi-Fi ni internet.",
@@ -630,16 +653,17 @@ const es: Strings = {
       "Meshtastic es firmware de código abierto para radios LoRa, y cada nodo que se une hace más que enviar sus propios mensajes — también amplía el alcance de los demás, retransmitiendo tráfico por toda la isla una radio a la vez.",
     introBody2:
       "Puerto Rico ya ha vivido semanas sin servicio celular tras los huracanes María y Fiona. Esta malla existe para que el próximo apagón no signifique silencio total.",
-    introLink: "Mira cómo funciona de verdad →",
+    introLink: "Mira cómo funciona de verdad",
     sisterBefore: "PRMSH tiene un proyecto hermano: ",
     sisterLink: "MeshCore Puerto Rico (meshcore.prmsh.com)",
     sisterAfter: ", la red MeshCore de la isla. El protocolo de radio es distinto, así que las dos mallas no se escuchan entre sí.",
-    compareLink: "Compara Meshtastic y MeshCore →",
+    compareLink: "Compara Meshtastic y MeshCore",
     whyEyebrow: "Por qué PRMSH",
     whyItems: [
       { lead: "Sin contrato.", body: "Una radio para empezar cuesta lo que una buena cena y sigue funcionando por años." },
       { lead: "Sin permiso.", body: "Pon un nodo en tu casa, en un techo o en una vereda, y todos a tu alrededor ganan cobertura." },
       { lead: "Sin compañía.", body: "La documentación es abierta y la comunidad decide cómo crece la red." },
+      { lead: "Hecha por vecinos.", body: "Cada nodo es una radio que alguien instaló y cuida. La red es la suma de esas radios." },
     ],
 
     quickstartEyebrow: "Primeros pasos",
@@ -677,7 +701,7 @@ const es: Strings = {
 
     blogEyebrow: "Del blog",
     blogTitle: "Lo más reciente de PRMSH",
-    blogReadAll: "Lee todos los artículos →",
+    blogReadAll: "Lee todos los artículos",
 
     ctaTitle: "Cada nodo hace la malla más fuerte.",
     ctaBody:
@@ -926,13 +950,17 @@ const es: Strings = {
     sampleNodes: "nodos de muestra",
     statOf: "de",
     statOnline: "en línea",
+    statKnown: "nodos conocidos",
+    statOffline: "fuera de línea",
+    panelLabel: "Malla PR",
+    updated: (date: string) => `Datos de la compilación del ${date}`,
     mapAria: (total: number, online: number) =>
       `Mapa de Puerto Rico, Vieques y St. Thomas con ${total} nodos de la malla, ${online} de ellos en línea. Los nodos se concentran en el área metropolitana de San Juan y el este de la isla.`,
     legendOnline: "Escuchado en las últimas 3 horas",
     legendOffline: "Callado desde hace más",
     legendHint: "Apunta a un nodo para ver su nombre",
     reliefCredit: "Relieve: AWS Terrain Tiles (SRTM, USGS 3DEP)",
-    cta: "Ver el mapa completo →",
+    cta: "Ver el mapa completo",
   },
 
   search: {

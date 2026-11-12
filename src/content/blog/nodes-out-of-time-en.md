@@ -9,8 +9,6 @@ tags: [monitor, diagnostics, gps, antennas, operator]
 readingTime: 10 min
 ---
 
-# Nodes Out of Time: The Free Diagnostic That Almost Nobody Is Reading
-
 Looking at the [Puerto Rico mesh monitor](https://monitor.prmsh.com/source/d9d92629-16d4-4de9-839d-30f62216e354/security), there is a recurring pattern: a lot of nodes have the wrong time. Not off by a few seconds—wrong by a lot, with timestamps that make no sense.
 
 My first reaction was: those nodes are deaf. If Meshtastic distributes time through the mesh, a node with the wrong time is a node that isn't hearing anyone. And from there came the obvious conclusion: the likely cause is the antenna, because the official antenna-testing repository lists several factory antennas as not recommended.

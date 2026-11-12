@@ -6,7 +6,7 @@ import { localizePath } from "../../lib/i18n";
 import { useStrings, categoryLabel } from "../../lib/ui-strings";
 import { getBlogPosts, blogPostHref } from "../../lib/blog";
 import { getNodes } from "../../lib/nodes";
-import { MESHCORE_PR_URL } from "../../lib/community";
+import { DISCORD_INVITE_URL, MESHCORE_PR_URL } from "../../lib/community";
 
 interface Props { lang: Locale }
 const { lang } = Astro.props;
@@ -17,49 +17,66 @@ const p = (href: string) => localizePath(href, lang);
 const posts = (await getBlogPosts(lang)).slice(0, 3);
 const { nodes: meshNodes, live: meshLive } = await getNodes();
 
+// Each quickstart step opens the docs page that covers it, so the summary
+// on the home page is also a way in.
+const stepHrefs = ["/hardware/", "/getting-started/", "/settings/", "/pr-mesh/", "/community/"].map(p);
+
+const dateFmt = new Intl.DateTimeFormat(lang === "es" ? "es-PR" : "en-US", {
+  day: "numeric",
+  month: "short",
+  year: "numeric",
+  timeZone: "UTC",
+});
 ---
 <section class="hero">
-  <div class="hero-terrain" aria-hidden="true"><TerrainSignature variant="hero" /></div>
-  <div class="container hero-inner">
+  <div class="container hero-grid">
     <div class="hero-lead">
       <p class="eyebrow">{h.heroEyebrow}</p>
       <h1>{h.heroTitle}</h1>
+    </div>
+    <div class="hero-aside">
       <p class="hero-sub">{h.heroSub1}</p>
       <div class="hero-actions">
         <a href={p("/getting-started/")} class="btn btn-primary">{h.heroCtaPrimary}</a>
-        <a href={p("/pr-mesh/")} class="link-arrow hero-alt">{h.heroCtaSecondary}</a>
+        <a href={p("/pr-mesh/")} class="btn btn-secondary">{h.heroCtaSecondary}</a>
       </div>
-    </div>
-    <div class="hero-aside">
-      <p class="hero-pull">{h.heroSub3}</p>
-      <p class="hero-note">{h.heroSub2}</p>
+      <p class="hero-note">{h.heroSub3} {h.heroSub2}</p>
     </div>
   </div>
+  {/* The ridge sits under the copy, never behind it: the line-of-sight
+      arcs read as a signature, not as noise across the buttons. */}
+  <div class="hero-terrain" aria-hidden="true"><TerrainSignature variant="hero" /></div>
 </section>
 
 <section class="section intro-section">
-  <div class="container intro-grid">
-    <div>
-      <p class="eyebrow">{h.introEyebrow}</p>
-      <h2>{h.introTitle}</h2>
-      <p>{h.introBody1}</p>
-      <p>{h.introBody2}</p>
-      <p>{h.sisterBefore}<a href={MESHCORE_PR_URL} target="_blank" rel="noopener">{h.sisterLink}<span class="sr-only"> {t.opensInNewTab}</span></a>{h.sisterAfter}</p>
-      <div class="intro-links">
-        <a href={p("/how-it-works/")} class="link-arrow">{h.introLink}</a>
-        <a href={p("/protocols/")} class="link-arrow">{h.compareLink}</a>
+  <div class="container">
+    <div class="intro-grid">
+      <div class="intro-head">
+        <p class="eyebrow">{h.introEyebrow}</p>
+        <h2>{h.introTitle}</h2>
+      </div>
+      <div class="intro-body">
+        <p class="intro-lede">{h.introBody1}</p>
+        <p>{h.introBody2}</p>
+        <div class="link-row">
+          <a href={p("/how-it-works/")} class="link-arrow">{h.introLink}</a>
+        </div>
       </div>
     </div>
-    <div class="intro-card">
-      <p class="eyebrow">{h.whyEyebrow}</p>
-      <ul>
-        {h.whyItems.map((item) => <li><strong>{item.lead}</strong> {item.body}</li>)}
+
+    <div class="why">
+      <h3 class="why-heading">{h.whyEyebrow}</h3>
+      <ul class="why-grid">
+        {h.whyItems.map((item) => (
+          <li>
+            <strong>{item.lead}</strong>
+            <span>{item.body}</span>
+          </li>
+        ))}
       </ul>
     </div>
   </div>
 </section>
-
-<TerrainSignature variant="divider" />
 
 <section class="section quickstart-section">
   <div class="container">
@@ -67,14 +84,12 @@ const { nodes: meshNodes, live: meshLive } = await getNodes();
       <p class="eyebrow">{h.quickstartEyebrow}</p>
       <h2>{h.quickstartTitle}</h2>
     </div>
-    <ol class="quickstart-list">
+    <ol class="steps">
       {h.steps.map((step, i) => (
         <li>
-          <span class="step-num">{String(i + 1).padStart(2, "0")}</span>
-          <div>
-            <h3>{step.title}</h3>
-            <p>{step.body}</p>
-          </div>
+          <span class="step-num" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+          <h3><a href={stepHrefs[i]}>{step.title}</a></h3>
+          <p>{step.body}</p>
         </li>
       ))}
     </ol>
@@ -88,43 +103,57 @@ const { nodes: meshNodes, live: meshLive } = await getNodes();
   </div>
 </section>
 
-<section class="section split-section">
-  <div class="container split-grid">
-    <div class="split-card split-card--accent">
+<section class="section community-section">
+  <div class="container community-grid">
+    <div>
       <p class="eyebrow">{h.splitCommunityEyebrow}</p>
       <h2>{h.splitCommunityTitle}</h2>
-      <p>{h.splitCommunityBody}</p>
-      <div class="split-actions">
-        <a href={p("/community/")} class="btn btn-primary">{h.splitCommunityCta}</a>
-        <a href={MESHCORE_PR_URL} class="btn btn-secondary" target="_blank" rel="noopener">{h.splitCommunitySister}<span class="sr-only"> {t.opensInNewTab}</span></a>
+      <p class="community-body">{h.splitCommunityBody}</p>
+      <div class="hero-actions">
+        <a href={DISCORD_INVITE_URL} class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+          {t.nav.discordCta}
+          <svg class="icon-ext" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5"/></svg>
+          <span class="sr-only"> {t.opensInNewTab}</span>
+        </a>
+        <a href={p("/community/")} class="btn btn-secondary">{h.splitCommunityCta}</a>
       </div>
     </div>
+
+    {/* Sister network: same island, different radio protocol. The note says
+        plainly that the two meshes can't hear each other. */}
+    <aside class="sister">
+      <p class="sister-label">{t.nav.sisterShort}</p>
+      <p>{h.sisterBefore}<a href={MESHCORE_PR_URL} target="_blank" rel="noopener">{h.sisterLink}<span class="sr-only"> {t.opensInNewTab}</span></a>{h.sisterAfter}</p>
+      <a href={p("/protocols/")} class="link-arrow">{h.compareLink}</a>
+    </aside>
   </div>
 </section>
 
 {posts.length > 0 && (
-  <section class="section">
+  <section class="section blog-section">
     <div class="container">
-      <div class="section-head">
-        <p class="eyebrow">{h.blogEyebrow}</p>
-        <h2>{h.blogTitle}</h2>
+      <div class="section-head section-head--row">
+        <div>
+          <p class="eyebrow">{h.blogEyebrow}</p>
+          <h2>{h.blogTitle}</h2>
+        </div>
+        <a href={p("/blog/")} class="link-arrow">{h.blogReadAll}</a>
       </div>
-      <ol class="post-log">
-        {posts.map((post, i) => (
+      <ul class="posts">
+        {posts.map((post) => (
           <li>
-            <a href={blogPostHref(lang, post.id)}>
-              <span class="post-log-num" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
-              <span class="post-log-main">
+            <article>
+              <p class="post-meta-top">
                 <span class="post-category">{categoryLabel(lang, post.data.category)}</span>
-                <span class="post-log-title">{post.data.title}</span>
-                <span class="post-log-desc">{post.data.description}</span>
-                <span class="post-meta">{post.data.author} · {post.data.readingTime}</span>
-              </span>
-            </a>
+                <time datetime={post.data.pubDate.toISOString()}>{dateFmt.format(post.data.pubDate)}</time>
+              </p>
+              <h3><a href={blogPostHref(lang, post.id)}>{post.data.title}</a></h3>
+              <p class="post-desc">{post.data.description}</p>
+              <p class="post-meta">{post.data.author}, {post.data.readingTime}</p>
+            </article>
           </li>
         ))}
-      </ol>
-      <a href={p("/blog/")} class="link-arrow">{h.blogReadAll}</a>
+      </ul>
     </div>
   </section>
 )}
@@ -132,169 +161,186 @@ const { nodes: meshNodes, live: meshLive } = await getNodes();
 <section class="section cta-section">
   <div class="container cta-inner">
     <h2>{h.ctaTitle}</h2>
-    <p>{h.ctaBody}</p>
-    <div class="hero-actions">
-      <a href={p("/getting-started/")} class="btn btn-primary">{h.ctaPrimary}</a>
-      <a href={p("/hardware/")} class="btn btn-secondary">{h.ctaSecondary}</a>
+    <div class="cta-side">
+      <p>{h.ctaBody}</p>
+      <div class="hero-actions">
+        <a href={p("/getting-started/")} class="btn btn-primary">{h.ctaPrimary}</a>
+        <a href={p("/hardware/")} class="btn btn-secondary">{h.ctaSecondary}</a>
+      </div>
     </div>
   </div>
 </section>
 
 <style>
-  .hero { position: relative; overflow: hidden; padding-top: 2.5rem; }
-  /* Aspect-ratio box (not a fixed height): the SVG uses preserveAspectRatio
-     "meet" so the whole ridge-and-hops band always shows, at every width,
-     without the wide-desktop top-crop a fixed height + "slice" caused. */
-  .hero-terrain {
-    position: absolute;
-    inset: auto 0 0 0;
-    aspect-ratio: 1200 / 230;
-    z-index: 0;
-    opacity: 0.72;
-    overflow: hidden;
-    pointer-events: none;
-  }
-
-  /* Two columns that deliberately do not start level: the argument sits lower
-     and narrower than the explanation, so the eye reaches it second. */
-  .hero-inner {
+  /* ---- Hero ----
+     The family layout: a big headline on the left, the explanation and the
+     two actions on the right, bottoms aligned. */
+  .hero { position: relative; padding-top: clamp(2.5rem, 1.5rem + 4vw, 5rem); overflow: hidden; }
+  .hero-grid {
+    display: grid;
+    gap: var(--s-6);
+    grid-template-columns: 1fr;
     position: relative;
     z-index: 1;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2.25rem;
-    padding-bottom: 8.5rem;
   }
-  @media (min-width: 900px) {
-    .hero-inner { grid-template-columns: 1.35fr 1fr; column-gap: 4rem; align-items: start; }
-    .hero-aside { padding-top: 6.5rem; }
+  @media (min-width: 960px) {
+    .hero-grid { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); column-gap: var(--s-8); align-items: end; }
+  }
+  .hero h1 { margin: 0; max-width: 13ch; font-size: var(--t-h1); font-weight: 720; letter-spacing: -0.035em; line-height: 0.98; }
+  .hero-sub { font-size: var(--t-lg); line-height: 1.55; color: var(--ink-soft); margin: 0; max-width: var(--measure); }
+  .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3); margin-top: var(--s-5); }
+  .hero-note {
+    margin: var(--s-5) 0 0;
+    padding-top: var(--s-4);
+    border-top: 1px solid var(--border);
+    font-size: var(--t-sm);
+    color: var(--ink-soft);
+    max-width: var(--measure);
+  }
+  @media (max-width: 520px) {
+    .hero-actions .btn { flex: 1 1 100%; }
+  }
+
+  /* Aspect-ratio box: the SVG uses preserveAspectRatio "meet", so the whole
+     ridge-and-hops band shows at every width. */
+  .hero-terrain {
+    position: relative;
+    margin-top: var(--s-6);
+    aspect-ratio: 1200 / 230;
+    opacity: 0.8;
+    pointer-events: none;
   }
   @media (max-width: 640px) {
-    .hero-terrain { aspect-ratio: auto; height: 120px; }
-    .hero-inner { padding-bottom: 7rem; }
+    .hero-terrain { aspect-ratio: auto; height: 96px; }
   }
-  .hero h1 { margin-top: 0.5rem; }
 
-  /* The H1 is painted on first frame (it is the LCP element and the page's
-     answer to "what is this?"). Supporting copy settles in right behind it,
-     all within ~0.75s, so nothing important waits on the terrain sequence. */
+  /* One orchestrated entrance: the supporting column settles in behind the
+     headline (the LCP element, painted on first frame). */
   @media (prefers-reduced-motion: no-preference) {
-    .hero-lead > .hero-sub,
-    .hero-lead > .hero-actions,
-    .hero-aside {
-      opacity: 0;
-      animation: hero-rise 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-    .hero-lead > .hero-sub { animation-delay: 0.1s; }
-    .hero-lead > .hero-actions { animation-delay: 0.2s; }
-    .hero-aside { animation-delay: 0.3s; }
+    .hero-aside { opacity: 0; animation: hero-rise 0.5s var(--ease-out) 0.1s forwards; }
   }
   @keyframes hero-rise {
-    from { opacity: 0; transform: translateY(6px); }
+    from { opacity: 0; transform: translateY(8px); }
     to { opacity: 1; transform: none; }
   }
 
-  /* The three paragraphs were doing three different jobs at one size: this one
-     explains, the pull states the argument, the note is an aside. The pull
-     stays well below the H1 so the hero has one headline, not two. */
-  .hero-sub { font-size: 1.22rem; max-width: 52ch; margin: 1.1rem 0 0; color: var(--ink-soft); }
-  .hero-pull {
+  /* ---- Shared section rhythm ---- */
+  .section { padding-block: var(--section-y); border-top: 1px solid var(--border); }
+  .section-head { max-width: 40rem; margin-bottom: var(--s-7); }
+  .section-head h2 { margin: 0; }
+  .section-head--row { max-width: none; display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: var(--s-4); }
+  .section-head--row > div { max-width: 40rem; }
+  .section-head--row .link-arrow { margin-bottom: -0.5rem; }
+
+  /* ---- Intro + why ---- */
+  .intro-section { border-top: none; padding-top: calc(var(--section-y) * 0.75); }
+  .intro-grid { display: grid; gap: var(--s-5) var(--s-8); grid-template-columns: 1fr; }
+  @media (min-width: 900px) {
+    .intro-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  }
+  .intro-head h2 { margin: 0; }
+  .intro-lede { font-size: var(--t-lg); line-height: 1.55; color: var(--ink); }
+  .intro-body p { max-width: var(--measure); }
+  .link-row { display: flex; flex-wrap: wrap; column-gap: var(--s-6); }
+
+  /* Four absences, four columns split by hairlines — a ruled row, not four
+     floating cards. */
+  .why { margin-top: var(--s-8); }
+  .why-heading {
     font-family: var(--font-display);
-    font-weight: 500;
-    font-size: clamp(1.1rem, 1rem + 0.3vw, 1.25rem);
-    line-height: 1.4;
-    color: var(--ink-soft);
-    border-left: 3px solid var(--accent);
-    padding-left: 1.15rem;
+    font-size: var(--t-lg);
+    letter-spacing: -0.01em;
+    margin: 0 0 var(--s-5);
+  }
+  .why-grid {
+    list-style: none;
     margin: 0;
-  }
-  .hero-note { margin: 1.15rem 0 0 calc(1.15rem + 3px); font-size: 1rem; max-width: 40ch; color: var(--ink-faint); }
-
-  /* One button and one link, not two buttons: these are not equal actions. */
-  .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1.4rem; margin-top: 2rem; }
-  /* `.hero-actions` in the selector so this beats `.link-arrow`'s margin,
-     which is declared later at the same specificity. The halo keeps the
-     terrain line from running through the link text. */
-  .hero-actions .hero-alt {
-    margin-top: 0;
-    padding: 0.2em 0.45em;
-    margin-left: -0.45em;
-    border-radius: var(--radius-sm);
-    background: color-mix(in srgb, var(--bg) 88%, transparent);
-  }
-  @media (max-width: 640px) {
-    .hero-actions { gap: 1.1rem; }
-    .hero-actions .btn { width: 100%; }
-  }
-
-  .section { padding-block: 4rem; }
-  .section-head { max-width: 60ch; margin-bottom: 2rem; }
-  .section-head h2 { margin-top: 0.4rem; }
-
-  .intro-section { background: var(--bg-sunken); border-block: 1px solid var(--border); }
-  .intro-grid { display: grid; gap: 2.5rem; grid-template-columns: 1fr; align-items: start; }
-  @media (min-width: 860px) { .intro-grid { grid-template-columns: 1.3fr 1fr; } }
-  .intro-card {
-    background: var(--bg-raised);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 1.75rem;
-    box-shadow: var(--shadow-sm);
-  }
-  .intro-card ul { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; gap: 0.75rem; }
-  .intro-card li { padding-left: 1.4em; position: relative; color: var(--ink-soft); font-size: 0.95rem; }
-  .intro-card li::before { content: "›"; position: absolute; left: 0; color: var(--secondary); font-weight: 700; }
-
-  .link-arrow { display: inline-block; margin-top: 1.25rem; font-weight: 600; text-decoration: none; color: var(--secondary); }
-  .link-arrow:hover { text-decoration: underline; }
-  .intro-links { display: flex; flex-wrap: wrap; column-gap: 1.75rem; }
-
-  /* Each reason is an absence (no contract, no permission, no company); the
-     bold lead names it so the list scans in one pass. */
-  .intro-card li strong { color: var(--ink); font-weight: 600; }
-
-  .quickstart-list { list-style: none; margin: 0 0 2rem; padding: 0; display: grid; gap: 1.1rem; max-width: 640px; }
-  .quickstart-list li { display: flex; gap: 1.1rem; align-items: flex-start; }
-  .step-num { font-family: var(--font-mono); font-weight: 700; color: var(--secondary); font-size: 0.95rem; padding-top: 0.15em; flex-shrink: 0; }
-  .quickstart-list h3 { font-size: 1rem; margin-bottom: 0.2rem; }
-  .quickstart-list p { margin: 0; font-size: 0.92rem; }
-
-  .split-grid { display: grid; gap: 1.5rem; grid-template-columns: 1fr; }
-  .split-card { border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2rem; background: var(--bg-raised); }
-  .split-card--accent { background: var(--primary); color: var(--primary-ink); border-color: transparent; }
-  .split-card--accent h2, .split-card--accent .eyebrow { color: var(--primary-ink); }
-  .split-card--accent p { color: color-mix(in srgb, var(--primary-ink) 85%, transparent); max-width: 60ch; }
-  .split-card--accent .eyebrow::before { background: var(--primary-ink); }
-  .split-card--accent .btn-primary { background: var(--bg-raised); color: var(--primary); }
-  .split-card--accent .btn-secondary { color: var(--primary-ink); border-color: color-mix(in srgb, var(--primary-ink) 60%, transparent); }
-  .split-card--accent .btn-secondary:hover { color: var(--primary-ink); border-color: var(--primary-ink); }
-  .split-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
-  .split-actions .btn { white-space: normal; max-width: 100%; text-align: center; }
-
-  /* Same log treatment as the blog index — three most recent as rows against
-     a numbered rail, not a card wall. */
-  .post-log { list-style: none; margin: 0 0 1.5rem; padding: 0; }
-  .post-log li { border-top: 1px solid var(--border); }
-  .post-log a {
+    padding: 0;
     display: grid;
     grid-template-columns: 1fr;
-    gap: 0.15rem 1.5rem;
-    padding: 1.3rem 0 1.4rem;
-    text-decoration: none;
-    color: inherit;
+    border-block: 1px solid var(--border);
   }
-  @media (min-width: 560px) {
-    .post-log a { grid-template-columns: 3rem minmax(0, 1fr); }
+  @media (min-width: 640px) { .why-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1000px) { .why-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .why-grid li {
+    display: grid;
+    gap: var(--s-2);
+    align-content: start;
+    padding: var(--s-5) var(--s-5) var(--s-6) 0;
+    border-bottom: 1px solid var(--border);
   }
-  .post-log-num { font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-faint); padding-top: 0.2rem; }
-  .post-log-main { display: block; min-width: 0; }
-  .post-category { font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--secondary); display: block; margin-bottom: 0.3rem; }
-  .post-log-title { display: block; font-family: var(--font-display); font-weight: 600; font-size: 1.1rem; line-height: 1.25; color: var(--ink); }
-  .post-log a:hover .post-log-title { color: var(--secondary); text-decoration: underline; text-underline-offset: 3px; }
-  .post-log-desc { display: block; margin-top: 0.3rem; max-width: 56ch; font-size: 0.9rem; color: var(--ink-soft); }
-  .post-meta { display: block; margin-top: 0.45rem; font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-faint); }
+  .why-grid li:last-child { border-bottom: none; }
+  @media (min-width: 640px) {
+    .why-grid li { padding-left: var(--s-5); border-bottom: none; border-left: 1px solid var(--border); }
+    .why-grid li:nth-child(2n + 1) { padding-left: 0; border-left: none; }
+    .why-grid li:nth-child(-n + 2) { border-bottom: 1px solid var(--border); }
+  }
+  @media (min-width: 1000px) {
+    .why-grid li:nth-child(2n + 1) { padding-left: var(--s-5); border-left: 1px solid var(--border); }
+    .why-grid li:first-child { padding-left: 0; border-left: none; }
+    .why-grid li:nth-child(-n + 2) { border-bottom: none; }
+  }
+  .why-grid strong { font-family: var(--font-display); font-weight: 650; font-size: 1.15rem; color: var(--ink); letter-spacing: -0.01em; }
+  .why-grid span { color: var(--ink-soft); font-size: var(--t-sm); }
 
-  .cta-section { background: var(--bg-sunken); border-top: 1px solid var(--border); text-align: center; }
-  .cta-inner { max-width: 620px; margin-inline: auto; }
-  .cta-inner .hero-actions { justify-content: center; }
+  /* ---- Steps ----
+     A real sequence, so it is numbered: each step hangs from a rule with its
+     number above it, five across on wide screens. */
+  .steps {
+    list-style: none;
+    margin: 0 0 var(--s-7);
+    padding: 0;
+    display: grid;
+    gap: 0 var(--s-5);
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 720px) { .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1100px) { .steps { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+  .steps li { border-top: 2px solid var(--ink); padding: var(--s-4) 0 var(--s-6); }
+  .step-num { display: block; font-family: var(--font-mono); font-size: var(--t-sm); font-weight: 600; color: var(--secondary); margin-bottom: var(--s-3); }
+  .steps h3 { font-size: 1.2rem; margin: 0 0 var(--s-2); letter-spacing: -0.015em; }
+  .steps h3 a { color: var(--ink); text-decoration: none; }
+  .steps h3 a:hover { text-decoration: underline; text-decoration-color: var(--secondary); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+  .steps p { margin: 0; font-size: var(--t-sm); }
+
+  /* ---- Map ---- */
+  .map-section { background: var(--bg-sunken); }
+
+  /* ---- Community ---- */
+  .community-grid { display: grid; gap: var(--s-7); grid-template-columns: 1fr; align-items: start; }
+  @media (min-width: 900px) {
+    .community-grid { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); column-gap: var(--s-8); }
+  }
+  .community-grid h2 { margin: 0 0 var(--s-4); }
+  .community-body { font-size: var(--t-lg); line-height: 1.55; max-width: var(--measure); }
+  .sister {
+    border-left: 3px solid var(--secondary);
+    padding: var(--s-1) 0 var(--s-1) var(--s-5);
+  }
+  .sister-label { font-family: var(--font-mono); font-size: var(--t-xs); color: var(--secondary); margin: 0 0 var(--s-3); }
+  .sister p:not(.sister-label) { color: var(--ink-soft); }
+
+  /* ---- Blog ----
+     Three posts as ruled columns: category and date on top, the title as
+     the link, author and reading time at the foot. No thumbnails. */
+  .posts { list-style: none; margin: 0; padding: 0; display: grid; gap: 0 var(--s-6); grid-template-columns: 1fr; }
+  @media (min-width: 900px) { .posts { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .posts li { border-top: 1px solid var(--border-strong); padding: var(--s-4) 0 var(--s-6); }
+  .posts article { position: relative; display: flex; flex-direction: column; height: 100%; }
+  .post-meta-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s-2); margin: 0 0 var(--s-3); font-family: var(--font-mono); font-size: var(--t-xs); color: var(--ink-soft); }
+  .post-category { color: var(--secondary); }
+  .posts h3 { font-size: 1.35rem; line-height: 1.15; margin: 0 0 var(--s-3); }
+  .posts h3 a { color: var(--ink); text-decoration: none; }
+  /* The whole column is the target; the title stays the accessible name. */
+  .posts h3 a::after { content: ""; position: absolute; inset: 0; }
+  .posts article:hover h3 a { text-decoration: underline; text-decoration-color: var(--secondary); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+  .post-desc { font-size: var(--t-sm); margin: 0 0 var(--s-4); }
+  .post-meta { margin: auto 0 0; font-size: var(--t-xs); color: var(--ink-soft); }
+
+  /* ---- Closing CTA ---- */
+  .cta-section { background: var(--bg-sunken); }
+  .cta-inner { display: grid; gap: var(--s-5) var(--s-8); grid-template-columns: 1fr; align-items: end; }
+  @media (min-width: 900px) { .cta-inner { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); } }
+  .cta-inner h2 { margin: 0; max-width: 16ch; }
+  .cta-side p { margin: 0; max-width: var(--measure); }
 </style>

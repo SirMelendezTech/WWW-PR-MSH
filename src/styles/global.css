@@ -1,10 +1,11 @@
 @import "./tokens.css";
 
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+/* Anchor jumps and keyboard focus both land below the sticky header. */
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-total) + 16px); }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
 }
 
 body {
@@ -12,104 +13,117 @@ body {
   background: var(--bg);
   color: var(--ink);
   font-family: var(--font-body);
-  font-size: 16px;
-  line-height: 1.6;
+  font-size: var(--t-base);
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
+/* Same heading voice as prmsh.com: heavy, tight, balanced. Optical size
+   follows the font size, so the display cut only shows where type is large. */
 h1, h2, h3, h4 {
   font-family: var(--font-display);
-  font-weight: 600;
-  line-height: 1.12;
-  letter-spacing: -0.01em;
+  font-weight: 650;
+  font-optical-sizing: auto;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
   color: var(--ink);
   margin: 0 0 0.5em;
 }
-h1 { font-size: clamp(2.1rem, 1.6rem + 2.2vw, 3.6rem); font-weight: 700; letter-spacing: -0.02em; }
-h2 { font-size: clamp(1.5rem, 1.3rem + 1vw, 2.25rem); }
-h3 { font-size: 1.35rem; }
-h4 { font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700; color: var(--ink-soft); }
+/* Page titles stay at an editorial size; only the home hero uses the full
+   --t-h1 display size, so docs never read like a landing page. */
+h1 { font-size: clamp(2.25rem, 1.6rem + 2.6vw, 3.5rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.02; }
+h2 { font-size: var(--t-h2); letter-spacing: -0.03em; }
+h3 { font-size: var(--t-h3); line-height: 1.15; }
+h4 { font-size: var(--t-lg); line-height: 1.2; letter-spacing: -0.01em; }
 
-p { margin: 0 0 1em; color: var(--ink-soft); }
+p { margin: 0 0 1em; color: var(--ink-soft); text-wrap: pretty; }
 a { color: var(--link); text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
 a:not([class]) { text-decoration-color: color-mix(in srgb, var(--link) 40%, transparent); }
 a:not([class]):hover { text-decoration-color: currentColor; }
 
 :focus-visible {
-  outline: 2.5px solid var(--secondary);
-  outline-offset: 2px;
-  border-radius: 2px;
+  outline: 2px solid var(--secondary);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
 }
 
 img, svg { max-width: 100%; display: block; }
 
 .container {
   width: 100%;
-  max-width: var(--container);
+  max-width: calc(var(--container) + var(--gutter) * 2);
   margin-inline: auto;
-  padding-inline: 16px;
-}
-@media (min-width: 420px) {
-  .container { padding-inline: 20px; }
-}
-@media (min-width: 720px) {
-  .container { padding-inline: 32px; }
+  padding-inline: var(--gutter);
 }
 
+/* A plain mono topic line, the way prmsh.com labels its hero: sentence
+   case, no tracking, no ornament. It names what a section is about when the
+   heading itself is a sentence. */
 .eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5em;
+  display: block;
   font-family: var(--font-mono);
-  font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
+  font-size: var(--t-xs);
+  line-height: 1.4;
   color: var(--secondary);
-  font-weight: 600;
-}
-.eyebrow::before {
-  content: "";
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: currentColor;
-  box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 25%, transparent);
+  font-weight: 500;
+  margin: 0 0 var(--s-4);
 }
 
 /* Buttons */
+/* Buttons match the family: 44px tall, 4px corners, 1px border, no lift.
+   Hover deepens the fill (primary) or the border (secondary); press nudges
+   down a pixel so the click is felt, not just seen. */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5em;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 0.98rem;
-  padding: 0.75em 1.4em;
+  gap: var(--s-2);
+  min-height: 44px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--t-sm);
+  padding: 0.6em 1.15em;
   border-radius: var(--radius-md);
-  border: 1.5px solid transparent;
+  border: 1px solid transparent;
   cursor: pointer;
   text-decoration: none;
   line-height: 1.2;
-  transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease, border-color 0.12s ease;
+  transition: background-color 0.16s var(--ease-out), border-color 0.16s var(--ease-out), color 0.16s var(--ease-out);
   white-space: nowrap;
 }
-.btn:hover { transform: translateY(-1px); }
-.btn:active { transform: translateY(0); }
-.btn-primary { background: var(--primary); color: var(--primary-ink); box-shadow: var(--shadow-sm); }
-.btn-primary:hover { box-shadow: var(--shadow-md); }
+.btn:active { transform: translateY(1px); }
+.btn svg { flex: none; transition: transform 0.16s var(--ease-out); }
+.btn:hover .icon-ext { transform: translate(1px, -1px); }
+.btn-primary { background: var(--primary); color: var(--primary-ink); border-color: var(--primary); }
+.btn-primary:hover { background: color-mix(in srgb, var(--primary) 82%, var(--ink)); border-color: color-mix(in srgb, var(--primary) 82%, var(--ink)); }
 .btn-secondary { background: transparent; color: var(--ink); border-color: var(--border-strong); }
-.btn-secondary:hover { border-color: var(--secondary); color: var(--secondary); }
-.btn-sm { padding: 0.45em 0.9em; font-size: 0.85rem; }
+.btn-secondary:hover { border-color: var(--ink); }
+.btn-sm { min-height: 36px; padding: 0.4em 0.85em; font-size: var(--t-xs); }
+
+/* Links that lead somewhere (not inline prose links): underlined from the
+   start, so they read as links without an arrow glyph. */
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--secondary);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 5px;
+  transition: text-decoration-color 0.16s var(--ease-out), color 0.16s var(--ease-out);
+}
+.link-arrow:hover { color: var(--secondary); text-decoration-color: currentColor; }
 
 /* Cards */
 .card {
   background: var(--bg-raised);
   border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 1.5rem;
-  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius-sm);
+  padding: var(--s-5);
 }
 
 /* Tables (hardware / settings comparisons) */
@@ -133,7 +147,7 @@ table {
 }
 caption { text-align: left; padding: 0.75em 1em; font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-faint); }
 th, td { text-align: left; padding: 0.7em 1em; border-bottom: 1px solid var(--border); vertical-align: top; }
-thead th { background: var(--bg-sunken); font-family: var(--font-display); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-soft); position: sticky; top: 0; }
+thead th { background: var(--bg-sunken); font-family: var(--font-body); font-size: var(--t-xs); font-weight: 700; color: var(--ink); position: sticky; top: 0; }
 tbody tr:last-child td { border-bottom: none; }
 tbody tr:hover { background: color-mix(in srgb, var(--secondary) 6%, transparent); }
 
@@ -201,9 +215,9 @@ code { font-family: var(--font-mono); }
 
 .callout {
   border: 1px solid var(--border);
-  border-left: 4px solid var(--secondary);
-  background: color-mix(in srgb, var(--secondary) 7%, var(--bg-raised));
-  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  border-left: 3px solid var(--secondary);
+  background: color-mix(in srgb, var(--secondary) 6%, var(--bg-raised));
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   padding: 1em 1.2em;
   /* margin-block only: the shorthand's `0` was overriding `.container`'s
      `margin-inline: auto`, so a `.container.callout` sat flush left instead
@@ -216,10 +230,8 @@ code { font-family: var(--font-mono); }
 .callout-label {
   display: block;
   font-family: var(--font-mono);
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-weight: 700;
+  font-size: var(--t-xs);
+  font-weight: 600;
   color: var(--secondary);
   margin-bottom: 0.4em;
 }
@@ -228,8 +240,6 @@ code { font-family: var(--font-mono); }
   display: inline-block;
   font-family: var(--font-mono);
   font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
   padding: 0.2em 0.55em;
   border-radius: 4px;
   border: 1px solid var(--border-strong);
@@ -251,8 +261,7 @@ code { font-family: var(--font-mono); }
 .prose details[open] summary { margin-bottom: 0.6em; }
 .prose summary {
   cursor: pointer;
-  font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 700;
   color: var(--ink);
   list-style: none;
 }
@@ -264,7 +273,9 @@ code { font-family: var(--font-mono); }
 .prose h2 { margin-top: 2.2em; }
 .prose h2:first-child { margin-top: 0; }
 .prose h3 { margin-top: 1.6em; }
-.prose p, .prose li { max-width: 72ch; }
+.prose p, .prose li { max-width: 70ch; }
+.prose h2 { font-size: clamp(1.6rem, 1.3rem + 1.2vw, 2.1rem); }
+.prose h3 { font-size: clamp(1.2rem, 1.1rem + 0.4vw, 1.4rem); }
 .prose > *:first-child { margin-top: 0; }
 
 .sr-only {
@@ -279,17 +290,17 @@ code { font-family: var(--font-mono); }
 .skip-link {
   position: absolute;
   left: 12px;
-  top: -48px;
+  top: 0;
+  transform: translateY(-120%);
   background: var(--primary);
   color: var(--primary-ink);
   padding: 0.7em 1.1em;
   border-radius: var(--radius-sm);
   z-index: 100;
-  transition: top 0.15s ease;
-  font-family: var(--font-display);
-  font-weight: 600;
+  transition: transform 0.15s ease;
+  font-weight: 700;
 }
-.skip-link:focus { top: 12px; }
+.skip-link:focus { transform: translateY(12px); }
 
 /* Terrain profile (How Meshtastic Works → Hops). Generated from real
    elevation by plugins/rehype-terrain-profile.mjs. The ground is the quiet

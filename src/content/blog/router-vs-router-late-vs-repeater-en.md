@@ -9,8 +9,6 @@ tags: [node-roles, router, router-late, repeater, rebroadcast-mode, operator]
 readingTime: 11 min
 ---
 
-# Router, Router Late, or Repeater: picking a role for a real infrastructure site
-
 Most role questions on this island are answered by "run `CLIENT`." I've [made that argument at length](/en/blog/client-base-rooftop-nodes/): a rooftop in a populated neighborhood is not infrastructure, and setting it to `ROUTER_LATE` because it's high up makes the mesh worse.
 
 This post is for the other case — the one where you cleared that bar. A tower with an open sea path. A ridge site that a whole valley depends on. Something permanent, elevated, and genuinely bridging coverage nobody else can reach.

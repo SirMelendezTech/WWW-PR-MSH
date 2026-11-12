@@ -175,11 +175,15 @@ const hopBegin = (i: number) => (i === 0 ? "1s" : `pk${i - 1}.end+0.09s`);
   @keyframes t-fade { from { opacity: 0; } to { opacity: 1; } }
 
   @media (prefers-reduced-motion: reduce) {
+    /* Two-class selectors so these final states outrank the hero's
+       start-of-animation rules (.terrain-sig--hero .x), which otherwise kept
+       the ridge, arcs and nodes invisible when motion is reduced. */
     .terrain-sig * { animation: none !important; }
-    .terrain-ridge { stroke-dashoffset: 0; fill-opacity: 1; }
-    .hop-arc { stroke-dasharray: 0.016 0.022; stroke-dashoffset: 0; opacity: 0.4; }
-    .node-mark { opacity: 1; }
-    .node-pulse { opacity: 0.16; }
-    .terrain-packet { display: none; }
+    .terrain-sig .terrain-contours { opacity: 1; }
+    .terrain-sig .terrain-ridge { stroke-dashoffset: 0; fill-opacity: 1; }
+    .terrain-sig .hop-arc { stroke-dasharray: 0.016 0.022; stroke-dashoffset: 0; opacity: 0.4; }
+    .terrain-sig .node-mark { opacity: 1; }
+    .terrain-sig .node-pulse { opacity: 0.16; }
+    .terrain-sig .terrain-packet { display: none; }
   }
 </style>

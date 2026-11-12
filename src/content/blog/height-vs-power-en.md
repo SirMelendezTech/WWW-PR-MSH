@@ -9,8 +9,6 @@ tags: [antennas, rf-physics, fcc-part-15, fresnel-zone, elevation, operator]
 readingTime: 9 min
 ---
 
-# Height vs. Power: Why You Can't Buy More Range
-
 In the post about the backbone, I argued that Puerto Rico's mesh network does not have a configuration problem, but a coordination problem. In the one about clocks, I briefly mentioned that a bad antenna with 30 dBm gives you "a noisy and deaf node—the worst possible neighbor."
 
 This post is the other half of those two: the physical layer. Because the first reaction almost everyone has when a node doesn't reach is to increase its power, and that is almost always the wrong lever.

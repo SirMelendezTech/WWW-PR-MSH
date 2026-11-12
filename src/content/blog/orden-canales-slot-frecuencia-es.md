@@ -10,8 +10,6 @@ readingTime: 13 min
 lang: es
 ---
 
-# El canal que moviste no era un canal — era tu frecuencia
-
 Un nodo se queda callado. No apagado: arranca, la pantalla funciona, la app conecta, la telemetría se actualiza. Simplemente deja de existir para el resto de la malla. Nadie lo escucha, él no escucha a nadie.
 
 Y sigue hablando perfecto con el otro nodo que casualmente reconfiguraste al mismo tiempo, que es justo lo que hace que uno tarde días en darse cuenta.

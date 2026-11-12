@@ -10,8 +10,6 @@ lang: es
 translationKey: height-vs-power
 ---
 
-# Altura vs. potencia: por qué no puedes comprar más alcance
-
 En el post sobre el backbone argumenté que la malla de Puerto Rico no tiene problema de configuración, sino de coordinación. En el de los relojes mencioné de pasada que una antena mala con 30 dBm te da "un nodo ruidoso y sordo — el peor vecino posible".
 
 Este post es la otra mitad de los dos: la capa física. Porque la primera reacción de casi todo el mundo cuando un nodo no llega es subirle la potencia, y esa es, casi siempre, la palanca equivocada.

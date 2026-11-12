@@ -10,15 +10,16 @@ El hardware de Meshtastic va desde placas de desarrollo de $25 hasta repetidores
 
 <div class="callout">
 <span class="callout-label">Recomendación de la comunidad, no un respaldo</span>
-Todo lo de abajo refleja lo que los operadores de nodos de Puerto Rico han encontrado confiable en la práctica. Los precios y la disponibilidad son aproximados y cambiarán — revisa los listados actuales antes de comprar. Ningún fabricante patrocina esta página, y ten cuidado con las placas y antenas de imitación en los mercados generales; compra de la tienda oficial de una placa o de un vendedor Meshtastic conocido cuando sea posible.
+Todo lo de abajo refleja lo que los operadores de nodos de Puerto Rico han encontrado confiable en la práctica. Los precios y la disponibilidad son aproximados y cambiarán — revisa los listados actuales antes de comprar. Ningún fabricante patrocina esta página, y ten cuidado con las placas y antenas de imitación en los mercados generales; compra de la tienda oficial de una placa o de un vendedor Meshtastic conocido cuando sea posible. Precios y modelos revisados en noviembre de 2026 contra la lista oficial de Meshtastic, RF Index y las tiendas de los fabricantes.
 </div>
 
 <div class="callout">
 <span class="callout-label">¿Solo quieres poner un nodo en marcha?</span>
-Dos puntos de partida, según dónde lo vayas a poner. El resto de las opciones y sus ventajas y desventajas están más abajo.
+Tres puntos de partida, según para qué lo quieras. El resto de las opciones y sus ventajas y desventajas están más abajo.
 <ul>
-<li><strong>Llévalo contigo</strong> — <a href="#nodos-portátiles--de-mano">Seeed Wio Tracker L1</a>, unos $30. GPS integrado, OLED pequeña, listo para la malla apenas lo saques de la caja.</li>
-<li><strong>Déjalo funcionando en un sitio fijo</strong> — una placa clase <a href="#nodos-en-techo--de-gran-elevación">Heltec LoRa32 V4</a>, unos $25–30. Enchufada, sin batería que administrar.</li>
+<li><strong>Llévalo contigo</strong> — <a href="#nodos-portátiles--de-mano">Seeed Wio Tracker L1</a>, unos $25–35. GPS integrado, OLED pequeña, listo para la malla apenas lo saques de la caja.</li>
+<li><strong>Para la mochila de emergencia</strong> — <a href="#nodos-portátiles--de-mano">Heltec MeshPocket</a> de 10,000 mAh, unos $60–80. Es también un power bank: el mismo equipo que manda mensajes le carga el teléfono cuando no hay luz.</li>
+<li><strong>Déjalo funcionando en un sitio fijo</strong> — una placa clase <a href="#nodos-en-techo--de-gran-elevación">Heltec LoRa32 V4</a>, unos $18–30. Enchufada, sin batería que administrar.</li>
 </ul>
 </div>
 
@@ -29,15 +30,18 @@ Casi todas las placas de esta página están construidas alrededor de una de dos
 - **nRF52840** — consume poquísima energía. Días a semanas con una sola carga, sin Wi-Fi. La opción correcta para cualquier cosa alimentada por batería: equipos de mano, nodos solares.
 - **ESP32 / ESP32-S3** — añade Wi-Fi y más capacidad de procesamiento, a costa de la duración de la batería (a menudo 1–2 días con batería interna). Tiene sentido para un nodo que ya está enchufado de todos modos — estación base en casa, repetidor en techo, o gateway Wi-Fi/MQTT.
 
+La radio LoRa importa tanto como el chip. Compra equipos con radio **SX1262, LR11xx o LR2021**. La documentación oficial de Meshtastic ya no recomienda las radios **SX127x** para compras nuevas — eso incluye placas viejas como la T-Beam V1.1 y algunas variantes de la LoRa T3. Si alguien te ofrece una barata usada, sirve para practicar, pero no para un nodo que la comunidad vaya a depender de él.
+
 ## Nodos portátiles / de mano
 
 Para una mochila, guantera, clip de cinturón o bolsillo. Prioridades: duración de batería, tamaño y una pantalla que puedas leer al aire libre. Estos casi siempre corren como **Client** o **Client Mute** — consulta [Roles de Nodo](/settings/#roles-de-nodo).
 
-- **Punto de entrada económico**: placas como la Seeed Wio Tracker L1 (unos $30 — 800 mAh, GPS integrado, OLED pequeña) te ponen en la malla barato. La variante L1 Pro (unos $43) añade una pantalla más grande y carga solar.
-- **Mejor duración de batería**: placas que usan una celda 18650 estándar — la Heltec T114 es un ejemplo común (~$25–45 según la configuración) — pueden estirarse a cerca de una semana entre cargas, frente a 2–3 días para placas más pequeñas de batería fija.
-- **Legible bajo el sol**: las pantallas de tinta electrónica se mantienen visibles bajo sol directo y consumen casi nada de energía para retener una imagen — la LILYGO T-Echo (~$60–68) es una elección común, típicamente buena para 5–7 días de uso normal. Las placas de tinta electrónica construidas sobre la radio SX1262 pueden dañarse permanentemente si se encienden sin antena conectada — siempre conecta la antena antes de encender.
-- **Premium / más robusto**: placas como la RAK WisMesh Pocket V2 (~$89–99, con certificación IP66, antena SMA externa) cambian tamaño por una batería más grande y mejor sellado — un paso razonable hacia arriba para carga diaria o uso en bote.
-- **Rastreadores tipo tarjeta**: rastreadores delgados y sellados como el RAK WisMesh Tag o el SenseCAP T-1000e (~$39 cada uno) cambian pantalla y antena intercambiable por portabilidad — bien como baliza de ubicación, menos útil como equipo de mensajería principal.
+- **Punto de entrada económico**: la familia Seeed Wio Tracker L1 te pone en la malla barato. La L1 (unos $25–35) trae GPS y una OLED pequeña; la **L1 E-Ink** (unos $30–40) cambia la OLED por una pantalla de tinta electrónica de 2.13" que se lee bajo el sol; la **L1 Pro** (unos $40–47) añade batería más grande, joystick y carga solar. La L1 Lite (unos $20–30) no trae pantalla.
+- **La batería más grande**: la **Heltec MeshPocket** (unos $50–80) es un power bank con radio Meshtastic y pantalla de tinta electrónica, en versiones de 5,000 o 10,000 mAh, con carga inalámbrica Qi2. En un apagón, carga el teléfono y sigue mandando mensajes. Ojo: su USB-C es solo para carga; el firmware se actualiza con el cable magnético que trae.
+- **Batería a tu medida**: la **Heltec T114** (unos $28–50 según la configuración) trae un conector para batería externa en lugar de una celda fija. Con una celda grande en un estuche puede estirarse a cerca de una semana entre cargas.
+- **Legible bajo el sol**: las pantallas de tinta electrónica se mantienen visibles bajo sol directo y consumen casi nada para retener una imagen. La **LILYGO T-Echo** (unos $55–65) es la elección clásica, típicamente buena para 5–7 días de uso normal; la **Elecrow ThinkNode M1** (unos $40–60) es una alternativa de tinta electrónica. Las placas de tinta electrónica con radio SX1262 pueden dañarse permanentemente si se encienden sin antena conectada — siempre conecta la antena antes de encender.
+- **Premium / más robusto**: la **RAK WisMesh Pocket V2** (unos $90–100, IP66, antena SMA externa, 3,200 mAh) cambia tamaño por una batería más grande y mejor sellado — un paso razonable hacia arriba para carga diaria o uso en bote.
+- **Rastreadores tipo tarjeta**: delgados y sellados, sin pantalla ni antena intercambiable. La **SenseCAP T1000-E** (unos $35–45, IP65) y la **RAK WisMesh Tag** (unos $29–50, IP66) son las conocidas; la nueva **SenseCAP MeshTracker X1** (unos $43–50, IP66) carga por USB-C, trae GPS de doble banda (L1+L5) y dura hasta 5 días según el intervalo de GPS. Buenas como baliza de ubicación, menos útiles como equipo de mensajería principal.
 
 Un **estuche con certificación IP** o una bolsa seca barata importa más en la humedad y la lluvia de Puerto Rico que en casi cualquier lugar de EE. UU. continental — inclúyelo en el presupuesto de cualquier placa que no venga ya sellada.
 
@@ -52,12 +56,14 @@ Una comparación rápida lado a lado de modelos de mano específicos mencionados
 
 | Equipo | Batería | Duración estimada | Pantalla | Precio | Mejor para |
 |---|---|---|---|---|---|
-| Wio Tracker L1 | 800 mAh | ~2–3 días | OLED 0.96" | ~$30 | Opción económica |
-| Wio Tracker L1 Pro | 2000 mAh | ~2.5 días | OLED 1.3" | ~$43 | Económica con joystick + solar |
-| Heltec T114 | 800–3000 mAh | Hasta una semana (18650) | Color 1.14" | ~$25–45 | Mejor duración de batería |
-| LILYGO T-Echo | 850 mAh | ~5–7 días | Tinta electrónica 1.54", legible bajo el sol | ~$60–68 | Gama media, uso al aire libre |
-| RAK WisMesh Pocket V2 | 3200 mAh | ~3+ días con GPS activado | OLED 1.3" | ~$89–99 | La mejor en general, robusta IP66 |
-| LILYGO T-Deck Plus | 2000 mAh | ~1–2 días | LCD color 2.8", teclado completo | ~$77–87 | Mensajería autónoma, sin teléfono |
+| Wio Tracker L1 | 800 mAh | ~2–3 días | OLED pequeña | ~$25–35 | Opción económica |
+| Wio Tracker L1 Pro | 2000 mAh | ~2.5 días | OLED 1.3" | ~$40–47 | Económica con joystick + solar |
+| Heltec T114 | Externa, a tu medida | Hasta una semana con celda grande | Color 1.14" (opcional) | ~$28–50 | Batería a tu medida |
+| LILYGO T-Echo | 850 mAh | ~5–7 días | Tinta electrónica 1.54", legible bajo el sol | ~$55–65 | Gama media, uso al aire libre |
+| Heltec MeshPocket | 5000 o 10,000 mAh | Varios días; además carga el teléfono | Tinta electrónica 2.13" | ~$50–80 | Mochila de emergencia, apagones |
+| RAK WisMesh Pocket V2 | 3200 mAh | ~3+ días con GPS activado | OLED 1.3" | ~$90–100 | Robusta IP66, uso diario |
+| SenseCAP MeshTracker X1 | 1100 mAh | Hasta ~5 días | Ninguna | ~$43–50 | Rastreador de tarjeta IP66, USB-C |
+| LILYGO T-Deck Plus | 2000 mAh | ~1–2 días | LCD color 2.8", teclado completo | ~$79–100 | Mensajería autónoma, sin teléfono |
 
 </div>
 
@@ -65,9 +71,23 @@ Los precios y las especificaciones cambian a medida que los fabricantes revisan 
 
 </details>
 
+## Mensajeros autónomos (sin teléfono)
+
+Equipos con pantalla y teclado propios: escribes y lees mensajes sin emparejar un teléfono. Sirven para quien no tiene smartphone, para dejar uno en la casa de un familiar mayor, o como respaldo si el teléfono se queda sin batería. Todos usan ESP32-S3, así que cuenta con 1–2 días de batería y cárgalos a diario.
+
+- **LILYGO T-Deck Plus** (unos $79–100) — pantalla táctil a color de 2.8", teclado tipo BlackBerry, GPS. El más usado de este grupo.
+- **LILYGO T-Deck Pro** (unos $82–93) — la misma idea con pantalla táctil de tinta electrónica de 3.1": se lee mejor bajo el sol y gasta menos.
+- **LILYGO T-Lora Pager** (unos $87–115) — formato de beeper con teclado y pantalla de 2.33"; más compacto que los T-Deck.
+
 ## Nodos de casa / estacionarios
 
 Nodos interiores que corren con alimentación USB, usualmente colocados cerca de una ventana para el mejor camino de señal de interior a exterior. Esta es la forma más fácil y barata de volverte parte de la malla — la mayor parte de la red está construida con nodos exactamente así. Una placa basada en ESP32 enchufada (consulta la comparación de chips arriba) es una elección razonable y económica aquí ya que la duración de la batería no importa.
+
+- **La más barata**: una **Heltec LoRa32 V4** (unos $18–30) en un estuche, con una antena mejor que la de fábrica.
+- **Lista para la mesa**: la **Muzi Works Base Uno** (unos $25) o **Base Duo** (unos $35), o la **RAK WisMesh Board ONE** (unos $30–54) — nRF52840, así que también sirven con un banco de baterías durante un apagón.
+- **Estación base seria**: la **B&Q Station G3** (unos $109–159) tiene amplificador de potencia ajustable y mejor recepción en ambientes ruidosos. Necesita una fuente de al menos 25 W entre 9 y 19 V; más de 19 V puede dañarla permanentemente.
+
+Dos reglas que pesan más que el modelo:
 
 - Enchufar y olvidar: elige un equipo que puedas dejar encendido 24/7 sin preocuparte por él.
 - La ubicación en la ventana le gana a una radio más potente enterrada en un clóset. LoRa es sensible a la línea de vista; unos pocos pies de posicionamiento importan más que unos pocos dB de potencia de transmisión.
@@ -76,14 +96,14 @@ Nodos interiores que corren con alimentación USB, usualmente colocados cerca de
 
 Instalaciones permanentes destinadas a extender la cobertura para la comunidad más amplia, no solo un hogar. Estos importan más en crestas y techos con línea de vista genuina hacia otros nodos o centros de población — consulta [Malla de Puerto Rico](/pr-mesh/) para dónde existen actualmente los huecos de cobertura.
 
-- **Opción económica**: una placa ESP32 enchufada (p. ej. clase Heltec LoRa32 V4, ~$25–30) con una antena externa cubre la mayoría de los despliegues en techo sin necesitar GPS — la posición del nodo se puede fijar manualmente ya que no se está moviendo.
-- **Opción de alta potencia**: existen placas potenciadas que corren un módulo LoRa de 1W (30 dBm) para terreno genuinamente difícil de cubrir, pero revisa las cuentas antes de recurrir a una — las reglas de EE. UU. topan la potencia radiada efectiva a 36 dBm, así que una radio de 1W emparejada con una antena de alta ganancia puede acercarse a ese techo rápido. Más potencia no es automáticamente mejor; también eleva tu propia huella de tiempo de aire para todos los cercanos.
+- **Opción económica**: una placa ESP32 enchufada (p. ej. clase Heltec LoRa32 V4, ~$18–30) con una antena externa cubre la mayoría de los despliegues en techo sin necesitar GPS — la posición del nodo se puede fijar manualmente ya que no se está moviendo.
+- **Opción de alta potencia**: para terreno genuinamente difícil de cubrir existen el kit **RAK WisMesh 1W Booster** (unos $39), la **B&Q Station G3** con potencia ajustable, y variantes de 1W de varios repetidores solares. Revisa las cuentas antes de recurrir a una — las reglas de EE. UU. topan la potencia radiada efectiva a 36 dBm, así que una radio de 1W emparejada con una antena de alta ganancia puede acercarse a ese techo rápido. Más potencia no es automáticamente mejor; también eleva tu propia huella de tiempo de aire para todos los cercanos.
 - Un gabinete a prueba de intemperie no es negociable — espera sol, aire salado y lluvia de temporada de huracanes.
 - Considera si este nodo debe correr como **Router** o **Router Late** — y lee primero la advertencia en [Configuración Recomendada](/settings/#roles-de-nodo). Un nodo en techo corrido como Client simple a menudo sigue siendo la mejor opción.
 
 ## Nodos solares
 
-Ubicaciones remotas o desatendidas sin alimentación de red confiable — una finca, el inicio de una vereda, una cima sin estructura cerca. Los nodos solares son lo que mantiene la malla viva cuando la red eléctrica no lo hace. Existen kits solares prearmados (panel pequeño + batería + carcasa a prueba de intemperie agrupados) si prefieres no conseguir y encerrar las partes tú mismo — espera cerca de $70–200 según el tamaño del panel y la capacidad de la batería.
+Ubicaciones remotas o desatendidas sin alimentación de red confiable — una finca, el inicio de una vereda, una cima sin estructura cerca. Los nodos solares son lo que mantiene la malla viva cuando la red eléctrica no lo hace. Existen kits solares prearmados (panel + batería + carcasa a prueba de intemperie agrupados) si prefieres no conseguir y encerrar las partes tú mismo — espera cerca de $80–300 según el tamaño del panel y la capacidad de la batería. Los modelos actuales están en [Nodos solares prearmados](#nodos-solares-prearmados-sin-ensamblaje-requerido).
 
 - Dimensiona el panel y la batería para el **peor caso de la temporada de lluvia** de Puerto Rico, no una tarde soleada — varios días nublados consecutivos no deberían dejar el nodo fuera de línea.
 - Los paquetes de batería LiFePO4 manejan el calor mejor que el litio-ion genérico, lo que importa para cualquier cosa montada al aire libre bajo sol directo.
@@ -181,9 +201,11 @@ Las placas y antenas de imitación circulan en los mercados generales, vendidas 
 |---|---|---|
 | Rokland | store.rokland.com | Con base en EE. UU., envío rápido, fuerte selección de antenas |
 | RAK Wireless | store.rakwireless.com | WisMesh Pocket, Repeater, Tag, potenciador de 1W |
-| B&Q Consulting | shop.uniteng.com | Station G2, Nano G2 Ultra — equipo RF con enfoque de ingeniería |
-| Muziworks | muzi.works | Estuches, antenas, la R1 Neo — ensamblada en EE. UU. |
-| Seeed Studio | seeedstudio.com | Wio Tracker, SenseCAP, Solar P1 |
+| B&Q Consulting | shop.uniteng.com | Station G3, Nano G2 Ultra — equipo RF con enfoque de ingeniería |
+| Heltec | heltec.org | LoRa32 V4, T114, MeshPocket, MeshTower |
+| Elecrow | elecrow.com | ThinkNode M1–M9, incluido el solar M6 |
+| Muziworks | muzi.works | Estuches, antenas, R1 Neo, Base Uno/Duo — ensamblados en EE. UU. |
+| Seeed Studio | seeedstudio.com | Wio Tracker, SenseCAP T1000-E y MeshTracker X1, Solar P1 |
 | Atlavox | atlavox.com | Nodos solares prearmados y accesorios |
 | PeakMesh (Etsy) | Tienda Etsy | Nodos solares prearmados sobre hardware RAK, envía desde FL |
 
@@ -191,18 +213,23 @@ Las placas y antenas de imitación circulan en los mercados generales, vendidas 
 
 ## Nodos solares prearmados (sin ensamblaje requerido)
 
-Si conseguir un panel, batería, controlador de carga y gabinete por separado no te atrae, varios pequeños armadores venden nodos solares totalmente ensamblados listos para montar y encender:
+Si conseguir un panel, batería, controlador de carga y gabinete por separado no te atrae, fabricantes y pequeños armadores venden nodos solares totalmente ensamblados listos para montar y encender:
 
 <div class="table-wrap">
 
 | Equipo | Solar | Batería | GPS | Precio aprox. | Dónde |
 |---|---|---|---|---|---|
-| RAK WisMesh Repeater | Integrado | Integrada | No | ~$70–90 | RAK Wireless |
-| SenseCAP Solar P1 Pro | Panel de 5W | 4× 18650, incluidas | Sí | ~$90 | Seeed Studio |
-| Atlavox Beacon | Integrado | Integrada | Sí | ~$150–200 | Atlavox |
+| RAK WisMesh Repeater Mini V2 | Integrado | 3200 mAh | Opcional | ~$90–100 | RAK Wireless |
+| RAK WisMesh Repeater | Integrado | Integrada | No | ~$100–325 según el panel | RAK Wireless |
+| Elecrow ThinkNode M6 | Panel de 6W, MPPT | 2× 18650, incluidas | Sí | ~$80–90 | Elecrow, Muziworks, Atlavox |
+| SenseCAP Solar P1 Pro | Panel de 5W | 4× 18650, incluidas | Sí | ~$75–140 | Seeed Studio |
+| Heltec MeshTower V2 | Entrada de panel de 18–24 V | 3× 2800 mAh | — | ~$109–129 | Heltec |
+| Atlavox Beacon | Integrado | Integrada | Sí | ~$250–300 | Atlavox |
 | Nodo solar Heltec V4 | Panel de 25W | 6× 18650 | No | ~$120–180 | Armadores de Etsy |
 
 </div>
+
+La mayoría trae carcasa IP65–IP67; confirma la certificación de cada modelo antes de montarlo. El Repeater Mini V2 y el MeshTower V2 tienen variantes de mayor potencia (1W en el Repeater Mini V2, 28 dBm en el MeshTower V2H) — lee la nota sobre potencia en [Nodos en techo](#nodos-en-techo--de-gran-elevación) antes de elegir una.
 
 La tienda Etsy de PeakMesh se especializa en esta categoría y es una recomendación frecuente por sus montajes bien construidos y discretos:
 
@@ -228,12 +255,15 @@ Cada categoría de arriba, lado a lado — precio, batería, GPS, impermeabiliza
 
 | Equipo | Precio aprox. | Batería | GPS | Pantalla | Conector de antena | Impermeable | Listo para solar | Uso recomendado | Compromiso |
 |---|---|---|---|---|---|---|---|---|---|
-| De mano económico (p. ej. clase Wio Tracker L1) | ~$30 | 800 mAh, 2–3 días | Sí, integrado | OLED pequeña | U.FL / IPEX | No, necesita estuche | Solo la variante L1 Pro | Primer equipo, aprender la app | La batería pequeña limita el uso de varios días |
-| De mano de batería larga (p. ej. clase Heltec T114) | ~$25–45 | 18650 intercambiable, hasta ~1 semana | Sí, integrado | TFT color | U.FL / IPEX | No, necesita estuche | Entrada solar en algunas variantes | Carga diaria, viajes largos | Más voluminoso una vez que se coloca una celda 18650 |
-| De mano de tinta electrónica (p. ej. clase LILYGO T-Echo) | ~$60–68 | ~850 mAh, 5–7 días | Sí, integrado | Tinta electrónica, legible bajo el sol | U.FL / IPEX | Mejor sellado que las placas de desarrollo | Con panel adicional | Carga al aire libre/EDC, viajes de varios días | Nunca encender sin la antena conectada |
-| De mano premium robusto (p. ej. clase RAK WisMesh Pocket) | ~$89–99 | ~3200 mAh, 3+ días con GPS activado | Sí, integrado | OLED | SMA externa | Sí, IP66 | Sí, entrada solar | Bote, uso diario, entornos duros | Mayor costo inicial |
-| Placa de casa/techo enchufada (p. ej. clase Heltec LoRa32 V4) | ~$25–30 | Ninguna — alimentada por red/USB | No, se fija manualmente | OLED pequeña | Externa | Depende del gabinete | Con panel externo + controlador de carga | Estación base en casa, nodo económico en techo | Sin respaldo de batería a menos que añadas uno |
-| Kit de repetidor solar prearmado | ~$70–200 | Integrada, dimensionada al panel | Varía según el modelo | Usualmente ninguna (desatendido) | SMA externa | Sí, hecho a propósito | Sí, construido para eso | Nodos de cobertura desatendidos en techo/cima | El costo más alto; necesita un sitio de montaje genuino |
+| De mano económico (p. ej. clase Wio Tracker L1) | ~$25–35 | 800 mAh, 2–3 días | Sí, integrado | OLED pequeña o tinta electrónica | U.FL / IPEX | No, necesita estuche | Solo la variante L1 Pro | Primer equipo, aprender la app | La batería pequeña limita el uso de varios días |
+| Power bank con radio (p. ej. Heltec MeshPocket) | ~$50–80 | 5000–10,000 mAh, carga el teléfono | No | Tinta electrónica | Interna | No | No | Mochila de emergencia, apagones | El firmware se actualiza solo con su cable magnético |
+| De mano de batería a tu medida (p. ej. clase Heltec T114) | ~$28–50 | Externa, hasta ~1 semana con celda grande | Opcional | TFT color opcional | U.FL / IPEX | No, necesita estuche | Entrada solar en algunas variantes | Carga diaria, viajes largos | Hay que conseguir y acomodar la batería |
+| De mano de tinta electrónica (p. ej. clase LILYGO T-Echo) | ~$40–65 | ~850 mAh, 5–7 días | Sí, integrado | Tinta electrónica, legible bajo el sol | U.FL / IPEX | Mejor sellado que las placas de desarrollo | Con panel adicional | Carga al aire libre/EDC, viajes de varios días | Nunca encender sin la antena conectada |
+| De mano premium robusto (p. ej. RAK WisMesh Pocket V2) | ~$90–100 | ~3200 mAh, 3+ días con GPS activado | Sí, integrado | OLED | SMA externa | Sí, IP66 | Sí, entrada solar | Bote, uso diario, entornos duros | Mayor costo inicial |
+| Rastreador de tarjeta (p. ej. T1000-E, MeshTracker X1) | ~$29–50 | 1–5 días según el GPS | Sí, integrado | Ninguna | Interna | Sí, IP65–IP66 | No | Baliza de ubicación, mascotas, vehículos | No sirve para escribir mensajes sin teléfono |
+| Mensajero autónomo (p. ej. LILYGO T-Deck Plus) | ~$79–115 | ~2000 mAh, 1–2 días | Según el modelo | Pantalla grande + teclado | Según el modelo | No | No | Usar la malla sin teléfono | Hay que cargarlo a diario |
+| Placa de casa/techo enchufada (p. ej. clase Heltec LoRa32 V4) | ~$18–30 | Ninguna — alimentada por red/USB | No, se fija manualmente | OLED pequeña | Externa | Depende del gabinete | Con panel externo + controlador de carga | Estación base en casa, nodo económico en techo | Sin respaldo de batería a menos que añadas uno |
+| Kit de repetidor solar prearmado | ~$80–300 | Integrada, dimensionada al panel | Varía según el modelo | Usualmente ninguna (desatendido) | SMA externa o interna | Sí, hecho a propósito | Sí, construido para eso | Nodos de cobertura desatendidos en techo/cima | El costo más alto; necesita un sitio de montaje genuino |
 
 </div>
 
