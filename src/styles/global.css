@@ -349,3 +349,133 @@ code { font-family: var(--font-mono); }
   .tp-labels > span { font-size: 0.7rem; }
   .tp-hop-label { display: none; }
 }
+
+/* Hop stepper (How Meshtastic Works → The path a message takes). Built by
+   plugins/rehype-hop-stepper.mjs, driven by src/scripts/hop-stepper.ts.
+   Same pattern as the stepper on meshcore.prmsh.com, in this site's colours:
+   blue for the node transmitting, turquoise for the path the packet takes. */
+.hop-stepper {
+  /* Board colours. The page tokens for sunken/strong borders sit too close
+     to the dark background to read as terrain and links, so dark mode
+     gets its own values below. */
+  --hs-board: var(--bg);
+  --hs-terrain: var(--bg-sunken);
+  --hs-ridge: var(--border-strong);
+  --hs-reach: var(--border-strong);
+  --hs-heard: color-mix(in srgb, var(--secondary) 22%, var(--bg));
+  --hs-dim: 0.45;
+  display: grid;
+  gap: var(--s-4);
+  margin: var(--s-5) 0 var(--s-7);
+  padding: var(--s-5);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-raised);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .hop-stepper {
+    --hs-board: #081520;
+    --hs-terrain: #10283a;
+    --hs-ridge: #2f5268;
+    --hs-reach: #4d6a7a;
+    --hs-heard: color-mix(in srgb, var(--secondary) 38%, #081520);
+    --hs-dim: 0.6;
+  }
+}
+:root[data-theme="dark"] .hop-stepper {
+  --hs-board: #081520;
+  --hs-terrain: #10283a;
+  --hs-ridge: #2f5268;
+  --hs-reach: #4d6a7a;
+  --hs-heard: color-mix(in srgb, var(--secondary) 38%, #081520);
+  --hs-dim: 0.6;
+}
+.hs-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--s-2) var(--s-4); }
+.hs-title { margin: 0; font-family: var(--font-display); font-weight: 650; font-size: var(--t-lg); color: var(--ink); letter-spacing: -0.01em; }
+.hs-flag { font-family: var(--font-mono); font-size: var(--t-xs); color: var(--ink-soft); border: 1px solid var(--border-strong); border-radius: var(--radius-sm); padding: 0.1em 0.5em; }
+
+/* Three classes: the docs layout's scoped `.prose ol` and `.prose li` rules
+   weigh two classes plus an element. */
+.prose .hop-stepper .hs-tabs, .prose .hop-stepper .hs-texts, .prose .hop-stepper .hs-legend { padding-left: 0; margin-block: 0; }
+.prose .hop-stepper .hs-tabs li, .prose .hop-stepper .hs-texts li, .prose .hop-stepper .hs-legend li { margin-bottom: 0; }
+.hs-tabs { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-2); grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 640px) { .hs-tabs { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 900px) { .hs-tabs { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+.hs-tabs li { margin: 0; max-width: none; }
+.hs-tab {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-2);
+  width: 100%;
+  min-height: 44px;
+  padding: var(--s-2) var(--s-3);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--ink-soft);
+  font: 500 var(--t-sm) / 1.25 var(--font-body);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.16s var(--ease-out), color 0.16s var(--ease-out), background-color 0.16s var(--ease-out);
+}
+.hs-tab:hover { color: var(--ink); border-color: var(--ink-soft); }
+.hs-tab[aria-current="step"] { color: var(--ink); border-color: var(--secondary); background: color-mix(in srgb, var(--secondary) 10%, transparent); font-weight: 700; }
+.hs-n { font-family: var(--font-mono); color: var(--secondary); }
+/* Without the script the tabs do nothing, so they read as a plain index. */
+.hop-stepper:not(.is-interactive) .hs-tab { cursor: default; pointer-events: none; }
+
+.hs-stage { border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--hs-board); padding: var(--s-3) var(--s-2) 0; }
+.hs-stage svg { display: block; width: 100%; height: auto; overflow: visible; }
+.hs-terrain { fill: var(--hs-terrain); }
+.hs-ridge { fill: none; stroke: var(--hs-ridge); stroke-width: 1.5; }
+.hs-reach { stroke: var(--hs-reach); stroke-width: 1.25; stroke-dasharray: 3 5; }
+.hs-edge { stroke: var(--secondary); stroke-width: 2.5; stroke-linecap: round; opacity: 0; transition: opacity 0.25s var(--ease-out); }
+.hs-edge.is-on { opacity: 1; }
+.hs-shape { fill: var(--hs-board); stroke: var(--secondary); stroke-width: 2.5; transition: fill 0.2s var(--ease-out), stroke 0.2s var(--ease-out), opacity 0.2s var(--ease-out); }
+.hs-node--mute .hs-shape { stroke-dasharray: 3 3; }
+.hs-halo { fill: color-mix(in srgb, var(--primary) 16%, transparent); stroke: var(--primary); stroke-width: 1.5; opacity: 0; transition: opacity 0.2s var(--ease-out); }
+.hs-node text { font-family: var(--font-mono); font-size: 13px; fill: var(--ink-soft); }
+.hs-node.is-tx .hs-halo { opacity: 1; }
+.hs-node.is-tx .hs-shape { fill: var(--primary); stroke: var(--primary); }
+.hs-node.is-tx text, .hs-node.is-stop text { fill: var(--ink); font-weight: 600; }
+.hs-node.is-heard .hs-shape { fill: var(--hs-heard); }
+.hs-node.is-quiet .hs-shape { stroke: var(--ink-soft); stroke-dasharray: 3 3; }
+.hs-node.is-stop .hs-shape { fill: var(--secondary); }
+.hs-node.is-idle, .hs-node.is-out { opacity: var(--hs-dim); }
+.hs-node.is-out .hs-shape { stroke: var(--ink-soft); }
+
+.hs-readout { display: grid; gap: var(--s-2); }
+.hs-texts { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-4); }
+.hs-text { max-width: none; }
+.hs-name { margin: 0 0 var(--s-1); font-family: var(--font-display); font-weight: 650; font-size: var(--t-lg); color: var(--ink); }
+.hs-body { margin: 0; max-width: 62ch; }
+/* One step's text at a time once the script runs; fixed height so the
+   controls below don't jump between steps. */
+.hop-stepper.is-interactive .hs-texts { min-height: 8.5rem; }
+.hs-hops { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2); margin: 0; font-family: var(--font-mono); font-size: var(--t-xs); color: var(--ink-soft); }
+.hop-stepper:not(.is-interactive) .hs-hops { display: none; }
+.hs-pips { display: inline-flex; gap: 4px; }
+.hs-pip { width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--secondary); }
+.hs-pip.is-on { background: var(--secondary); }
+.hs-hops-n { color: var(--ink); font-weight: 600; }
+
+.hs-controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s-3) var(--s-5); }
+.hs-controls[hidden] { display: none; }
+.hs-count { margin: 0; font-family: var(--font-mono); font-size: var(--t-xs); color: var(--ink-soft); }
+.hs-buttons { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+.hs-buttons .btn { min-height: 44px; }
+.hs-buttons .btn[aria-disabled="true"] { opacity: 0.45; cursor: not-allowed; }
+
+.hs-legend { list-style: none; margin: 0; padding: var(--s-3) 0 0; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-5); font-family: var(--font-mono); font-size: var(--t-xs); color: var(--ink-soft); }
+.hs-legend li { display: inline-flex; align-items: center; gap: var(--s-2); margin: 0; max-width: none; }
+.hs-key { flex: none; display: inline-block; width: 11px; height: 11px; border: 2px solid var(--secondary); border-radius: 50%; }
+.hs-key--mute { border-style: dashed; }
+.hs-key--router { border-radius: 1px; }
+.hs-key--tx { border-color: var(--primary); background: var(--primary); }
+.hs-key--quiet { border-color: var(--ink-soft); border-style: dashed; }
+.hop-stepper figcaption { font-size: var(--t-sm); color: var(--ink-soft); max-width: 70ch; }
+@media (max-width: 599px) {
+  .hop-stepper { padding: var(--s-4) var(--s-3); }
+  .hs-node text { font-size: 16px; }
+}
+
