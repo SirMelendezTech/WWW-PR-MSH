@@ -8,6 +8,7 @@ import sitemap from '@astrojs/sitemap';
 
 import rehypeTableWrap from './plugins/rehype-table-wrap.mjs';
 import rehypeTerrainProfile from './plugins/rehype-terrain-profile.mjs';
+import rehypeHopStepper from './plugins/rehype-hop-stepper.mjs';
 
 // Spanish became the default (unprefixed) locale and English moved under /en/.
 // GitHub Pages can't send real 301s, so Astro writes a static redirect page
@@ -55,7 +56,7 @@ export default defineConfig({
     }),
   ],
   markdown: {
-    rehypePlugins: [rehypeTableWrap, rehypeTerrainProfile],
+    rehypePlugins: [rehypeTableWrap, rehypeTerrainProfile, rehypeHopStepper],
   },
   i18n: {
     defaultLocale: 'es',

@@ -7,17 +7,16 @@ section: Documentation
 
 ## The path a message takes
 
-<div class="hop-diagram" role="img" aria-label="Diagram: phone connects over Bluetooth to a Meshtastic radio, which sends over LoRa to a nearby node, which relays through another node, arriving at the destination node">
-  <div class="hop-step" style="--i:0"><span class="hop-icon">📱</span><span>Your phone</span></div>
-  <div class="hop-arrow" style="--i:0">Bluetooth</div>
-  <div class="hop-step" style="--i:1"><span class="hop-icon">📻</span><span>Your radio</span></div>
-  <div class="hop-arrow" style="--i:1">LoRa</div>
-  <div class="hop-step" style="--i:2"><span class="hop-icon">🟢</span><span>Nearby node</span></div>
-  <div class="hop-arrow" style="--i:2">LoRa relay</div>
-  <div class="hop-step" style="--i:3"><span class="hop-icon">🟢</span><span>Relay node</span></div>
-  <div class="hop-arrow" style="--i:3">LoRa relay</div>
-  <div class="hop-step" style="--i:4"><span class="hop-icon">🔵</span><span>Destination node</span></div>
-</div>
+<figure data-hop-stepper data-title="One message, three hops" data-flag="Conceptual diagram" data-prev="Previous" data-next="Next" data-step-of="Step {n} of {total}" data-hops="Hops left" data-legend="Client|Client Mute|Router|Transmits|Heard it, stays quiet">
+<ol>
+<li data-name="Send">A sends a message on the channel with a hop limit of 3. Nodes 1, 2 and 3 hear it. Each one that is allowed to relay starts a short random wait before rebroadcasting.</li>
+<li data-name="The farthest relays first">Node 3 hears A most weakly, so it waits the least and rebroadcasts first, with 2 hops left. Node 1 hears that rebroadcast and cancels its own. Node 2 is Client Mute and never relays. A hears node 3 too, which tells it the message got out.</li>
+<li data-name="A router on high ground">Node 4 is a Router on a hilltop. It hears node 3, rebroadcasts with 1 hop left, and reaches node 5 on the far side of the ridge.</li>
+<li data-name="The hop limit runs out">Node 5 rebroadcasts with 0 hops left. B gets the message, but nobody relays a packet with no hops left, so node 6 never does. Raise the limit only if a node like 6 needs it: every extra hop costs everyone airtime.</li>
+<li data-name="Straight to B">Since firmware 2.6, the next direct message from A to B goes through the radios that delivered the first one: nodes 3, 4 and 5 relay it, and the rest stay quiet. This only works for direct messages. Channel messages keep flooding, and if the path fails, the direct message floods too.</li>
+</ol>
+<figcaption>Simplified from Meshtastic's managed flooding: a weaker signal means a shorter wait, a node that hears its packet relayed drops its own copy, and a packet with no hops left is not relayed.</figcaption>
+</figure>
 
 Your phone doesn't transmit over LoRa at all — it talks to your radio over Bluetooth (or USB), and the radio does the actual long-range transmission. From there, the message moves node to node until it reaches its destination or runs out of hops.
 
@@ -80,71 +79,3 @@ Position data shared this way is typically rounded to a coarser precision than t
 ## MeshCore
 
 **MeshCore** is a separate LoRa mesh firmware — a different project from Meshtastic, running on much of the same hardware, and the two networks cannot talk to each other. It turns up on this site only where a shared resource covers both, like the device and antenna tables at [RF Index](https://www.rfindex.com/): a board listed there for MeshCore will not join the Puerto Rico mesh until you flash Meshtastic onto it.
-
-<style>
-  .hop-diagram {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 1.5rem;
-    margin: 1.5rem 0 2rem;
-    background: var(--bg-sunken);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-  }
-  .hop-step {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.3rem;
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    color: var(--ink-soft);
-    text-align: center;
-    min-width: 84px;
-  }
-  .hop-icon {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.6rem;
-    animation: hop-bump 4s ease-in-out infinite;
-    animation-delay: calc(var(--i) * 0.8s);
-  }
-  .hop-icon::before {
-    content: "";
-    position: absolute;
-    inset: -8px;
-    border-radius: 50%;
-    background: var(--secondary);
-    opacity: 0;
-    animation: hop-ring 4s ease-in-out infinite;
-    animation-delay: calc(var(--i) * 0.8s);
-  }
-  .hop-arrow {
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--secondary);
-    padding: 0.2em 0.5em;
-    white-space: nowrap;
-    animation: hop-relay 4s ease-in-out infinite;
-    animation-delay: calc((var(--i) + 0.5) * 0.8s);
-  }
-
-  @keyframes hop-bump {
-    0%, 100% { transform: scale(1); }
-    40% { transform: scale(1.22); }
-  }
-  @keyframes hop-ring {
-    0%, 100% { transform: scale(1); opacity: 0.22; }
-    40% { transform: scale(1.9); opacity: 0; }
-  }
-  @keyframes hop-relay {
-    0%, 100% { color: var(--secondary); opacity: 0.7; }
-    50% { color: var(--accent); opacity: 1; }
-  }
-</style>
