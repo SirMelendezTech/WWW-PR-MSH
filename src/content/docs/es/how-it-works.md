@@ -8,17 +8,16 @@ lang: es
 
 ## El camino que toma un mensaje
 
-<div class="hop-diagram" role="img" aria-label="Diagrama: el teléfono se conecta por Bluetooth a una radio Meshtastic, que envía por LoRa a un nodo cercano, que retransmite a través de otro nodo, llegando al nodo destino">
-  <div class="hop-step" style="--i:0"><span class="hop-icon">📱</span><span>Tu teléfono</span></div>
-  <div class="hop-arrow" style="--i:0">Bluetooth</div>
-  <div class="hop-step" style="--i:1"><span class="hop-icon">📻</span><span>Tu radio</span></div>
-  <div class="hop-arrow" style="--i:1">LoRa</div>
-  <div class="hop-step" style="--i:2"><span class="hop-icon">🟢</span><span>Nodo cercano</span></div>
-  <div class="hop-arrow" style="--i:2">Retransmisión LoRa</div>
-  <div class="hop-step" style="--i:3"><span class="hop-icon">🟢</span><span>Nodo de retransmisión</span></div>
-  <div class="hop-arrow" style="--i:3">Retransmisión LoRa</div>
-  <div class="hop-step" style="--i:4"><span class="hop-icon">🔵</span><span>Nodo destino</span></div>
-</div>
+<figure data-hop-stepper data-title="Un mensaje, tres saltos" data-flag="Diagrama conceptual" data-prev="Anterior" data-next="Siguiente" data-step-of="Paso {n} de {total}" data-hops="Saltos restantes" data-legend="Client|Client Mute|Router|Transmite|Lo oye y se calla">
+<ol>
+<li data-name="Envío">A envía un mensaje en el canal con un límite de 3 saltos. Los nodos 1, 2 y 3 lo oyen. Cada uno que puede retransmitir espera un rato corto y aleatorio antes de hacerlo.</li>
+<li data-name="Retransmite el más lejano">El nodo 3 oye a A con la señal más débil, así que espera menos y retransmite primero, con 2 saltos restantes. El nodo 1 oye esa retransmisión y cancela la suya. El nodo 2 es Client Mute y nunca retransmite. A también oye al nodo 3: así sabe que el mensaje salió.</li>
+<li data-name="Un Router en lo alto">El nodo 4 es un Router en un cerro. Oye al nodo 3, retransmite con 1 salto restante y llega al nodo 5, al otro lado de la cresta.</li>
+<li data-name="Se acaban los saltos">El nodo 5 retransmite con 0 saltos restantes. B recibe el mensaje, pero nadie retransmite un paquete sin saltos, así que el nodo 6 nunca lo recibe. Sube el límite solo si un nodo como el 6 lo necesita: cada salto extra le cuesta tiempo de aire a todos.</li>
+<li data-name="Directo a B">Desde 2.6, el próximo mensaje directo a B usa los radios que lo entregaron: los nodos 3, 4 y 5 lo retransmiten y los demás se quedan callados. Solo funciona con mensajes directos. Los mensajes del canal siguen inundando la malla, y si el camino falla, el mensaje directo también vuelve a inundar.</li>
+</ol>
+<figcaption>Simplificado a partir de la inundación gestionada de Meshtastic: una señal más débil significa una espera más corta, un nodo que oye su paquete retransmitido descarta su copia, y un paquete sin saltos no se retransmite.</figcaption>
+</figure>
 
 Tu teléfono no transmite por LoRa en absoluto — se comunica con tu radio por Bluetooth (o USB), y la radio hace la transmisión de largo alcance real. De ahí, el mensaje se mueve de nodo en nodo hasta que llega a su destino o se le acaban los saltos.
 
@@ -81,71 +80,3 @@ Los datos de posición compartidos de esta forma típicamente se redondean a una
 ## MeshCore
 
 **MeshCore** es un firmware de malla LoRa aparte — un proyecto distinto de Meshtastic, que corre en buena parte del mismo hardware, y las dos redes no se hablan entre sí. En este sitio aparece solo donde un recurso compartido cubre ambos, como las tablas de equipos y antenas de [RF Index](https://www.rfindex.com/): una placa listada ahí para MeshCore no se une a la malla de Puerto Rico hasta que le flashees Meshtastic.
-
-<style>
-  .hop-diagram {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 1.5rem;
-    margin: 1.5rem 0 2rem;
-    background: var(--bg-sunken);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-  }
-  .hop-step {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.3rem;
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    color: var(--ink-soft);
-    text-align: center;
-    min-width: 84px;
-  }
-  .hop-icon {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.6rem;
-    animation: hop-bump 4s ease-in-out infinite;
-    animation-delay: calc(var(--i) * 0.8s);
-  }
-  .hop-icon::before {
-    content: "";
-    position: absolute;
-    inset: -8px;
-    border-radius: 50%;
-    background: var(--secondary);
-    opacity: 0;
-    animation: hop-ring 4s ease-in-out infinite;
-    animation-delay: calc(var(--i) * 0.8s);
-  }
-  .hop-arrow {
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--secondary);
-    padding: 0.2em 0.5em;
-    white-space: nowrap;
-    animation: hop-relay 4s ease-in-out infinite;
-    animation-delay: calc((var(--i) + 0.5) * 0.8s);
-  }
-
-  @keyframes hop-bump {
-    0%, 100% { transform: scale(1); }
-    40% { transform: scale(1.22); }
-  }
-  @keyframes hop-ring {
-    0%, 100% { transform: scale(1); opacity: 0.22; }
-    40% { transform: scale(1.9); opacity: 0; }
-  }
-  @keyframes hop-relay {
-    0%, 100% { color: var(--secondary); opacity: 0.7; }
-    50% { color: var(--accent); opacity: 1; }
-  }
-</style>
