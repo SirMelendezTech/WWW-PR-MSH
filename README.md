@@ -9,9 +9,11 @@ Built with [Astro](https://astro.build): content collections for docs/blog, stat
 ```text
 /
 ├── public/                     static assets, favicon, robots.txt, llms.txt, _redirects
+├── plugins/                    rehype plugins (table wrap, terrain profile, hop stepper)
+├── scripts/                    terrain + OG image generators
 ├── src/
 │   ├── components/
-│   │   ├── pages/               per-page body components shared by the EN + ES routes
+│   │   ├── pages/               per-page body components shared by the ES + EN routes
 │   │   └── ...                  Header, Footer, SearchDialog, TerrainSignature, etc.
 │   ├── layouts/                 BaseLayout, DocsLayout, BlogLayout
 │   ├── content/
@@ -24,7 +26,7 @@ Built with [Astro](https://astro.build): content collections for docs/blog, stat
 │   │   ├── ui-strings.ts        central EN/ES string dictionary for all UI copy
 │   │   └── blog.ts              blog filtering, post URLs, translation pairing
 │   ├── pages/
-│   │   ├── es/                  Spanish routes (mirror the top-level EN routes)
+│   │   ├── en/                  English routes (mirror the top-level ES routes)
 │   │   └── ...                  one route per file; blog/[...slug].astro renders posts
 │   └── styles/                  tokens.css (design tokens) + global.css
 └── astro.config.mjs
@@ -41,30 +43,20 @@ Built with [Astro](https://astro.build): content collections for docs/blog, stat
 
 ## Internationalization
 
-English is served unprefixed (`/hardware/`); Spanish is served under `/es/` (`/es/hardware/`). `astro.config.mjs` sets `i18n.routing.prefixDefaultLocale: false`.
+Spanish is the default locale, served unprefixed (`/hardware/`); English is served under `/en/` (`/en/hardware/`). `astro.config.mjs` sets `i18n.routing.prefixDefaultLocale: false`.
 
 - **UI copy** lives in `src/lib/ui-strings.ts` (`useStrings(locale)`). The English object is the source of truth; the Spanish object must match its shape. Strings used inside client `<script>` blocks are passed through `data-*` attributes.
-- **Page bodies** are shared components in `src/components/pages/` that take a `lang` prop. `src/pages/x.astro` and `src/pages/es/x.astro` are thin wrappers around the same body.
+- **Page bodies** are shared components in `src/components/pages/` that take a `lang` prop. `src/pages/x.astro` and `src/pages/en/x.astro` are thin wrappers around the same body.
 - **Docs**: English at `src/content/docs/<slug>.md`, Spanish at `src/content/docs/es/<slug>.md`. A missing translation falls back to English with a "translation pending" banner. Cross-links between Spanish docs use the Spanish heading slug.
 - **Blog**: posts carry `lang` and, for translated pairs, a shared `translationKey`. `getBlogPosts(lang)` filters by locale; the header language switch jumps between paired posts.
+- **Legacy URLs** from before the Spanish-default switch (`/es/*`, old English blog posts) get static redirect stubs generated from `redirects` in `astro.config.mjs`, since GitHub Pages can't send real 301s.
 - **hreflang** alternates are emitted by `BaseLayout`; `@astrojs/sitemap` is configured with the same locale map.
-- **`/es/404`** relies on `public/_redirects` (Netlify / Cloudflare Pages). On Vercel, add the equivalent rule to `vercel.json`.
+- **`/en/404`**: GitHub Pages serves the root (Spanish) `404.html` for every miss. `public/_redirects` routes `/en/*` misses to the English 404 on Netlify / Cloudflare Pages only.
 - **Search** (`search-index.json`) carries both locales with a `lang` field; `SearchDialog` shows only the current page's language.
 
 ## Contributing
 
-No company runs this — it's built by whoever shows up. Ways to help, roughly easiest to hardest:
-
-- **Report a coverage gap or a stale fact.** Something on [Puerto Rico Mesh](https://meshtastic.prmsh.com/en/pr-mesh/) or [Recommended Hardware](https://meshtastic.prmsh.com/en/hardware/) wrong or out of date? Open an issue, or edit the relevant file in `src/content/docs/` and send a PR — it's plain Markdown.
-- **Write a field report.** Range tests, a solar node build, an antenna comparison — add a Markdown file to `src/content/blog/` following the frontmatter shape of an existing post (`title`, `description`, `pubDate`, `author`, `category`, `tags`, `readingTime`, and `lang` for Spanish). See [Community → Field Testing](https://meshtastic.prmsh.com/en/community/#field-testing) for what makes a report useful.
-- **Translate a page.** Add the Spanish doc under `src/content/docs/es/` with `lang: es`, or a Spanish blog post sharing the English post's `translationKey`. UI strings go in `src/lib/ui-strings.ts`.
-- **Fix or extend a docs page.** Everything under [Documentation](https://meshtastic.prmsh.com/en/getting-started/) lives in `src/content/docs/*.md` — content is separate from layout, so you don't need to touch an `.astro` file to edit copy.
-- **Improve the node map.** Live data comes from [Malla PR](https://malla.prmsh.com/map) via `src/lib/nodes.ts`, fetched at build time (that API has no CORS headers, so it can't run in the browser). Fixes to the mapping logic or fallback behavior are welcome.
-- **Ship a UI/design change.** Components live in `src/components/`, shared design tokens in `src/styles/tokens.css`. Keep dark and light mode both working, check mobile, and keep both languages rendering before opening a PR.
-
-Before sending a PR: run `npm run build` locally and make sure it completes clean. Keep pull requests scoped — one fix or one feature, not a grab bag.
-
-Not a coder? You can still help: run a node, document your setup, or point out something confusing by opening an issue. See [Community](https://meshtastic.prmsh.com/en/community/) for other ways in.
+No company runs this — it's built by whoever shows up. See [CONTRIBUTING.md](./CONTRIBUTING.md) for ways to help, content frontmatter, and the PR checklist. Coding agents start at [AGENTS.md](./AGENTS.md).
 
 ## License
 
