@@ -4,7 +4,7 @@ import Footer from "../components/Footer.astro";
 import SearchDialog from "../components/SearchDialog.astro";
 import { useStrings } from "../lib/ui-strings";
 import { localizePath, defaultLocale, type Locale } from "../lib/i18n";
-import { DISCORD_INVITE_URL, FACEBOOK_GROUP_URL, REDDIT_PR_URL } from "../lib/community";
+import { DISCORD_INVITE_URL, REDDIT_PR_URL } from "../lib/community";
 import "../styles/global.css";
 
 interface Props {
@@ -62,7 +62,7 @@ const graph = noIndex
         url: absUrl("/"),
         logo: absUrl("/favicon.svg"),
         areaServed: { "@type": "Place", name: "Puerto Rico" },
-        sameAs: [DISCORD_INVITE_URL, FACEBOOK_GROUP_URL, REDDIT_PR_URL],
+        sameAs: [DISCORD_INVITE_URL, REDDIT_PR_URL],
       },
       {
         "@type": "WebSite",
